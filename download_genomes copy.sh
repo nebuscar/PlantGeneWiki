@@ -4,7 +4,7 @@
 project_dir="/home/nizhu/Projects/plantsdb"
 meta_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
 # out_dir="${project_dir}/downloads/genomes"
-out_dir="$/DATA/data2/downloads/genomes"
+out_dir="/DATA/data2/downloads/genomes"
 log_dir="${project_dir}/downloads/logs"
 include_types="genome,protein,gff3,gbff"
 
