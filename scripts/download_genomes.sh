@@ -6,7 +6,9 @@ meta_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
 # out_dir="${project_dir}/downloads/genomes"
 out_dir="/DATA/data2/downloads/genomes"
 log_dir="${project_dir}/downloads/logs"
-include_types="genome,protein,gff3,gbff"
+include_types="genome,protein,cds,gff3,gbff"
+assembly-level="chromosome,complete"
+assembly_source="all"
 
 show_help() {
     echo "用法: $0 [模式] [选项] [筛选名称/文件 ...]"
