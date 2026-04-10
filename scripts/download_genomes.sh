@@ -6,9 +6,19 @@ meta_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
 # out_dir="${project_dir}/downloads/genomes"
 out_dir="/DATA/data2/downloads/genomes"
 log_dir="${project_dir}/downloads/logs"
-include_types="genome,protein,cds,gff3,gbff"
-assembly-level="chromosome,complete"
+
+# 默认参数
+include_types="genome,protein,cds,gff3, gbff"
+assembly_level="chromosome,complete"
 assembly_source="all"
+assembly_version="latest"
+annotated="no"
+reference="no"
+exclude_atypical="no"
+exclude_multi_isolate="no"
+mag="all"
+released_after=""
+released_before=""
 
 show_help() {
     echo "用法: $0 [模式] [选项] [筛选名称/文件 ...]"
@@ -20,9 +30,26 @@ show_help() {
     echo "  all     下载全部物种"
     echo ""
     echo "选项:"
-    echo "  -h, --help     显示帮助信息"
-    echo "  -l, --list     列出所有可用的批次"
-    echo "  -t, --test     测试模式，只下载单个物种"
+    echo "  -h, --help              显示帮助信息"
+    echo "  -l, --list              列出所有可用的批次"
+    echo "  -t, --test              测试模式，只下载单个物种"
+    echo ""
+    echo "NCBI datasets 参数:"
+    echo "  --include <types>       下载的数据文件类型 (逗号分隔)"
+    echo "                          可选: genome,rna,protein,cds,gff3,gtf,gbff,seq-report,all,none"
+    echo "                          (默认: genome,protein,cds,gff3,gbff)"
+    echo "  --assembly-level <lvls> 限制组装级别 (逗号分隔)"
+    echo "                          可选: chromosome,complete,contig,scaffold"
+    echo "                          (默认: 不限制)"
+    echo "  --assembly-source <src> 限制组装来源: RefSeq 或 GenBank (默认: all)"
+    echo "  --assembly-version <v>  限制组装版本: latest 或 all (默认: latest)"
+    echo "  --annotated             限制为有注释的基因组"
+    echo "  --reference             限制为参考基因组"
+    echo "  --exclude-atypical      排除非典型组装"
+    echo "  --exclude-multi-isolate 排除多分离株项目的组装"
+    echo "  --mag <val>             限制 MAG 组装: only 或 exclude (默认: all)"
+    echo "  --released-after <date> 限制在此日期之后发布的基因组 (YYYY-MM-DD)"
+    echo "  --released-before <date>限制在此日期之前发布的基因组 (YYYY-MM-DD)"
     echo ""
     echo "筛选参数 (支持多个，自动判断是名称还是文件):"
     echo "  <名称>         按当前模式筛选（属名/科名/目名）"
@@ -39,6 +66,8 @@ show_help() {
     echo "  $0 order orders.txt               # 从文件读取目名列表"
     echo "  $0 all                            # 下载全部物种"
     echo "  $0 -t \"Arabidopsis thaliana\"   # 测试下载单个物种"
+    echo "  $0 all --annotated --assembly-level chromosome  # 只下载有注释的染色体级别基因组"
+    echo "  $0 genus Oryza --reference        # 只下载 Oryza 属的参考基因组"
     echo ""
     exit 0
 }
@@ -86,9 +115,23 @@ download_species() {
     echo "输出路径：$zip_file"
     echo "============================="
     echo ""
+    # 构建 datasets download 额外参数
+    local extra_args=""
+    [ -n "$assembly_level" ] && extra_args="$extra_args --assembly-level $assembly_level"
+    [ "$assembly_source" != "all" ] && extra_args="$extra_args --assembly-source $assembly_source"
+    [ "$assembly_version" != "latest" ] && extra_args="$extra_args --assembly-version $assembly_version"
+    [ "$annotated" = "yes" ] && extra_args="$extra_args --annotated"
+    [ "$reference" = "yes" ] && extra_args="$extra_args --reference"
+    [ "$exclude_atypical" = "yes" ] && extra_args="$extra_args --exclude-atypical"
+    [ "$exclude_multi_isolate" = "yes" ] && extra_args="$extra_args --exclude-multi-isolate"
+    [ "$mag" != "all" ] && extra_args="$extra_args --mag $mag"
+    [ -n "$released_after" ] && extra_args="$extra_args --released-after $released_after"
+    [ -n "$released_before" ] && extra_args="$extra_args --released-before $released_before"
+
     mkdir -p "$species_dir"
     datasets download genome taxon "$taxid" \
         --include $include_types \
+        $extra_args \
         --filename "${zip_file}" 2>&1 | grep -v "New version"
 
     sleep 1
@@ -172,6 +215,46 @@ while [[ $# -gt 0 ]]; do
     -t | --test)
         TEST_MODE="yes"
         TEST_SPECIES="$2"
+        shift
+        ;;
+    --include)
+        include_types="$2"
+        shift
+        ;;
+    --assembly-level)
+        assembly_level="$2"
+        shift
+        ;;
+    --assembly-source)
+        assembly_source="$2"
+        shift
+        ;;
+    --assembly-version)
+        assembly_version="$2"
+        shift
+        ;;
+    --annotated)
+        annotated="yes"
+        ;;
+    --reference)
+        reference="yes"
+        ;;
+    --exclude-atypical)
+        exclude_atypical="yes"
+        ;;
+    --exclude-multi-isolate)
+        exclude_multi_isolate="yes"
+        ;;
+    --mag)
+        mag="$2"
+        shift
+        ;;
+    --released-after)
+        released_after="$2"
+        shift
+        ;;
+    --released-before)
+        released_before="$2"
         shift
         ;;
     order | family | genus | all)
