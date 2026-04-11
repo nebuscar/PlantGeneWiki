@@ -1,6 +1,7 @@
 #!/bin/bash
 # 使用 Taxonkit 为物种列表添加 Taxonomy ID
 # 读取第二列(Species)，查询 TaxID，保持原顺序与重复行
+# 支持自动输出 TXT / CSV / XLSX 格式
 
 show_help() {
     cat <<EOF
@@ -9,13 +10,15 @@ show_help() {
 
 必需参数:
   -i, --input FILE     输入物种列表文件 (tab分隔，第2列为物种拉丁名)
-  -o, --output FILE    输出文件 (自动添加TaxID列)
+  -o, --output FILE    输出文件，支持格式：.txt .tsv .csv .xlsx
 
 可选参数:
   -h, --help           显示帮助信息
 
 示例:
-  $0 -i data/meta/species_list.txt -o data/meta/species_list_with_taxid.txt
+  $0 -i data/meta/species_list.txt -o result.txt
+  $0 -i data/meta/species_list.txt -o result.csv
+  $0 -i data/meta/species_list.txt -o result.xlsx
 EOF
 }
 
@@ -62,6 +65,7 @@ echo "输出文件: $OUTPUT"
 
 temp_taxid_map=$(mktemp)
 temp_failed=$(mktemp)
+tmp_tsv=$(mktemp)
 
 unique_species=$(tail -n +2 "${INPUT}" | cut -f2 | sort -u)
 
@@ -85,7 +89,22 @@ done <"${temp_taxid_map}"
         fi
         echo -e "${no}\t${species}\t${taxid}\t${ploidy}\t${accession}\t${order}\t${family}\t${clade}"
     done
-} >"${OUTPUT}"
+} >"$tmp_tsv"
+
+# ====================== 自动格式转换 ======================
+if [[ "$OUTPUT" == *.xlsx ]]; then
+    if ! command -v ssconvert &>/dev/null; then
+        echo -e "\n⚠️  未安装 ssconvert，无法导出 xlsx，已自动输出为 txt"
+        OUTPUT="${OUTPUT%.xlsx}.txt"
+        cp "$tmp_tsv" "$OUTPUT"
+    else
+        ssconvert "$tmp_tsv" "$OUTPUT" >/dev/null 2>&1
+    fi
+elif [[ "$OUTPUT" == *.csv ]]; then
+    sed 's/\t/,/g' "$tmp_tsv" >"$OUTPUT"
+else
+    cp "$tmp_tsv" "$OUTPUT"
+fi
 
 total=$(tail -n +2 "${INPUT}" | wc -l)
 found=$(grep -cv '^$' "${temp_taxid_map}")
@@ -97,7 +116,7 @@ echo "完成!"
 echo "总行数: ${total}"
 echo "成功获取 TaxID: ${found}"
 echo "未找到 TaxID: ${failed}"
-echo "输出文件: ${OUTPUT}"
+echo "输出文件: $OUTPUT"
 echo "=========================================="
 
 if [[ -s "${temp_failed}" ]]; then
@@ -106,7 +125,7 @@ if [[ -s "${temp_failed}" ]]; then
     cat "${temp_failed}" | sort -u | head -20
 fi
 
-rm -f "${temp_taxid_map}" "${temp_failed}"
+rm -f "${temp_taxid_map}" "${temp_failed}" "${tmp_tsv}"
 
 echo ""
 echo "✅ 全部完成！"
