@@ -1,54 +1,94 @@
 #!/bin/bash
-# 使用 Taxonkit 为 species_list.txt 添加 Taxonomy ID
-# 读取第二列(Species)，查询 Taxonomy ID，添加到第三列
-# 保持重复行，保留原顺序
+# 使用 Taxonkit 为物种列表添加 Taxonomy ID
+# 读取第二列(Species)，查询 TaxID，保持原顺序与重复行
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-SPECIES_LIST="${PROJECT_ROOT}/data/meta/species_list.txt"
-OUTPUT_FILE="${PROJECT_ROOT}/data/meta/species_list_with_taxid.txt"
+show_help() {
+    cat <<EOF
+用法: $0 [选项]
+功能: 批量为物种列表添加 TaxID，自动去重查询，保持原顺序
+
+必需参数:
+  -i, --input FILE     输入物种列表文件 (tab分隔，第2列为物种拉丁名)
+  -o, --output FILE    输出文件 (自动添加TaxID列)
+
+可选参数:
+  -h, --help           显示帮助信息
+
+示例:
+  $0 -i data/meta/species_list.txt -o data/meta/species_list_with_taxid.txt
+EOF
+}
+
+INPUT=""
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -i | --input)
+        INPUT="$2"
+        shift 2
+        ;;
+    -o | --output)
+        OUTPUT="$2"
+        shift 2
+        ;;
+    -h | --help)
+        show_help
+        exit 0
+        ;;
+    *)
+        echo "错误：未知参数 $1"
+        show_help
+        exit 1
+        ;;
+    esac
+done
+
+if [[ -z "$INPUT" || -z "$OUTPUT" ]]; then
+    echo "错误：必须指定 -i 输入文件和 -o 输出文件"
+    echo
+    show_help
+    exit 1
+fi
+
+if [[ ! -f "$INPUT" ]]; then
+    echo "错误：输入文件不存在：$INPUT"
+    exit 1
+fi
 
 echo "开始查询 Taxonomy ID..."
+echo "输入文件: $INPUT"
+echo "输出文件: $OUTPUT"
 
-# 临时文件
 temp_taxid_map=$(mktemp)
 temp_failed=$(mktemp)
 
-# 提取唯一物种名进行查询（避免重复查询）
-unique_species=$(tail -n +2 "${SPECIES_LIST}" | cut -f2 | sort -u)
+unique_species=$(tail -n +2 "${INPUT}" | cut -f2 | sort -u)
 
-# 使用 taxonkit 批量查询唯一物种
 echo "$unique_species" | taxonkit name2taxid -s --show-rank >"${temp_taxid_map}" 2>/dev/null
 
-# 创建 taxid 查找表（只保留成功的）
 declare -A taxid_map
 while IFS=$'\t' read -r name taxid rank; do
-    if [ -n "$taxid" ]; then
+    if [[ -n "$taxid" && "$taxid" != "0" ]]; then
         taxid_map["$name"]="$taxid"
     fi
 done <"${temp_taxid_map}"
 
-# 读取原始文件，处理每一行
 {
-    # 输出表头：添加 Taxonomy ID 列（在 Species 后）
-    head -n 1 "${SPECIES_LIST}" | awk -F'\t' '{print $1"\t"$2"\tTaxonomy ID\t"$3"\t"$4"\t"$5"\t"$6"\t"$7}'
+    head -n 1 "${INPUT}" | awk -F '\t' '{print $1"\t"$2"\tTaxonomy ID\t"$3"\t"$4"\t"$5"\t"$6"\t"$7}'
 
-    # 处理数据行：在 Species 后插入 Taxonomy ID，保持重复行
-    tail -n +2 "${SPECIES_LIST}" | while IFS=$'\t' read -r no species ploidy accession order family clade; do
+    tail -n +2 "${INPUT}" | while IFS=$'\t' read -r no species ploidy accession order family clade; do
         taxid="${taxid_map[$species]}"
-
-        if [ -z "$taxid" ]; then
+        if [[ -z "$taxid" ]]; then
             echo "$species" >>"${temp_failed}"
             taxid="-"
         fi
-
         echo -e "${no}\t${species}\t${taxid}\t${ploidy}\t${accession}\t${order}\t${family}\t${clade}"
     done
-} >"${OUTPUT_FILE}"
+} >"${OUTPUT}"
 
-# 统计结果
-total=$(tail -n +2 "${SPECIES_LIST}" | wc -l)
-found=$(grep -v "^$" "${temp_taxid_map}" | wc -l)
+total=$(tail -n +2 "${INPUT}" | wc -l)
+found=$(grep -cv '^$' "${temp_taxid_map}")
 failed=$(wc -l <"${temp_failed}")
 
 echo ""
@@ -57,14 +97,16 @@ echo "完成!"
 echo "总行数: ${total}"
 echo "成功获取 TaxID: ${found}"
 echo "未找到 TaxID: ${failed}"
-echo "输出文件: ${OUTPUT_FILE}"
+echo "输出文件: ${OUTPUT}"
 echo "=========================================="
 
-if [ -s "${temp_failed}" ]; then
+if [[ -s "${temp_failed}" ]]; then
     echo ""
     echo "未找到 Taxonomy ID 的物种:"
     cat "${temp_failed}" | sort -u | head -20
 fi
 
-# 清理临时文件
 rm -f "${temp_taxid_map}" "${temp_failed}"
+
+echo ""
+echo "✅ 全部完成！"
