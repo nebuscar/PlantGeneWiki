@@ -4,18 +4,19 @@
 project_dir="/home/nizhu/Projects/plantsdb"
 meta_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
 # out_dir="${project_dir}/downloads/genomes"
-out_dir="/DATA/data2/downloads/genomes"
+default_out_dir="/DATA/data2/downloads/genomes"
+out_dir="${default_out_dir}"
 log_dir="${project_dir}/downloads/logs"
 
 # 默认参数
-include_types="genome,protein,cds,gff3, gbff"
+include_types="genome,protein,cds,gff3,gbff"
 assembly_level="chromosome,complete"
 assembly_source="all"
 assembly_version="latest"
 annotated="no"
 reference="no"
-exclude_atypical="no"
-exclude_multi_isolate="no"
+exclude_atypical="yes"
+exclude_multi_isolate="yes"
 mag="all"
 released_after=""
 released_before=""
@@ -33,6 +34,7 @@ show_help() {
     echo "  -h, --help              显示帮助信息"
     echo "  -l, --list              列出所有可用的批次"
     echo "  -t, --test              测试模式，只下载单个物种"
+    echo "  -o, --outdir DIR        指定下载保存目录 (默认: ${default_out_dir})"
     echo ""
     echo "NCBI datasets 参数:"
     echo "  --include <types>       下载的数据文件类型 (逗号分隔)"
@@ -100,21 +102,24 @@ download_species() {
         return 0
     fi
 
-    # 检查是否已下载（解压后文件或未解压的 zip 均视为已下载）
-    if [ -f "${species_dir}/${species_name}_genome.fna" ] ||
-        [ -f "${species_dir}/${species_name}_protein.faa" ] ||
-        [ -f "${species_dir}/${species_name}_annotation.gff" ] ||
-        [ -f "${species_dir}/${species_name}_annotation.gbff" ] ||
-        [ -f "${zip_file}" ]; then
+    # 检查是否已下载（解压后的文件视为已下载）
+    if [ -f "${species_dir}/${species_name}_genome.fna" ] &&
+        [ -f "${species_dir}/${species_name}_cds.fna" ] &&
+        [ -f "${species_dir}/${species_name}_protein.faa" ] &&
+        [ -f "${species_dir}/${species_name}_annotation.gff" -o \
+            -f "${species_dir}/${species_name}_annotation.gbff" ]; then
+        # [ -f "${zip_file}" ]
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 跳过 | 已存在" | tee -a "$SKIP_LOG" "$TOTAL_LOG"
         return 0
     fi
+
     echo ""
     echo "============================="
     echo "下载: ${species} (TaxID: ${taxid})"
     echo "输出路径：$zip_file"
     echo "============================="
     echo ""
+
     # 构建 datasets download 额外参数
     local extra_args=""
     [ -n "$assembly_level" ] && extra_args="$extra_args --assembly-level $assembly_level"
@@ -141,62 +146,101 @@ download_species() {
         return 1
     fi
 
-    if unzip -t $zip_file; then
+    if unzip -t "$zip_file"; then
         echo "解压: $species (TaxID: $taxid)"
         unzip -o "$zip_file" -d "$species_dir" >/dev/null 2>&1
         # unzip -o "$zip_file" -d "$species_dir"
         rm -f "$zip_file"
     else
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 失败 | ZIP文件无效" | tee -a "$FAIL_LOG" "$TOTAL_LOG"
+        rm -f "$zip_file"
         return 1
     fi
 
-    # 整理文件：比较所有 accession，选择收录最完整的
+    # 整理文件：比较所有 accession，选择收录最完整的，RefSeq优先
     (
         cd "$species_dir"
         find . -name "*.gz" -exec gunzip -f {} \; 2>/dev/null || true
 
         best_dir=""
         best_score=0
+        best_is_refseq=0
 
-        # 遍历所有 accession 目录，计算完整性得分（RefSeq 优先：先 GCA 后 GCF，分数相同时 GCF 覆盖）
-        for dir in ncbi_dataset/data/GCA_* ncbi_dataset/data/GCF_*; do
+        # 遍历所有 accession 目录，计算完整性得分（RefSeq 优先：先 GCA 后 GCF）
+        for dir in ncbi_dataset/data/GCF_* ncbi_dataset/data/GCA_*; do
             [ -d "$dir" ] || continue
             score=0
+            is_refseq=0
+
+            # 标记是否为 RefSeq
+            [[ "$dir" == *"GCF_"* ]] && is_refseq=1
+
+            # 文件评分
             [ -n "$(ls "$dir"/*.fna 2>/dev/null)" ] && ((score += 1))
+            [ -n "$(ls "$dir"/*.cds.fna 2>/dev/null)" ] && ((score += 1))
             [ -n "$(ls "$dir"/*.faa 2>/dev/null)" ] && ((score += 1))
             [ -n "$(ls "$dir"/*.gff 2>/dev/null)" ] && ((score += 2))
             [ -n "$(ls "$dir"/*.gbff 2>/dev/null)" ] && ((score += 1))
 
-            if [ "$score" -gt "$best_score" ]; then
+            # 分数高 → 优先；分数相同 → GCF 优先
+            if [ "$score" -gt "$best_score" ] || ([ "$score" -eq "$best_score" ] && [ "$is_refseq" -eq 1 ]); then
                 best_score=$score
                 best_dir="$dir"
+                best_is_refseq=$is_refseq
             fi
         done
 
-        # 复制最完整的文件
+        # 复制最优版本文件
         if [ -n "$best_dir" ]; then
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 选择组装版本: $best_dir" | tee -a "$TOTAL_LOG"
-            cp "$best_dir"/*.fna . 2>/dev/null || true
-            cp "$best_dir"/*.faa . 2>/dev/null || true
-            cp "$best_dir"/*.gff . 2>/dev/null || true
-            cp "$best_dir"/*.gbff . 2>/dev/null || true
+            cp "$best_dir"/* . 2>/dev/null
+            # cp "$best_dir"/*.fna . 2>/dev/null || true
+            # cp "$best_dir"/*.cds.fna . 2>/dev/null || true
+            # cp "$best_dir"/*.faa . 2>/dev/null || true
+            # cp "$best_dir"/*.gff . 2>/dev/null || true
+            # cp "$best_dir"/*.gbff . 2>/dev/null || true
         fi
 
-        # 重命名
-        [ -f "${species_name}_genome.fna" ] || mv *.fna "${species_name}_genome.fna" 2>/dev/null || true
-        [ -f "${species_name}_annotation.gff" ] || mv *.gff "${species_name}_annotation.gff" 2>/dev/null || true
-        [ -f "${species_name}_protein.faa" ] || mv *.faa "${species_name}_protein.faa" 2>/dev/null || true
-        [ -f "${species_name}_annotation.gbff" ] || mv *.gbff "${species_name}_annotation.gbff" 2>/dev/null || true
+        # ====================== 安全重命名，不存在不执行 ======================
+        [ -f "${species_name}_genome.fna" ] || mv ./*_genomic.fna "${species_name}_genome.fna" >/dev/null 2>&1
+        [ -f "${species_name}_cds.fna" ] || mv ./*cds_from_genomic.fna "${species_name}_cds.fna" >/dev/null 2>&1
+        [ -f "${species_name}_protein.faa" ] || mv ./*.faa "${species_name}_protein.faa" >/dev/null 2>&1
+        [ -f "${species_name}_annotation.gff" ] || mv ./*.gff "${species_name}_annotation.gff" >/dev/null 2>&1
+        [ -f "${species_name}_annotation.gbff" ] || mv ./*.gbff "${species_name}_annotation.gbff" >/dev/null 2>&1
+
+        # ====================== 自动清理 ======================
+        rm -rf ncbi_dataset/ README.md
+
+        # ====================== 自动生成数据来源说明 ======================
+        if [ -n "$best_dir" ]; then
+            accession=$(basename "$best_dir")
+            data_source="GenBank"
+            [[ "$accession" == GCF_* ]] && data_source="RefSeq"
+
+            cat >README_SOURCES.txt <<EOF
+Species: $species
+TaxID: $taxid
+Assembly Accession: $accession
+Data Source: $data_source
+Assembly Level: $assembly_level
+Download Time: $(date '+%Y-%m-%d %H:%M:%S')
+Downloaded from NCBI Datasets
+RefSeq: https://ftp.ncbi.nlm.nih.gov/genomes/refseq/
+GenBank: https://ftp.ncbi.nlm.nih.gov/genomes/genbank/
+EOF
+        fi
     )
 
+    # 检验下载文件
     if [ -f "${species_dir}/${species_name}_genome.fna" ] &&
+        [ -f "${species_dir}/${species_name}_cds.fna" ] &&
         [ -f "${species_dir}/${species_name}_protein.faa" ] &&
-        { [ -f "${species_dir}/${species_name}_annotation.gff" ] ||
-            [ -f "${species_dir}/${species_name}_annotation.gbff" ]; }; then
+        [ -f "${species_dir}/${species_name}_annotation.gff" -o \
+            -f "${species_dir}/${species_name}_annotation.gbff" ]; then
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 成功 | 文件完整" | tee -a "$SUCCESS_LOG" "$TOTAL_LOG"
     else
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 失败 | 文件不完整" | tee -a "$FAIL_LOG" "$TOTAL_LOG"
+        rm -f "${zip_file}"
     fi
 }
 
@@ -216,6 +260,11 @@ while [[ $# -gt 0 ]]; do
         TEST_MODE="yes"
         TEST_SPECIES="$2"
         shift
+        ;;
+    -o | --outdir)
+        out_dir="$2"
+        shift
+        echo "已指定输出目录：$out_dir"
         ;;
     --include)
         include_types="$2"
@@ -272,7 +321,7 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-mkdir -p $out_dir $log_dir
+mkdir -p "$out_dir" "$log_dir"
 
 # 日志文件
 SUCCESS_LOG="${log_dir}/success.log"
