@@ -202,14 +202,21 @@ download_species() {
         fi
 
         # ====================== 安全重命名，不存在不执行 ======================
-        [ -f "${species_name}_genome.fna" ] || mv ./*_genomic.fna "${species_name}_genome.fna" >/dev/null 2>&1
-        [ -f "${species_name}_cds.fna" ] || mv ./*cds_from_genomic.fna "${species_name}_cds.fna" >/dev/null 2>&1
-        [ -f "${species_name}_protein.faa" ] || mv ./*.faa "${species_name}_protein.faa" >/dev/null 2>&1
-        [ -f "${species_name}_annotation.gff" ] || mv ./*.gff "${species_name}_annotation.gff" >/dev/null 2>&1
-        [ -f "${species_name}_annotation.gbff" ] || mv ./*.gbff "${species_name}_annotation.gbff" >/dev/null 2>&1
+        [ ! -f "${species_name}_genome.fna" ] && mv ./GC[AF]*_genomic.fna "${species_name}_genome.fna" >/dev/null 2>&1
+        [ ! -f "${species_name}_cds.fna" ] && mv ./cds_from_genomic.fna "${species_name}_cds.fna" >/dev/null 2>&1
+        [ ! -f "${species_name}_protein.faa" ] && mv ./protein.faa "${species_name}_protein.faa" >/dev/null 2>&1
+        [ ! -f "${species_name}_annotation.gff" ] && mv ./genomic.gff "${species_name}_annotation.gff" >/dev/null 2>&1
+        [ ! -f "${species_name}_annotation.gbff" ] && mv ./genomic.gbff "${species_name}_annotation.gbff" >/dev/null 2>&1
 
         # ====================== 自动清理 ======================
         rm -rf ncbi_dataset/ README.md
+
+        # 安全删除残留的原始文件（只删除存在的文件）
+        [ -f GC[AF]*_genomic.fna ] && rm -f GC[AF]*_genomic.fna >/dev/null 2>&1
+        [ -f cds_from_genomic.fna ] && rm -f cds_from_genomic.fna >/dev/null 2>&1
+        [ -f protein.faa ] && rm -f protein.faa >/dev/null 2>&1
+        [ -f genomic.gff ] && rm -f genomic.gff >/dev/null 2>&1
+        [ -f genomic.gbff ] && rm -f genomic.gbff >/dev/null 2>&1
 
         # ====================== 自动生成数据来源说明 ======================
         if [ -n "$best_dir" ]; then
