@@ -22,55 +22,57 @@ released_after=""
 released_before=""
 
 show_help() {
-    echo "用法: $0 [模式] [选项] [筛选名称/文件 ...]"
-    echo ""
-    echo "模式:"
-    echo "  order   按目 (Order) 分批下载"
-    echo "  family  按科 (Family) 分批下载"
-    echo "  genus   按属 (Genus) 分批下载 (默认)"
-    echo "  all     下载全部物种"
-    echo ""
-    echo "选项:"
-    echo "  -h, --help              显示帮助信息"
-    echo "  -l, --list              列出所有可用的批次"
-    echo "  -t, --test              测试模式，只下载单个物种"
-    echo "  -o, --outdir DIR        指定下载保存目录 (默认: ${default_out_dir})"
-    echo ""
-    echo "NCBI datasets 参数:"
-    echo "  --include <types>       下载的数据文件类型 (逗号分隔)"
-    echo "                          可选: genome,rna,protein,cds,gff3,gtf,gbff,seq-report,all,none"
-    echo "                          (默认: genome,protein,cds,gff3,gbff)"
-    echo "  --assembly-level <lvls> 限制组装级别 (逗号分隔)"
-    echo "                          可选: chromosome,complete,contig,scaffold"
-    echo "                          (默认: 不限制)"
-    echo "  --assembly-source <src> 限制组装来源: RefSeq 或 GenBank (默认: all)"
-    echo "  --assembly-version <v>  限制组装版本: latest 或 all (默认: latest)"
-    echo "  --annotated             限制为有注释的基因组"
-    echo "  --reference             限制为参考基因组"
-    echo "  --exclude-atypical      排除非典型组装"
-    echo "  --exclude-multi-isolate 排除多分离株项目的组装"
-    echo "  --mag <val>             限制 MAG 组装: only 或 exclude (默认: all)"
-    echo "  --released-after <date> 限制在此日期之后发布的基因组 (YYYY-MM-DD)"
-    echo "  --released-before <date>限制在此日期之前发布的基因组 (YYYY-MM-DD)"
-    echo ""
-    echo "筛选参数 (支持多个，自动判断是名称还是文件):"
-    echo "  <名称>         按当前模式筛选（属名/科名/目名）"
-    echo "  <文件>         从文件读取筛选名称列表（每行一个）"
-    echo "  无筛选参数     下载当前模式下全部"
-    echo ""
-    echo "示例:"
-    echo "  $0 -l family                       # 查看可用的科列表"
-    echo "  $0 order Brassicales              # 下载 Brassicales 目"
-    echo "  $0 family Fabaceae                # 只下载 Fabaceae 科"
-    echo "  $0 genus Oryza                    # 下载 Oryza 属"
-    echo "  $0 genus Acer Arbus               # 下载 Acer 和 Arbus 两个属"
-    echo "  $0 genus species_list.txt         # 从文件读取属名列表"
-    echo "  $0 order orders.txt               # 从文件读取目名列表"
-    echo "  $0 all                            # 下载全部物种"
-    echo "  $0 -t \"Arabidopsis thaliana\"   # 测试下载单个物种"
-    echo "  $0 all --annotated --assembly-level chromosome  # 只下载有注释的染色体级别基因组"
-    echo "  $0 genus Oryza --reference        # 只下载 Oryza 属的参考基因组"
-    echo ""
+    cat <<EOF
+用法: $0 [模式] [选项] [筛选名称/文件 ...]
+
+模式:
+  order   按目 (Order) 分批下载
+  family  按科 (Family) 分批下载
+  genus   按属 (Genus) 分批下载 (默认)
+  all     下载全部物种
+
+选项:
+  -h, --help              显示帮助信息
+  -l, --list              列出所有可用的批次
+  -t, --test              测试模式，只下载单个物种
+  -o, --outdir DIR        指定下载保存目录 (默认: ${default_out_dir})
+
+NCBI datasets 参数:
+  --include <types>       下载的数据文件类型 (逗号分隔)
+                          可选: genome,rna,protein,cds,gff3,gtf,gbff,seq-report,all,none
+                          (默认: genome,protein,cds,gff3,gbff)
+  --assembly-level <lvls> 限制组装级别 (逗号分隔)
+                          可选: chromosome,complete,contig,scaffold
+                          (默认: 不限制)
+  --assembly-source <src> 限制组装来源: RefSeq 或 GenBank (默认: all)
+  --assembly-version <v>  限制组装版本: latest 或 all (默认: latest)
+  --annotated             限制为有注释的基因组
+  --reference             限制为参考基因组
+  --exclude-atypical      排除非典型组装
+  --exclude-multi-isolate 排除多分离株项目的组装
+  --mag <val>             限制 MAG 组装: only 或 exclude (默认: all)
+  --released-after <date> 限制在此日期之后发布的基因组 (YYYY-MM-DD)
+  --released-before <date>限制在此日期之前发布的基因组 (YYYY-MM-DD)
+
+筛选参数 (支持多个，自动判断是名称还是文件):
+  <名称>         按当前模式筛选（属名/科名/目名）
+  <文件>         从文件读取筛选名称列表（每行一个）
+  无筛选参数     下载当前模式下全部
+
+示例:
+  $0 -l family                       # 查看可用的科列表
+  $0 order Brassicales              # 下载 Brassicales 目
+  $0 family Fabaceae                # 只下载 Fabaceae 科
+  $0 genus Oryza                    # 下载 Oryza 属
+  $0 genus Acer Arbus               # 下载 Acer 和 Arbus 两个属
+  $0 genus species_list.txt         # 从文件读取属名列表
+  $0 order orders.txt               # 从文件读取目名列表
+  $0 all                            # 下载全部物种
+  $0 -t "Arabidopsis thaliana"   # 测试下载单个物种
+  $0 all --annotated --assembly-level chromosome  # 只下载有注释的染色体级别基因组
+  $0 genus Oryza --reference        # 只下载 Oryza 属的参考基因组
+
+EOF
     exit 0
 }
 
