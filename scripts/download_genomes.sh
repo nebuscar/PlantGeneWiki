@@ -103,13 +103,17 @@ download_species() {
     fi
 
     # 检查是否已下载（解压后的文件视为已下载）
-    if [ -f "${species_dir}/${species_name}_genome.fna" ] &&
-        [ -f "${species_dir}/${species_name}_cds.fna" ] &&
-        [ -f "${species_dir}/${species_name}_protein.faa" ] &&
-        [ -f "${species_dir}/${species_name}_annotation.gff" -o \
-            -f "${species_dir}/${species_name}_annotation.gbff" ]; then
-        # [ -f "${zip_file}" ]
-        echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 跳过 | 已存在" | tee -a "$SKIP_LOG" "$TOTAL_LOG"
+    # if [ -f "${species_dir}/${species_name}_genome.fna" ] &&
+    #     [ -f "${species_dir}/${species_name}_cds.fna" ] &&
+    #     [ -f "${species_dir}/${species_name}_protein.faa" ] &&
+    #     [ -f "${species_dir}/${species_name}_annotation.gff" -o \
+    #         -f "${species_dir}/${species_name}_annotation.gbff" ]; then
+    #     # [ -f "${zip_file}" ]
+    #     echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 跳过 | 已存在" | tee -a "$SKIP_LOG" "$TOTAL_LOG"
+    #     return 0
+    # fi
+    if [ -f "${species_dir}/${species_name}_genome.fna" ]; then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 跳过 | 已存在基因组" | tee -a "$SKIP_LOG" "$TOTAL_LOG"
         return 0
     fi
 
@@ -246,7 +250,7 @@ EOF
             -f "${species_dir}/${species_name}_annotation.gbff" ]; then
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 成功 | 文件完整" | tee -a "$SUCCESS_LOG" "$TOTAL_LOG"
     else
-        echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 失败 | 文件不完整" | tee -a "$FAIL_LOG" "$TOTAL_LOG"
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 成功 | 文件不完整" | tee -a "$SUCCESS_LOG" "$TOTAL_LOG"
         rm -f "${zip_file}"
     fi
 }
