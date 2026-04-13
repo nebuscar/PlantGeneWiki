@@ -43,12 +43,14 @@ def export_file(df, output_path, fmt):
         raise ValueError(f"不支持的输出格式：{fmt}")
 
 
-def process_species(species_path, output_dir, output_fmt):
+def process_species(
+    species_path, root_input_dir, root_output_dir, output_fmt, recursive_output
+):
     """处理单个物种，并输出到指定位置"""
     species_name = os.path.basename(species_path)
 
     # 查找蛋白文件
-    faa_files = [f for f in os.listdir(species_path) if f.endswith("_protein.faa")]
+    faa_files = [f for f in os.listdir(species_path) if f.endswith("protein.faa")]
     if not faa_files:
         print(f"[WARN] {species_name}：未找到蛋白文件，跳过")
         return
@@ -83,9 +85,21 @@ def process_species(species_path, output_dir, output_fmt):
         ],
     )
 
+    # ===================== 输出目录逻辑（已升级）=====================
+    if recursive_output:
+        # 递归创建与输入结构相同的子目录
+        rel_path = os.path.relpath(species_path, root_input_dir)
+        out_dir = os.path.join(root_output_dir, rel_path)
+    else:
+        # 全部放在同一个输出目录
+        out_dir = root_output_dir
+
+    os.makedirs(out_dir, exist_ok=True)
+
     # 输出文件名
     filename = f"{species_name}_protein_properties.{output_fmt}"
-    output_path = os.path.join(output_dir, filename)
+    output_path = os.path.join(out_dir, filename)
+    # ==============================================================
 
     export_file(df, output_path, output_fmt)
     print(f"   已保存 → {output_path}\n")
@@ -97,6 +111,7 @@ def main():
         epilog="""示例：
   python %(prog)s -i <输入目录> -f csv
   python %(prog)s -i <输入目录> -o <输出目录> -f xlsx
+  python %(prog)s -i <输入目录> -o <输出目录> -r -f xlsx
 
 输出列说明：
   Protein_ID        蛋白ID
@@ -110,7 +125,7 @@ def main():
         "-i",
         "--input",
         required=True,
-        help="输入根目录，其下每个子目录视为一个物种，需包含 *_protein.faa 文件",
+        help="输入根目录，其下每个子目录视为一个物种，需包含 *protein.faa 文件",
     )
     parser.add_argument(
         "-o",
@@ -124,6 +139,14 @@ def main():
         choices=["csv", "tsv", "txt", "xlsx"],
         help="输出格式 (default: csv)",
     )
+    # ===================== 新增参数 =====================
+    parser.add_argument(
+        "-r",
+        "--recursive",
+        action="store_true",
+        help="按输入目录结构递归创建输出目录（仅在 -o 指定时生效）",
+    )
+    # ====================================================
 
     args = parser.parse_args()
     fmt = args.format
@@ -133,22 +156,19 @@ def main():
         print(f"[ERROR] 错误：输入目录不存在 {args.input}")
         return
 
-    # 统一输出目录时提前创建
-    if args.output:
-        os.makedirs(args.output, exist_ok=True)
-
     # 遍历物种
     for name in os.listdir(args.input):
         sp_path = os.path.join(args.input, name)
         if not os.path.isdir(sp_path):
             continue
 
-        # 输出目录逻辑：未指定则输出到物种自身目录
-        out_dir = args.output if args.output else sp_path
-        if not args.output:
-            os.makedirs(out_dir, exist_ok=True)
-
-        process_species(sp_path, out_dir, fmt)
+        process_species(
+            species_path=sp_path,
+            root_input_dir=args.input,
+            root_output_dir=args.output if args.output else sp_path,
+            output_fmt=fmt,
+            recursive_output=args.recursive,
+        )
 
     print("[DONE] 所有物种处理完成！")
 
