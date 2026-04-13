@@ -53,7 +53,9 @@ def process_species(species_path, output_dir, output_fmt):
         print(f"[WARN] {species_name}：未找到蛋白文件，跳过")
         return
     if len(faa_files) > 1:
-        print(f"[WARN] {species_name}：找到多个蛋白文件 {faa_files}，使用 {faa_files[0]}")
+        print(
+            f"[WARN] {species_name}：找到多个蛋白文件 {faa_files}，使用 {faa_files[0]}"
+        )
     faa_file = os.path.join(species_path, faa_files[0])
 
     print(f"[OK] 处理中：{species_name}")
