@@ -93,23 +93,36 @@ def process_species(species_path, output_dir, output_fmt):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="蛋白理化性质计算（长度、等电点、分子量）",
-        epilog="示例：\n  默认输出到各物种目录：python script.py -i ../sample -f csv\n  指定统一输出目录：python script.py -i ../sample -o ./output -f xlsx",
+        description="批量计算蛋白序列的理化性质（长度、等电点、分子量）",
+        epilog="""示例：
+  python %(prog)s -i <输入目录> -f csv
+  python %(prog)s -i <输入目录> -o <输出目录> -f xlsx
+
+输出列说明：
+  Protein_ID        蛋白ID
+  Protein_Length    蛋白长度（含非标准氨基酸）
+  Isoelectric_Point 等电点（pI）
+  Molecular_Weight  分子量（Da）""",
         formatter_class=argparse.RawTextHelpFormatter,
     )
 
     parser.add_argument(
-        "-i", "--input", required=True, help="输入根目录（含多个物种文件夹）"
+        "-i",
+        "--input",
+        required=True,
+        help="输入根目录，其下每个子目录视为一个物种，需包含 *_protein.faa 文件",
     )
     parser.add_argument(
-        "-o", "--output", help="可选：指定统一输出目录（默认输出到各物种自己的文件夹）"
+        "-o",
+        "--output",
+        help="统一输出目录；未指定时结果保存到各物种自身目录",
     )
     parser.add_argument(
         "-f",
         "--format",
         default="csv",
         choices=["csv", "tsv", "txt", "xlsx"],
-        help="输出格式：csv(默认) tsv txt xlsx",
+        help="输出格式 (default: csv)",
     )
 
     args = parser.parse_args()
