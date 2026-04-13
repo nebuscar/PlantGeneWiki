@@ -61,6 +61,8 @@ plantsdb/
 │       ├── fail.log
 │       └── skip.log
 ├── sample/                                   # Example species data (git-ignored)
+├── docs/
+│   └── scripts/                              # Detailed script documentation
 ├── scripts/
 │   ├── download_genomes.sh                   # Batch download genomes from NCBI
 │   ├── add_taxid.sh                          # Add Taxonomy IDs to species list
@@ -70,7 +72,8 @@ plantsdb/
 │   ├── run_genetribe.sh                      # Run GeneTribe homologous gene analysis
 │   ├── calc_protein_properties.py            # Compute protein pI, MW, length
 │   └── batch_pi_mw.py                        # Alternative protein property calculator
-└── tmp/                                      # Temporary files
+├── tmp/                                      # Temporary files
+└── Z_archive/                                # Archived files
 ```
 
 ### Usage
@@ -160,6 +163,10 @@ The species list (`species_list.txt`) is a TSV file with the following columns:
 
 The `species_list_with_taxid.txt` adds a `Taxonomy ID` column between Species and Ploidy.
 
+### Documentation
+
+Detailed documentation for each script is available in [`docs/scripts/`](docs/scripts/README.md).
+
 ### License
 
 This project is provided as-is for research purposes.
@@ -223,6 +230,8 @@ plantsdb/
 │       ├── fail.log
 │       └── skip.log
 ├── sample/                                   # 示例物种数据（已加入 .gitignore）
+├── docs/
+│   └── scripts/                              # 脚本详细使用文档
 ├── scripts/
 │   ├── download_genomes.sh                   # 从 NCBI 批量下载基因组
 │   ├── add_taxid.sh                          # 为物种列表添加分类学 ID
@@ -232,7 +241,8 @@ plantsdb/
 │   ├── run_genetribe.sh                      # 运行 GeneTribe 同源基因分析
 │   ├── calc_protein_properties.py            # 计算蛋白质 pI、MW、长度
 │   └── batch_pi_mw.py                        # 备用蛋白质性质计算脚本
-└── tmp/                                      # 临时文件
+├── tmp/                                      # 临时文件
+└── Z_archive/                                # 归档文件
 ```
 
 ### 使用方法
@@ -321,6 +331,10 @@ bash scripts/run_genetribe.sh
 | 7 | 分支（属） | Abeliophyllum |
 
 `species_list_with_taxid.txt` 在物种名和倍性之间增加了一列 `Taxonomy ID`。
+
+### 详细文档
+
+各脚本的详细使用说明见 [`docs/scripts/`](docs/scripts/README.md)。
 
 ### 许可证
 
