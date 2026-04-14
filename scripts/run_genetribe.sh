@@ -1,37 +1,81 @@
 #!/bin/bash
 set -eo pipefail
 
-# 强制在项目根目录
-cd "$(dirname "$0")/.."
-echo "=== 工作目录：$PWD ==="
+# ===================== 基础配置 =====================
+species_dir="/home/nizhu/Projects/plantsdb/sample"
+output_dir="/home/nizhu/Projects/plantsdb/tmp/ready"
+mkdir -p "$output_dir"
+# ====================================================
 
-# ==================== 配置 ====================
-SP1=Hopea_chinensis
-SP2=Hopea_hainanensis
-OUT_DIR="./genetribe_final"
+echo -e "\n===== 1. 统计所有物种蛋白序列 ====="
+protein_files=$(find "$species_dir" -name "*_protein.faa" | sort)
 
-# 自动找文件
-PROT1=$(find sample/$SP1 -name "*protein*" | head -1)
-PROT2=$(find sample/$SP2 -name "*protein*" | head -1)
-BED1=$(find sample/$SP1 -name "*.bed" | head -1)
-BED2=$(find sample/$SP2 -name "*.bed" | head -1)
+if [ -z "$protein_files" ]; then
+    echo "错误：未找到任何 *_protein.faa 文件！"
+    exit 1
+fi
+seqkit stats $protein_files 2>/dev/null
 
-mkdir -p "$OUT_DIR"
-# ==============================================
+# ===================== 自动找最长序列作为参考 =====================
+echo -e "\n===== 2. 自动识别参考物种（蛋白序列最长） ====="
+ref_faa=$(seqkit stats $protein_files 2>/dev/null | awk 'NR>1 {
+    gsub(/,/, "", $5)
+    if ($5 > max) {max=$5; longest=$1}
+} END {print longest}')
 
-# 复制文件到运行目录
-cp -f "$PROT1" "$OUT_DIR/$SP1.fa"
-cp -f "$PROT2" "$OUT_DIR/$SP2.fa"
-cp -f "$BED1" "$OUT_DIR/$SP1.bed"
-cp -f "$BED2" "$OUT_DIR/$SP2.bed"
+ref_name=$(basename "$ref_faa" _protein.faa)
+echo "✅ 参考物种：$ref_name"
 
-# 进入运行目录
-cd "$OUT_DIR"
+# ===================== 复制所有文件 =====================
+echo -e "\n===== 3. 复制蛋白 / GFF / 基因组 ====="
+for faa in $protein_files; do
+    sp=$(basename "$faa" _protein.faa)
+    gff="${faa%_protein.faa}_annotation.gff"
+    fna="${faa%_protein.faa}_genome.fna"
 
-# ==================== 旧版正确命令！====================
-echo -e "\n🚀 运行 GeneTribe（旧版兼容）..."
-genetribe core -l "$SP1" -f "$SP2"
+    cp -f "$faa" "$output_dir/$sp.fa"
+    cp -f "$gff" "$output_dir/$sp.gff"
+    cp -f "$fna" "$output_dir/$sp.fna"
+done
 
-echo -e "\n🎉 全部完成！"
-echo -e "📄 同源基因结果在此："
-ls -l *.RBH
+cd "$output_dir"
+
+# ===================== 自动生成 3 个必需文件 =====================
+echo -e "\n===== 4. 生成 BED + CHRLIST（GeneTribe 强制要求） ====="
+
+for sp in *.fa; do
+    sp=${sp%.fa}
+    fa=$sp.fa
+    gff=$sp.gff
+    fna=$sp.fna
+
+    echo "处理物种：$sp"
+
+    # 1. 生成标准 BED 格式（GeneTribe 专用：chr start end geneid）
+    awk '$3=="gene" {
+        chr=$1; start=$4-1; end=$5; attr=$9
+        sub(/.*ID=/, "", attr); sub(/;.*/, "", attr)
+        print chr, start, end, attr
+    }' OFS="\t" $gff >$sp.bed
+
+    # 2. 生成 CHRLIST（通用纯ID格式：只保留 > 后第一个字符串，无多余内容）
+    grep "^>" $fna | sed -E 's/^>([^[:space:]]+).*/\1/' >$sp.chrlist
+
+    # 3. 生成基因列表（从 bed 提取，保证顺序正确）
+    cut -f4 $sp.bed >$sp.gene.list
+done
+
+# ===================== 运行 GeneTribe =====================
+echo -e "\n===== 5. 运行 GeneTribe 比对 ====="
+for query in *.fa; do
+    query=${query%.fa}
+    if [ "$query" = "$ref_name" ]; then continue; fi
+
+    echo -e "\n比对：$ref_name <-> $query"
+    genetribe core -l "$ref_name" -f "$query"
+done
+
+# ===================== 完成 =====================
+echo -e "\n===== ✅ 分析完成！结果如下 ====="
+ls -lh *.RBH
+echo -e "\n文件路径：$output_dir"

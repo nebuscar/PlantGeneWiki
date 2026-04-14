@@ -1,15 +1,67 @@
-[2026-04-14 10:16:34] Acer catalpifolium | - | 跳过 | 无TaxID
-[2026-04-14 10:20:55] Acer negundo | 4023 | 选择组装版本: ncbi_dataset/data/GCA_025594385.1
-[2026-04-14 10:21:01] Acer negundo | 4023 | 成功 | 文件完整
-[2026-04-14 10:21:01] Acer negundo | 4023 | 跳过 | 已存在基因组
-[2026-04-14 10:21:03] Acer palmatum | 66201 | 失败 | NCBI未找到
-[2026-04-14 10:21:06] Acer pentaphyllum | 134798 | 失败 | NCBI未找到
-[2026-04-14 10:21:09] Acer pseudosieboldianum | 47968 | 失败 | NCBI未找到
-[2026-04-14 10:21:12] Acer rubrum | 45314 | 失败 | NCBI未找到
-[2026-04-14 10:25:21] Acer saccharum | 4024 | 选择组装版本: ncbi_dataset/data/GCA_030490815.1
-[2026-04-14 10:25:29] Acer saccharum | 4024 | 成功 | 文件完整
-[2026-04-14 10:25:29] Acer saccharum | 4024 | 跳过 | 已存在基因组
-[2026-04-14 10:30:31] Acer truncatum | 47965 | 选择组装版本: ncbi_dataset/data/GCA_053477345.1
-[2026-04-14 10:30:37] Acer truncatum | 47965 | 成功 | 文件不完整
-[2026-04-14 10:33:13] Acer yangbiense | 1000413 | 选择组装版本: ncbi_dataset/data/GCA_008009225.1
-[2026-04-14 10:33:21] Acer yangbiense | 1000413 | 成功 | 文件完整
+[2026-04-14 13:55:55] Arabidopsis thaliana | 3702 | 选择组装版本: ncbi_dataset/data/GCF_000001735.4
+[2026-04-14 13:56:01] Arabidopsis thaliana | 3702 | 成功 | 文件完整
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 失败 | NCBI未找到
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:27:53] Arabidopsis thaliana | 3702 | 跳过 | 已存在基因组
+[2026-04-14 14:30:00] Arabis alpina | 50452 | 失败 | ZIP文件无效
+[2026-04-14 14:33:04] Arabis alpina | 50452 | 选择组装版本: ncbi_dataset/data/GCA_000733195.1
+[2026-04-14 14:33:09] Arabis alpina | 50452 | 成功 | 文件完整
+[2026-04-14 14:33:09] Arabis alpina | 50452 | 跳过 | 已存在基因组
+[2026-04-14 15:02:39] Arachis duranensis | 130453 | 失败 | NCBI未找到
+[2026-04-14 15:05:07] Arachis duranensis | 130453 | 失败 | ZIP文件无效
+[2026-04-14 15:38:30] Arachis duranensis | 130453 | 选择组装版本: ncbi_dataset/data/GCF_000817695.3
+[2026-04-14 15:38:45] Arachis duranensis | 130453 | 成功 | 文件完整
+[2026-04-14 15:39:18] Arachis hypogaea | 3818 | 失败 | ZIP文件无效
