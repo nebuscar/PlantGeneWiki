@@ -6,7 +6,8 @@ meta_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
 # out_dir="${project_dir}/downloads/genomes"
 default_out_dir="/DATA/data2/downloads/genomes"
 out_dir="${default_out_dir}"
-log_dir="${project_dir}/downloads/logs"
+default_log_dir="${project_dir}/downloads/logs"
+log_dir="${default_log_dir}"
 
 # 默认参数
 include_types="genome,protein,cds,gff3,gbff"
@@ -36,6 +37,7 @@ show_help() {
   -l, --list              列出所有可用的批次
   -t, --test              测试模式，只下载单个物种
   -o, --outdir DIR        指定下载保存目录 (默认: ${default_out_dir})
+  -logdir, --logdir DIR   指定日志保存目录 (默认: ${default_log_dir})
 
 NCBI datasets 参数:
   --include <types>       下载的数据文件类型 (逗号分隔)
@@ -71,7 +73,7 @@ NCBI datasets 参数:
   $0 -t "Arabidopsis thaliana"   # 测试下载单个物种
   $0 all --annotated --assembly-level chromosome  # 只下载有注释的染色体级别基因组
   $0 genus Oryza --reference        # 只下载 Oryza 属的参考基因组
-
+  $0 genus Acer -o ~/Projects/ -logdir ~/Projects/logs  # 指定下载目录+日志目录
 EOF
     exit 0
 }
@@ -278,6 +280,11 @@ while [[ $# -gt 0 ]]; do
         out_dir="$2"
         shift
         echo "已指定输出目录：$out_dir"
+        ;;
+    -logdir | --logdir)
+        log_dir="$2"
+        shift
+        echo "已指定日志目录：$log_dir"
         ;;
     --include)
         include_types="$2"
