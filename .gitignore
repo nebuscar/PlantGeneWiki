@@ -1,6 +1,7 @@
 # downloads/
 sample/
 result/
+tmp/
 
 *.gz
 *.zip
