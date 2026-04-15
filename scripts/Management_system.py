@@ -3,10 +3,15 @@ import os
 import argparse
 
 # ====================== 命令行参数解析 ======================
-parser = argparse.ArgumentParser(description='🧬 物种同源比对管理系统 - 基因组文件检索工具')
-parser.add_argument('-i', '--input', 
-                    default='/DATA/data2/downloads/genomes',
-                    help='指定基因组数据目录路径，默认路径：/DATA/data2/downloads/genomes')
+parser = argparse.ArgumentParser(
+    description="🧬 物种同源比对管理系统 - 基因组文件检索工具"
+)
+parser.add_argument(
+    "-i",
+    "--input",
+    default="/DATA/data2/downloads/genomes",
+    help="指定基因组数据目录路径，默认路径：/DATA/data2/downloads/genomes",
+)
 args = parser.parse_args()
 
 # Flask 应用初始化
@@ -30,7 +35,7 @@ SEQ_EXTS = [".faa", ".fna", ".fa"]
 ANN_EXTS = [".gff", ".gbff"]
 
 # ====================== 前端页面模板 ======================
-HTML_TEMPLATE = '''
+HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -97,6 +102,31 @@ HTML_TEMPLATE = '''
             outline: none;
             border-color: #3182ce;
             box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.15);
+        }
+
+        /* 统计面板 */
+        .stats-panel {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            background: #f8fafc;
+            padding: 12px 20px;
+            border-radius: 10px;
+            min-width: 140px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .stat-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
         }
 
         /* 双列布局 */
@@ -228,6 +258,22 @@ HTML_TEMPLATE = '''
         <h1 class="title">🧬 物种同源比对管理系统</h1>
         <p class="desc">左侧：可同源比对（FAA/CDS/Genome）｜右侧：空文件</p>
         <input id="search" placeholder="输入属名快速搜索..." oninput="searchData()">
+        
+        <!-- 统计数据展示 -->
+        <div class="stats-panel">
+            <div class="stat-item">
+                <div class="stat-label">总物种数</div>
+                <div class="stat-number" id="totalSpecies">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">总属数</div>
+                <div class="stat-number" id="totalGenus">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">可比对物种</div>
+                <div class="stat-number" id="alignableSpecies">0</div>
+            </div>
+        </div>
     </div>
 
     <div class="grid">
@@ -246,11 +292,7 @@ HTML_TEMPLATE = '''
 <script>
 async function searchData(){
     let q = document.getElementById("search").value.trim();
-    if(!q){
-        document.getElementById("listOk").innerHTML = "请输入属名开始搜索";
-        document.getElementById("listEmpty").innerHTML = "请输入属名开始搜索";
-        return;
-    }
+    
     let res = await fetch("/search?g="+encodeURIComponent(q));
     let data = await res.json();
     render(data);
@@ -262,10 +304,22 @@ function render(data){
     const listOk = document.getElementById("listOk");
     const listEmpty = document.getElementById("listEmpty");
 
+    // 统计数据
+    let totalSpecies = Object.keys(data).length;
+    let alignableSpecies = 0;
+    let genusSet = new Set();
+
     for(let sp in data){
         let info = data[sp];
         let tags = info.tags;
         let hasSeq = info.hasSeq;
+
+        // 统计属（取第一个下划线前）
+        let genus = sp.split("_")[0];
+        genusSet.add(genus);
+
+        // 统计可比对数量
+        if(hasSeq) alignableSpecies++;
 
         let line = `
             <div class="item">
@@ -280,22 +334,34 @@ function render(data){
         }
     }
 
+    // 更新统计数字
+    document.getElementById("totalSpecies").textContent = totalSpecies;
+    document.getElementById("totalGenus").textContent = genusSet.size;
+    document.getElementById("alignableSpecies").textContent = alignableSpecies;
+
+    // 渲染列表
     listOk.innerHTML = okHtml || "<span class='empty-tip'>无匹配数据</span>";
     listEmpty.innerHTML = emptyHtml || "<span class='empty-tip'>无匹配数据</span>";
+}
+
+// 页面加载时自动搜索一次，显示全部统计
+window.onload = function(){
+    searchData();
 }
 </script>
 </body>
 </html>
-'''
+"""
+
 
 # ====================== 路由 ======================
-@app.route('/')
+@app.route("/")
 def index():
     """首页路由，返回前端页面"""
     return render_template_string(HTML_TEMPLATE)
 
 
-@app.route('/search')
+@app.route("/search")
 def search():
     """搜索接口：根据属名筛选物种并返回分类信息"""
     q = request.args.get("g", "").lower()
@@ -304,11 +370,11 @@ def search():
     # 遍历数据目录下的所有物种文件夹
     for dir_name in os.listdir(DATA_FOLDER):
         dir_path = os.path.join(DATA_FOLDER, dir_name)
-        
+
         # 只处理文件夹
         if not os.path.isdir(dir_path):
             continue
-        
+
         # 匹配属名（取文件夹名第一个下划线前的部分）
         genus = dir_name.split("_")[0].lower()
         if q not in genus:
@@ -357,21 +423,13 @@ def search():
         has_sequence = has_faa or has_cds or has_genome
 
         # 存入结果
-        result[dir_name] = {
-            "tags": "".join(tag_list),
-            "hasSeq": has_sequence
-        }
+        result[dir_name] = {"tags": "".join(tag_list), "hasSeq": has_sequence}
 
     return jsonify(result)
 
 
 # ====================== 启动服务 ======================
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(f"✅ 启动服务，数据目录：{DATA_FOLDER}")
     print(f"✅ 访问地址：http://127.0.0.1:8080")
-    app.run(
-        host="0.0.0.0",
-        port=8080,
-        debug=False,
-        threaded=True
-    )
+    app.run(host="0.0.0.0", port=8080, debug=False, threaded=True)
