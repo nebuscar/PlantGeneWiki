@@ -296,7 +296,7 @@ run_bed() {
         # 用 awk 预过滤掉坐标异常行，避免中断流水线
         # 临时关闭 pipefail 以容忍 gff2bed 的非零退出
         set +o pipefail
-        awk -F'\t' 'NF>=9 && $5>=$4' "$gff" | gff2bed 2>/dev/null | awk '$8=="gene"' OFS="\t" >"$OUTPUT_DIR/${sp}.bed"
+        awk -F'\t' 'NF>=9 && $5>=$4' "$gff" | gff2bed 2>/dev/null | awk '$8=="gene"' OFS="\t" | cut -f1-6 >"$OUTPUT_DIR/${sp}.bed"
         # gff2bed 保留 GFF ID 属性中的前缀（如 gene-LWI29_XXXXXX），
         # 但 CDS/FAA 文件中只含裸 locus_tag（如 LWI29_XXXXXX），
         # 必须去除 BED 第4列的 gene- 前缀，否则 jcvi 无法匹配基因 ID
@@ -375,13 +375,22 @@ run_genetribe() {
                 ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
         done
         genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
-        if [[ -d "genetribe_output" ]]; then
-            cd genetribe_output
-            set +eo pipefail
-            python -m jcvi.compara.catalog ortholog --no_strip_names --cpus="$CPUS" "$ref_sp" "$q"
-            set -eo pipefail
-            cd ..
-        fi
+        # genetribe core 结束时会 rm -rf genetribe_output，需重建目录和链接
+        mkdir -p genetribe_output
+        for species in "$ref_sp" "$q"; do
+            [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
+                ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
+            [[ -f "${species}.bed" && ! -e "genetribe_output/${species}.bed" ]] &&
+                ln -s "$(pwd)/${species}.bed" "genetribe_output/${species}.bed"
+            # jcvi 默认查找 .pep 文件（prot 模式），创建符号链接指向 .faa
+            [[ -f "${species}.faa" && ! -e "genetribe_output/${species}.pep" ]] &&
+                ln -s "$(pwd)/${species}.faa" "genetribe_output/${species}.pep"
+        done
+        cd genetribe_output
+        set +eo pipefail
+        python -m jcvi.compara.catalog ortholog --no_strip_names --cpus="$CPUS" "$ref_sp" "$q"
+        set -eo pipefail
+        cd ..
         echo "完成: $ref_sp vs $q"
     done
 
