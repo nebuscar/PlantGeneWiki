@@ -79,6 +79,8 @@ Options:
   -o, --output DIR     输出目录
   -q, --query SPEC     待比对物种
   -m, --mode MODE      运行模式
+  -t, --threads N      GeneTribe BLAST 线程数 [默认: 36]
+  -p, --cpus N         jcvi 共线性分析 CPU 数，0=不限制 [默认: 0]
   -h, --help           帮助
 
 单独参数帮助:
@@ -89,6 +91,7 @@ Options:
   ./$SCRIPT_NAME -m stat
   ./$SCRIPT_NAME -m faa,bed,chr
   ./$SCRIPT_NAME -m genetribe -q Acer_saccharum
+  ./$SCRIPT_NAME -m genetribe -t 16 -p 4
 EOF
 }
 
@@ -104,13 +107,15 @@ for arg in "$@"; do
 done
 
 # ====================== 解析参数 ======================
-PARSED_ARGS=$(getopt -o hi:o:q:m: --long help,input:,output:,query:,mode: --name "$0" -- "$@")
+PARSED_ARGS=$(getopt -o hi:o:q:m:t:p: --long help,input:,output:,query:,mode:,threads:,cpus: --name "$0" -- "$@")
 eval set -- "$PARSED_ARGS"
 
 INPUT_DIR=""
 OUTPUT_DIR=""
 QUERY_SPECIES=""
 MODE="all"
+THREADS=36
+CPUS=0
 
 while true; do
     case "$1" in
@@ -128,6 +133,14 @@ while true; do
         ;;
     -m | --mode)
         MODE="$2"
+        shift 2
+        ;;
+    -t | --threads)
+        THREADS="$2"
+        shift 2
+        ;;
+    -p | --cpus)
+        CPUS="$2"
         shift 2
         ;;
     -h | --help)
@@ -284,6 +297,10 @@ run_bed() {
         # 临时关闭 pipefail 以容忍 gff2bed 的非零退出
         set +o pipefail
         awk -F'\t' 'NF>=9 && $5>=$4' "$gff" | gff2bed 2>/dev/null | awk '$8=="gene"' OFS="\t" >"$OUTPUT_DIR/${sp}.bed"
+        # gff2bed 保留 GFF ID 属性中的前缀（如 gene-LWI29_XXXXXX），
+        # 但 CDS/FAA 文件中只含裸 locus_tag（如 LWI29_XXXXXX），
+        # 必须去除 BED 第4列的 gene- 前缀，否则 jcvi 无法匹配基因 ID
+        sed -i 's/\tgene-/\t/g' "$OUTPUT_DIR/${sp}.bed"
         set -o pipefail
         if [[ ! -s "$OUTPUT_DIR/${sp}.bed" ]]; then
             echo "⚠️  BED 为空：$sp（gff2bed 可能失败），尝试 awk 直接转换..."
@@ -292,7 +309,7 @@ run_bed() {
                 n = split(attrs, a, /;/); id="";
                 for (i=1; i<=n; i++) {
                     gsub(/^[ \t]+/, "", a[i]);
-                    if (a[i] ~ /^ID=/) { id = substr(a[i], 4); sub(/^gene:/, "", id); break }
+                    if (a[i] ~ /^ID=/) { id = substr(a[i], 4); sub(/^gene:/, "", id); sub(/^gene-/, "", id); break }
                 }
                 if (id != "") print $1"\t"$4-1"\t"$5"\t"id"\t.\t"$7
             }' "$gff" >"$OUTPUT_DIR/${sp}.bed"
@@ -352,15 +369,15 @@ run_genetribe() {
         mkdir -p "$out"
         # GeneTribe 运行时会在 genetribe_output/ 中调用 jcvi，
         # 先将 .cds 链接到该目录以便共线性分析使用
-        genetribe core -l "$ref_sp" -f "$q" -d "$out" || true
+        genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
         if [[ -d "genetribe_output" ]]; then
             for species in "$ref_sp" "$q"; do
-                [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] && \
+                [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
                     ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
             done
             cd genetribe_output
             set +eo pipefail
-            python -m jcvi.compara.catalog ortholog --no_strip_names "$ref_sp" "$q"
+            python -m jcvi.compara.catalog ortholog --no_strip_names --cpus="$CPUS" "$ref_sp" "$q"
             set -eo pipefail
             cd ..
         fi

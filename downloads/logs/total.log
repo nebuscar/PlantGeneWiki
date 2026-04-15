@@ -53,3 +53,127 @@
 [2026-04-15 13:44:51] Bergenia scopulosa | 1397840 | 失败 | NCBI未找到
 [2026-04-15 13:44:54] Beta patula | 1505710 | 失败 | NCBI未找到
 [2026-04-15 14:36:02] Beta vulgaris | 161934 | 失败 | ZIP文件无效
+[2026-04-15 15:28:48] Beta vulgaris | 161934 | 选择组装版本: ncbi_dataset/data/GCF_026745355.1
+[2026-04-15 15:28:59] Beta vulgaris | 161934 | 成功 | 文件完整
+[2026-04-15 15:28:59] Beta vulgaris | 161934 | 跳过 | 已存在基因组
+[2026-04-15 15:28:59] Beta vulgaris | 161934 | 跳过 | 已存在基因组
+[2026-04-15 15:28:59] Beta vulgaris | 161934 | 跳过 | 已存在基因组
+[2026-04-15 15:28:59] Beta vulgaris | 161934 | 跳过 | 已存在基因组
+[2026-04-15 15:29:01] Betula nana | 216990 | 失败 | NCBI未找到
+[2026-04-15 15:31:07] Betula pendula | 3505 | 选择组装版本: ncbi_dataset/data/GCA_965285875.1
+[2026-04-15 15:31:11] Betula pendula | 3505 | 成功 | 文件不完整
+[2026-04-15 15:31:14] Betula platyphylla | 78630 | 失败 | NCBI未找到
+[2026-04-15 15:35:25] Biancaea sappan | 483143 | 选择组装版本: ncbi_dataset/data/GCA_037074585.1
+[2026-04-15 15:35:32] Biancaea sappan | 483143 | 成功 | 文件不完整
+[2026-04-15 15:35:35] Bidens alba | 51260 | 失败 | NCBI未找到
+[2026-04-15 15:35:37] Bidens hawaiensis | 980011 | 失败 | NCBI未找到
+[2026-04-15 15:35:40] Biscutella auriculata | 379493 | 失败 | NCBI未找到
+[2026-04-15 15:35:43] Biscutella laevigata | 264427 | 失败 | NCBI未找到
+[2026-04-15 15:35:45] Bletilla striata | 78707 | 失败 | NCBI未找到
+[2026-04-15 15:35:48] Bletilla striata | 78707 | 失败 | NCBI未找到
+[2026-04-15 15:35:48] Boea hygrometrica | - | 跳过 | 无TaxID
+[2026-04-15 15:35:51] Boechera puberula | 115924 | 失败 | NCBI未找到
+[2026-04-15 15:35:54] Boechera retrofracta | 115934 | 失败 | NCBI未找到
+[2026-04-15 15:40:02] Boehmeria nivea | 83906 | 选择组装版本: ncbi_dataset/data/GCA_018132145.1
+[2026-04-15 15:40:04] Boehmeria nivea | 83906 | 成功 | 文件不完整
+[2026-04-15 15:40:05] Boehmeria nivea | 83906 | 跳过 | 已存在基因组
+[2026-04-15 15:40:05] Boehmeria nivea | 83906 | 跳过 | 已存在基因组
+[2026-04-15 15:40:05] Boehmeria nivea | 83906 | 跳过 | 已存在基因组
+[2026-04-15 15:40:05] Boehmeria nivea | 83906 | 跳过 | 已存在基因组
+[2026-04-15 15:40:05] Boehmeria nivea | 83906 | 跳过 | 已存在基因组
+[2026-04-15 15:40:07] Boesenbergia rotunda | 97729 | 失败 | NCBI未找到
+[2026-04-15 15:43:09] Bolboschoenus planiculmis | 651555 | 选择组装版本: ncbi_dataset/data/GCA_031770325.1
+[2026-04-15 15:43:11] Bolboschoenus planiculmis | 651555 | 成功 | 文件不完整
+[2026-04-15 15:43:11] Bombax ceiba | 45325 | 跳过 | 已存在基因组
+[2026-04-15 15:43:11] Bombax ceiba | 45325 | 跳过 | 已存在基因组
+[2026-04-15 15:43:11] Bonia amplexicaulis | 338503 | 跳过 | 已存在基因组
+[2026-04-15 15:43:11] Bonia amplexicaulis | 338503 | 跳过 | 已存在基因组
+[2026-04-15 15:43:14] Boswellia sacra | 173701 | 失败 | NCBI未找到
+[2026-04-15 15:43:16] Boswellia sacra | 173701 | 失败 | NCBI未找到
+[2026-04-15 15:50:56] Bothriochloa decipiens | 883134 | 选择组装版本: ncbi_dataset/data/GCA_023333625.1
+[2026-04-15 15:51:07] Bothriochloa decipiens | 883134 | 成功 | 文件不完整
+[2026-04-15 15:51:10] Botryococcus braunii | 38881 | 失败 | NCBI未找到
+[2026-04-15 15:51:10] Bougainvillea x buttiana | - | 跳过 | 无TaxID
+[2026-04-15 15:54:49] Brachypodium distachyon | 15368 | 选择组装版本: ncbi_dataset/data/GCF_000005505.3
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 成功 | 文件完整
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:54] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:54:55] Brachypodium distachyon | 15368 | 跳过 | 已存在基因组
+[2026-04-15 15:58:18] Brachypodium hybridum | 1071398 | 选择组装版本: ncbi_dataset/data/GCA_036872515.1
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 成功 | 文件不完整
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:58:23] Brachypodium hybridum | 1071398 | 跳过 | 已存在基因组
+[2026-04-15 15:59:15] Brachypodium stacei | 1071399 | 选择组装版本: ncbi_dataset/data/GCA_036872525.1
+[2026-04-15 15:59:17] Brachypodium stacei | 1071399 | 成功 | 文件不完整
+[2026-04-15 15:59:17] Brachypodium stacei | 1071399 | 跳过 | 已存在基因组
+[2026-04-15 15:59:20] Brachypodium sylvaticum | 29664 | 失败 | NCBI未找到
+[2026-04-15 15:59:20] Brasenia schreberi | 4424 | 跳过 | 已存在基因组
+[2026-04-15 15:59:20] Brasenia schreberi | 4424 | 跳过 | 已存在基因组
+[2026-04-15 15:59:32] Brassica carinata | 52824 | 失败 | ZIP文件无效
+[2026-04-15 16:18:40] Brassica carinata | 52824 | 选择组装版本: ncbi_dataset/data/GCA_016771965.1
+[2026-04-15 16:18:53] Brassica carinata | 52824 | 成功 | 文件完整
+[2026-04-15 16:18:56] Brassica cretica | 69181 | 失败 | NCBI未找到
+[2026-04-15 16:18:59] Brassica gravinae | 308265 | 失败 | NCBI未找到
