@@ -3,10 +3,15 @@ import os
 import argparse
 
 # ====================== 命令行参数解析 ======================
-parser = argparse.ArgumentParser(description='🧬 物种同源比对管理系统 - 基因组文件检索工具')
-parser.add_argument('-i', '--input', 
-                    default='/DATA/data2/downloads/genomes',
-                    help='指定基因组数据目录路径，默认路径：/DATA/data2/downloads/genomes')
+parser = argparse.ArgumentParser(
+    description="🧬 物种同源比对管理系统 - 基因组文件检索工具"
+)
+parser.add_argument(
+    "-i",
+    "--input",
+    default="/DATA/data2/downloads/genomes",
+    help="指定基因组数据目录路径，默认路径：/DATA/data2/downloads/genomes",
+)
 args = parser.parse_args()
 
 # Flask 应用初始化
@@ -30,7 +35,7 @@ SEQ_EXTS = [".faa", ".fna", ".fa"]
 ANN_EXTS = [".gff", ".gbff"]
 
 # ====================== 前端页面模板 ======================
-HTML_TEMPLATE = '''
+HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -286,16 +291,17 @@ function render(data){
 </script>
 </body>
 </html>
-'''
+"""
+
 
 # ====================== 路由 ======================
-@app.route('/')
+@app.route("/")
 def index():
     """首页路由，返回前端页面"""
     return render_template_string(HTML_TEMPLATE)
 
 
-@app.route('/search')
+@app.route("/search")
 def search():
     """搜索接口：根据属名筛选物种并返回分类信息"""
     q = request.args.get("g", "").lower()
@@ -304,11 +310,11 @@ def search():
     # 遍历数据目录下的所有物种文件夹
     for dir_name in os.listdir(DATA_FOLDER):
         dir_path = os.path.join(DATA_FOLDER, dir_name)
-        
+
         # 只处理文件夹
         if not os.path.isdir(dir_path):
             continue
-        
+
         # 匹配属名（取文件夹名第一个下划线前的部分）
         genus = dir_name.split("_")[0].lower()
         if q not in genus:
@@ -357,21 +363,13 @@ def search():
         has_sequence = has_faa or has_cds or has_genome
 
         # 存入结果
-        result[dir_name] = {
-            "tags": "".join(tag_list),
-            "hasSeq": has_sequence
-        }
+        result[dir_name] = {"tags": "".join(tag_list), "hasSeq": has_sequence}
 
     return jsonify(result)
 
 
 # ====================== 启动服务 ======================
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(f"✅ 启动服务，数据目录：{DATA_FOLDER}")
     print(f"✅ 访问地址：http://127.0.0.1:8080")
-    app.run(
-        host="0.0.0.0",
-        port=8080,
-        debug=False,
-        threaded=True
-    )
+    app.run(host="0.0.0.0", port=8080, debug=False, threaded=True)
