@@ -1,1 +1,55 @@
-[2026-04-14 22:01:19] Arachis hypogaea | 3818 | 失败 | ZIP文件无效
+[2026-04-15 10:15:36] Arachis hypogaea | 3818 | 跳过 | 已存在基因组
+[2026-04-15 12:06:34] Avena sativa | 4498 | 失败 | ZIP文件无效
+[2026-04-15 12:40:21] Avena sativa | 4498 | 失败 | NCBI未找到
+[2026-04-15 12:52:41] Avena sterilis | 83444 | 失败 | ZIP文件无效
+[2026-04-15 12:52:44] Averrhoa carambola | 28974 | 失败 | NCBI未找到
+[2026-04-15 12:52:47] Avicennia alba | 139224 | 失败 | NCBI未找到
+[2026-04-15 12:52:50] Avicennia germinans | 41378 | 失败 | NCBI未找到
+[2026-04-15 13:09:50] Avicennia marina | 82927 | 失败 | ZIP文件无效
+[2026-04-15 13:16:15] Avicennia marina | 82927 | 失败 | ZIP文件无效
+[2026-04-15 13:22:20] Avicennia marina | 82927 | 选择组装版本: ncbi_dataset/data/GCA_013168755.1
+[2026-04-15 13:22:25] Avicennia marina | 82927 | 成功 | 文件不完整
+[2026-04-15 13:22:25] Avicennia marina | 82927 | 跳过 | 已存在基因组
+[2026-04-15 13:22:25] Avicennia marina | 82927 | 跳过 | 已存在基因组
+[2026-04-15 13:22:25] Avicennia marina | 82927 | 跳过 | 已存在基因组
+[2026-04-15 13:22:28] Avicennia officinalis | 1134458 | 失败 | NCBI未找到
+[2026-04-15 13:22:28] Avicennia rumphiana | - | 跳过 | 无TaxID
+[2026-04-15 13:23:17] Azadirachta indica | 124943 | 选择组装版本: ncbi_dataset/data/GCA_022749755.1
+[2026-04-15 13:23:20] Azadirachta indica | 124943 | 成功 | 文件不完整
+[2026-04-15 13:23:20] Azadirachta indica | 124943 | 跳过 | 已存在基因组
+[2026-04-15 13:23:20] Azadirachta indica | 124943 | 跳过 | 已存在基因组
+[2026-04-15 13:23:22] Azolla filiculoides | 84609 | 失败 | NCBI未找到
+[2026-04-15 13:23:22] Baccaurea ramifloraLour | - | 跳过 | 无TaxID
+[2026-04-15 13:23:25] Balanophora fungosa | 29813 | 失败 | NCBI未找到
+[2026-04-15 13:23:28] Balanophora subcupularis | 2874248 | 失败 | NCBI未找到
+[2026-04-15 13:23:31] Bambusa odashimae | 1929884 | 失败 | NCBI未找到
+[2026-04-15 13:24:44] Barbarea vulgaris | 50459 | 选择组装版本: ncbi_dataset/data/GCA_963667165.1
+[2026-04-15 13:24:47] Barbarea vulgaris | 50459 | 成功 | 文件不完整
+[2026-04-15 13:24:50] Barringtonia asiatica | 79557 | 失败 | NCBI未找到
+[2026-04-15 13:24:52] Barringtonia asiatica | 79557 | 失败 | NCBI未找到
+[2026-04-15 13:24:55] Barringtonia racemosa | 107821 | 失败 | NCBI未找到
+[2026-04-15 13:24:58] Barringtonia racemosa | 107821 | 失败 | NCBI未找到
+[2026-04-15 13:25:01] Barthea barthei | 1898640 | 失败 | NCBI未找到
+[2026-04-15 13:29:20] Bathycoccus prasinos | 41875 | 失败 | NCBI未找到
+[2026-04-15 13:31:10] Bauhinia variegata | 167791 | 选择组装版本: ncbi_dataset/data/GCA_022379115.2
+[2026-04-15 13:31:15] Bauhinia variegata | 167791 | 成功 | 文件完整
+[2026-04-15 13:31:15] Beckmannia syzigachne | 368345 | 跳过 | 已存在基因组
+[2026-04-15 13:31:15] Beckmannia syzigachne | 368345 | 跳过 | 已存在基因组
+[2026-04-15 13:31:18] Begonia darthvaderiana | 2905994 | 失败 | NCBI未找到
+[2026-04-15 13:31:20] Begonia fuchsioides | 200001 | 失败 | NCBI未找到
+[2026-04-15 13:31:46] Begonia loranthoides | 200023 | 失败 | ZIP文件无效
+[2026-04-15 13:34:44] Begonia masoniana | 198562 | 选择组装版本: ncbi_dataset/data/GCA_022432975.1
+[2026-04-15 13:34:50] Begonia masoniana | 198562 | 成功 | 文件不完整
+[2026-04-15 13:35:52] Begonia peltatifolia | 1406276 | 选择组装版本: ncbi_dataset/data/GCA_022433055.1
+[2026-04-15 13:35:55] Begonia peltatifolia | 1406276 | 成功 | 文件不完整
+[2026-04-15 13:35:55] Benincasa hispida | 102211 | 跳过 | 已存在基因组
+[2026-04-15 13:35:55] Benincasa hispida | 102211 | 跳过 | 已存在基因组
+[2026-04-15 13:35:55] Benincasa hispida | 102211 | 跳过 | 已存在基因组
+[2026-04-15 13:35:55] Benincasa hispida | 102211 | 跳过 | 已存在基因组
+[2026-04-15 13:40:00] Berberis thunbergii | 121720 | 选择组装版本: ncbi_dataset/data/GCA_056149445.1
+[2026-04-15 13:40:11] Berberis thunbergii | 121720 | 成功 | 文件不完整
+[2026-04-15 13:44:35] Berberis vulgaris | 258209 | 选择组装版本: ncbi_dataset/data/GCA_963556465.1
+[2026-04-15 13:44:46] Berberis vulgaris | 258209 | 成功 | 文件不完整
+[2026-04-15 13:44:51] Bergenia scopulosa | 1397840 | 失败 | NCBI未找到
+[2026-04-15 13:44:54] Beta patula | 1505710 | 失败 | NCBI未找到
+[2026-04-15 14:36:02] Beta vulgaris | 161934 | 失败 | ZIP文件无效
