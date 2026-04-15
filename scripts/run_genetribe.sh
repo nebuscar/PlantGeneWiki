@@ -356,6 +356,12 @@ run_genetribe() {
     # 激活 conda genetribe 环境，确保 jcvi 可用
     eval "$(conda shell.bash hook 2>/dev/null)"
     conda activate genetribe
+    # conda activate 可能因 ~/.local/bin 优先级未能覆盖 python，
+    # genetribe core 内部也会调用 python -m jcvi，必须确保 PATH 中 python 指向 conda 环境
+    CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
+    if [[ -d "$CONDA_ENV_DIR/bin" ]]; then
+        export PATH="$CONDA_ENV_DIR/bin:$PATH"
+    fi
 
     # 保存当前目录，GeneTribe 基于工作目录查找前缀文件
     local orig_dir="$(pwd)"
@@ -368,14 +374,7 @@ run_genetribe() {
         out="genetribe_result/${ref_sp}_vs_$q"
         mkdir -p "$out"
         # genetribe core 和 jcvi 都在 genetribe_output/ 中工作，
-        # 必须在 genetribe core 运行前将 .cds 链接进去，否则 jcvi 报文件不存在
-        mkdir -p genetribe_output
-        for species in "$ref_sp" "$q"; do
-            [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
-                ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
-        done
-        genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
-        # genetribe core 结束时会 rm -rf genetribe_output，需重建目录和链接
+        # 必须在 genetribe core 运行前将所需文件链接进去
         mkdir -p genetribe_output
         for species in "$ref_sp" "$q"; do
             [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
@@ -386,11 +385,14 @@ run_genetribe() {
             [[ -f "${species}.faa" && ! -e "genetribe_output/${species}.pep" ]] &&
                 ln -s "$(pwd)/${species}.faa" "genetribe_output/${species}.pep"
         done
-        cd genetribe_output
-        set +eo pipefail
-        python -m jcvi.compara.catalog ortholog --no_strip_names --cpus="$CPUS" "$ref_sp" "$q"
-        set -eo pipefail
-        cd ..
+        genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
+        # genetribe core 结果输出到 $OUTPUT_DIR，整理到 genetribe_result/ 子目录
+        result_dir="$out"
+        for ext in one2one one2many RBH SBH singleton block_pos collinearity_info; do
+            for f in "${ref_sp}_${q}.${ext}" "${q}_${ref_sp}.${ext}"; do
+                [[ -f "$f" ]] && mv "$f" "$result_dir/"
+            done
+        done
         echo "完成: $ref_sp vs $q"
     done
 
