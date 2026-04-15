@@ -367,14 +367,15 @@ run_genetribe() {
         done
         out="genetribe_result/${ref_sp}_vs_$q"
         mkdir -p "$out"
-        # GeneTribe 运行时会在 genetribe_output/ 中调用 jcvi，
-        # 先将 .cds 链接到该目录以便共线性分析使用
+        # genetribe core 和 jcvi 都在 genetribe_output/ 中工作，
+        # 必须在 genetribe core 运行前将 .cds 链接进去，否则 jcvi 报文件不存在
+        mkdir -p genetribe_output
+        for species in "$ref_sp" "$q"; do
+            [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
+                ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
+        done
         genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
         if [[ -d "genetribe_output" ]]; then
-            for species in "$ref_sp" "$q"; do
-                [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
-                    ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
-            done
             cd genetribe_output
             set +eo pipefail
             python -m jcvi.compara.catalog ortholog --no_strip_names --cpus="$CPUS" "$ref_sp" "$q"
