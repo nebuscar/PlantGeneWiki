@@ -1,3 +1,11 @@
-downloads/
+/downloads/
 sample/
 result/
+tmp/
+
+*.gz
+*.zip
+*.fna
+*.faa
+*.gff
+*.gbff
