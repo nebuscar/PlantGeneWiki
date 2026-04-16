@@ -6,15 +6,23 @@ import argparse
 parser = argparse.ArgumentParser(
     description="GFF 基因ID与蛋白ID映射表生成工具：按 ; 分段解析，输出到物种文件夹",
     formatter_class=argparse.RawTextHelpFormatter,
+    epilog="使用示例：\n"
+    "  python 脚本.py -i /your/genome/path\n"
+    "  python 脚本.py --input /your/genome/path\n"
+    "  python 脚本.py -h  (查看帮助)",
 )
 
+# 核心输入路径参数（可自定义，带默认值 + 帮助说明）
 parser.add_argument(
     "-i",
     "--input",
+    type=str,
     default="/home/nizhu/renjinran/downloads2/genomes",
-    help="指定基因组根目录（包含各物种子文件夹）\n默认路径：/home/nizhu/renjinran/downloads2/genomes",
+    help="【必须】指定基因组根目录（包含各物种子文件夹）\n"
+    "默认路径：/home/nizhu/renjinran/downloads2/genomes",
 )
 
+# 解析参数
 args = parser.parse_args()
 ROOT_DIR = Path(args.input)
 
@@ -49,7 +57,7 @@ for species_dir in ROOT_DIR.iterdir():
                     if parts[2] not in ("CDS", "cds"):
                         continue
 
-                    # 按 ; 分段解析（你要求的标准方法）
+                    # 按 ; 分段解析
                     attr_str = parts[8]
                     attrs = {}
                     for seg in attr_str.split(";"):
