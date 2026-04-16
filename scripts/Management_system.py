@@ -105,6 +105,31 @@ HTML_TEMPLATE = """
             box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.15);
         }
 
+        /* 统计面板 */
+        .stats-panel {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            background: #f8fafc;
+            padding: 12px 20px;
+            border-radius: 10px;
+            min-width: 140px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .stat-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
         /* 双列布局 */
         .grid {
             display: grid;
@@ -234,6 +259,22 @@ HTML_TEMPLATE = """
         <h1 class="title">🧬 物种同源比对管理系统</h1>
         <p class="desc">左侧：可同源比对（FAA/CDS/Genome）｜右侧：空文件</p>
         <input id="search" placeholder="输入属名快速搜索..." oninput="searchData()">
+        
+        <!-- 统计数据展示 -->
+        <div class="stats-panel">
+            <div class="stat-item">
+                <div class="stat-label">总物种数</div>
+                <div class="stat-number" id="totalSpecies">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">总属数</div>
+                <div class="stat-number" id="totalGenus">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">可比对物种</div>
+                <div class="stat-number" id="alignableSpecies">0</div>
+            </div>
+        </div>
     </div>
 
     <div class="grid">
@@ -252,11 +293,7 @@ HTML_TEMPLATE = """
 <script>
 async function searchData(){
     let q = document.getElementById("search").value.trim();
-    if(!q){
-        document.getElementById("listOk").innerHTML = "请输入属名开始搜索";
-        document.getElementById("listEmpty").innerHTML = "请输入属名开始搜索";
-        return;
-    }
+    
     let res = await fetch("/search?g="+encodeURIComponent(q));
     let data = await res.json();
     render(data);
@@ -268,10 +305,22 @@ function render(data){
     const listOk = document.getElementById("listOk");
     const listEmpty = document.getElementById("listEmpty");
 
+    // 统计数据
+    let totalSpecies = Object.keys(data).length;
+    let alignableSpecies = 0;
+    let genusSet = new Set();
+
     for(let sp in data){
         let info = data[sp];
         let tags = info.tags;
         let hasSeq = info.hasSeq;
+
+        // 统计属（取第一个下划线前）
+        let genus = sp.split("_")[0];
+        genusSet.add(genus);
+
+        // 统计可比对数量
+        if(hasSeq) alignableSpecies++;
 
         let line = `
             <div class="item">
@@ -286,8 +335,19 @@ function render(data){
         }
     }
 
+    // 更新统计数字
+    document.getElementById("totalSpecies").textContent = totalSpecies;
+    document.getElementById("totalGenus").textContent = genusSet.size;
+    document.getElementById("alignableSpecies").textContent = alignableSpecies;
+
+    // 渲染列表
     listOk.innerHTML = okHtml || "<span class='empty-tip'>无匹配数据</span>";
     listEmpty.innerHTML = emptyHtml || "<span class='empty-tip'>无匹配数据</span>";
+}
+
+// 页面加载时自动搜索一次，显示全部统计
+window.onload = function(){
+    searchData();
 }
 </script>
 </body>
