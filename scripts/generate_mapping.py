@@ -5,7 +5,7 @@ import pandas as pd  # 用于输出 xlsx/csv/tsv/txt（自动处理格式）
 
 # ===================== 命令行参数配置 =====================
 parser = argparse.ArgumentParser(
-    description="GFF 基因ID与蛋白ID映射表生成工具：按 ; 分段解析，输出到物种文件夹",
+    description="GFF 基因ID与蛋白ID映射表生成工具:按 ; 分段解析，输出到物种文件夹",
     formatter_class=argparse.RawTextHelpFormatter,
     epilog="使用示例：\n"
     "  python 脚本.py -i /your/genome/path -f xlsx\n"
@@ -19,7 +19,7 @@ parser.add_argument(
     "--input",
     type=str,
     default="/home/nizhu/renjinran/downloads2/genomes",
-    help="指定基因组根目录（包含各物种子文件夹）\n默认路径：/home/nizhu/renjinran/downloads2/genomes",
+    help="指定基因组根目录（包含各物种子文件夹）\n默认路径:/home/nizhu/renjinran/downloads2/genomes",
 )
 
 # 输出格式参数（新增！）
@@ -28,7 +28,7 @@ parser.add_argument(
     "--format",
     choices=["xlsx", "csv", "tsv", "txt"],
     default="xlsx",
-    help="输出文件格式（可选：xlsx, csv, tsv, txt）\n默认：xlsx",
+    help="输出文件格式(可选:xlsx, csv, tsv, txt)\n默认:xlsx",
 )
 
 # 解析参数
@@ -41,7 +41,7 @@ for species_dir in ROOT_DIR.iterdir():
     if not species_dir.is_dir():
         continue
 
-    print(f"\n正在处理物种：{species_dir.name}")
+    print(f"\n正在处理物种:{species_dir.name}")
     mapping = {}
 
     # 查找该物种下所有 GFF 文件
