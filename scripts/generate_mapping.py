@@ -8,31 +8,20 @@ parser = argparse.ArgumentParser(
     description="GFF 基因ID与蛋白ID映射表生成工具：按 ; 分段解析，输出到物种文件夹",
     formatter_class=argparse.RawTextHelpFormatter,
     epilog="使用示例：\n"
-<<<<<<< HEAD
     "  python 脚本.py -i /your/genome/path -f xlsx\n"
     "  python 脚本.py --input /your/genome/path --format csv\n"
     "  python 脚本.py -h  (查看帮助)",
 )
 
 # 输入路径
-=======
-    "  python 脚本.py -i /your/genome/path\n"
-    "  python 脚本.py --input /your/genome/path\n"
-    "  python 脚本.py -h  (查看帮助)",
-)
-
-# 核心输入路径参数（可自定义，带默认值 + 帮助说明）
->>>>>>> 402891a555760c9c5b1114279e1c6ad678b022b0
 parser.add_argument(
     "-i",
     "--input",
     type=str,
     default="/home/nizhu/renjinran/downloads2/genomes",
-    help="【必须】指定基因组根目录（包含各物种子文件夹）\n"
-    "默认路径：/home/nizhu/renjinran/downloads2/genomes",
+    help="指定基因组根目录（包含各物种子文件夹）\n默认路径：/home/nizhu/renjinran/downloads2/genomes",
 )
 
-<<<<<<< HEAD
 # 输出格式参数（新增！）
 parser.add_argument(
     "-f",
@@ -42,8 +31,6 @@ parser.add_argument(
     help="输出文件格式（可选：xlsx, csv, tsv, txt）\n默认：xlsx",
 )
 
-=======
->>>>>>> 402891a555760c9c5b1114279e1c6ad678b022b0
 # 解析参数
 args = parser.parse_args()
 ROOT_DIR = Path(args.input)
