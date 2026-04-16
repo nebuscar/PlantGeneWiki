@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import Flask, render_template_string, request, jsonify
 import os
 import argparse
