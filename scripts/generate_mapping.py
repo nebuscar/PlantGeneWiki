@@ -1,21 +1,40 @@
+#!/usr/bin/env python3
 from pathlib import Path
 import argparse
+import pandas as pd  # 用于输出 xlsx/csv/tsv/txt（自动处理格式）
 
 # ===================== 命令行参数配置 =====================
 parser = argparse.ArgumentParser(
     description="GFF 基因ID与蛋白ID映射表生成工具：按 ; 分段解析，输出到物种文件夹",
     formatter_class=argparse.RawTextHelpFormatter,
+    epilog="使用示例：\n"
+    "  python 脚本.py -i /your/genome/path -f xlsx\n"
+    "  python 脚本.py --input /your/genome/path --format csv\n"
+    "  python 脚本.py -h  (查看帮助)",
 )
 
+# 输入路径
 parser.add_argument(
     "-i",
     "--input",
+    type=str,
     default="/home/nizhu/renjinran/downloads2/genomes",
     help="指定基因组根目录（包含各物种子文件夹）\n默认路径：/home/nizhu/renjinran/downloads2/genomes",
 )
 
+# 输出格式参数（新增！）
+parser.add_argument(
+    "-f",
+    "--format",
+    choices=["xlsx", "csv", "tsv", "txt"],
+    default="xlsx",
+    help="输出文件格式（可选：xlsx, csv, tsv, txt）\n默认：xlsx",
+)
+
+# 解析参数
 args = parser.parse_args()
 ROOT_DIR = Path(args.input)
+OUT_FORMAT = args.format.lower()
 
 # ===================== 核心处理逻辑 =====================
 for species_dir in ROOT_DIR.iterdir():
@@ -44,11 +63,11 @@ for species_dir in ROOT_DIR.iterdir():
                     if len(parts) < 9:
                         continue
 
-                    # 只处理 CDS 行（只有这些行有 protein_id）
+                    # 只处理 CDS 行
                     if parts[2] not in ("CDS", "cds"):
                         continue
 
-                    # 按 ; 分段解析（你要求的标准方法）
+                    # 按 ; 分段解析
                     attr_str = parts[8]
                     attrs = {}
                     for seg in attr_str.split(";"):
@@ -72,12 +91,17 @@ for species_dir in ROOT_DIR.iterdir():
         print("⚠️  未提取到有效映射，不生成文件")
         continue
 
-    # 输出到当前物种文件夹
-    out_file = species_dir / "geneid_protid_mapping.tsv"
-    with open(out_file, "w", encoding="utf-8") as f:
-        f.write("geneid\tprotid\n")
-        for geneid in sorted(mapping):
-            f.write(f"{geneid}\t{mapping[geneid]}\n")
+    # 构建输出 DataFrame
+    df = pd.DataFrame(sorted(mapping.items()), columns=["geneid", "protid"])
+    out_file = species_dir / f"geneid_protid_mapping.{OUT_FORMAT}"
+
+    # 按格式输出
+    if OUT_FORMAT == "xlsx":
+        df.to_excel(out_file, index=False)
+    elif OUT_FORMAT == "csv":
+        df.to_csv(out_file, index=False, encoding="utf-8-sig")
+    elif OUT_FORMAT in ("tsv", "txt"):
+        df.to_csv(out_file, index=False, encoding="utf-8", sep="\t")
 
     print(f"✅ 完成！输出：{out_file}")
     print(f"📊 有效映射数：{len(mapping)}")
