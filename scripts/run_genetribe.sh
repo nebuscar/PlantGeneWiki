@@ -350,26 +350,37 @@ run_genetribe() {
     for species in "$ref_sp" "${qs[@]}"; do
         faa="$OUTPUT_DIR/${species}.faa"
         fa_link="$OUTPUT_DIR/${species}.fa"
-        [[ -f "$faa" && ! -e "$fa_link" ]] && ln -s "${species}.faa" "$fa_link"
+        [[ -f "$faa" ]] && ln -sf "${faa}" "$fa_link"
     done
 
     # 激活 conda genetribe 环境，确保 jcvi 可用
+    if ! command -v conda &>/dev/null; then
+        echo "错误：未找到 conda，无法激活 genetribe 环境"
+        exit 1
+    fi
+    CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
+    if [[ ! -d "$CONDA_ENV_DIR" ]]; then
+        echo "错误：conda 环境 genetribe 不存在"
+        exit 1
+    fi
     eval "$(conda shell.bash hook 2>/dev/null)"
     conda activate genetribe
     # conda activate 可能因 ~/.local/bin 优先级未能覆盖 python，
     # genetribe core 内部也会调用 python -m jcvi，必须确保 PATH 中 python 指向 conda 环境
-    CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
     if [[ -d "$CONDA_ENV_DIR/bin" ]]; then
         export PATH="$CONDA_ENV_DIR/bin:$PATH"
     fi
 
-    # 保存当前目录，GeneTribe 基于工作目录查找前缀文件
-    local orig_dir="$(pwd)"
+    # 在子 shell 中运行，避免 cd 改变全局工作目录
+    (
     cd "$OUTPUT_DIR"
 
     for q in "${qs[@]}"; do
         for suf in fa bed chrlist; do
-            [[ -f "${ref_sp}.$suf" && -f "${q}.$suf" ]] || continue 2
+            if [[ ! -f "${ref_sp}.$suf" || ! -f "${q}.$suf" ]]; then
+                echo "⚠️  跳过 $q：缺少文件 ${ref_sp}.$suf 或 ${q}.$suf"
+                continue 2
+            fi
         done
         out="genetribe_result/${ref_sp}_vs_$q"
         mkdir -p "$out"
@@ -377,13 +388,13 @@ run_genetribe() {
         # 必须在 genetribe core 运行前将所需文件链接进去
         mkdir -p genetribe_output
         for species in "$ref_sp" "$q"; do
-            [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
-                ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
-            [[ -f "${species}.bed" && ! -e "genetribe_output/${species}.bed" ]] &&
-                ln -s "$(pwd)/${species}.bed" "genetribe_output/${species}.bed"
+            [[ -f "${species}.cds" ]] &&
+                ln -sf "${OUTPUT_DIR}/${species}.cds" "genetribe_output/${species}.cds"
+            [[ -f "${species}.bed" ]] &&
+                ln -sf "${OUTPUT_DIR}/${species}.bed" "genetribe_output/${species}.bed"
             # jcvi 默认查找 .pep 文件（prot 模式），创建符号链接指向 .faa
-            [[ -f "${species}.faa" && ! -e "genetribe_output/${species}.pep" ]] &&
-                ln -s "$(pwd)/${species}.faa" "genetribe_output/${species}.pep"
+            [[ -f "${species}.faa" ]] &&
+                ln -sf "${OUTPUT_DIR}/${species}.faa" "genetribe_output/${species}.pep"
         done
         genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
         # genetribe core 结果输出到 $OUTPUT_DIR，整理到 genetribe_result/ 子目录
@@ -395,8 +406,7 @@ run_genetribe() {
         done
         echo "完成: $ref_sp vs $q"
     done
-
-    cd "$orig_dir"
+    )
 }
 
 # ====================== 执行模式 ======================
