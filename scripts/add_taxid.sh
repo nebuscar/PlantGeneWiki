@@ -11,14 +11,15 @@ show_help() {
 必需参数:
   -i, --input FILE     输入物种列表文件 (tab分隔，第2列为物种拉丁名)
   -o, --output FILE    输出文件，支持格式：.txt .tsv .csv .xlsx
+                      可直接指定路径，例如：-o result/taxid_result.xlsx
 
 可选参数:
   -h, --help           显示帮助信息
 
 示例:
   $0 -i data/meta/species_list.txt -o result.txt
-  $0 -i data/meta/species_list.txt -o result.csv
-  $0 -i data/meta/species_list.txt -o result.xlsx
+  $0 -i data/meta/species_list.txt -o ./output/result.csv
+  $0 -i data/meta/species_list.txt -o /home/user/result.xlsx
 EOF
 }
 
@@ -57,6 +58,13 @@ fi
 if [[ ! -f "$INPUT" ]]; then
     echo "错误：输入文件不存在：$INPUT"
     exit 1
+fi
+
+# ====================== 自动创建输出目录 ======================
+out_dir=$(dirname "${OUTPUT}")
+if [[ ! -d "${out_dir}" ]]; then
+    echo "创建输出目录：${out_dir}"
+    mkdir -p "${out_dir}"
 fi
 
 echo "开始查询 Taxonomy ID..."
