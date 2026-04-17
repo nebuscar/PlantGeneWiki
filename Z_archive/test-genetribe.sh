@@ -396,7 +396,7 @@ run_genetribe_by_genus() {
 
             local res="genetribe_${ref_sp}_vs_${q}"
             mkdir -p "$res"
-            genetribe core -l "$ref_sp" -r "$q" -d "$res" -t "$THREADS" || true
+            genetribe core -l "$ref_sp" -f "$q" -d "$res" -t "$THREADS" || true
 
             mv ./*${ref_sp}*${q}* ./*${q}*${ref_sp}* "$res/" 2>/dev/null || true
             )
@@ -444,7 +444,7 @@ run_genetribe_original() {
         done
         out="genetribe_result/${ref_sp}_vs_${q}"
         mkdir -p "$out"
-        genetribe core -l "$ref_sp" -r "$q" -d "$out" -t "$THREADS" || true
+        genetribe core -l "$ref_sp" -f "$q" -d "$out" -t "$THREADS" || true
         mv ./*${ref_sp}_${q}* ./*${q}_${ref_sp}* "$out/" 2>/dev/null || true
         )
     done

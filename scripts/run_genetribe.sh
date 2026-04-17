@@ -80,7 +80,6 @@ Options:
   -q, --query SPEC     待比对物种
   -m, --mode MODE      运行模式
   -t, --threads N      GeneTribe BLAST 线程数 [默认: 36]
-  -p, --cpus N         jcvi 共线性分析 CPU 数，0=不限制 [默认: 0]
   -h, --help           帮助
 
 单独参数帮助:
@@ -107,7 +106,7 @@ for arg in "$@"; do
 done
 
 # ====================== 解析参数 ======================
-PARSED_ARGS=$(getopt -o hi:o:q:m:t:p: --long help,input:,output:,query:,mode:,threads:,cpus: --name "$0" -- "$@")
+PARSED_ARGS=$(getopt -o hi:o:q:m:t: --long help,input:,output:,query:,mode:,threads: --name "$0" -- "$@")
 eval set -- "$PARSED_ARGS"
 
 INPUT_DIR=""
@@ -115,7 +114,6 @@ OUTPUT_DIR=""
 QUERY_SPECIES=""
 MODE="all"
 THREADS=36
-CPUS=0
 
 while true; do
     case "$1" in
@@ -137,10 +135,6 @@ while true; do
         ;;
     -t | --threads)
         THREADS="$2"
-        shift 2
-        ;;
-    -p | --cpus)
-        CPUS="$2"
         shift 2
         ;;
     -h | --help)
