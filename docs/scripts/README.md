@@ -12,8 +12,9 @@
 | [deduplicate_species_list.md](deduplicate_species_list.md) | [`scripts/deduplicate_species_list.sh`](../../scripts/deduplicate_species_list.sh) | 按物种名去重，每物种仅保留首条记录 |
 | [download_genomes.md](download_genomes.md) | [`scripts/download_genomes.sh`](../../scripts/download_genomes.sh) | 从 NCBI 批量下载基因组数据（支持按目/科/属分批） |
 | [make_bed_chrlist.md](make_bed_chrlist.md) | [`scripts/make_bed_chrlist.sh`](../../scripts/make_bed_chrlist.sh) | 从 GFF 生成 BED 文件和染色体列表 |
-| [run_genetribe.md](run_genetribe.md) | [`scripts/run_genetribe.sh`](../../scripts/run_genetribe.sh) | 植物基因组同源基因鉴定流水线（faa统计+GFF转BED+GeneTribe+jcvi） |
+| [run_genetribe.md](run_genetribe.md) | [`scripts/run_genetribe.sh`](../../scripts/run_genetribe.sh) | 植物基因组同源基因鉴定流水线（属分组、并行、RBH合并） |
 | [run_genetribe_debug.md](run_genetribe_debug.md) | — | run_genetribe.sh 问题排查指南 |
+| [run_genetribe_report.md](run_genetribe_report.md) | — | run_genetribe.sh 测试报告与全量数据耗时推演 |
 
 ## 推荐工作流
 
@@ -23,9 +24,7 @@
                                     ↓
 基因组下载                       download_genomes.sh
                                     ↓
-同源分析预处理                    run_genetribe.sh -m stat,faa,bed,chr
-                                    ↓
-同源基因鉴定                      run_genetribe.sh -m genetribe
+同源分析（属分组并行）            run_genetribe.sh -m all -g -j 3 -t 18
                                     ↓
 物种统计                          calc_species_stats.sh
 ```
