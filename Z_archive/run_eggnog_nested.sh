@@ -13,7 +13,7 @@
 
 # 显示帮助信息
 show_help() {
-    cat << EOF
+    cat <<EOF
 用法: $0 [选项]
 
 自动检索输入根目录下的每个子目录（一级子目录），查找以 .protein.faa 结尾的文件，
@@ -30,7 +30,7 @@ show_help() {
   -h, --help     显示此帮助信息
 
 说明:
-  - 输入根目录下的每个一级子目录被视为一个物种。
+  - 输入根目录下的每个一级子目录被视为一个物种
   - 每个物种子目录内必须包含一个以 .protein.faa 结尾的文件，否则会被跳过。
   - 若存在多个 .protein.faa 文件，仅使用第一个并输出警告。
   - **若不指定 -d，脚本默认使用你运行脚本时所在的目录（即当前工作目录）作为输入根目录。**
@@ -53,30 +53,51 @@ EOF
 }
 
 # ========== 默认参数（可修改） ==========
-DATA_DIR="/DATA/data2/emapperdb-5.0.2"   # eggNOG数据库路径
-CPU=30                                    # 默认CPU核心数
-OUTPUT_FORMAT="tsv"                       # 默认输出格式
-CONDA_ENV="biotools"                      # conda环境名
-TAX_SCOPE="Eukaryota"                     # 分类范围
-EVALUE="1e-5"                             # E-value阈值
-TARGET_ORTHOLOGS="all"                    # 直系同源范围
-INPUT_DIR="."                             # 默认输入根目录（当前目录）
-OUTPUT_ROOT=""                            # 默认输出根目录（稍后设置）
-MANUAL_SPECIES=""                         # 手动指定的物种名
-OVERRIDE="--override"                     # 覆盖已有结果
+DATA_DIR="/DATA/data2/emapperdb-5.0.2" # eggNOG数据库路径
+CPU=30                                 # 默认CPU核心数
+OUTPUT_FORMAT="tsv"                    # 默认输出格式
+CONDA_ENV="biotools"                   # conda环境名
+TAX_SCOPE="Eukaryota"                  # 分类范围
+EVALUE="1e-5"                          # E-value阈值
+TARGET_ORTHOLOGS="all"                 # 直系同源范围
+INPUT_DIR="."                          # 默认输入根目录（当前目录）
+OUTPUT_ROOT=""                         # 默认输出根目录（稍后设置）
+MANUAL_SPECIES=""                      # 手动指定的物种名
+OVERRIDE="--override"                  # 覆盖已有结果
 # =======================================
 
 # 解析命令行参数
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        -d) INPUT_DIR="$2"; shift 2 ;;
-        -o) OUTPUT_ROOT="$2"; shift 2 ;;
-        -c) CPU="$2"; shift 2 ;;
-        -f) OUTPUT_FORMAT="$2"; shift 2 ;;
-        -s) MANUAL_SPECIES="$2"; shift 2 ;;
-        --override) OVERRIDE="--override"; shift ;;
-        -h|--help) show_help ;;
-        *) echo "未知参数: $1"; show_help ;;
+    -d)
+        INPUT_DIR="$2"
+        shift 2
+        ;;
+    -o)
+        OUTPUT_ROOT="$2"
+        shift 2
+        ;;
+    -c)
+        CPU="$2"
+        shift 2
+        ;;
+    -f)
+        OUTPUT_FORMAT="$2"
+        shift 2
+        ;;
+    -s)
+        MANUAL_SPECIES="$2"
+        shift 2
+        ;;
+    --override)
+        OVERRIDE="--override"
+        shift
+        ;;
+    -h | --help) show_help ;;
+    *)
+        echo "未知参数: $1"
+        show_help
+        ;;
     esac
 done
 
@@ -93,7 +114,7 @@ if [ ! -d "$INPUT_DIR" ]; then
 fi
 
 # 激活 conda 环境
-if ! command -v conda &> /dev/null; then
+if ! command -v conda &>/dev/null; then
     echo "错误：conda 未找到，请先初始化 conda"
     exit 1
 fi
@@ -105,7 +126,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 检查 emapper.py 是否可用
-if ! command -v emapper.py &> /dev/null; then
+if ! command -v emapper.py &>/dev/null; then
     echo "错误：emapper.py 未找到，请确认 eggnog-mapper 已安装在 $CONDA_ENV 环境中"
     exit 1
 fi
