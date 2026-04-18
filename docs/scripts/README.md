@@ -15,6 +15,7 @@
 | [run_genetribe.md](run_genetribe.md) | [`scripts/run_genetribe.sh`](../../scripts/run_genetribe.sh) | 植物基因组同源基因鉴定流水线（属分组、并行、RBH合并） |
 | [run_genetribe_debug.md](run_genetribe_debug.md) | — | run_genetribe.sh 问题排查指南 |
 | [run_genetribe_report.md](run_genetribe_report.md) | — | run_genetribe.sh 测试报告与全量数据耗时推演 |
+| [calc_protein_properties_benchmark.md](calc_protein_properties_benchmark.md) | — | calc_protein_properties.py 测试报告：资源消耗、耗时与全量推演 |
 
 ## 推荐工作流
 
