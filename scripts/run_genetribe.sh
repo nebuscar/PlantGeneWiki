@@ -550,7 +550,7 @@ run_merge() {
 
     awk -v ref_sp="$ref_sp" -v n_sp="${#sorted_species[@]}" \
         -v species_list="${sorted_species[*]}" \
-    '
+        '
     BEGIN {
         FS="\t"; OFS="\t"
         split(species_list, sp_arr, " ")
@@ -675,8 +675,11 @@ if $GENUS_MODE; then
     for m in "${modes[@]}"; do
         case "$m" in
         stat) need_stat=true ;;
-        all) need_stat=true; other_steps="faa,bed,chr,genetribe,merge" ;;
-        faa|bed|chr|genetribe|merge) other_steps="${other_steps:+$other_steps,}$m" ;;
+        all)
+            need_stat=true
+            other_steps="faa,bed,chr,genetribe,merge"
+            ;;
+        faa | bed | chr | genetribe | merge) other_steps="${other_steps:+$other_steps,}$m" ;;
         esac
     done
 
@@ -753,7 +756,7 @@ fi
 END_TIME=$(date +%s)
 ELAPSED=$((END_TIME - START_TIME))
 HOURS=$((ELAPSED / 3600))
-MINS=$(( (ELAPSED % 3600) / 60 ))
+MINS=$(((ELAPSED % 3600) / 60))
 SECS=$((ELAPSED % 60))
 
 echo -e "\n========================================"
