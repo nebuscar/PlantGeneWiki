@@ -3,6 +3,8 @@ sample/
 result/
 tmp/
 
+__pycache__/
+
 *.gz
 *.zip
 *.fna
