@@ -22,18 +22,12 @@ app = Flask(__name__)
 DATA_FOLDER = args.input
 
 # ====================== 文件分类规则 ======================
-# 蛋白序列后缀
-PROT_EXT = [".faa"]
-
-# 关键词匹配
-CDS_KEY = ["cds"]
-GENOME_KEY = ["genome"]
-
-# 序列文件后缀
+# 核心文件后缀定义
+PROT_EXT = [".faa"]  # 蛋白序列
+NUC_EXT = [".fna"]  # 核酸序列
+ANN_EXT_GFF = [".gff"]  # 注释文件
+ANN_EXT_GBFF = [".gbff"]  # 注释文件
 SEQ_EXTS = [".faa", ".fna", ".fa"]
-
-# 注释文件后缀
-ANN_EXTS = [".gff", ".gbff"]
 
 # ====================== 前端页面模板 ======================
 HTML_TEMPLATE = """
@@ -59,7 +53,7 @@ HTML_TEMPLATE = """
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -109,15 +103,15 @@ HTML_TEMPLATE = """
         .stats-panel {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             margin-top: 20px;
             flex-wrap: wrap;
         }
         .stat-item {
             background: #f8fafc;
-            padding: 12px 20px;
+            padding: 12px 16px;
             border-radius: 10px;
-            min-width: 140px;
+            min-width: 130px;
         }
         .stat-label {
             font-size: 13px;
@@ -130,11 +124,11 @@ HTML_TEMPLATE = """
             color: #2d3748;
         }
 
-        /* 双列布局 */
+        /* 三列布局 */
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
         }
 
         /* 列卡片 */
@@ -149,8 +143,12 @@ HTML_TEMPLATE = """
             animation: fadeIn 0.5s ease;
         }
 
-        .col-ready {
+        .col-align {
             border-top: 5px solid #10b981;
+        }
+
+        .col-manual {
+            border-top: 5px solid #f59e0b;
         }
 
         .col-empty {
@@ -158,7 +156,7 @@ HTML_TEMPLATE = """
         }
 
         .col-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             padding-bottom: 14px;
             margin-bottom: 20px;
@@ -186,7 +184,6 @@ HTML_TEMPLATE = """
             background: #f1f5f9;
         }
 
-        /* 物种名称颜色（已加深） */
         .item > span:first-child {
             color: #1e293b; 
             font-weight: 500;
@@ -212,19 +209,14 @@ HTML_TEMPLATE = """
             color: #065f46;
         }
 
-        .tag-cds {
+        .tag-fna {
             background: #dbeafe;
             color: #1e40af;
         }
 
-        .tag-genome {
+        .tag-gff {
             background: #fff7ed;
             color: #c2410c;
-        }
-
-        .tag-gff {
-            background: #f3f4f6;
-            color: #374151;
         }
 
         .tag-gbff {
@@ -245,6 +237,11 @@ HTML_TEMPLATE = """
         }
 
         /* 响应式 */
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
@@ -257,7 +254,7 @@ HTML_TEMPLATE = """
 <div class="container">
     <div class="card">
         <h1 class="title">🧬 物种同源比对管理系统</h1>
-        <p class="desc">左侧：可同源比对（FAA/CDS/Genome）｜右侧：空文件</p>
+        <p class="desc">✅可比对(faa+gff) | 📝人工注释(fna+gbff) | 📄空文件</p>
         <input id="search" placeholder="输入属名快速搜索..." oninput="searchData()">
         
         <!-- 统计数据展示 -->
@@ -272,19 +269,31 @@ HTML_TEMPLATE = """
             </div>
             <div class="stat-item">
                 <div class="stat-label">可比对物种</div>
-                <div class="stat-number" id="alignableSpecies">0</div>
+                <div class="stat-number" id="totalAlign">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">人工注释物种</div>
+                <div class="stat-number" id="totalManual">0</div>
             </div>
         </div>
     </div>
 
     <div class="grid">
-        <div class="col col-ready">
+        <!-- 可同源比对 -->
+        <div class="col col-align">
             <h3 class="col-title">✅ 可同源比对物种</h3>
-            <div id="listOk" class="empty-tip">请输入属名开始搜索</div>
+            <div id="listAlign" class="empty-tip">请输入属名开始搜索</div>
         </div>
 
+        <!-- 需人工注释 -->
+        <div class="col col-manual">
+            <h3 class="col-title">📝 需人工注释物种</h3>
+            <div id="listManual" class="empty-tip">请输入属名开始搜索</div>
+        </div>
+
+        <!-- 空文件 -->
         <div class="col col-empty">
-            <h3 class="col-title">📄 空文件 </h3>
+            <h3 class="col-title">📄 空文件</h3>
             <div id="listEmpty" class="empty-tip">请输入属名开始搜索</div>
         </div>
     </div>
@@ -293,59 +302,62 @@ HTML_TEMPLATE = """
 <script>
 async function searchData(){
     let q = document.getElementById("search").value.trim();
-    
     let res = await fetch("/search?g="+encodeURIComponent(q));
     let data = await res.json();
     render(data);
 }
 
 function render(data){
-    let okHtml = "";
-    let emptyHtml = "";
-    const listOk = document.getElementById("listOk");
+    let alignHtml = "", manualHtml = "", emptyHtml = "";
+    const listAlign = document.getElementById("listAlign");
+    const listManual = document.getElementById("listManual");
     const listEmpty = document.getElementById("listEmpty");
 
-    // 统计数据
+    // 统计数据初始化
     let totalSpecies = Object.keys(data).length;
-    let alignableSpecies = 0;
     let genusSet = new Set();
+    let totalAlign = 0, totalManual = 0;
 
     for(let sp in data){
         let info = data[sp];
+        let type = info.type;
         let tags = info.tags;
-        let hasSeq = info.hasSeq;
 
-        // 统计属（取第一个下划线前）
+        // 统计属名
         let genus = sp.split("_")[0];
         genusSet.add(genus);
 
-        // 统计可比对数量
-        if(hasSeq) alignableSpecies++;
+        // 统计数量
+        if(type === "alignable") totalAlign++;
+        if(type === "manual") totalManual++;
 
+        // 生成列表项
         let line = `
             <div class="item">
                 <span>${sp.replace(/_/g," ")}</span>
                 <div class="tags">${tags}</div>
             </div>
         `;
-        if(hasSeq){
-            okHtml += line;
-        }else{
-            emptyHtml += line;
-        }
+
+        // 分类渲染
+        if(type === "alignable") alignHtml += line;
+        else if(type === "manual") manualHtml += line;
+        else emptyHtml += line;
     }
 
-    // 更新统计数字
+    // 更新统计面板
     document.getElementById("totalSpecies").textContent = totalSpecies;
     document.getElementById("totalGenus").textContent = genusSet.size;
-    document.getElementById("alignableSpecies").textContent = alignableSpecies;
+    document.getElementById("totalAlign").textContent = totalAlign;
+    document.getElementById("totalManual").textContent = totalManual;
 
     // 渲染列表
-    listOk.innerHTML = okHtml || "<span class='empty-tip'>无匹配数据</span>";
+    listAlign.innerHTML = alignHtml || "<span class='empty-tip'>无匹配数据</span>";
+    listManual.innerHTML = manualHtml || "<span class='empty-tip'>无匹配数据</span>";
     listEmpty.innerHTML = emptyHtml || "<span class='empty-tip'>无匹配数据</span>";
 }
 
-// 页面加载时自动搜索一次，显示全部统计
+// 页面加载自动搜索
 window.onload = function(){
     searchData();
 }
@@ -364,67 +376,66 @@ def index():
 
 @app.route("/search")
 def search():
-    """搜索接口：根据属名筛选物种并返回分类信息"""
+    """搜索接口：根据属名筛选物种，按新规则分类"""
     q = request.args.get("g", "").lower()
     result = {}
 
-    # 遍历数据目录下的所有物种文件夹
+    # 遍历数据目录
     for dir_name in os.listdir(DATA_FOLDER):
         dir_path = os.path.join(DATA_FOLDER, dir_name)
-
-        # 只处理文件夹
         if not os.path.isdir(dir_path):
             continue
 
-        # 匹配属名（取文件夹名第一个下划线前的部分）
+        # 属名匹配筛选
         genus = dir_name.split("_")[0].lower()
         if q not in genus:
             continue
 
-        # 初始化文件类型标记
+        # 初始化文件标记
         has_faa = False
-        has_cds = False
-        has_genome = False
+        has_fna = False
         has_gff = False
         has_gbff = False
 
-        # 遍历当前物种文件夹内的所有文件
+        # 遍历文件判断类型
         for file_name in os.listdir(dir_path):
             file_lower = file_name.lower()
             file_ext = os.path.splitext(file_lower)[1]
 
-            # 识别序列文件
             if file_ext in PROT_EXT:
                 has_faa = True
-            if any(key in file_lower for key in CDS_KEY) and file_ext in SEQ_EXTS:
-                has_cds = True
-            if any(key in file_lower for key in GENOME_KEY) and file_ext in SEQ_EXTS:
-                has_genome = True
-
-            # 识别注释文件
-            if file_ext == ".gff":
+            if file_ext in NUC_EXT:
+                has_fna = True
+            if file_ext in ANN_EXT_GFF:
                 has_gff = True
-            if file_ext == ".gbff":
+            if file_ext in ANN_EXT_GBFF:
                 has_gbff = True
 
-        # 生成前端标签 HTML
+        # 生成标签
         tag_list = []
         if has_faa:
             tag_list.append('<span class="tag tag-faa">FAA</span>')
-        if has_cds:
-            tag_list.append('<span class="tag tag-cds">CDS</span>')
-        if has_genome:
-            tag_list.append('<span class="tag tag-genome">Genome</span>')
+        if has_fna:
+            tag_list.append('<span class="tag tag-fna">FNA</span>')
         if has_gff:
             tag_list.append('<span class="tag tag-gff">GFF</span>')
         if has_gbff:
             tag_list.append('<span class="tag tag-gbff">GBFF</span>')
+        tags_html = "".join(tag_list)
 
-        # 判断是否可比对：存在任意序列文件即可
-        has_sequence = has_faa or has_cds or has_genome
+        # ====================== 核心分类逻辑 ======================
+        # 1. 可同源比对：必须同时有 faa + gff
+        if has_faa and has_gff:
+            species_type = "alignable"
+        # 2. 需人工注释：必须同时有 fna + gbff
+        elif has_fna and has_gbff:
+            species_type = "manual"
+        # 3. 空文件：无有效组合
+        else:
+            species_type = "empty"
 
         # 存入结果
-        result[dir_name] = {"tags": "".join(tag_list), "hasSeq": has_sequence}
+        result[dir_name] = {"tags": tags_html, "type": species_type}
 
     return jsonify(result)
 
