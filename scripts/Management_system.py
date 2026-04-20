@@ -272,7 +272,7 @@ HTML_TEMPLATE = """
                 <div class="stat-number" id="totalAlign">0</div>
             </div>
             <div class="stat-item">
-                <div class="stat-label">人工注释物种</div>
+                <div class="stat-label">需人工注释物种</div>
                 <div class="stat-number" id="totalManual">0</div>
             </div>
         </div>
