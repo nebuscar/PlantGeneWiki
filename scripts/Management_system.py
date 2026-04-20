@@ -254,7 +254,7 @@ HTML_TEMPLATE = """
 <div class="container">
     <div class="card">
         <h1 class="title">🧬 物种同源比对管理系统</h1>
-        <p class="desc">✅可比对(faa+gff) | 📝人工注释(fna+gbff) | 📄空文件</p>
+        <p class="desc">✅可比对(faa+gff) | 📝需人工注释(fna+gbff) | 📄空文件</p>
         <input id="search" placeholder="输入属名快速搜索..." oninput="searchData()">
         
         <!-- 统计数据展示 -->
@@ -272,7 +272,7 @@ HTML_TEMPLATE = """
                 <div class="stat-number" id="totalAlign">0</div>
             </div>
             <div class="stat-item">
-                <div class="stat-label">人工注释物种</div>
+                <div class="stat-label">需人工注释物种</div>
                 <div class="stat-number" id="totalManual">0</div>
             </div>
         </div>
