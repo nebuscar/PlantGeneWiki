@@ -9,3 +9,7 @@ tmp/
 *.faa
 *.gff
 *.gbff
+*.pdf
+*.ppt
+*.pptx
+*.html
