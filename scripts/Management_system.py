@@ -253,7 +253,7 @@ HTML_TEMPLATE = """
 <body>
 <div class="container">
     <div class="card">
-        <h1 class="title">🧬 物种同源比对管理系统</h1>
+        <h1 class="title">🐧 物种同源比对管理系统</h1>
         <p class="desc">✅可比对(faa+gff) | 📝需人工注释(fna+gbff) | 📄空文件</p>
         <input id="search" placeholder="输入属名快速搜索..." oninput="searchData()">
         
