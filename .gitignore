@@ -3,13 +3,17 @@
 sample/
 result/
 tmp/
+gff_result/
+test/
 
 # files
 *.gz
 *.zip
 *.fna
 *.faa
+*.fa
 *.gff
+*.gtf
 *.gbff
 *.pdf
 *.ppt

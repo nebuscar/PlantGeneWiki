@@ -275,6 +275,11 @@ HTML_TEMPLATE = """
                 <div class="stat-label">需人工注释物种</div>
                 <div class="stat-number" id="totalManual">0</div>
             </div>
+            <!-- 新增：空文件统计 -->
+            <div class="stat-item">
+                <div class="stat-label">空文件物种</div>
+                <div class="stat-number" id="totalEmpty">0</div>
+            </div>
         </div>
     </div>
 
@@ -316,7 +321,7 @@ function render(data){
     // 统计数据初始化
     let totalSpecies = Object.keys(data).length;
     let genusSet = new Set();
-    let totalAlign = 0, totalManual = 0;
+    let totalAlign = 0, totalManual = 0, totalEmpty = 0;
 
     for(let sp in data){
         let info = data[sp];
@@ -330,6 +335,7 @@ function render(data){
         // 统计数量
         if(type === "alignable") totalAlign++;
         if(type === "manual") totalManual++;
+        if(type === "empty") totalEmpty++;
 
         // 生成列表项
         let line = `
@@ -350,6 +356,7 @@ function render(data){
     document.getElementById("totalGenus").textContent = genusSet.size;
     document.getElementById("totalAlign").textContent = totalAlign;
     document.getElementById("totalManual").textContent = totalManual;
+    document.getElementById("totalEmpty").textContent = totalEmpty;
 
     // 渲染列表
     listAlign.innerHTML = alignHtml || "<span class='empty-tip'>无匹配数据</span>";
