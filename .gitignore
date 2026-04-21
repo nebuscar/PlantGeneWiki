@@ -2,10 +2,14 @@
 sample/
 result/
 tmp/
+gff_result/
+test/
 
 *.gz
 *.zip
 *.fna
 *.faa
+*.fa
 *.gff
+*.gtf
 *.gbff
