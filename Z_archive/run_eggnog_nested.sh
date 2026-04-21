@@ -1,13 +1,7 @@
 #!/bin/bash
 # ============================================================
 # 全自动运行 eggNOG-mapper（支持嵌套目录结构）
-# 目录结构要求：
-#   input_dir/                     （输入根目录，默认当前目录）
-#     species_A/                   （子目录名作为物种名）
-#       *.protein.faa              （必须以此结尾）
-#     species_B/
-#       *.protein.faa
-#     ...
+# 改进版：支持 -i/--input, -o/--output, -f/--format, -l/--list
 # 用法: ./run_eggnog_nested.sh [选项]
 # ============================================================
 
@@ -16,35 +10,39 @@ show_help() {
     cat <<EOF
 用法: $0 [选项]
 
-自动检索输入根目录下的每个子目录（一级子目录），查找以 .protein.faa 结尾的文件，
+自动检索输入根目录下的每个子目录（一级子目录），查找以 _protein.faa 结尾的文件，
 依次运行 eggNOG-mapper，并自动提取六列信息（protein_id, species, GO, KEGG, Pfam, function_description）。
 
 选项:
-  -d DIR         输入根目录（默认: 当前目录，即你运行脚本时所在的目录）
-                 脚本会检索该目录下的每个一级子目录，将子目录名作为物种名。
-  -o DIR         输出根目录（默认: 输入根目录/eggnog_output）
-  -c CPU         使用的 CPU 核心数（默认: 30）
-  -f FORMAT      输出格式: tsv, csv, xlsx（默认: tsv）
-  -s SPECIES     手动指定物种名（覆盖自动从子目录名提取，通常不推荐）
-  --override     强制覆盖已有输出文件（默认：覆盖）
-  -h, --help     显示此帮助信息
+  -i, --input DIR      输入根目录（默认: 当前目录）
+                        脚本会检索该目录下的每个一级子目录，将子目录名作为物种名。
+  -o, --output DIR     输出根目录（默认: 输入根目录/eggnog_output）
+  -f, --format FMT     输出格式: tsv, csv, xlsx, txt (默认: xlsx)
+  -l, --list FILE      物种列表文件（每行一个物种名，仅处理这些物种）
+  -c, --cpus N         使用的 CPU 核心数（默认: 30）
+  -s, --species NAME   手动指定物种名（覆盖自动从子目录名提取，通常不推荐）
+  --override           强制覆盖已有输出文件（默认：覆盖）
+  -h, --help           显示此帮助信息
 
 说明:
-  - 输入根目录下的每个一级子目录被视为一个物种
-  - 每个物种子目录内必须包含一个以 .protein.faa 结尾的文件，否则会被跳过。
-  - 若存在多个 .protein.faa 文件，仅使用第一个并输出警告。
-  - **若不指定 -d，脚本默认使用你运行脚本时所在的目录（即当前工作目录）作为输入根目录。**
+  - 输入根目录下的每个一级子目录被视为一个物种。
+  - 每个物种子目录内必须包含一个以 _protein.faa 结尾的文件，否则会被跳过。
+  - 若存在多个 _protein.faa 文件，仅使用第一个并输出警告。
+  - 若不指定 -i，脚本默认使用当前工作目录作为输入根目录。
+  - 直接运行脚本（不带参数）会显示本帮助信息，防止误操作。
 
 示例:
-  # 处理当前目录下的所有子目录（先 cd 到包含物种目录的父目录，再执行脚本）
-  cd /path/to/your/species_parent_dir
+  # 处理当前目录下的所有子目录
   $0
 
-  # 指定输入目录（无论你在哪个目录执行，都会处理 /data/genomes 下的子目录）
-  $0 -d /data/genomes -c 30 -f csv
+  # 指定输入目录和输出目录
+  $0 -i /data/genomes -o /data/results
 
-  # 指定输入和输出目录
-  $0 -d /data/genomes -o /data/results
+  # 使用 30 个 CPU 核心，输出 CSV 格式
+  $0 -i input -o output -c 30 -f csv
+
+  # 仅处理列表中的物种
+  $0 -i input -l species_list.txt
 
   # 查看帮助
   $0 -h
@@ -52,10 +50,15 @@ EOF
     exit 0
 }
 
+# 如果没有任何参数，默认显示帮助
+if [ $# -eq 0 ]; then
+    show_help
+fi
+
 # ========== 默认参数（可修改） ==========
 DATA_DIR="/DATA/data2/emapperdb-5.0.2" # eggNOG数据库路径
 CPU=30                                 # 默认CPU核心数
-OUTPUT_FORMAT="tsv"                    # 默认输出格式
+OUTPUT_FORMAT="xlsx"                   # 默认输出格式（xlsx）
 CONDA_ENV="biotools"                   # conda环境名
 TAX_SCOPE="Eukaryota"                  # 分类范围
 EVALUE="1e-5"                          # E-value阈值
@@ -63,29 +66,34 @@ TARGET_ORTHOLOGS="all"                 # 直系同源范围
 INPUT_DIR="."                          # 默认输入根目录（当前目录）
 OUTPUT_ROOT=""                         # 默认输出根目录（稍后设置）
 MANUAL_SPECIES=""                      # 手动指定的物种名
+SPECIES_LIST=""                        # 物种列表文件
 OVERRIDE="--override"                  # 覆盖已有结果
 # =======================================
 
 # 解析命令行参数
 while [[ $# -gt 0 ]]; do
     case "$1" in
-    -d)
+    -i | --input)
         INPUT_DIR="$2"
         shift 2
         ;;
-    -o)
+    -o | --output)
         OUTPUT_ROOT="$2"
         shift 2
         ;;
-    -c)
-        CPU="$2"
-        shift 2
-        ;;
-    -f)
+    -f | --format)
         OUTPUT_FORMAT="$2"
         shift 2
         ;;
-    -s)
+    -l | --list)
+        SPECIES_LIST="$2"
+        shift 2
+        ;;
+    -c | --cpus)
+        CPU="$2"
+        shift 2
+        ;;
+    -s | --species)
         MANUAL_SPECIES="$2"
         shift 2
         ;;
@@ -113,12 +121,12 @@ if [ ! -d "$INPUT_DIR" ]; then
     exit 1
 fi
 
-# 激活 conda 环境
+# 激活 conda 环境（更健壮的方式）
 if ! command -v conda &>/dev/null; then
     echo "错误：conda 未找到，请先初始化 conda"
     exit 1
 fi
-source $(conda info --base)/etc/profile.d/conda.sh
+eval "$(conda shell.bash hook)"
 conda activate "$CONDA_ENV"
 if [ $? -ne 0 ]; then
     echo "错误：无法激活 conda 环境 $CONDA_ENV"
@@ -131,22 +139,47 @@ if ! command -v emapper.py &>/dev/null; then
     exit 1
 fi
 
-# 查找所有一级子目录
-mapfile -t subdirs < <(find -L "$INPUT_DIR" -maxdepth 1 -mindepth 1 -type d | sort)
+# 获取要处理的子目录列表
+if [ -n "$SPECIES_LIST" ]; then
+    if [ ! -f "$SPECIES_LIST" ]; then
+        echo "错误：物种列表文件 $SPECIES_LIST 不存在"
+        exit 1
+    fi
+    # 读取列表文件，仅保留存在于 INPUT_DIR 下的子目录
+    subdirs=()
+    while IFS= read -r sp; do
+        [[ -z "$sp" || "$sp" =~ ^# ]] && continue
+        if [ -d "${INPUT_DIR}/${sp}" ]; then
+            subdirs+=("${INPUT_DIR}/${sp}")
+        else
+            echo "[WARN] 列表中的物种 $sp 在输入目录下不存在，跳过"
+        fi
+    done < "$SPECIES_LIST"
+else
+    # 查找所有一级子目录（兼容 Bash 3）
+    subdirs=()
+    while IFS= read -r dir; do
+        subdirs+=("$dir")
+    done < <(find -L "$INPUT_DIR" -maxdepth 1 -mindepth 1 -type d | sort)
+fi
+
 if [ ${#subdirs[@]} -eq 0 ]; then
-    echo "错误：在目录 $INPUT_DIR 中没有找到子目录"
+    echo "错误：在目录 $INPUT_DIR 中没有找到符合条件的子目录"
     exit 1
 fi
 
 echo "找到 ${#subdirs[@]} 个子目录："
 printf '  %s\n' "${subdirs[@]}"
 
+# 记录全局开始时间
+global_start=$(date +%s)
+
 # 循环处理每个子目录
 for species_dir in "${subdirs[@]}"; do
-    # 物种名（子目录名）
     species_name=$(basename "$species_dir")
     echo "========================================"
     echo "处理物种: $species_name ($species_dir)"
+    start_time=$(date +%s)
 
     # 在子目录中查找以 _protein.faa 结尾的文件
     faa_files=()
@@ -176,7 +209,7 @@ for species_dir in "${subdirs[@]}"; do
 
     # 1. 运行 eggNOG-mapper
     echo "运行 emapper.py..."
-    emapper.py -i "$faa" \
+    if ! emapper.py -i "$faa" \
         -o "$prefix" \
         --data_dir "$DATA_DIR" \
         --cpu "$CPU" \
@@ -184,7 +217,10 @@ for species_dir in "${subdirs[@]}"; do
         --tax_scope "$TAX_SCOPE" \
         --evalue "$EVALUE" \
         --target_orthologs "$TARGET_ORTHOLOGS" \
-        $OVERRIDE
+        $OVERRIDE; then
+        echo "错误：emapper.py 运行失败，跳过该物种"
+        continue
+    fi
 
     annot_file="${prefix}.emapper.annotations"
     if [ ! -f "$annot_file" ]; then
@@ -249,7 +285,7 @@ with open(infile) as f:
         desc = fields[idx["Description"]] if fields[idx["Description"]] != "-" else ""
         rows.append([pid, species, go, kegg, pfam, desc])
 
-if fmt == "tsv":
+if fmt == "tsv" or fmt == "txt":
     with open(outfile, 'w', newline='') as f:
         w = csv.writer(f, delimiter='\t')
         w.writerow(["protein_id", "species", "GO", "KEGG", "Pfam", "function_description"])
@@ -278,8 +314,17 @@ else:
 print(f"提取完成: {outfile}")
 PYTHON_SCRIPT
 
-    echo "完成处理: $species_name -> $output_file"
+    end_time=$(date +%s)
+    elapsed=$((end_time - start_time))
+    echo "完成处理: $species_name -> $output_file (耗时: ${elapsed}秒)"
 done
 
+global_end=$(date +%s)
+total_elapsed=$((global_end - global_start))
 echo "========================================"
-echo "所有任务完成."
+echo "所有任务完成！"
+echo "总耗时: ${total_elapsed} 秒"
+if [ ${#subdirs[@]} -gt 0 ]; then
+    avg=$((total_elapsed / ${#subdirs[@]}))
+    echo "平均每个物种耗时: ${avg} 秒"
+fi
