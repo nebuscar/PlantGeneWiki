@@ -5,7 +5,7 @@ import argparse
 
 # ====================== 命令行参数解析 ======================
 parser = argparse.ArgumentParser(
-    description="🧬 物种同源比对管理系统 - 基因组文件检索工具"
+    description="🐧 物种同源比对管理系统 - 基因组文件检索工具"
 )
 parser.add_argument(
     "-i",
@@ -36,7 +36,7 @@ HTML_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧬 物种同源比对管理系统</title>
+    <title>🐧 物种同源比对管理系统</title>
     <style>
         * {
             margin: 0;
