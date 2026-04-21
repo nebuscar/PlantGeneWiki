@@ -1,10 +1,10 @@
+# folders
 /downloads/
 sample/
 result/
 tmp/
 
-__pycache__/
-
+# files
 *.gz
 *.zip
 *.fna
@@ -15,4 +15,3 @@ __pycache__/
 *.ppt
 *.pptx
 *.html
-Z_archive/.nfs0000000005c3abb3000098cf
