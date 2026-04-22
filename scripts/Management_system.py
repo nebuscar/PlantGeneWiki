@@ -1,73 +1,105 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+物种同源比对管理系统 - 基因组文件检索工具
+兼容 Python 3.6+
+"""
+
 from flask import Flask, render_template_string, request, jsonify
 import os
 import argparse
 import csv
 
-# ====================== 命令行参数解析 ======================
-parser = argparse.ArgumentParser(
-    description="🐧 物种同源比对管理系统 - 基因组文件检索工具"
-)
-parser.add_argument(
-    "-i",
-    "--input",
-    default="/DATA/data2/downloads/genomes",
-    help="指定基因组数据目录路径，默认路径：/DATA/data2/downloads/genomes",
-)
-args = parser.parse_args()
-
-# Flask 应用初始化
+# ====================== 全局配置 ======================
 app = Flask(__name__)
 
-# 数据目录配置
-DATA_FOLDER = args.input
-# ========== 直接写死你给的绝对路径 ==========
-TAXONOMY_FILE = (
-    "/home/nizhu/renjinran/plantsdb/data/meta/species_list_unique_with_taxid.txt"
-)
+PROT_EXT = [".faa"]
+NUC_EXT = [".fna"]
+ANN_EXT_GFF = [".gff"]
+ANN_EXT_GBFF = [".gbff"]
 
-# ====================== 加载物种分类映射表 ======================
-species_taxonomy = {}  # key: 文件夹名(xxx_xxx)，value: genus/order/family
+species_taxonomy = {}
 
 
-def load_taxonomy_mapping():
+# ====================== 命令行参数解析 ======================
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="🐧 物种同源比对管理系统 - 基因组文件检索工具"
+    )
+    parser.add_argument(
+        "-i",
+        "--input",
+        default="/DATA/data2/downloads/genomes",
+        help="指定基因组数据目录路径，默认路径：/DATA/data2/downloads/genomes",
+    )
+    parser.add_argument(
+        "-p", "--port", type=int, default=8080, help="指定服务端口，默认：8080"
+    )
+    return parser.parse_args()
+
+
+# ====================== 数据加载函数 ======================
+def load_taxonomy_mapping(taxonomy_file):
     global species_taxonomy
+    species_taxonomy.clear()
+
+    if not os.path.exists(taxonomy_file):
+        print(f"❌ 错误：找不到分类文件 {taxonomy_file}")
+        return
+
     try:
-        # tab分隔读取你的物种列表
-        with open(TAXONOMY_FILE, "r", encoding="utf-8") as f:
+        with open(taxonomy_file, "r", encoding="utf-8") as f:
             reader = csv.DictReader(f, delimiter="\t")
             for row in reader:
                 species_raw = row.get("Species", "").strip()
                 if not species_raw:
                     continue
-                # 物种名空格转下划线 = 文件夹名
+
                 folder_name = species_raw.replace(" ", "_")
-                # 提取分类 → 改用 Family
                 order = row.get("Order", "").strip()
                 family = row.get("Family", "").strip()
-                genus = species_raw.split(" ")[0]
+                if " " in species_raw:
+                    genus = species_raw.split(" ")[0]
+                else:
+                    genus = species_raw
 
                 species_taxonomy[folder_name] = {
                     "genus": genus,
                     "order": order,
                     "family": family,
                 }
-        print(f"✅ 分类文件加载成功：{TAXONOMY_FILE}")
+
+        print(f"✅ 分类文件加载成功：{taxonomy_file}")
         print(f"✅ 共载入分类物种：{len(species_taxonomy)} 个")
-    except FileNotFoundError:
-        print(f"❌ 错误：找不到文件 {TAXONOMY_FILE}")
+
     except Exception as e:
         print(f"❌ 分类表读取异常：{str(e)}")
 
 
-# 程序启动自动加载
-load_taxonomy_mapping()
+def check_genome_files(dir_path):
+    has_faa = False
+    has_fna = False
+    has_gff = False
+    has_gbff = False
 
-# ====================== 文件后缀规则 ======================
-PROT_EXT = [".faa"]
-NUC_EXT = [".fna"]
-ANN_EXT_GFF = [".gff"]
-ANN_EXT_GBFF = [".gbff"]
+    try:
+        file_list = os.listdir(dir_path)
+    except (PermissionError, FileNotFoundError):
+        return has_faa, has_fna, has_gff, has_gbff
+
+    for f in file_list:
+        ext = os.path.splitext(f.lower())[1]
+        if ext in PROT_EXT:
+            has_faa = True
+        if ext in NUC_EXT:
+            has_fna = True
+        if ext in ANN_EXT_GFF:
+            has_gff = True
+        if ext in ANN_EXT_GBFF:
+            has_gbff = True
+
+    return has_faa, has_fna, has_gff, has_gbff
+
 
 # ====================== 前端页面模板 ======================
 HTML_TEMPLATE = """
@@ -113,7 +145,6 @@ HTML_TEMPLATE = """
             padding: 16px; border-radius: 12px; color: #333;
             display: flex; flex-direction: column; gap: 4px;
         }
-        /* 自定义三色 */
         .mini-card.align { background: #f38181; }
         .mini-card.manual { background: #fce38a; }
         .mini-card.empty { background: #95e1d3; }
@@ -142,7 +173,6 @@ HTML_TEMPLATE = """
             background: #fff; border-radius: 16px; padding: 20px;
             min-height: 500px; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
         }
-        /* 顶部边框配色同步 */
         .col-align { border-top: 5px solid #f38181; }
         .col-manual { border-top: 5px solid #fce38a; }
         .col-empty { border-top: 5px solid #95e1d3; }
@@ -219,7 +249,7 @@ HTML_TEMPLATE = """
         <div class="grid">
             <div class="col col-align"><h3 class="col-title">✅ 可同源比对物种</h3><div id="listAlign" class="empty-tip"></div></div>
             <div class="col col-manual"><h3 class="col-title">📝 需人工注释物种</h3><div id="listManual" class="empty-tip"></div></div>
-            <div class="col col-empty"><h3 class="col-title">📄 空文件</h3><div id="listEmpty" class="empty-tip"></div></div>
+            <div class="col-empty"><h3 class="col-title">📄 空文件</h3><div id="listEmpty" class="empty-tip"></div></div>
         </div>
     </div>
 </div>
@@ -228,7 +258,6 @@ HTML_TEMPLATE = """
 let donutChart;
 function initChart() {
     let ctx = document.getElementById("donutChart").getContext("2d");
-    // 环形图配色同步新颜色
     donutChart = new Chart(ctx, {
         type: 'doughnut',
         data: { 
@@ -295,7 +324,7 @@ window.onload = () => { initChart(); searchData(); }
 """
 
 
-# ====================== 路由 ======================
+# ====================== Flask 路由 ======================
 @app.route("/")
 def index():
     return render_template_string(HTML_TEMPLATE)
@@ -303,41 +332,27 @@ def index():
 
 @app.route("/search")
 def search():
-    q = request.args.get("g", "").lower()
+    query = request.args.get("g", "").lower()
+    data_folder = app.config["DATA_FOLDER"]
     result = {}
 
-    # 检查数据目录是否存在
-    if not os.path.isdir(DATA_FOLDER):
-        return jsonify({"error": f"数据目录不存在: {DATA_FOLDER}", "species": {}}), 404
+    if not os.path.isdir(data_folder):
+        return jsonify({"error": f"数据目录不存在: {data_folder}", "species": {}}), 404
 
-    for dir_name in os.listdir(DATA_FOLDER):
-        dir_path = os.path.join(DATA_FOLDER, dir_name)
+    for dir_name in os.listdir(data_folder):
+        dir_path = os.path.join(data_folder, dir_name)
         if not os.path.isdir(dir_path):
             continue
 
-        taxon = species_taxonomy.get(
+        taxon_info = species_taxonomy.get(
             dir_name, {"genus": "未知属", "order": "未知目", "family": "未知科"}
         )
-        genus = taxon["genus"]
+        genus = taxon_info["genus"]
 
-        if q and q not in genus.lower():
+        if query and query not in genus.lower():
             continue
 
-        has_faa = has_fna = has_gff = has_gbff = False
-        try:
-            file_list = os.listdir(dir_path)
-        except PermissionError:
-            continue
-        for f in file_list:
-            ext = os.path.splitext(f.lower())[1]
-            if ext in PROT_EXT:
-                has_faa = True
-            if ext in NUC_EXT:
-                has_fna = True
-            if ext in ANN_EXT_GFF:
-                has_gff = True
-            if ext in ANN_EXT_GBFF:
-                has_gbff = True
+        has_faa, has_fna, has_gff, has_gbff = check_genome_files(dir_path)
 
         tags = []
         if has_faa:
@@ -351,25 +366,42 @@ def search():
         tags_html = "".join(tags)
 
         if has_faa and has_gff:
-            st = "alignable"
+            species_type = "alignable"
         elif has_fna and has_gbff:
-            st = "manual"
+            species_type = "manual"
         else:
-            st = "empty"
+            species_type = "empty"
 
         result[dir_name] = {
             "tags": tags_html,
-            "type": st,
+            "type": species_type,
             "genus": genus,
-            "order": taxon["order"],
-            "family": taxon["family"],
+            "order": taxon_info["order"],
+            "family": taxon_info["family"],
         }
 
     return jsonify({"species": result})
 
 
-# ====================== 启动服务 ======================
+# ====================== 主函数 ======================
+def main():
+    args = parse_args()
+
+    TAXONOMY_FILE = (
+        "/home/nizhu/renjinran/plantsdb/data/meta/species_list_unique_with_taxid.txt"
+    )
+
+    load_taxonomy_mapping(TAXONOMY_FILE)
+
+    app.config["DATA_FOLDER"] = args.input
+
+    print(f"\n==============================================")
+    print(f"✅ 基因组数据目录：{args.input}")
+    print(f"✅ 服务启动地址：http://0.0.0.0:{args.port}")
+    print(f"==============================================\n")
+
+    app.run(host="0.0.0.0", port=args.port, debug=False)
+
+
 if __name__ == "__main__":
-    print(f"✅ 基因组目录：{DATA_FOLDER}")
-    print(f"✅ 访问地址：http://0.0.0.0:8080")
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    main()
