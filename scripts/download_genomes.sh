@@ -2,8 +2,8 @@
 # NCBI 基因组批量下载脚本
 
 project_dir="/home/nizhu/Projects/plantsdb"
-meta_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
-# out_dir="${project_dir}/downloads/genomes"
+default_input_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
+input_dir="${default_input_dir}"
 default_out_dir="/DATA/data2/downloads/genomes"
 out_dir="${default_out_dir}"
 default_log_dir="${project_dir}/downloads/logs"
@@ -36,6 +36,7 @@ show_help() {
   -h, --help              显示帮助信息
   -l, --list              列出所有可用的批次
   -t, --test              测试模式，只下载单个物种
+  -i, --input FILE        指定物种列表文件 (默认: ${default_input_dir})
   -o, --outdir DIR        指定下载保存目录 (默认: ${default_out_dir})
   -logdir, --logdir DIR   指定日志保存目录 (默认: ${default_log_dir})
 
@@ -45,16 +46,16 @@ NCBI datasets 参数:
                           (默认: genome,protein,cds,gff3,gbff)
   --assembly-level <lvls> 限制组装级别 (逗号分隔)
                           可选: chromosome,complete,contig,scaffold
-                          (默认: 不限制)
+                          (默认: chromosome,complete)
   --assembly-source <src> 限制组装来源: RefSeq 或 GenBank (默认: all)
   --assembly-version <v>  限制组装版本: latest 或 all (默认: latest)
-  --annotated             限制为有注释的基因组
-  --reference             限制为参考基因组
-  --exclude-atypical      排除非典型组装
-  --exclude-multi-isolate 排除多分离株项目的组装
+  --annotated             限制为有注释的基因组 (默认: 不限制)
+  --reference             限制为参考基因组 (默认: 不限制)
+  --exclude-atypical      排除非典型组装 (默认: 排除)
+  --exclude-multi-isolate 排除多分离株项目的组装 (默认: 排除)
   --mag <val>             限制 MAG 组装: only 或 exclude (默认: all)
-  --released-after <date> 限制在此日期之后发布的基因组 (YYYY-MM-DD)
-  --released-before <date>限制在此日期之前发布的基因组 (YYYY-MM-DD)
+  --released-after <date> 限制在此日期之后发布的基因组 (默认: 不限制)
+  --released-before <date>限制在此日期之前发布的基因组 (默认: 不限制)
 
 筛选参数 (支持多个，自动判断是名称还是文件):
   <名称>         按当前模式筛选（属名/科名/目名）
@@ -62,18 +63,22 @@ NCBI datasets 参数:
   无筛选参数     下载当前模式下全部
 
 示例:
-  $0 -l family                       # 查看可用的科列表
-  $0 order Brassicales              # 下载 Brassicales 目
-  $0 family Fabaceae                # 只下载 Fabaceae 科
-  $0 genus Oryza                    # 下载 Oryza 属
-  $0 genus Acer Arbus               # 下载 Acer 和 Arbus 两个属
-  $0 genus species_list.txt         # 从文件读取属名列表
-  $0 order orders.txt               # 从文件读取目名列表
-  $0 all                            # 下载全部物种
-  $0 -t "Arabidopsis thaliana"   # 测试下载单个物种
-  $0 all --annotated --assembly-level chromosome  # 只下载有注释的染色体级别基因组
-  $0 genus Oryza --reference        # 只下载 Oryza 属的参考基因组
-  $0 genus Acer -o ~/Projects/ -logdir ~/Projects/logs  # 指定下载目录+日志目录
+  $0 -l family                                    # 查看可用的科列表
+  $0 order Brassicales                           # 下载 Brassicales 目
+  $0 family Fabaceae                             # 下载 Fabaceae 科
+  $0 genus Oryza                                  # 下载 Oryza 属
+  $0 genus Acer Arbus                             # 下载 Acer 和 Arbus 两个属
+  $0 genus Oryza -i /path/to/species.txt         # 指定物种列表文件
+  $0 genus species_list.txt                       # 从文件读取属名列表
+  $0 order orders.txt                             # 从文件读取目名列表
+  $0 all                                          # 下载全部物种
+  $0 -t "Arabidopsis thaliana"                    # 测试模式：下载单个物种
+  $0 all --annotated --assembly-level chromosome  # 下载有注释的染色体级别基因组
+  $0 genus Oryza --reference                     # 只下载参考基因组
+  $0 genus Acer -o ~/Projects/ -logdir ~/Projects/logs  # 指定下载目录和日志目录
+  $0 all --assembly-source RefSeq                 # 只下载 RefSeq 来源的基因组
+  $0 family Fabaceae --released-after 2020-01-01  # 下载 2020 年后发布的 Fabaceae 基因组
+  $0 genus Oryza --mag exclude                   # 排除 MAG 组装
 EOF
     exit 0
 }
@@ -84,19 +89,18 @@ show_list() {
     order) col=6 ;;
     family) col=7 ;;
     genus) col=8 ;;
-    *)
-        col=8
-
-        ;;
+    *) col=8 ;;
     esac
-    awk -F'\t' -v col="$col" 'NR>1 {print $col}' "${meta_dir}" | sort | uniq -c | sort -rn
+    awk -F'\t' -v col="$col" 'NR>1 {print $col}' "${input_dir}" | sort | uniq -c | sort -rn
     exit 0
 }
 
 download_species() {
     local species="$1"
     local taxid="$2"
-    local species_name=$(echo "$species" | tr ' ' '_')
+    local species_name
+    species_name=$(echo "$species" | tr ' /' '_')
+    species_name=${species_name%%_} # 移除尾部下划线
     local species_dir="${out_dir}/${species_name}"
     local zip_file="${species_dir}.zip"
 
@@ -143,8 +147,8 @@ download_species() {
 
     mkdir -p "$species_dir"
     datasets download genome taxon "$taxid" \
-        --include $include_types \
-        $extra_args \
+        --include "$include_types" \
+        "$extra_args" \
         --filename "${zip_file}" 2>&1 | grep -v "New version"
 
     sleep 1
@@ -167,12 +171,11 @@ download_species() {
 
     # 整理文件：比较所有 accession，选择收录最完整的，RefSeq优先
     (
-        cd "$species_dir"
+        cd "$species_dir" || exit
         find . -name "*.gz" -exec gunzip -f {} \; 2>/dev/null || true
 
         best_dir=""
         best_score=0
-        best_is_refseq=0
 
         # 遍历所有 accession 目录，计算完整性得分（RefSeq 优先：先 GCA 后 GCF）
         for dir in ncbi_dataset/data/GCF_* ncbi_dataset/data/GCA_*; do
@@ -194,7 +197,6 @@ download_species() {
             if [ "$score" -gt "$best_score" ] || ([ "$score" -eq "$best_score" ] && [ "$is_refseq" -eq 1 ]); then
                 best_score=$score
                 best_dir="$dir"
-                best_is_refseq=$is_refseq
             fi
         done
 
@@ -219,12 +221,8 @@ download_species() {
         # ====================== 自动清理 ======================
         rm -rf ncbi_dataset/ README.md
 
-        # 安全删除残留的原始文件（只删除存在的文件）
-        [ -f GC[AF]*_genomic.fna ] && rm -f GC[AF]*_genomic.fna >/dev/null 2>&1
-        [ -f cds_from_genomic.fna ] && rm -f cds_from_genomic.fna >/dev/null 2>&1
-        [ -f protein.faa ] && rm -f protein.faa >/dev/null 2>&1
-        [ -f genomic.gff ] && rm -f genomic.gff >/dev/null 2>&1
-        [ -f genomic.gbff ] && rm -f genomic.gbff >/dev/null 2>&1
+        # 安全删除残留的原始文件（rm -f 自身可安全处理不存在的文件）
+        rm -f GC[AF]*_genomic.fna cds_from_genomic.fna protein.faa genomic.gff genomic.gbff 2>/dev/null
 
         # ====================== 自动生成数据来源说明 ======================
         if [ -n "$best_dir" ]; then
@@ -250,8 +248,8 @@ EOF
     if [ -f "${species_dir}/${species_name}_genome.fna" ] &&
         [ -f "${species_dir}/${species_name}_cds.fna" ] &&
         [ -f "${species_dir}/${species_name}_protein.faa" ] &&
-        [ -f "${species_dir}/${species_name}_annotation.gff" -o \
-            -f "${species_dir}/${species_name}_annotation.gbff" ]; then
+        [ -f "${species_dir}/${species_name}_annotation.gff" ] ||
+        [ -f "${species_dir}/${species_name}_annotation.gbff" ]; then
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 成功 | 文件完整" | tee -a "$SUCCESS_LOG" "$TOTAL_LOG"
     else
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ${species} | ${taxid} | 成功 | 文件不完整" | tee -a "$SUCCESS_LOG" "$TOTAL_LOG"
@@ -274,6 +272,11 @@ while [[ $# -gt 0 ]]; do
     -t | --test)
         TEST_MODE="yes"
         TEST_SPECIES="$2"
+        shift
+        ;;
+    -i | --input)
+        input_dir="$2"
+        echo "已指定输入文件：$input_dir"
         shift
         ;;
     -o | --outdir)
@@ -355,14 +358,14 @@ TOTAL_LOG="${log_dir}/total.log"
 : >"$SKIP_LOG"
 : >"$TOTAL_LOG"
 
-if [ ! -f "${meta_dir}" ]; then
-    echo "错误: 未找到物种列表文件 ${meta_dir}" | tee -a $TOTAL_LOG
+if [ ! -f "${input_dir}" ]; then
+    echo "错误: 未找到物种列表文件 ${input_dir}" | tee -a "$TOTAL_LOG"
     exit 1
 fi
 
 # 测试模式
 if [ "$TEST_MODE" = "yes" ] && [ -n "$TEST_SPECIES" ]; then
-    line=$(awk -F'\t' -v name="$TEST_SPECIES" '$2==name {print $2"\t"$3; exit}' "${meta_dir}")
+    line=$(awk -F'\t' -v name="$TEST_SPECIES" '$2==name {print $2"\t"$3; exit}' "${input_dir}")
     species=$(echo "$line" | cut -f1)
     taxid=$(echo "$line" | cut -f2)
     download_species "$species" "$taxid"
@@ -373,7 +376,7 @@ fi
 expand_filters() {
     local mode_label="$1"
     shift
-    expanded=()
+    local expanded=()
     for item in "$@"; do
         if [ -f "$item" ]; then
             echo "从文件读取${mode_label}列表: $item"
@@ -390,9 +393,17 @@ expand_filters() {
 # 批量下载
 case "$BATCH_MODE" in
 order | family | genus)
-    col=$(case "$BATCH_MODE" in order) echo 6 ;; family) echo 7 ;; genus) echo 8 ;; esac)
-    mode_label=$(case "$BATCH_MODE" in order) echo "目名" ;; family) echo "科名" ;; genus) echo "属名" ;; esac)
-    awk -F'\t' -v col="$col" 'NR>1 {print $col}' "${meta_dir}" | sort -u >/tmp/groups.txt
+    if [ "$BATCH_MODE" = "order" ]; then
+        col=6
+        mode_label="目名"
+    elif [ "$BATCH_MODE" = "family" ]; then
+        col=7
+        mode_label="科名"
+    else
+        col=8
+        mode_label="属名"
+    fi
+    awk -F'\t' -v col="$col" 'NR>1 {print $col}' "${input_dir}" | sort -u >/tmp/groups.txt
 
     if [ ${#BATCH_FILTERS[@]} -gt 0 ]; then
         expand_filters "$mode_label" "${BATCH_FILTERS[@]}"
@@ -412,7 +423,7 @@ order | family | genus)
 
     for group in $groups; do
         echo "========== 批次: $group =========="
-        awk -F'\t' -v g="$group" -v col="$col" '$col==g {print $2"\t"$3}' "${meta_dir}" |
+        awk -F'\t' -v g="$group" -v col="$col" '$col==g {print $2"\t"$3}' "${input_dir}" |
             while IFS=$'\t' read -r species taxid; do
                 download_species "$species" "$taxid"
             done
@@ -420,7 +431,7 @@ order | family | genus)
     rm -f /tmp/groups.txt
     ;;
 all | "")
-    awk -F'\t' 'NR>1 {print $2"\t"$3}' "${meta_dir}" | sort -u |
+    awk -F'\t' 'NR>1 {print $2"\t"$3}' "${input_dir}" | sort -u |
         while IFS=$'\t' read -r species taxid; do
             download_species "$species" "$taxid"
         done
