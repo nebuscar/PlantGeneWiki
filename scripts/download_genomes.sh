@@ -133,22 +133,22 @@ download_species() {
     echo ""
 
     # 构建 datasets download 额外参数
-    local extra_args=""
-    [ -n "$assembly_level" ] && extra_args="$extra_args --assembly-level $assembly_level"
-    [ "$assembly_source" != "all" ] && extra_args="$extra_args --assembly-source $assembly_source"
-    [ "$assembly_version" != "latest" ] && extra_args="$extra_args --assembly-version $assembly_version"
-    [ "$annotated" = "yes" ] && extra_args="$extra_args --annotated"
-    [ "$reference" = "yes" ] && extra_args="$extra_args --reference"
-    [ "$exclude_atypical" = "yes" ] && extra_args="$extra_args --exclude-atypical"
-    [ "$exclude_multi_isolate" = "yes" ] && extra_args="$extra_args --exclude-multi-isolate"
-    [ "$mag" != "all" ] && extra_args="$extra_args --mag $mag"
-    [ -n "$released_after" ] && extra_args="$extra_args --released-after $released_after"
-    [ -n "$released_before" ] && extra_args="$extra_args --released-before $released_before"
+    local -a extra_args=()
+    [ -n "$assembly_level" ] && extra_args+=(--assembly-level "$assembly_level")
+    [ "$assembly_source" != "all" ] && extra_args+=(--assembly-source "$assembly_source")
+    [ "$assembly_version" != "latest" ] && extra_args+=(--assembly-version "$assembly_version")
+    [ "$annotated" = "yes" ] && extra_args+=(--annotated)
+    [ "$reference" = "yes" ] && extra_args+=(--reference)
+    [ "$exclude_atypical" = "yes" ] && extra_args+=(--exclude-atypical)
+    [ "$exclude_multi_isolate" = "yes" ] && extra_args+=(--exclude-multi-isolate)
+    [ "$mag" != "all" ] && extra_args+=(--mag "$mag")
+    [ -n "$released_after" ] && extra_args+=(--released-after "$released_after")
+    [ -n "$released_before" ] && extra_args+=(--released-before "$released_before")
 
     mkdir -p "$species_dir"
     datasets download genome taxon "$taxid" \
         --include "$include_types" \
-        "$extra_args" \
+        "${extra_args[@]}" \
         --filename "${zip_file}" 2>&1 | grep -v "New version"
 
     sleep 1
