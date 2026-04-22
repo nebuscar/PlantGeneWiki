@@ -84,7 +84,7 @@ echo "  缺失 TaxID: ${missing_taxid_count} 个"
 # Step 2: 获取已下载的物种目录
 echo "[2/3] 获取已下载的物种目录..."
 if [[ -d "$DOWNLOAD_DIR" ]]; then
-    ls -d "${DOWNLOAD_DIR}"/*/ 2>/dev/null | xargs -I{} basename {} | sort -u > /tmp/downloaded_species.txt
+    find "${DOWNLOAD_DIR}" -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | grep -v '^$' | sort -u > /tmp/downloaded_species.txt
     downloaded_count=$(wc -l < /tmp/downloaded_species.txt)
     echo "  已下载: ${downloaded_count} 个"
 else
