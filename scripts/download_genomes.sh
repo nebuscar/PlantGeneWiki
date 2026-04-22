@@ -262,6 +262,11 @@ BATCH_MODE="genus"
 BATCH_FILTERS=()
 TEST_MODE="no"
 
+# 无参数时显示帮助
+if [[ $# -eq 0 ]]; then
+    show_help
+fi
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
     -h | --help) show_help ;;
