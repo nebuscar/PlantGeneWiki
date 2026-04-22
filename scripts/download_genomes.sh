@@ -368,6 +368,52 @@ if [ ! -f "${input_dir}" ]; then
     exit 1
 fi
 
+# 自动检测并转换文件格式
+convert_to_tsv() {
+    local input="$1"
+    local ext="${input##*.}"
+
+    case "$ext" in
+        xlsx|XLSX)
+            echo "  检测到 Excel 格式，使用 pandas 转换..."
+            python3 << PYEOF
+import pandas as pd
+import sys
+import tempfile
+df = pd.read_excel("$input")
+with tempfile.NamedTemporaryFile(mode='w', suffix='.tsv', delete=False) as f:
+    df.to_csv(f.name, sep='\t', index=False)
+    print(f.name)
+PYEOF
+            ;;
+        csv|CSV)
+            echo "  检测到 CSV 格式..."
+            python3 << PYEOF
+import pandas as pd
+import tempfile
+try:
+    df = pd.read_csv("$input")
+except:
+    df = pd.read_csv("$input", sep=';')
+with tempfile.NamedTemporaryFile(mode='w', suffix='.tsv', delete=False) as f:
+    df.to_csv(f.name, sep='\t', index=False)
+    print(f.name)
+PYEOF
+            ;;
+        *)
+            echo "  检测到 TSV/TXT 格式，无需转换..."
+            echo ""
+            ;;
+    esac
+}
+
+# 如果是 xlsx 或 csv，转换为 tsv
+ext="${input_dir##*.}"
+if [[ "$ext" == "xlsx" || "$ext" == "XLSX" || "$ext" == "csv" || "$ext" == "CSV" ]]; then
+    echo "检测到非 TSV 格式，开始转换..."
+    input_dir=$(convert_to_tsv "$input_dir")
+fi
+
 # 测试模式
 if [ "$TEST_MODE" = "yes" ] && [ -n "$TEST_SPECIES" ]; then
     line=$(awk -F'\t' -v name="$TEST_SPECIES" '$2==name {print $2"\t"$3; exit}' "${input_dir}")
