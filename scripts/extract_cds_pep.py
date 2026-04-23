@@ -7,11 +7,21 @@
 1. 单物种模式: 处理指定目录下的 protein.faa 和 cds.fna
 2. 批量模式: 自动遍历父目录下的所有物种子目录，批量处理
 
+输出结构:
+    输出目录/
+    ├── Species_A/
+    │   └── result.xlsx
+    ├── Species_B/
+    │   └── result.xlsx
+    └── Species_C/
+        (空目录，缺少必要文件)
+
 用法:
-    python extract_to_csv.py                           # 批量模式: 处理sample目录
-    python extract_to_csv.py -i /path/to/input         # 单物种模式
-    python extract_to_csv.py -b /path/to/parent -o out   # 批量模式指定父目录
-    python extract_to_csv.py -f csv                     # 输出CSV格式
+    python extract_to_exam.py                          # 批量处理genomes目录 (默认xlsx格式)
+    python extract_to_exam.py -b /path/to/parent       # 批量模式指定源目录
+    python extract_to_exam.py -d /custom/output       # 指定输出目录
+    python extract_to_exam.py -f csv                  # 输出CSV格式
+    python extract_to_exam.py -i /path/to/species     # 单物种模式
 """
 
 import re
@@ -199,6 +209,8 @@ def verify_with_result_file(pep_data, cds_data, result_file):
 
 SUPPORTED_FORMATS = ['csv', 'xlsx', 'tsv', 'txt']
 DEFAULT_FORMAT = 'xlsx'
+DEFAULT_GENOMES_DIR = '/DATA/data2/downloads/genomes'
+DEFAULT_OUTPUT_DIR = '/home/nizhu/hechenxi/result'
 
 def parse_faa(filepath):
     """解析 protein.faa，返回 {protein_id: (species, pep_seq)}"""
@@ -261,21 +273,17 @@ def find_species_dirs(parent_dir):
     for item in os.listdir(parent_dir):
         item_path = os.path.join(parent_dir, item)
         if os.path.isdir(item_path):
-            faa_file, cds_file = find_input_files(item_path)
-            if faa_file and cds_file:
-                species_dirs.append(item_path)
-            else:
-                print(f"  跳过 {item}: 缺少必要文件")
+            species_dirs.append((item, item_path))  # 返回 (物种名, 路径)
     return species_dirs
 
-def process_single_species(species_dir, output_file, output_format, verify=True, verbose=True):
+def process_single_species(source_species_dir, output_species_dir, output_format, verify=True, verbose=True):
     """处理单个物种的数据"""
-    species_name = os.path.basename(species_dir)
-    faa_file, cds_file = find_input_files(species_dir)
+    species_name = os.path.basename(source_species_dir)
+    faa_file, cds_file = find_input_files(source_species_dir)
     
     if not faa_file or not cds_file:
         if verbose:
-            print(f"  ✗ {species_name}: 缺少必要文件 (protein.faa 或 cds.fna)")
+            print(f"  跳过 {species_name}: 缺少必要文件")
         return False, 0
     
     if verbose:
@@ -318,6 +326,7 @@ def process_single_species(species_dir, output_file, output_format, verify=True,
         rows.append([pid, species, cds, pep])
     
     # 输出到物种目录下
+    output_file = os.path.join(output_species_dir, f'result.{output_format}')
     if verbose:
         print(f"  写入结果到 {output_file} (格式: {output_format})...")
     
@@ -366,10 +375,12 @@ def parse_args():
     )
     parser.add_argument('-i', '--input', 
                         help='单物种模式: 物种目录路径')
-    parser.add_argument('-b', '--batch', default='/home/nizhu/hechenxi/plantsdb/sample',
-                        help='批量模式: 父目录路径 (默认: /home/nizhu/hechenxi/plantsdb/sample)')
+    parser.add_argument('-b', '--batch', 
+                        help='批量模式: 源父目录路径')
     parser.add_argument('-o', '--output', default='result',
                         help='输出文件名 (不含扩展名, 默认: result)')
+    parser.add_argument('-d', '--dir', default=DEFAULT_OUTPUT_DIR,
+                        help=f'输出目录路径 (默认: {DEFAULT_OUTPUT_DIR})')
     parser.add_argument('-f', '--format', choices=SUPPORTED_FORMATS, default=DEFAULT_FORMAT,
                         help=f'输出文件格式 (默认: xlsx)')
     parser.add_argument('--no-verify', action='store_true',
@@ -389,57 +400,74 @@ def main():
     
     # 确定输出格式
     output_format = args.format
-    ext = f'.{output_format}'
+    
+    # 创建输出目录
+    output_base_dir = args.dir
+    os.makedirs(output_base_dir, exist_ok=True)
     
     if args.input:
         # 单物种模式
-        species_dir = args.input
-        output_file = os.path.join(species_dir, f'{args.output}.{output_format}')
-        success, count = process_single_species(species_dir, output_file, output_format, verify)
+        source_species_dir = args.input
+        species_name = os.path.basename(source_species_dir)
+        output_species_dir = os.path.join(output_base_dir, species_name)
+        os.makedirs(output_species_dir, exist_ok=True)
+        output_file = os.path.join(output_species_dir, f'{args.output}.{output_format}')
+        success, count = process_single_species(source_species_dir, output_species_dir, output_format, verify)
         if success:
             print(f"\n✓ 处理完成! 结果保存在: {output_file}")
+        else:
+            print(f"\n⚠ 物种 {species_name} 缺少必要文件，已创建空目录: {output_species_dir}")
     else:
         # 批量模式
-        parent_dir = args.batch
-        print(f"===== 批量处理模式 =====")
-        print(f"父目录: {parent_dir}")
+        if args.batch:
+            source_parent_dir = args.batch
+        else:
+            source_parent_dir = DEFAULT_GENOMES_DIR
         
-        if not os.path.exists(parent_dir):
-            print(f"错误: 目录不存在: {parent_dir}")
+        print(f"===== 批量处理模式 =====")
+        print(f"源目录: {source_parent_dir}")
+        print(f"输出目录: {output_base_dir}")
+        
+        if not os.path.exists(source_parent_dir):
+            print(f"错误: 目录不存在: {source_parent_dir}")
             return
         
-        species_dirs = find_species_dirs(parent_dir)
-        print(f"找到 {len(species_dirs)} 个物种目录")
+        # 获取所有物种目录
+        all_species = find_species_dirs(source_parent_dir)
+        print(f"共 {len(all_species)} 个物种目录")
         
-        if not species_dirs:
+        if not all_species:
             print("错误: 没有找到有效的物种目录")
             return
         
         # 统计
         total_success = 0
-        total_failed = 0
+        total_skipped = 0
         total_records = 0
         
-        for species_dir in species_dirs:
-            species_name = os.path.basename(species_dir)
-            output_file = os.path.join(species_dir, f'{args.output}.{output_format}')
-            success, count = process_single_species(species_dir, output_file, output_format, verify, verbose=True)
+        for species_name, source_species_dir in all_species:
+            # 创建输出物种目录
+            output_species_dir = os.path.join(output_base_dir, species_name)
+            os.makedirs(output_species_dir, exist_ok=True)
+            
+            # 尝试处理
+            output_file = os.path.join(output_species_dir, f'{args.output}.{output_format}')
+            success, count = process_single_species(source_species_dir, output_species_dir, output_format, verify, verbose=True)
             
             if success:
                 total_success += 1
                 total_records += count
             else:
-                total_failed += 1
+                total_skipped += 1
         
         # 汇总
         print("\n" + "=" * 50)
         print("===== 批量处理汇总 =====")
-        print(f"  成功: {total_success} 个物种")
-        print(f"  失败: {total_failed} 个物种")
+        print(f"  成功处理: {total_success} 个物种")
+        print(f"  跳过(缺文件): {total_skipped} 个物种")
         print(f"  总记录: {total_records} 条")
-        
-        if total_success > 0:
-            print(f"\n所有结果已保存到各物种目录下，文件名为: {args.output}.{output_format}")
+        print(f"\n输出目录: {output_base_dir}")
+        print(f"每个物种对应一个子目录，表格文件名为: {args.output}.{output_format}")
 
 if __name__ == '__main__':
     main()
