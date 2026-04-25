@@ -78,10 +78,10 @@ def process_species(
     df = pd.DataFrame(
         results,
         columns=[
-            "Protein_ID",
-            "Protein_Length",
-            "Isoelectric_Point",
-            "Molecular_Weight",
+            "protein_id",
+            "protein_length",
+            "isoelectric_point",
+            "molecular_weight",
         ],
     )
 

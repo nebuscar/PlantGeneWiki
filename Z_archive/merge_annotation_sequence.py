@@ -183,7 +183,7 @@ def merge_to_tsv(genes, fasta_file, output_file, species):
     matched = 0
     os.makedirs(os.path.dirname(output_file) or '.', exist_ok=True)
     with open(output_file, 'w') as out:
-        out.write("gene_id\tchromosome\tstart_position\tend_position\tstrand\tspecies\tgenome\n")
+        out.write("gene_id\tchromosome\tstart_position\tend_position\tstrand\tspecies\tsequence\n")
         for rec in SeqIO.parse(fasta_file, "fasta"):
             gid = rec.id.split('::')[0]
             if gid in gene_info:

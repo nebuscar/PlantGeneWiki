@@ -11,7 +11,7 @@ show_help() {
 用法: $0 [选项]
 
 自动检索输入根目录下的每个子目录（一级子目录），查找以 _protein.faa 结尾的文件，
-依次运行 eggNOG-mapper，并自动提取六列信息（protein_id, species, GO, KEGG, Pfam, function_description）。
+依次运行 eggNOG-mapper，并自动提取六列信息（protein_id, species, go, kegg, pfam, function_description）。
 
 选项:
   -i, --input DIR      输入根目录（默认: 当前目录）
@@ -288,12 +288,12 @@ with open(infile) as f:
 if fmt == "tsv" or fmt == "txt":
     with open(outfile, 'w', newline='') as f:
         w = csv.writer(f, delimiter='\t')
-        w.writerow(["protein_id", "species", "GO", "KEGG", "Pfam", "function_description"])
+        w.writerow(["protein_id", "species", "go", "kegg", "pfam", "function_description"])
         w.writerows(rows)
 elif fmt == "csv":
     with open(outfile, 'w', newline='') as f:
         w = csv.writer(f, delimiter=',')
-        w.writerow(["protein_id", "species", "GO", "KEGG", "Pfam", "function_description"])
+        w.writerow(["protein_id", "species", "go", "kegg", "pfam", "function_description"])
         w.writerows(rows)
 elif fmt == "xlsx":
     try:

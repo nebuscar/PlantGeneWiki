@@ -25,10 +25,10 @@ from pathlib import Path
 
 # 各模块文件后缀
 MODULE_FILES = {
-    'mapping': '{species}_geneid_protid_mapping.tsv',
+    'mapping': '{species}_geneid_protid_mapping.xlsx',
     'coordinates': '{species}_coordinates.tsv',
-    'cds_pep': '{species}_cds_pep.tsv',
-    'protein_properties': '{species}_protein_properties.tsv',
+    'cds_pep': '{species}_cds_pep.xlsx',
+    'protein_properties': '{species}_protein_properties.xlsx',
     'eggnog': '{species}_eggnog_annotation.tsv',
 }
 
@@ -52,11 +52,15 @@ def check_module_outputs(species_dir):
             results[module] = None
     return results
 
-def load_mapping(file_path):
-    """加载映射表"""
+def load_table(file_path):
+    """加载表格文件，支持 xlsx/tsv/csv 格式"""
     try:
-        df = pd.read_csv(file_path, sep='\t')
-        return df
+        if file_path.suffix == '.xlsx':
+            return pd.read_excel(file_path)
+        elif file_path.suffix == '.tsv':
+            return pd.read_csv(file_path, sep='\t')
+        else:
+            return pd.read_csv(file_path)
     except Exception as e:
         print(f"    加载失败: {e}")
         return None
@@ -70,8 +74,10 @@ def integrate_species(species_dir, module_paths):
     for module, file_path in module_paths.items():
         if file_path and file_path.exists():
             try:
+                df = load_table(file_path)
+                if df is None:
+                    continue
                 if module == 'cds_pep':
-                    df = pd.read_csv(file_path, sep='\t')
                     for col in df.columns:
                         if col not in ['protein_id', 'species']:
                             df.rename(columns={col: f'cds_pep_{col}'}, inplace=True)
@@ -81,15 +87,13 @@ def integrate_species(species_dir, module_paths):
                             integrated_data[pid] = {'protein_id': pid}
                         integrated_data[pid].update(row.to_dict())
                 elif module == 'protein_properties':
-                    df = pd.read_csv(file_path, sep='\t')
                     for _, row in df.iterrows():
-                        pid = row.get('Protein_ID') or row.get('protein_id')
+                        pid = row.get('protein_id')
                         if pid and pid in integrated_data:
                             integrated_data[pid].update(row.to_dict())
                 else:
-                    df = pd.read_csv(file_path, sep='\t')
                     for _, row in df.iterrows():
-                        pid = row.get('protid') or row.get('protein_id') or row.get('gene_id')
+                        pid = row.get('prot_id') or row.get('protein_id') or row.get('gene_id')
                         if pid and pid not in integrated_data:
                             integrated_data[pid] = {'protein_id': pid}
                         if pid in integrated_data:
@@ -117,9 +121,9 @@ def main():
                         help='输入目录，包含各物种的注释结果')
     parser.add_argument('-o', '--output', required=True,
                         help='输出目录，存放整合结果')
-    parser.add_argument('-f', '--format', default='tsv',
+    parser.add_argument('-f', '--format', default='xlsx',
                         choices=['tsv', 'csv', 'xlsx'],
-                        help='输出格式 (默认: tsv)')
+                        help='输出格式 (默认: xlsx)')
 
     args = parser.parse_args()
 
