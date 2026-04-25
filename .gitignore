@@ -4,6 +4,7 @@ result/
 tmp/
 gff_result/
 test/
+eval_result/
 
 # files
 *.gz

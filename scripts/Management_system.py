@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 物种同源比对管理系统 - 基因组文件检索工具
-兼容 Python 3.6+
+兼容 Python 3.6+a
+【优化版：全局缓存 + 输入防抖，极速响应】
 """
 
 from flask import Flask, render_template_string, request, jsonify
@@ -19,7 +20,8 @@ ANN_EXT_GFF = [".gff"]
 ANN_EXT_GBFF = [".gbff"]
 
 species_taxonomy = {}
-
+# 【新增】全局缓存：启动时扫描一次，永久存在内存
+genome_cache = {}
 
 # ====================== 命令行参数解析 ======================
 def parse_args():
@@ -99,6 +101,25 @@ def check_genome_files(dir_path):
             has_gbff = True
 
     return has_faa, has_fna, has_gff, has_gbff
+
+# 【新增】启动时预加载所有文件数据到内存
+def preload_genome_data(data_folder):
+    global genome_cache
+    genome_cache.clear()
+    if not os.path.isdir(data_folder):
+        return
+
+    print(f"🔍 正在扫描基因组文件目录，请稍候...")
+    count = 0
+    for dir_name in os.listdir(data_folder):
+        dir_path = os.path.join(data_folder, dir_name)
+        if not os.path.isdir(dir_path):
+            continue
+        # 只扫描一次，存入缓存
+        has_faa, has_fna, has_gff, has_gbff = check_genome_files(dir_path)
+        genome_cache[dir_name] = (has_faa, has_fna, has_gff, has_gbff)
+        count += 1
+    print(f"✅ 基因组文件缓存加载完成：共 {count} 个物种")
 
 
 # ====================== 前端页面模板 ======================
@@ -224,7 +245,7 @@ HTML_TEMPLATE = """
     <div class="sidebar-item"><div class="sidebar-label">科总数(Family)</div><div class="sidebar-value" id="sidebarFamily">0</div></div>
     <div class="sidebar-item"><div class="sidebar-label">目总数(Order)</div><div class="sidebar-value" id="sidebarOrder">0</div></div>
     <div class="sidebar-item"><div class="sidebar-label">总属数</div><div class="sidebar-value" id="sidebarGenus">0</div></div>
-    <div class="sidebar-item"><div class="sidebar-label">可比对属数</div><div class="sidebar-value" id="sidebarAlignGenus">0</div></div>
+    <div class="sidebar-label">可比对属数</div><div class="sidebar-value" id="sidebarAlignGenus">0</div></div>
 </div>
 
 <div class="container">
@@ -243,19 +264,21 @@ HTML_TEMPLATE = """
         <div class="header-card">
             <h1 class="title">🐧 物种同源比对管理系统</h1>
             <p class="desc">✅可比对(faa+gff) | 📝需人工注释(fna+gbff) | 📄空文件</p>
-            <input id="search" placeholder="输入属名快速搜索..." oninput="searchData()">
+            <input id="search" placeholder="输入属名快速搜索...">
         </div>
 
         <div class="grid">
             <div class="col col-align"><h3 class="col-title">✅ 可同源比对物种</h3><div id="listAlign" class="empty-tip"></div></div>
             <div class="col col-manual"><h3 class="col-title">📝 需人工注释物种</h3><div id="listManual" class="empty-tip"></div></div>
-            <div class="col-empty"><h3 class="col-title">📄 空文件</h3><div id="listEmpty" class="empty-tip"></div></div>
+            <div class="col col-empty"><h3 class="col-title">📄 空文件</h3><div id="listEmpty" class="empty-tip"></div></div>
         </div>
     </div>
 </div>
 
 <script>
 let donutChart;
+let searchTimer = null; // 防抖计时器
+
 function initChart() {
     let ctx = document.getElementById("donutChart").getContext("2d");
     donutChart = new Chart(ctx, {
@@ -271,15 +294,22 @@ function initChart() {
         options: { plugins: { legend: { display: false } } }
     });
 }
+
 function toggleSidebar() {
     document.getElementById("advancedSidebar").classList.toggle("open");
 }
+
+// 【优化】输入防抖：停止输入300毫秒后再搜索
 async function searchData() {
-    let q = document.getElementById("search").value.trim();
-    let res = await fetch("/search?g="+encodeURIComponent(q));
-    let data = await res.json();
-    render(data);
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(async () => {
+        let q = document.getElementById("search").value.trim();
+        let res = await fetch("/search?g="+encodeURIComponent(q));
+        let data = await res.json();
+        render(data);
+    }, 300);
 }
+
 function render(data) {
     let alignHtml = "", manualHtml = "", emptyHtml = "";
     let totalAlign=0, totalManual=0, totalEmpty=0;
@@ -317,7 +347,13 @@ function render(data) {
     document.getElementById("listManual").innerHTML = manualHtml || "<span class='empty-tip'>无匹配数据</span>";
     document.getElementById("listEmpty").innerHTML = emptyHtml || "<span class='empty-tip'>无匹配数据</span>";
 }
-window.onload = () => { initChart(); searchData(); }
+
+window.onload = () => { 
+    initChart(); 
+    // 绑定搜索事件
+    document.getElementById("search").addEventListener('input', searchData);
+    searchData(); 
+}
 </script>
 </body>
 </html>
@@ -333,17 +369,10 @@ def index():
 @app.route("/search")
 def search():
     query = request.args.get("g", "").lower()
-    data_folder = app.config["DATA_FOLDER"]
     result = {}
 
-    if not os.path.isdir(data_folder):
-        return jsonify({"error": f"数据目录不存在: {data_folder}", "species": {}}), 404
-
-    for dir_name in os.listdir(data_folder):
-        dir_path = os.path.join(data_folder, dir_name)
-        if not os.path.isdir(dir_path):
-            continue
-
+    # 【优化】直接读取内存缓存，不再遍历磁盘
+    for dir_name, (has_faa, has_fna, has_gff, has_gbff) in genome_cache.items():
         taxon_info = species_taxonomy.get(
             dir_name, {"genus": "未知属", "order": "未知目", "family": "未知科"}
         )
@@ -351,8 +380,6 @@ def search():
 
         if query and query not in genus.lower():
             continue
-
-        has_faa, has_fna, has_gff, has_gbff = check_genome_files(dir_path)
 
         tags = []
         if has_faa:
@@ -392,8 +419,10 @@ def main():
     )
 
     load_taxonomy_mapping(TAXONOMY_FILE)
-
     app.config["DATA_FOLDER"] = args.input
+    
+    # 【关键】启动时预加载数据
+    preload_genome_data(args.input)
 
     print(f"\n==============================================")
     print(f"✅ 基因组数据目录：{args.input}")
