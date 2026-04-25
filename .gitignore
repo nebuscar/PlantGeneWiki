@@ -1,4 +1,4 @@
-/downloads/
+downloads/
 sample/
 result/
 tmp/
@@ -13,4 +13,4 @@ tmp/
 *.ppt
 *.pptx
 *.html
-nohup.out
+*.out
