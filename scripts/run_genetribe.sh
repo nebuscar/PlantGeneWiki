@@ -320,8 +320,11 @@ run_faa() {
 
         [[ -f $gff && -f $faa ]] || continue
 
+        # 从 GFF 提取 protein_id 和 locus_tag 的映射
+        # 关键修复：如果基因只有 protein_id 而没有 locus_tag，用 protein_id 本身作为 locus_tag
+        # 这样可以保证 BED 文件中的基因 ID 能与蛋白序列 ID 匹配
         awk '
-        $3 == "CDS" {
+        $3 == "CDS" || $3 == "gene" {
             pid = ""; locus = "";
             attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
             n = split(attrs, arr, /;/);
@@ -335,11 +338,14 @@ run_faa() {
                     locus = substr(arr[i], 11);
                 }
             }
-            if (pid != "" && locus != "") {
+            if (pid != "") {
+                # 如果没有 locus_tag，用 protein_id 本身（去除版本号）
+                if (locus == "") locus = pid;
                 print pid "\t" locus;
             }
         }' "$gff" | sort -u >"$id_map"
 
+        # 替换 faa 文件中的 protein_id 为 locus_tag（如果映射不存在，保留原始 protein_id）
         awk -v map="$id_map" '
         BEGIN { while ((getline < map) > 0) m[$1] = $2 }
         /^>/ {
@@ -347,12 +353,10 @@ run_faa() {
             split(name, arr, /[ \t]/);
             acc = arr[1];
             gsub(/\.[0-9]+$/, "", acc);
-            if (acc in m) {
-                print ">" m[acc] " " acc;
-            } else {
-                print $0;
-            }
-            next;
+            new_acc = (acc in m) ? m[acc] : acc;
+            rest = (NF > 1) ? substr($0, index($0, $2)) : "";
+            printf ">%s%s\n", new_acc, (rest ? " " rest : "");
+            next
         }
         { print }
         ' "$faa" >"$faa_out"
@@ -371,23 +375,27 @@ run_faa() {
                         break;
                     }
                 }
-                if (pid != "" && pid in m) {
-                    print ">" m[pid] " " pid;
+                new_pid = (pid != "" && pid in m) ? m[pid] : pid;
+                if (new_pid != "") {
+                    printf ">%s protein_id=%s\n", new_pid, new_pid;
                 } else {
                     print $0;
                 }
-                next;
+                next
             }
             { print }
             ' "$cds" >"$cds_out"
         fi
 
-        echo "✅ 处理完成：$species"
+        echo "✅ 处理完成：$species ($(wc -l <"$id_map") 基因已映射)"
     done
 }
 
 run_bed() {
     echo -e "\n[3] GFF转BED..."
+    id_map_dir="$WORK_DIR/id_mapping"
+    mkdir -p "$id_map_dir"
+
     for species_dir in "${INPUT_DIR}"/*/; do
         sp=$(basename "$species_dir")
         if $GENUS_MODE && [[ -n "$CURRENT_GENUS" ]]; then
@@ -396,12 +404,43 @@ run_bed() {
         fi
         gff=$(find "$species_dir" -name "*.gff" | head -1)
         [[ -f $gff ]] || continue
-        set +o pipefail
-        awk -F'\t' 'NF>=9 && $5>=$4' "$gff" | gff2bed 2>/dev/null | awk '$8=="gene"' OFS="\t" | cut -f1-6 >"$WORK_DIR/${sp}.bed"
-        sed -i 's/\tgene-/\t/g' "$WORK_DIR/${sp}.bed"
-        set -o pipefail
-        if [[ ! -s "$WORK_DIR/${sp}.bed" ]]; then
-            echo "⚠️  BED 为空：$sp（gff2bed 可能失败），尝试 awk 直接转换..."
+
+        # 使用与 run_faa 相同的映射逻辑：优先用 locus_tag，如果没有则用 protein_id
+        # 这样可以保证 BED 文件中的 gene ID 与 faa 文件中的 ID 完全一致
+        bed_out="$WORK_DIR/${sp}.bed"
+        awk -F'\t' '
+        $3 == "gene" && NF >= 9 {
+            pid = ""; locus = "";
+            attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
+            n = split(attrs, arr, /;/);
+            for (i=1; i<=n; i++) {
+                gsub(/^[ \t]+/, "", arr[i]);
+                if (arr[i] ~ /^protein_id=/) {
+                    pid = substr(arr[i], 12);
+                    gsub(/\.[0-9]+$/, "", pid);
+                }
+                if (arr[i] ~ /^locus_tag=/) {
+                    locus = substr(arr[i], 11);
+                }
+            }
+            # 优先使用 locus_tag，如果没有则用 protein_id
+            if (locus != "") {
+                gid = locus;
+            } else if (pid != "") {
+                gid = pid;
+            } else {
+                next;
+            }
+            # 提取基因起始和终止位置
+            start = $4 - 1;  # BED 格式起始位置为 0
+            end = $5;
+            strand = $7;
+            print $1 "\t" start "\t" end "\t" gid "\t.\t" strand
+        }
+        ' "$gff" >"$bed_out"
+
+        if [[ ! -s "$bed_out" ]]; then
+            echo "⚠️  BED 为空：$sp（尝试备用提取逻辑）..."
             awk -F'\t' '$3=="gene" && NF>=9 {
                 attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i
                 n = split(attrs, a, /;/); id="";
@@ -410,9 +449,9 @@ run_bed() {
                     if (a[i] ~ /^ID=/) { id = substr(a[i], 4); sub(/^gene:/, "", id); sub(/^gene-/, "", id); break }
                 }
                 if (id != "") print $1"\t"$4-1"\t"$5"\t"id"\t.\t"$7
-            }' "$gff" >"$WORK_DIR/${sp}.bed"
+            }' "$gff" >"$bed_out"
         fi
-        echo "✅ BED 完成：$sp ($(wc -l <"$WORK_DIR/${sp}.bed") 条)"
+        echo "✅ BED 完成：$sp ($(wc -l <"$bed_out") 条)"
     done
 }
 
