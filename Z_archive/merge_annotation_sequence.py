@@ -173,7 +173,12 @@ def prepare_fasta(genes, genome_file, force=False):
 
 def merge_to_tsv(genes, fasta_file, output_file, species):
     """合并为TSV: gene_id, chromosome, start_position, end_position, strand, species, genome
-    genome列 = FASTA header + 序列"""
+    genome列 = FASTA header + 序列
+
+输出列:
+  gene_id | chromosome | start_position | end_position | strand | species | genome
+
+输出命名: {物种名}_coordinates.tsv"""
     gene_info = {g[0]: g[1:] for g in genes}
     matched = 0
     os.makedirs(os.path.dirname(output_file) or '.', exist_ok=True)
@@ -215,8 +220,8 @@ def process_species(species_dir, name, output_dir=None, force=False):
         return False
 
     # Step 3: 合并 -> TSV
-    tsv_path = (os.path.join(output_dir, name, f"{name}_merged.tsv") if output_dir
-                else os.path.join(species_dir, f"{name}_merged.tsv"))
+    tsv_path = (os.path.join(output_dir, name, f"{name}_coordinates.tsv") if output_dir
+                else os.path.join(species_dir, f"{name}_coordinates.tsv"))
     print(f"  [3] 合并->TSV")
     merge_to_tsv(genes, fasta_file, tsv_path, name)
     return True

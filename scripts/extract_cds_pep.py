@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
 从 protein.faa 和 cds.fna 中提取序列，根据 protein_id 匹配
+
 输出格式: protein_id, species, cds, pep
+
+输出命名: {物种名}_cds_pep.{format}
 
 支持两种模式:
 1. 单物种模式: 处理指定目录下的 protein.faa 和 cds.fna
@@ -10,18 +13,18 @@
 输出结构:
     输出目录/
     ├── Species_A/
-    │   └── result.xlsx
+    │   └── Species_A_cds_pep.xlsx
     ├── Species_B/
-    │   └── result.xlsx
+    │   └── Species_B_cds_pep.xlsx
     └── Species_C/
         (空目录，缺少必要文件)
 
 用法:
-    python extract_to_exam.py                          # 批量处理genomes目录 (默认xlsx格式)
-    python extract_to_exam.py -b /path/to/parent       # 批量模式指定源目录
-    python extract_to_exam.py -d /custom/output       # 指定输出目录
-    python extract_to_exam.py -f csv                  # 输出CSV格式
-    python extract_to_exam.py -i /path/to/species     # 单物种模式
+    python extract_cds_pep.py                          # 批量处理genomes目录 (默认xlsx格式)
+    python extract_cds_pep.py -b /path/to/parent       # 批量模式指定源目录
+    python extract_cds_pep.py -d /custom/output       # 指定输出目录
+    python extract_cds_pep.py -f csv                   # 输出CSV格式
+    python extract_cds_pep.py -i /path/to/species     # 单物种模式
 """
 
 import re
@@ -326,7 +329,7 @@ def process_single_species(source_species_dir, output_species_dir, output_format
         rows.append([pid, species, cds, pep])
     
     # 输出到物种目录下
-    output_file = os.path.join(output_species_dir, f'result.{output_format}')
+    output_file = os.path.join(output_species_dir, f'{species_name}_cds_pep.{output_format}')
     if verbose:
         print(f"  写入结果到 {output_file} (格式: {output_format})...")
     
@@ -367,10 +370,10 @@ def parse_args():
 支持的输出格式: csv, xlsx, tsv, txt
 
 示例:
-    python extract_to_csv.py                           # 批量模式: 处理sample目录 (默认xlsx格式)
-    python extract_to_csv.py -b /path/to/parent         # 批量模式指定父目录
-    python extract_to_csv.py -i /path/to/species        # 单物种模式
-    python extract_to_csv.py -f csv                     # 输出CSV格式
+    python extract_cds_pep.py                           # 批量模式: 处理genomes目录 (默认xlsx格式)
+    python extract_cds_pep.py -b /path/to/parent       # 批量模式指定父目录
+    python extract_cds_pep.py -i /path/to/species      # 单物种模式
+    python extract_cds_pep.py -f csv                    # 输出CSV格式
         '''
     )
     parser.add_argument('-i', '--input', 

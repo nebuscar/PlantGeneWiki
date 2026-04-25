@@ -135,9 +135,9 @@ def main():
     parser.add_argument(
         "-f",
         "--format",
-        default="csv",
+        default="xlsx",
         choices=["csv", "tsv", "txt", "xlsx"],
-        help="输出格式 (default: csv)",
+        help="输出格式 (default: tsv)",
     )
     # ===================== 新增参数 =====================
     parser.add_argument(

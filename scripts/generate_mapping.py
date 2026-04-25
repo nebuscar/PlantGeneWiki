@@ -28,7 +28,7 @@ parser.add_argument(
     "--format",
     choices=["xlsx", "csv", "tsv", "txt"],
     default="xlsx",
-    help="输出文件格式(可选:xlsx, csv, tsv, txt)\n默认:xlsx",
+    help="输出文件格式(可选:xlsx, csv, tsv, txt)\n默认:tsv",
 )
 
 # 解析参数
@@ -93,7 +93,7 @@ for species_dir in ROOT_DIR.iterdir():
 
     # 构建输出 DataFrame
     df = pd.DataFrame(sorted(mapping.items()), columns=["geneid", "protid"])
-    out_file = species_dir / f"geneid_protid_mapping.{OUT_FORMAT}"
+    out_file = species_dir / f"{species_dir.name}_geneid_protid_mapping.{OUT_FORMAT}"
 
     # 按格式输出
     if OUT_FORMAT == "xlsx":
