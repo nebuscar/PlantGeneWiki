@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser(
     epilog="使用示例：\n"
     "  python 脚本.py -i /your/genome/path -f xlsx\n"
     "  python 脚本.py --input /your/genome/path --format csv\n"
+    "  python 脚本.py -o /custom/output/dir -i /your/genome/path\n"
     "  python 脚本.py -h  (查看帮助)",
 )
 
@@ -31,10 +32,20 @@ parser.add_argument(
     help="输出文件格式(可选:xlsx, csv, tsv, txt)\n默认:tsv",
 )
 
+# 输出目录参数
+parser.add_argument(
+    "-o",
+    "--output",
+    type=str,
+    default=None,
+    help="指定输出目录（默认输出到物种目录下）",
+)
+
 # 解析参数
 args = parser.parse_args()
 ROOT_DIR = Path(args.input)
 OUT_FORMAT = args.format.lower()
+OUT_DIR = Path(args.output) if args.output else None
 
 # ===================== 核心处理逻辑 =====================
 for species_dir in ROOT_DIR.iterdir():
@@ -93,7 +104,14 @@ for species_dir in ROOT_DIR.iterdir():
 
     # 构建输出 DataFrame
     df = pd.DataFrame(sorted(mapping.items()), columns=["gene_id", "protein_id"])
-    out_file = species_dir / f"{species_dir.name}_geneid_protid_mapping.{OUT_FORMAT}"
+
+    # 确定输出路径
+    if OUT_DIR:
+        species_out_dir = OUT_DIR / species_dir.name
+        species_out_dir.mkdir(parents=True, exist_ok=True)
+        out_file = species_out_dir / f"{species_dir.name}_geneid_protid_mapping.{OUT_FORMAT}"
+    else:
+        out_file = species_dir / f"{species_dir.name}_geneid_protid_mapping.{OUT_FORMAT}"
 
     # 按格式输出
     if OUT_FORMAT == "xlsx":
@@ -106,4 +124,7 @@ for species_dir in ROOT_DIR.iterdir():
     print(f"✅ 完成！输出：{out_file}")
     print(f"📊 有效映射数：{len(mapping)}")
 
-print("\n🎉 所有物种处理完成！")
+if OUT_DIR:
+    print(f"\n🎉 所有物种处理完成！输出目录：{OUT_DIR}")
+else:
+    print("\n🎉 所有物种处理完成！")

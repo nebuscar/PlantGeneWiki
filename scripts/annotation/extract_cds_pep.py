@@ -450,15 +450,14 @@ def main():
         total_records = 0
         
         for species_name, source_species_dir in all_species:
-            # 创建输出物种目录
             output_species_dir = os.path.join(output_base_dir, species_name)
-            os.makedirs(output_species_dir, exist_ok=True)
-            
+
             # 尝试处理
-            output_file = os.path.join(output_species_dir, f'{species_name}_cds_pep.{output_format}')
             success, count = process_single_species(source_species_dir, output_species_dir, output_format, verify, verbose=True)
-            
+
             if success:
+                # 只在成功时才创建输出目录
+                os.makedirs(output_species_dir, exist_ok=True)
                 total_success += 1
                 total_records += count
             else:
