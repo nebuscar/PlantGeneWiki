@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """
-extract_genomic_features.py - 批量提取基因组结构信息，生成TSV表格
+extract_genomic_features.py - 批量提取基因组结构信息
 
 处理流程:
   1. GFF/GBFF -> BED   (注释文件转BED格式)
   2. FNA -> FASTA      (按BED坐标从基因组提取基因序列)
-  3. BED + FASTA -> TSV (合并为7列表格)
+  3. BED + FASTA -> 表格 (合并为结构化数据文件)
 
 输出列: gene_id | chromosome | start_position | end_position | strand | species | sequence
 
 用法:
-  批量:   python extract_genomic_features.py [-i <根目录>] [-o <输出根目录>]
-  单物种: python extract_genomic_features.py -i <注释文件> <基因组文件> -o <输出路径> -s <物种名>
+  批量:   python extract_genomic_features.py [-i <根目录>] [-o <输出根目录>] [-f xlsx]
+  单物种: python extract_genomic_features.py -i <注释文件> <基因组文件> -o <输出路径> -s <物种名> [-f csv]
   帮助:   python extract_genomic_features.py -h
+
+输出格式:
+  支持 xlsx (默认), tsv, csv
 """
 
 import sys
@@ -20,9 +23,11 @@ import os
 import re
 import argparse
 from Bio import SeqIO
+import pandas as pd
 
 _RC = str.maketrans('ATCGatcg', 'TAGCtagc')
 DEFAULT_INPUT_DIR = '/home/nizhu/zhangyan/downloads/genomes'
+DEFAULT_OUTPUT_FORMAT = 'xlsx'
 
 # 注释/基因组文件搜索优先级
 ANN_EXTS = ['.bed', '.gff', '.gff3', '.gbff']
@@ -169,33 +174,66 @@ def prepare_fasta(genes, genome_file, force=False):
     return None
 
 
-# ========== Step 3: BED + FASTA -> TSV ==========
+# ========== Step 3: BED + FASTA -> 表格 ==========
 
-def merge_to_tsv(genes, fasta_file, output_file, species):
-    """合并为TSV: gene_id, chromosome, start_position, end_position, strand, species, genome
-    genome列 = FASTA header + 序列
+def merge_to_output(genes, fasta_file, output_file, species, output_fmt='xlsx'):
+    """合并为表格文件
 
-输出列:
-  gene_id | chromosome | start_position | end_position | strand | species | genome
+    输出列:
+      gene_id | chromosome | start_position | end_position | strand | species | sequence
 
-输出命名: {物种名}_coordinates.tsv"""
+    输出命名: {物种名}_coordinates.{fmt}
+    """
     gene_info = {g[0]: g[1:] for g in genes}
     matched = 0
+
+    # 收集数据
+    rows = []
+    for rec in SeqIO.parse(fasta_file, "fasta"):
+        gid = rec.id.split('::')[0]
+        if gid in gene_info:
+            chrom, start, end, strand = gene_info[gid]
+            rows.append({
+                'gene_id': gid,
+                'chromosome': chrom,
+                'start_position': start,
+                'end_position': end,
+                'strand': strand,
+                'species': species,
+                'sequence': str(rec.seq)
+            })
+            matched += 1
+
+    if not rows:
+        print(f"    警告: 无匹配数据")
+        return False
+
+    # 创建DataFrame
+    df = pd.DataFrame(rows)
+
+    # 确保列顺序
+    columns = ['gene_id', 'chromosome', 'start_position', 'end_position', 'strand', 'species', 'sequence']
+
+    # 输出文件
     os.makedirs(os.path.dirname(output_file) or '.', exist_ok=True)
-    with open(output_file, 'w') as out:
-        out.write("gene_id\tchromosome\tstart_position\tend_position\tstrand\tspecies\tsequence\n")
-        for rec in SeqIO.parse(fasta_file, "fasta"):
-            gid = rec.id.split('::')[0]
-            if gid in gene_info:
-                chrom, start, end, strand = gene_info[gid]
-                out.write(f'{gid}\t{chrom}\t{start}\t{end}\t{strand}\t{species}\t{rec.description}\n{rec.seq}\n')
-                matched += 1
+
+    if output_fmt == 'xlsx':
+        df.to_excel(output_file, index=False)
+    elif output_fmt == 'tsv':
+        df.to_csv(output_file, sep='\t', index=False)
+    elif output_fmt == 'csv':
+        df.to_csv(output_file, index=False)
+    else:
+        print(f"    错误: 不支持的格式 {output_fmt}")
+        return False
+
     print(f"    合并完成: {matched} genes -> {output_file}")
+    return True
 
 
 # ========== 批量处理 ==========
 
-def process_species(species_dir, name, output_dir=None, force=False):
+def process_species(species_dir, name, output_dir=None, output_fmt='xlsx', force=False):
     """处理单个物种子目录"""
     print(f"\n[{name}]")
     ann = find_file(species_dir, f'{name}_annotation', ANN_EXTS)
@@ -219,15 +257,18 @@ def process_species(species_dir, name, output_dir=None, force=False):
     if not fasta_file:
         return False
 
-    # Step 3: 合并 -> TSV
-    tsv_path = (os.path.join(output_dir, name, f"{name}_coordinates.tsv") if output_dir
-                else os.path.join(species_dir, f"{name}_coordinates.tsv"))
-    print(f"  [3] 合并->TSV")
-    merge_to_tsv(genes, fasta_file, tsv_path, name)
+    # Step 3: 合并 -> 输出文件
+    ext = output_fmt
+    if output_dir:
+        out_path = os.path.join(output_dir, name, f"{name}_coordinates.{ext}")
+    else:
+        out_path = os.path.join(species_dir, f"{name}_coordinates.{ext}")
+    print(f"  [3] 合并->{output_fmt.upper()}")
+    merge_to_output(genes, fasta_file, out_path, name, output_fmt)
     return True
 
 
-def batch_process(root_dir, output_dir=None, force=False):
+def batch_process(root_dir, output_dir=None, output_fmt='xlsx', force=False):
     """遍历根目录下所有物种子目录"""
     root_dir = os.path.abspath(root_dir)
     if not os.path.isdir(root_dir):
@@ -241,7 +282,7 @@ def batch_process(root_dir, output_dir=None, force=False):
     if output_dir:
         os.makedirs(output_dir, exist_ok=True)
     success = sum(1 for name in dirs
-                  if process_species(os.path.join(root_dir, name), name, output_dir, force))
+                  if process_species(os.path.join(root_dir, name), name, output_dir, output_fmt, force))
     print(f"\n完成: 成功 {success}/{len(dirs)}")
 
 
@@ -250,29 +291,28 @@ def batch_process(root_dir, output_dir=None, force=False):
 def show_help():
     script = os.path.basename(sys.argv[0])
     print(f"""
-用法: python {script} [-i 输入] [-o 输出] [-s 物种] [-f] [-h]
+用法: python {script} [-i 输入] [-o 输出] [-s 物种] [-f 格式] [-h]
 
 模式:
-  批量 (默认)  python {script} [-i 根目录] [-o 输出根目录]
-  单物种       python {script} -i 注释文件 基因组文件 -o 输出路径 -s 物种名
+  批量 (默认)  python {script} [-i 根目录] [-o 输出根目录] [-f xlsx]
+  单物种       python {script} -i 注释文件 基因组文件 -o 输出路径 -s 物种名 [-f csv]
 
 参数:
   -i  输入路径。批量: 根目录(默认{DEFAULT_INPUT_DIR})；单物种: 注释+基因组两个文件
   -o  输出路径。批量: 输出根目录(可选)；单物种: 输出文件/目录(必填)
   -s  物种名称 (单物种必填，批量自动取目录名)
-  -f  强制重新生成，忽略缓存
+  -f  输出格式: xlsx (默认), tsv, csv
   -h  显示此帮助
 
 支持格式:
   注释: .bed > .gff > .gff3 > .gbff    基因组: .fna > .fa > .fasta > .faa
 
 输出:
-  7列TSV: gene_id | chromosome | start_position | end_position | strand | species | genome
-  genome列含FASTA header注释和序列
+  7列表格: gene_id | chromosome | start_position | end_position | strand | species | sequence
 
 目录结构 (批量模式):
   根目录/SpeciesName/SpeciesName_annotation.gff + SpeciesName_genome.fna
-  输出: 各物种目录下 SpeciesName_merged.tsv
+  输出: 各物种目录下 SpeciesName_coordinates.xlsx (或其他指定格式)
 """)
 
 
@@ -285,7 +325,10 @@ def main():
     parser.add_argument('-i', '--input', nargs='+')
     parser.add_argument('-o', '--output')
     parser.add_argument('-s', '--species', default='Unknown')
-    parser.add_argument('-f', '--force', action='store_true')
+    parser.add_argument('-f', '--format', default=DEFAULT_OUTPUT_FORMAT,
+                        choices=['xlsx', 'tsv', 'csv'],
+                        help=f'输出格式 (默认: {DEFAULT_OUTPUT_FORMAT})')
+    parser.add_argument('-F', '--force', action='store_true')
     args = parser.parse_args()
 
     # 单物种模式: -i 传入2个文件
@@ -296,7 +339,7 @@ def main():
             sys.exit("错误: 单物种模式需要 -s")
         out = args.output
         if out.endswith(os.sep) or os.path.isdir(out):
-            out = os.path.join(out, f"{args.species}_merged.tsv")
+            out = os.path.join(out, f"{args.species}_coordinates.{args.format}")
         for f, t in [(args.input[0], '注释'), (args.input[1], '基因组')]:
             if not os.path.isfile(f):
                 sys.exit(f"错误: {t}文件不存在: {f}")
@@ -306,13 +349,14 @@ def main():
         if genes:
             fasta = prepare_fasta(genes, args.input[1], args.force)
             if fasta:
-                merge_to_tsv(genes, fasta, out, args.species)
+                merge_to_output(genes, fasta, out, args.species, args.format)
 
     # 批量模式
     else:
         if args.input and len(args.input) != 1:
             sys.exit("错误: 批量 -i 需1个目录; 单物种 -i 需2个文件")
-        batch_process(args.input[0] if args.input else DEFAULT_INPUT_DIR, args.output, args.force)
+        batch_process(args.input[0] if args.input else DEFAULT_INPUT_DIR,
+                      args.output, args.format, args.force)
 
 
 if __name__ == "__main__":

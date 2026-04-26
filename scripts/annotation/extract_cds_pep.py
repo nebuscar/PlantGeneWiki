@@ -412,9 +412,10 @@ def main():
         # 单物种模式
         source_species_dir = args.input
         species_name = os.path.basename(source_species_dir)
-        output_species_dir = os.path.join(output_base_dir, species_name)
+        # output_base_dir 直接作为物种目录，不需要再拼接species_name
+        output_species_dir = output_base_dir
         os.makedirs(output_species_dir, exist_ok=True)
-        output_file = os.path.join(output_species_dir, f'{args.output}.{output_format}')
+        output_file = os.path.join(output_species_dir, f'{species_name}_cds_pep.{output_format}')
         success, count = process_single_species(source_species_dir, output_species_dir, output_format, verify)
         if success:
             print(f"\n✓ 处理完成! 结果保存在: {output_file}")
@@ -454,7 +455,7 @@ def main():
             os.makedirs(output_species_dir, exist_ok=True)
             
             # 尝试处理
-            output_file = os.path.join(output_species_dir, f'{args.output}.{output_format}')
+            output_file = os.path.join(output_species_dir, f'{species_name}_cds_pep.{output_format}')
             success, count = process_single_species(source_species_dir, output_species_dir, output_format, verify, verbose=True)
             
             if success:
