@@ -87,7 +87,7 @@ Oryza-sativa    (使用连字符)
 
 | 模块 | 命名模式 | 默认格式 | 列字段 |
 |------|---------|---------|-------|
-| 基因ID映射 | `{Species}_geneid_protid_mapping` | xlsx | gene_id, prot_id |
+| 基因ID映射 | `{Species}_geneid_protid_mapping` | xlsx | gene_id, protein_id |
 | 坐标信息 | `{Species}_coordinates` | tsv | gene_id, chromosome, start_position, end_position, strand, species, sequence |
 | CDS/PEP序列 | `{Species}_cds_pep` | xlsx | protein_id, species, cds, pep |
 | 蛋白性质 | `{Species}_protein_properties` | xlsx | protein_id, protein_length, isoelectric_point, molecular_weight |

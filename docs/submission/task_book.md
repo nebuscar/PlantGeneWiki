@@ -54,7 +54,7 @@ PlantsDB 是一个植物基因组功能注释数据库。第一批次数据整�
 ┌─────────────────────────────────────────────────────────────────┐
 │ 阶段二：模块执行 (4月底-5月初)                                    │
 ├─────────────────────────────────────────────────────────────────┤
-│ 1. 坐标提取 ────→ merge_annotation_sequence.py                   │
+│ 1. 坐标提取 ────→ extract_genomic_features.py                   │
 │ 2. 序列提取 ────→ extract_cds_pep.py                             │
 │ 3. ID映射 ──────→ generate_mapping.py                           │
 │ 4. 蛋白性质 ─────→ calc_protein_properties.py                   │
@@ -64,7 +64,7 @@ PlantsDB 是一个植物基因组功能注释数据库。第一批次数据整�
 ┌─────────────────────────────────────────────────────────────────┐
 │ 阶段三：整合与质检 (5月初)                                       │
 ├─────────────────────────────────────────────────────────────────┤
-│ 1. 整合各模块结果 ──→ integrate_annotation.py                   │
+│ 1. 整合各模块结果 ──→ integrate_outputs.py                   │
 │ 2. 数据完整性检查                                               │
 │ 3. 格式合规性检查                                               │
 │ 4. 生成质量报告                                                 │
@@ -85,12 +85,12 @@ PlantsDB 是一个植物基因组功能注释数据库。第一批次数据整�
 
 | 模块 | 脚本 | 输出文件 | 默认格式 | 列定义 |
 |------|------|---------|---------|-------|
-| 坐标提取 | `merge_annotation_sequence.py` | `{Species}_coordinates.tsv` | tsv | gene_id, chromosome, start_position, end_position, strand, species, sequence |
+| 坐标提取 | `extract_genomic_features.py` | `{Species}_coordinates.tsv` | tsv | gene_id, chromosome, start_position, end_position, strand, species, sequence |
 | 序列提取 | `extract_cds_pep.py` | `{Species}_cds_pep.xlsx` | xlsx | protein_id, species, cds, pep |
 | ID映射 | `generate_mapping.py` | `{Species}_geneid_protid_mapping.xlsx` | xlsx | gene_id, prot_id |
 | 蛋白性质 | `calc_protein_properties.py` | `{Species}_protein_properties.xlsx` | xlsx | protein_id, protein_length, isoelectric_point, molecular_weight |
 | 功能注释 | `run_eggnog_nested.sh` | `{Species}_eggnog_annotation.tsv` | tsv | protein_id, species, go, kegg, pfam, function_description |
-| 整合 | `integrate_annotation.py` | `{Species}_integrated.xlsx` | xlsx | 合并上述所有模块的关键列 |
+| 整合 | `integrate_outputs.py` | `{Species}_integrated.xlsx` | xlsx | 合并上述所有模块的关键列 |
 
 ---
 
@@ -175,7 +175,7 @@ PlantsDB 是一个植物基因组功能注释数据库。第一批次数据整�
 
 ```bash
 # 1. 坐标提取
-python scripts/merge_annotation_sequence.py -i {genomes_root} -o {result_root}/annotation -f
+python scripts/extract_genomic_features.py -i {genomes_root} -o {result_root}/annotation -f
 
 # 2. 序列提取
 python scripts/extract_cds_pep.py -b {genomes_root} -d {result_root}/annotation -f xlsx
@@ -190,7 +190,7 @@ python scripts/calc_protein_properties.py -i {genomes_root} -o {result_root}/ann
 bash Z_archive/run_eggnog_nested.sh -i {genomes_root} -o {result_root}/eggnog_output -f xlsx -c 30
 
 # 6. 整合
-python scripts/integrate_annotation.py -i {result_root}/annotation -o {result_root}/integrated -f xlsx
+python scripts/integrate_outputs.py -i {result_root}/annotation -o {result_root}/integrated -f xlsx
 ```
 
 ### 7.2 默认路径
@@ -218,8 +218,8 @@ python scripts/integrate_annotation.py -i {result_root}/annotation -o {result_ro
 | 文件 | 路径 |
 |------|------|
 | 物种列表 | `data/meta/species_list_cleaned.tsv` |
-| 整合脚本 | `scripts/integrate_annotation.py` |
-| 坐标提取 | `Z_archive/merge_annotation_sequence.py` |
+| 整合脚本 | `scripts/integrate_outputs.py` |
+| 坐标提取 | `Z_archive/extract_genomic_features.py` |
 | 序列提取 | `scripts/extract_cds_pep.py` |
 | ID映射 | `scripts/generate_mapping.py` |
 | 蛋白性质 | `scripts/calc_protein_properties.py` |

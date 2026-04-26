@@ -92,7 +92,7 @@ for species_dir in ROOT_DIR.iterdir():
         continue
 
     # 构建输出 DataFrame
-    df = pd.DataFrame(sorted(mapping.items()), columns=["gene_id", "prot_id"])
+    df = pd.DataFrame(sorted(mapping.items()), columns=["gene_id", "protein_id"])
     out_file = species_dir / f"{species_dir.name}_geneid_protid_mapping.{OUT_FORMAT}"
 
     # 按格式输出

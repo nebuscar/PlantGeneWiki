@@ -10,11 +10,11 @@
   {物种名}_eggnog_annotation.tsv         - eggnog-mapper功能注释
 
 用法:
-  python integrate_annotation.py -i <结果目录> -o <输出目录>
-  python integrate_annotation.py -i result/annotation -o result/integrated
+  python integrate_outputs.py -i <结果目录> -o <输出目录>
+  python integrate_outputs.py -i result/annotation -o result/integrated
 
 输出:
-  {物种名}_integrated.tsv  - 整合后的完整注释表
+  {物种名}_integrated.xlsx  - 整合后的完整注释表
   integration_report.txt   - 整合报告
 """
 
@@ -93,7 +93,7 @@ def integrate_species(species_dir, module_paths):
                             integrated_data[pid].update(row.to_dict())
                 else:
                     for _, row in df.iterrows():
-                        pid = row.get('prot_id') or row.get('protein_id') or row.get('gene_id')
+                        pid = row.get('protein_id') or row.get('gene_id')
                         if pid and pid not in integrated_data:
                             integrated_data[pid] = {'protein_id': pid}
                         if pid in integrated_data:

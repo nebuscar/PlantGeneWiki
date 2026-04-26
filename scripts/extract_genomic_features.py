@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
-merge_annotation_sequence.py - 批量合并基因注释与基因组序列，生成TSV表格
+extract_genomic_features.py - 批量提取基因组结构信息，生成TSV表格
 
 处理流程:
   1. GFF/GBFF -> BED   (注释文件转BED格式)
   2. FNA -> FASTA      (按BED坐标从基因组提取基因序列)
   3. BED + FASTA -> TSV (合并为7列表格)
 
-输出列: gene_id | chromosome | start_position | end_position | strand | species | genome
+输出列: gene_id | chromosome | start_position | end_position | strand | species | sequence
 
 用法:
-  批量:   python merge_annotation_sequence.py [-i <根目录>] [-o <输出根目录>]
-  单物种: python merge_annotation_sequence.py -i <注释文件> <基因组文件> -o <输出路径> -s <物种名>
-  帮助:   python merge_annotation_sequence.py -h
+  批量:   python extract_genomic_features.py [-i <根目录>] [-o <输出根目录>]
+  单物种: python extract_genomic_features.py -i <注释文件> <基因组文件> -o <输出路径> -s <物种名>
+  帮助:   python extract_genomic_features.py -h
 """
 
 import sys

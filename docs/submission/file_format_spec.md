@@ -24,7 +24,7 @@
 | 列名 | 数据类型 | 说明 |
 |------|---------|------|
 | gene_id | string | 基因ID，来源于GFF的locus_tag |
-| prot_id | string | 蛋白ID，来源于GFF的protein_id |
+| protein_id | string | 蛋白ID，来源于GFF的protein_id |
 
 **示例**：
 
