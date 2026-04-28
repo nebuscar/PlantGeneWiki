@@ -336,29 +336,11 @@ run_faa() {
 
         [[ -f $gff && -f $faa ]] || continue
 
-        # 从 GFF 提取 protein_id 和 gene_id 的映射
-        # gene行: ID=gene-xxx 和 locus_tag
-        # CDS行: protein_id 和 locus_tag
-        # 通过 locus_tag 关联 protein_id 和 gene_id
+        # 从 GFF 提取 protein_id 和 gene_id/locus_tag 的映射
+        # 逻辑：优先使用 locus_tag 作为最终基因 ID，如果没有则用 protein_id 本身
+        # 这样可以保证 BED 文件中的基因 ID 与 faa 文件中的 ID 完全一致
         awk '
-        $3 == "gene" && NF >= 9 {
-            gene_id = ""; locus = "";
-            attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
-            n = split(attrs, arr, /;/);
-            for (i=1; i<=n; i++) {
-                gsub(/^[ \t]+/, "", arr[i]);
-                if (arr[i] ~ /^ID=gene-/) {
-                    gene_id = substr(arr[i], 9);
-                }
-                if (arr[i] ~ /^locus_tag=/) {
-                    locus = substr(arr[i], 11);
-                }
-            }
-            if (gene_id != "" && locus != "") {
-                gene_locus[locus] = gene_id;
-            }
-        }
-        $3 == "CDS" && NF >= 9 {
+        $3 == "gene" || $3 == "CDS" {
             pid = ""; locus = "";
             attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
             n = split(attrs, arr, /;/);
@@ -366,13 +348,16 @@ run_faa() {
                 gsub(/^[ \t]+/, "", arr[i]);
                 if (arr[i] ~ /^protein_id=/) {
                     pid = substr(arr[i], 12);
+                    gsub(/\.[0-9]+$/, "", pid);
                 }
                 if (arr[i] ~ /^locus_tag=/) {
                     locus = substr(arr[i], 11);
                 }
             }
-            if (pid != "" && locus != "" && locus in gene_locus) {
-                print pid "\t" gene_locus[locus];
+            if (pid != "") {
+                # 优先使用 locus_tag，如果没有则用 protein_id 本身（去除版本号）
+                final_id = (locus != "") ? locus : pid;
+                print pid "\t" final_id;
             }
         }' "$gff" | sort -u >"$id_map"
 
@@ -383,6 +368,7 @@ run_faa() {
             name = substr($0, 2);
             split(name, arr, /[ \t]/);
             acc = arr[1];
+            gsub(/\.[0-9]+$/, "", acc);  # 去除版本号如 .1, .2 等
             new_acc = (acc in m) ? m[acc] : acc;
             rest = (NF > 1) ? substr($0, index($0, $2)) : "";
             printf ">%s%s\n", new_acc, (rest ? " " rest : "");
@@ -435,35 +421,30 @@ run_bed() {
         gff=$(find "$species_dir" -name "*.gff" | head -1)
         [[ -f $gff ]] || continue
 
-        # 使用 gene_id 作为 BED 文件中的基因 ID
+        # 使用与 run_faa 相同的映射逻辑：优先用 locus_tag，如果没有则用 protein_id
         bed_out="$WORK_DIR/${sp}.bed"
         awk -F'\t' '
-        $3 == "gene" && NF >= 9 {
-            pid = ""; gene_id = "";
+        $3 == "gene" || $3 == "CDS" {
+            pid = ""; locus = "";
             attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
             n = split(attrs, arr, /;/);
             for (i=1; i<=n; i++) {
                 gsub(/^[ \t]+/, "", arr[i]);
                 if (arr[i] ~ /^protein_id=/) {
                     pid = substr(arr[i], 12);
+                    gsub(/\.[0-9]+$/, "", pid);
                 }
-                if (arr[i] ~ /^ID=gene-/) {
-                    gene_id = substr(arr[i], 9);
+                if (arr[i] ~ /^locus_tag=/) {
+                    locus = substr(arr[i], 11);
                 }
             }
-            if (gene_id != "") {
-                gid = gene_id;
-            } else if (pid != "") {
-                gid = pid;
-            } else {
-                next;
+            if (pid != "") {
+                # 优先使用 locus_tag，如果没有则用 protein_id
+                gid = (locus != "") ? locus : pid;
+                print $1 "\t" ($4-1) "\t" $5 "\t" gid "\t.\t" $7
             }
-            start = $4 - 1;  # BED 格式起始位置为 0
-            end = $5;
-            strand = $7;
-            print $1 "\t" start "\t" end "\t" gid "\t.\t" strand
         }
-        ' "$gff" >"$bed_out"
+        ' "$gff" | sort -u >"$bed_out"
 
         if [[ ! -s "$bed_out" ]]; then
             echo "⚠️  BED 为空：$sp（尝试备用提取逻辑）..."
@@ -556,6 +537,11 @@ run_genetribe() {
     CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
     if [[ -d "$CONDA_ENV_DIR/bin" ]]; then
         export PATH="$CONDA_ENV_DIR/bin:$PATH"
+    fi
+    # 添加 biotools 环境路径（包含 seqkit），放在 genetribe 之后
+    BIOTOOLS_ENV_DIR="$(conda info --base 2>/dev/null)/envs/biotools"
+    if [[ -d "$BIOTOOLS_ENV_DIR/bin" ]]; then
+        export PATH="$PATH:$BIOTOOLS_ENV_DIR/bin"
     fi
 
     cd "$WORK_DIR"

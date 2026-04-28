@@ -206,6 +206,13 @@ for species_dir in "${subdirs[@]}"; do
     # 输出前缀（不含扩展名）
     base=$(basename "$faa" .protein.faa)
     prefix="${species_output_dir}/${base}"
+    output_file="${prefix}.extracted.${OUTPUT_FORMAT}"
+
+    # 检查输出文件是否已存在，跳过已有结果的物种
+    if [ -f "$output_file" ]; then
+        echo "[SKIP] 物种 $species_name 的结果已存在 ($output_file)，跳过"
+        continue
+    fi
 
     # 1. 运行 eggNOG-mapper
     echo "运行 emapper.py..."
@@ -234,7 +241,6 @@ for species_dir in "${subdirs[@]}"; do
     else
         species="$species_name"
     fi
-    output_file="${prefix}.extracted.${OUTPUT_FORMAT}"
 
     echo "提取注释信息到: $output_file"
 
