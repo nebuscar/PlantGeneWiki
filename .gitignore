@@ -5,6 +5,7 @@ tmp/
 gff_result/
 test/
 eval_result/
+.claude/
 
 # files
 *.gz

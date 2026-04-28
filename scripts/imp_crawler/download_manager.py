@@ -252,13 +252,6 @@ def download_species(species_code, output_dir, dry_run=False, skip_existing=True
         # 限速避免请求过快
         time.sleep(0.5)
 
-    # 重命名文件为全称格式（非dry_run且有物种名称时）
-    if not dry_run and species_name and success_count > 0:
-        print(f"  📝 重命名文件...")
-        renamed = rename_files_to_fullname(species_dir, species_name, species_code)
-        for old_name, new_name in renamed:
-            print(f"    {old_name} -> {new_name}")
-
     # 清理空文件（下载失败的文件）
     if not dry_run:
         cleaned = cleanup_empty_files(species_dir)

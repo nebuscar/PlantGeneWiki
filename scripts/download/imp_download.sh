@@ -10,7 +10,7 @@ set -e
 PROJECT_DIR="/home/nizhu/Projects/plantsdb"
 SCRIPTS_DIR="${PROJECT_DIR}/scripts/imp_crawler"
 DOWNLOAD_DIR="${PROJECT_DIR}/downloads/IMP"
-LOG_DIR="${DOWNLOAD_DIR}/logs"
+LOG_DIR=""
 
 # 颜色输出
 RED='\033[0;31m'
@@ -30,6 +30,7 @@ IMP 基因组数据批量下载脚本
   -s, --species CODE      指定单个物种代码测试
   -l, --limit NUM         限制处理物种数量
   -d, --dry-run           仅显示，不实际下载
+  -o, --outdir DIR        指定下载目录（默认: /DATA/data2/downloads/IMP）
   --list                  仅获取物种列表
   --no-skip               重新下载已存在的文件
 
@@ -38,10 +39,9 @@ IMP 基因组数据批量下载脚本
   $0 --species Apu1       # 测试下载单个物种
   $0 --limit 10           # 限制下载10个物种
   $0 --list               # 仅获取物种列表
+  $0 -o /custom/path      # 指定自定义下载目录
 EOF
 }
-
-mkdir -p "$DOWNLOAD_DIR" "$LOG_DIR"
 
 log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
@@ -54,6 +54,7 @@ LIMIT=""
 DRY_RUN=""
 NO_SKIP=""
 LIST_ONLY="no"
+OUTDIR=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -62,11 +63,18 @@ while [[ $# -gt 0 ]]; do
         -s|--species) SPECIES_CODE="$2"; shift 2 ;;
         -l|--limit) LIMIT="--limit $2"; shift 2 ;;
         -d|--dry-run) DRY_RUN="--dry-run"; shift ;;
+        -o|--outdir) OUTDIR="$2"; shift 2 ;;
         --no-skip) NO_SKIP="--no-skip"; shift ;;
         --list) LIST_ONLY="yes"; shift ;;
         *) log_error "未知选项: $1"; exit 1 ;;
     esac
 done
+
+# 设置默认下载目录
+DOWNLOAD_DIR="${OUTDIR:-/DATA/data2/downloads/IMP}"
+LOG_DIR="${DOWNLOAD_DIR}/logs"
+
+mkdir -p "$DOWNLOAD_DIR" "$LOG_DIR"
 
 echo "=============================================="
 echo "IMP 基因组数据批量下载"

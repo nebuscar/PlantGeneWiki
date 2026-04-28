@@ -101,6 +101,7 @@ Usage: ./$SCRIPT_NAME [OPTIONS]
 Options:
   -i, --input DIR      输入目录
   -o, --output DIR     输出目录
+  -e, --env ENV       外部conda环境路径 (包含依赖工具如seqkit等)
   -g, --genus          按属分组运行同源分析（自动批处理各属）
   -j, --jobs N         属并行数 [默认: 1]
   -m, --mode MODE      运行模式
@@ -142,11 +143,12 @@ if [[ $# -eq 0 ]]; then
 fi
 
 # ====================== 解析参数 ======================
-PARSED_ARGS=$(getopt -o hi:o:m:f:gj:t:p: --long help,input:,output:,mode:,format:,genus,jobs:,threads:,cpus: --name "$0" -- "$@")
+PARSED_ARGS=$(getopt -o hi:o:e:m:f:gj:t:p: --long help,input:,output:,env:,mode:,format:,genus,jobs:,threads:,cpus: --name "$0" -- "$@")
 eval set -- "$PARSED_ARGS"
 
 INPUT_DIR=""
 OUTPUT_DIR=""
+CONDA_ENV_PATH=""
 MODE="all"
 GENUS_MODE=false
 FORMAT="xlsx"
@@ -162,6 +164,10 @@ while true; do
         ;;
     -o | --output)
         OUTPUT_DIR="$2"
+        shift 2
+        ;;
+    -e | --env)
+        CONDA_ENV_PATH="$2"
         shift 2
         ;;
     -m | --mode)
@@ -225,12 +231,22 @@ echo "========================================"
 START_TIME=$(date +%s)
 
 # ====================== 依赖检查 ======================
+# 优先使用外部conda环境中的工具
+if [[ -n "$CONDA_ENV_PATH" && -d "$CONDA_ENV_PATH/bin" ]]; then
+    export PATH="$CONDA_ENV_PATH/bin:$PATH"
+fi
+
+# 添加本地安装的genetribe
+GENETRIBE_LOCAL="/home/nizhu/software/genetribe"
+if [[ -d "$GENETRIBE_LOCAL" ]]; then
+    export PATH="$GENETRIBE_LOCAL:$PATH"
+fi
+
 check_dep() { command -v "$1" &>/dev/null || {
     echo "缺少工具: $1"
     exit 1
 }; }
 check_dep seqkit
-check_dep gff2bed
 check_dep genetribe
 
 # ====================== 全局变量 ======================
@@ -320,11 +336,29 @@ run_faa() {
 
         [[ -f $gff && -f $faa ]] || continue
 
-        # 从 GFF 提取 protein_id 和 locus_tag 的映射
-        # 关键修复：如果基因只有 protein_id 而没有 locus_tag，用 protein_id 本身作为 locus_tag
-        # 这样可以保证 BED 文件中的基因 ID 能与蛋白序列 ID 匹配
+        # 从 GFF 提取 protein_id 和 gene_id 的映射
+        # gene行: ID=gene-xxx 和 locus_tag
+        # CDS行: protein_id 和 locus_tag
+        # 通过 locus_tag 关联 protein_id 和 gene_id
         awk '
-        $3 == "CDS" || $3 == "gene" {
+        $3 == "gene" && NF >= 9 {
+            gene_id = ""; locus = "";
+            attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
+            n = split(attrs, arr, /;/);
+            for (i=1; i<=n; i++) {
+                gsub(/^[ \t]+/, "", arr[i]);
+                if (arr[i] ~ /^ID=gene-/) {
+                    gene_id = substr(arr[i], 9);
+                }
+                if (arr[i] ~ /^locus_tag=/) {
+                    locus = substr(arr[i], 11);
+                }
+            }
+            if (gene_id != "" && locus != "") {
+                gene_locus[locus] = gene_id;
+            }
+        }
+        $3 == "CDS" && NF >= 9 {
             pid = ""; locus = "";
             attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
             n = split(attrs, arr, /;/);
@@ -332,16 +366,13 @@ run_faa() {
                 gsub(/^[ \t]+/, "", arr[i]);
                 if (arr[i] ~ /^protein_id=/) {
                     pid = substr(arr[i], 12);
-                    gsub(/\.[0-9]+$/, "", pid);
                 }
                 if (arr[i] ~ /^locus_tag=/) {
                     locus = substr(arr[i], 11);
                 }
             }
-            if (pid != "") {
-                # 如果没有 locus_tag，用 protein_id 本身（去除版本号）
-                if (locus == "") locus = pid;
-                print pid "\t" locus;
+            if (pid != "" && locus != "" && locus in gene_locus) {
+                print pid "\t" gene_locus[locus];
             }
         }' "$gff" | sort -u >"$id_map"
 
@@ -352,7 +383,6 @@ run_faa() {
             name = substr($0, 2);
             split(name, arr, /[ \t]/);
             acc = arr[1];
-            gsub(/\.[0-9]+$/, "", acc);
             new_acc = (acc in m) ? m[acc] : acc;
             rest = (NF > 1) ? substr($0, index($0, $2)) : "";
             printf ">%s%s\n", new_acc, (rest ? " " rest : "");
@@ -405,33 +435,29 @@ run_bed() {
         gff=$(find "$species_dir" -name "*.gff" | head -1)
         [[ -f $gff ]] || continue
 
-        # 使用与 run_faa 相同的映射逻辑：优先用 locus_tag，如果没有则用 protein_id
-        # 这样可以保证 BED 文件中的 gene ID 与 faa 文件中的 ID 完全一致
+        # 使用 gene_id 作为 BED 文件中的基因 ID
         bed_out="$WORK_DIR/${sp}.bed"
         awk -F'\t' '
         $3 == "gene" && NF >= 9 {
-            pid = ""; locus = "";
+            pid = ""; gene_id = "";
             attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
             n = split(attrs, arr, /;/);
             for (i=1; i<=n; i++) {
                 gsub(/^[ \t]+/, "", arr[i]);
                 if (arr[i] ~ /^protein_id=/) {
                     pid = substr(arr[i], 12);
-                    gsub(/\.[0-9]+$/, "", pid);
                 }
-                if (arr[i] ~ /^locus_tag=/) {
-                    locus = substr(arr[i], 11);
+                if (arr[i] ~ /^ID=gene-/) {
+                    gene_id = substr(arr[i], 9);
                 }
             }
-            # 优先使用 locus_tag，如果没有则用 protein_id
-            if (locus != "") {
-                gid = locus;
+            if (gene_id != "") {
+                gid = gene_id;
             } else if (pid != "") {
                 gid = pid;
             } else {
                 next;
             }
-            # 提取基因起始和终止位置
             start = $4 - 1;  # BED 格式起始位置为 0
             end = $5;
             strand = $7;
@@ -446,7 +472,19 @@ run_bed() {
                 n = split(attrs, a, /;/); id="";
                 for (i=1; i<=n; i++) {
                     gsub(/^[ \t]+/, "", a[i]);
-                    if (a[i] ~ /^ID=/) { id = substr(a[i], 4); sub(/^gene:/, "", id); sub(/^gene-/, "", id); break }
+                    if (a[i] ~ /^ID=gene-/) { id = substr(a[i], 5); break }
+                }
+                if (id == "") {
+                    for (i=1; i<=n; i++) {
+                        gsub(/^[ \t]+/, "", a[i]);
+                        if (a[i] ~ /^locus_tag=/) { id = substr(a[i], 11); break }
+                    }
+                }
+                if (id == "") {
+                    for (i=1; i<=n; i++) {
+                        gsub(/^[ \t]+/, "", a[i]);
+                        if (a[i] ~ /^protein_id=/) { id = substr(a[i], 12); break }
+                    }
                 }
                 if (id != "") print $1"\t"$4-1"\t"$5"\t"id"\t.\t"$7
             }' "$gff" >"$bed_out"
@@ -497,49 +535,30 @@ run_genetribe() {
 
     # GeneTribe 硬编码 .fa 后缀，为 .faa 创建符号链接
     for species in "$ref_sp" "${qs[@]}"; do
-<<<<<<< HEAD
-        faa="$OUTPUT_DIR/${species}.faa"
-        fa_link="$OUTPUT_DIR/${species}.fa"
-        [[ -f "$faa" ]] && ln -sf "${faa}" "$fa_link"
-    done
-
-    # 激活 conda genetribe 环境，确保 jcvi 可用
-    if ! command -v conda &>/dev/null; then
-        echo "错误：未找到 conda，无法激活 genetribe 环境"
-        exit 1
-    fi
-    CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
-    if [[ ! -d "$CONDA_ENV_DIR" ]]; then
-        echo "错误：conda 环境 genetribe 不存在"
-        exit 1
-    fi
-    eval "$(conda shell.bash hook 2>/dev/null)"
-    conda activate genetribe
-    # conda activate 可能因 ~/.local/bin 优先级未能覆盖 python，
-    # genetribe core 内部也会调用 python -m jcvi，必须确保 PATH 中 python 指向 conda 环境
-=======
         faa="$WORK_DIR/${species}.faa"
         fa_link="$WORK_DIR/${species}.fa"
         [[ -f "$faa" && ! -e "$fa_link" ]] && ln -s "${species}.faa" "$fa_link"
     done
 
     # 激活 conda genetribe 环境
-    eval "$(conda shell.bash hook 2>/dev/null)"
+    # 尝试多种 conda 安装路径
+    for conda_sh in ~/miniconda3/etc/profile.d/conda.sh ~/anaconda3/etc/profile.d/conda.sh ~/software/miniforge3/etc/profile.d/conda.sh; do
+        if [[ -f "$conda_sh" ]]; then
+            source "$conda_sh"
+            break
+        fi
+    done
+    if ! command -v conda &>/dev/null; then
+        echo "错误：未找到 conda，请确保已安装 Miniconda 或 Anaconda"
+        exit 1
+    fi
     conda activate genetribe
     CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
->>>>>>> nizhu
     if [[ -d "$CONDA_ENV_DIR/bin" ]]; then
         export PATH="$CONDA_ENV_DIR/bin:$PATH"
     fi
 
-<<<<<<< HEAD
-    # 在子 shell 中运行，避免 cd 改变全局工作目录
-    (
-    cd "$OUTPUT_DIR"
-=======
-    local orig_dir="$(pwd)"
     cd "$WORK_DIR"
->>>>>>> nizhu
 
     for q in "${qs[@]}"; do
         for suf in fa bed chrlist; do
@@ -552,22 +571,12 @@ run_genetribe() {
         mkdir -p "$out"
         mkdir -p genetribe_output
         for species in "$ref_sp" "$q"; do
-<<<<<<< HEAD
-            [[ -f "${species}.cds" ]] &&
-                ln -sf "${OUTPUT_DIR}/${species}.cds" "genetribe_output/${species}.cds"
-            [[ -f "${species}.bed" ]] &&
-                ln -sf "${OUTPUT_DIR}/${species}.bed" "genetribe_output/${species}.bed"
-            # jcvi 默认查找 .pep 文件（prot 模式），创建符号链接指向 .faa
-            [[ -f "${species}.faa" ]] &&
-                ln -sf "${OUTPUT_DIR}/${species}.faa" "genetribe_output/${species}.pep"
-=======
             [[ -f "${species}.cds" && ! -e "genetribe_output/${species}.cds" ]] &&
                 ln -s "$(pwd)/${species}.cds" "genetribe_output/${species}.cds"
             [[ -f "${species}.bed" && ! -e "genetribe_output/${species}.bed" ]] &&
                 ln -s "$(pwd)/${species}.bed" "genetribe_output/${species}.bed"
             [[ -f "${species}.faa" && ! -e "genetribe_output/${species}.pep" ]] &&
                 ln -s "$(pwd)/${species}.faa" "genetribe_output/${species}.pep"
->>>>>>> nizhu
         done
         genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
         result_dir="$out"
@@ -578,7 +587,6 @@ run_genetribe() {
         done
         echo "完成: $ref_sp vs $q"
     done
-    )
 }
 
 run_merge() {
