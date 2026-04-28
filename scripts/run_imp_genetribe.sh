@@ -3,8 +3,11 @@ set -eo pipefail
 
 # ====================== 基础配置 ======================
 project_dir="/home/nizhu/Projects/plantsdb"
-default_out_dir="${project_dir}/result/homolog"
-default_input_dir="/DATA/data2/downloads/genomes"
+default_out_dir="${project_dir}/data/imp_homolog"
+default_result_dir="${project_dir}/result/imp_homolog"
+default_input_dir="/DATA/data2/downloads/IMP"
+default_bed_dir="${project_dir}/data/imp_gene_pos"
+default_manifest="${project_dir}/downloads/IMP/species_manifest.tsv"
 input_dir="${default_input_dir}"
 SCRIPT_NAME=$(basename "$0")
 
@@ -107,7 +110,7 @@ usage() {
     cat <<EOF
 Usage: ./$SCRIPT_NAME [OPTIONS]
 
-植物基因组分析脚本：faa统计 + GFF转BED + chrlist + genetribe同源分析
+IMP数据同源分析脚本：基于 imp_gene_pos 的 BED/chrlist 运行 GeneTribe 同源分析
 
 Options:
   -i, --input DIR      输入目录
@@ -268,10 +271,12 @@ check_dep seqkit
 check_dep genetribe
 
 # ====================== 全局变量 ======================
-# WORK_DIR: 中间文件和genetribe结果的实际输出目录
+# WORK_DIR: 中间数据目录（符号链接、临时文件等）
+# RESULT_DIR: 最终结果目录（合并后的映射表等）
 # CURRENT_GENUS: 当前正在处理的属名（-g 批处理时使用）
 # CURRENT_REF: 当前参考物种名
-WORK_DIR="$OUTPUT_DIR"
+WORK_DIR="${project_dir}/data/imp_homolog"
+RESULT_DIR="${project_dir}/result/imp_homolog"
 CURRENT_GENUS=""
 CURRENT_REF=""
 
@@ -286,12 +291,10 @@ get_ref_sp() {
 discover_genera() {
     local -a genera=()
     declare -A seen
-    for species_dir in "${INPUT_DIR}"/*/; do
-        [[ -d "$species_dir" ]] || continue
-        faa=$(find "$species_dir" -name "*.faa" | head -1)
-        [[ -z "$faa" ]] && continue
-        sp=$(basename "$species_dir")
-        genus=${sp%%_*}
+    for bed in "${default_bed_dir}"/*.bed; do
+        [[ -f "$bed" ]] || continue
+        code=$(basename "$bed" .bed)
+        genus=$(get_genus "$code")
         [[ -z "$genus" || -n "${seen[$genus]}" ]] && continue
         seen[$genus]=1
         genera+=("$genus")
@@ -503,44 +506,108 @@ run_chr() {
 
 run_genetribe() {
     echo -e "\n[5] 运行GeneTribe..."
-    ref_info="$WORK_DIR/reference_species.txt"
-    [[ -f $ref_info ]] || {
-        echo "请先运行 -m stat"
+
+    # IMP 数据路径配置
+    local bed_dir="${default_bed_dir}"
+    local imp_dir="${default_input_dir}"
+    local manifest="${default_manifest}"
+
+    # 检查 manifest 文件
+    [[ -f "$manifest" ]] || {
+        echo "错误：species_manifest.tsv 不存在 -> $manifest"
         exit 1
     }
-    ref_sp=$(get_ref_sp "$ref_info")
-    ref_genus=${ref_sp%%_*}
 
-    qs=()
-    for f in "$WORK_DIR"/*.faa; do
-        s=$(basename "${f%.faa}")
-        if [[ $s != $ref_sp ]]; then
-            if $GENUS_MODE; then
-                s_genus=${s%%_*}
-                [[ $s_genus == $ref_genus ]] && qs+=("$s")
-            else
-                qs+=("$s")
+    # 从 BED 目录获取所有物种（短代码）
+    local all_species=()
+    for bed in "$bed_dir"/*.bed; do
+        [[ -f "$bed" ]] || continue
+        sp=$(basename "$bed" .bed)
+        all_species+=("$sp")
+    done
+
+    if [[ ${#all_species[@]} -eq 0 ]]; then
+        echo "错误：在 $bed_dir 中未找到 BED 文件"
+        exit 1
+    fi
+
+    echo "发现 ${#all_species[@]} 个物种"
+
+    # 选择参考物种：如果已通过 CURRENT_REF 指定（genus 模式），则使用它；否则自动选择最大的
+    if [[ -n "$CURRENT_REF" ]]; then
+        ref_sp="$CURRENT_REF"
+        local dir_name=$(get_dir_name "$ref_sp")
+        local prot_file="$imp_dir/$dir_name/${ref_sp}.prot.fasta"
+        local ref_size=$(stat -c%s "$prot_file" 2>/dev/null || echo 0)
+        echo "使用指定参考物种: $ref_sp ($(numfmt --to=iec $ref_size 2>/dev/null || echo "$ref_size bytes"))"
+    else
+        local ref_sp=""
+        local ref_size=0
+        for sp in "${all_species[@]}"; do
+            local dir_name=$(get_dir_name "$sp" 2>/dev/null)
+            local prot_file="$imp_dir/$dir_name/${sp}.prot.fasta"
+            if [[ -f "$prot_file" ]]; then
+                local size=$(stat -c%s "$prot_file" 2>/dev/null || echo 0)
+                if [[ $size -gt $ref_size ]]; then
+                    ref_size=$size
+                    ref_sp="$sp"
+                fi
             fi
+        done
+        [[ -z "$ref_sp" ]] && {
+            echo "错误：未找到可用的参考物种"
+            exit 1
+        }
+        echo "参考物种: $ref_sp ($(numfmt --to=iec $ref_size 2>/dev/null || echo "$ref_size bytes"))"
+    fi
+
+# 收集 query 物种（按属过滤）
+    # 收集 query 物种（如果已指定 CURRENT_GENUS 则只选同属的）
+    local ref_genus=$(get_genus "$ref_sp")
+    qs=()
+    if [[ -n "$CURRENT_GENUS" ]]; then
+        # genus 模式：只选同属的物种
+        for sp in "${all_species[@]}"; do
+            [[ "$sp" == "$ref_sp" ]] && continue
+            local sp_genus=$(get_genus "$sp")
+            [[ "$sp_genus" == "$CURRENT_GENUS" ]] && qs+=("$sp")
+        done
+        echo "同属待比对: ${CURRENT_GENUS}，${#qs[@]} 个物种"
+    else
+        # 非 genus 模式：所有其他物种
+        for sp in "${all_species[@]}"; do
+            [[ "$sp" != "$ref_sp" ]] && qs+=("$sp")
+        done
+        echo "待比对物种: ${#qs[@]} 个"
+    fi
+
+    # 准备 WORK_DIR：创建必要的符号链接
+    mkdir -p "$WORK_DIR"
+    for sp in "$ref_sp" "${qs[@]}"; do
+        local dir_name=$(get_dir_name "$sp")
+        local prot_file="$imp_dir/$dir_name/${sp}.prot.fasta"
+        local bed_file="$bed_dir/${sp}.bed"
+        local chr_file="$bed_dir/${sp}.chrlist"
+
+        # 蛋白序列 -> .faa (GeneTribe 需要 .fa 后缀)
+        if [[ -f "$prot_file" && ! -e "$WORK_DIR/${sp}.faa" ]]; then
+            ln -sf "$prot_file" "$WORK_DIR/${sp}.faa"
+        fi
+        # .faa -> .fa (GeneTribe 硬编码 .fa 后缀)
+        if [[ -f "$WORK_DIR/${sp}.faa" && ! -e "$WORK_DIR/${sp}.fa" ]]; then
+            ln -sf "${sp}.faa" "$WORK_DIR/${sp}.fa"
+        fi
+        # BED 文件
+        if [[ -f "$bed_file" && ! -e "$WORK_DIR/${sp}.bed" ]]; then
+            ln -sf "$bed_file" "$WORK_DIR/${sp}.bed"
+        fi
+        # chrlist 文件
+        if [[ -f "$chr_file" && ! -e "$WORK_DIR/${sp}.chrlist" ]]; then
+            ln -sf "$chr_file" "$WORK_DIR/${sp}.chrlist"
         fi
     done
 
-    if [[ ${#qs[@]} -eq 0 ]]; then
-        echo "无待比对物种"
-        return
-    fi
-    if $GENUS_MODE; then
-        echo "参考物种属: $ref_genus，同属待比对: ${qs[*]}"
-    fi
-
-    # GeneTribe 硬编码 .fa 后缀，为 .faa 创建符号链接
-    for species in "$ref_sp" "${qs[@]}"; do
-        faa="$WORK_DIR/${species}.faa"
-        fa_link="$WORK_DIR/${species}.fa"
-        [[ -f "$faa" && ! -e "$fa_link" ]] && ln -s "${species}.faa" "$fa_link"
-    done
-
     # 激活 conda genetribe 环境
-    # 尝试多种 conda 安装路径
     for conda_sh in ~/miniconda3/etc/profile.d/conda.sh ~/anaconda3/etc/profile.d/conda.sh ~/software/miniforge3/etc/profile.d/conda.sh; do
         if [[ -f "$conda_sh" ]]; then
             source "$conda_sh"
@@ -548,75 +615,53 @@ run_genetribe() {
         fi
     done
     if ! command -v conda &>/dev/null; then
-        echo "错误：未找到 conda，请确保已安装 Miniconda 或 Anaconda"
+        echo "错误：未找到 conda"
         exit 1
     fi
     conda activate genetribe
-    CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
-    if [[ -d "$CONDA_ENV_DIR/bin" ]]; then
-        export PATH="$CONDA_ENV_DIR/bin:$PATH"
-    fi
-    # 添加 biotools 环境路径（包含 seqkit），放在 genetribe 之后
-    BIOTOOLS_ENV_DIR="$(conda info --base 2>/dev/null)/envs/biotools"
-    if [[ -d "$BIOTOOLS_ENV_DIR/bin" ]]; then
-        export PATH="$PATH:$BIOTOOLS_ENV_DIR/bin"
-    fi
+    local conda_base=$(conda info --base 2>/dev/null)
+    export PATH="$conda_base/envs/genetribe/bin:$PATH"
 
     cd "$WORK_DIR"
 
-    # 计算并行度：每个子任务使用 THREADS_PER_JOB = THREADS / PARALLEL_QUERIES
+    # 计算并行度
     THREADS_PER_JOB=$(( THREADS / PARALLEL_QUERIES ))
     [[ $THREADS_PER_JOB -lt 4 ]] && THREADS_PER_JOB=4
     echo "总线程: $THREADS, query并行数: $PARALLEL_QUERIES, 每query线程: $THREADS_PER_JOB"
 
-    # 子任务函数（导出到子shell执行）
+    # 子任务函数
     run_single_query() {
         local q="$1"
         local ref_sp="$2"
         local threads="$3"
         local work_dir="$4"
 
-        # 断点续传：检查已完成的结果
-        local out="genetribe_result/${ref_sp}_vs_$q"
-        local rbh_file="${out}/${ref_sp}_${q}.RBH"
-        if [[ -s "$rbh_file" ]]; then
-            echo "跳过已完成: $ref_sp vs $q"
-            return 0
-        fi
-
-        # 检查必需文件
-        for suf in fa bed chrlist; do
-            if [[ ! -f "${work_dir}/${ref_sp}.$suf" || ! -f "${work_dir}/${q}.$suf" ]]; then
-                echo "⚠️  跳过 $q：缺少文件"
-                return 1
-            fi
-        done
-
+        local out="${work_dir}/genetribe_result/${ref_sp}_vs_$q"
         mkdir -p "$out"
-        # 每个子任务使用独立工作目录，避免文件冲突
         local task_dir="genetribe_output_${ref_sp}_vs_${q}"
         mkdir -p "$task_dir"
         cd "$task_dir"
 
-        # 链接必需文件到独立工作目录
+        # 链接文件到独立工作目录（使用绝对路径确保 genetribe 能正确找到）
+        local work_dir_abs="$(cd "$work_dir" && pwd)"
         for species in "$ref_sp" "$q"; do
-            [[ -f "${work_dir}/${species}.cds" && ! -e "${species}.cds" ]] &&
-                ln -sf "$(cd "$work_dir" && pwd)/${species}.cds" "${species}.cds"
+            # GeneTribe 需要 .fa 后缀的蛋白序列文件
+            [[ -f "${work_dir}/${species}.faa" && ! -e "${species}.fa" ]] &&
+                ln -sf "${work_dir_abs}/${species}.faa" "${species}.fa"
             [[ -f "${work_dir}/${species}.bed" && ! -e "${species}.bed" ]] &&
-                ln -sf "$(cd "$work_dir" && pwd)/${species}.bed" "${species}.bed"
-            [[ -f "${work_dir}/${species}.faa" && ! -e "${species}.pep" ]] &&
-                ln -sf "$(cd "$work_dir" && pwd)/${species}.faa" "${species}.pep"
+                ln -sf "${work_dir_abs}/${species}.bed" "${species}.bed"
+            [[ -f "${work_dir}/${species}.chrlist" && ! -e "${species}.chrlist" ]] &&
+                ln -sf "${work_dir_abs}/${species}.chrlist" "${species}.chrlist"
         done
 
-        # 激活 conda 环境并执行
+        # 执行
         eval "$(conda shell.bash hook 2>/dev/null)"
         conda activate genetribe 2>/dev/null || true
-        local conda_base=$(conda info --base 2>/dev/null)
         export PATH="$conda_base/envs/genetribe/bin:$PATH"
 
         genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$threads" || true
 
-        # 整理结果到输出目录
+        # 整理结果
         for ext in one2one one2many RBH SBH singleton block_pos collinearity_info; do
             for f in "${ref_sp}_${q}.${ext}" "${q}_${ref_sp}.${ext}"; do
                 [[ -f "$f" ]] && mv "$f" "$out/"
@@ -630,12 +675,31 @@ run_genetribe() {
     export -f run_single_query
     export WORK_DIR conda_base
 
-    # 并行执行（使用 xargs）
+    # 并行执行
     export PARALLEL_QUERIES THREADS_PER_JOB
     printf '%s\n' "${qs[@]}" | xargs -P "$PARALLEL_QUERIES" -I{} bash -c \
         'run_single_query "$@"' _ {} "$ref_sp" "$THREADS_PER_JOB" "$WORK_DIR"
 
     echo "所有 query 比对完成"
+}
+
+# 辅助函数：从短代码获取 IMP 目录名
+get_dir_name() {
+    local code="$1"
+    grep "^${code}" "$default_manifest" 2>/dev/null | awk -F'\t' '{print $3}'
+}
+
+# 辅助函数：从短代码获取物种名
+get_species_name() {
+    local code="$1"
+    grep "^${code}" "$default_manifest" 2>/dev/null | awk -F'\t' '{print $2}'
+}
+
+# 辅助函数：从短代码获取属名
+get_genus() {
+    local code="$1"
+    local species=$(get_species_name "$code")
+    echo "$species" | awk '{print $1}'
 }
 
 run_merge() {
@@ -803,42 +867,21 @@ run_pipeline() {
 }
 
 if $GENUS_MODE; then
-    # ========== -g 批处理模式 ==========
-    # stat 特殊：需要先全局跑一次，按属选参考
-    IFS=',' read -ra modes <<<"$MODE"
-    need_stat=false
-    other_steps=""
-    for m in "${modes[@]}"; do
-        case "$m" in
-        stat) need_stat=true ;;
-        all)
-            need_stat=true
-            other_steps="faa,bed,chr,genetribe,merge"
-            ;;
-        faa | bed | chr | genetribe | merge) other_steps="${other_steps:+$other_steps,}$m" ;;
-        esac
-    done
-
-    # 1) 先跑 stat（按属独立选参考）
-    if $need_stat; then
-        run_stat
-    fi
-
-    # 2) 收集可处理的属
+    # ========== -g 批处理模式（IMP 数据） ==========
+    # 收集可处理的属
     valid_genera=()
     for genus in $(discover_genera); do
-        genus_dir="$OUTPUT_DIR/$genus"
-        ref_info="$genus_dir/reference_species.txt"
-        if [[ ! -f "$ref_info" ]]; then
-            echo "跳过属 $genus：无参考物种信息"
-            continue
-        fi
-        faa_count=0
-        for f in "$INPUT_DIR/${genus}"_*/*.faa; do
-            [[ -f "$f" ]] && faa_count=$((faa_count + 1))
+        # 统计该属有多少个物种有 BED 文件
+        genus_species=()
+        for bed in "${default_bed_dir}"/*.bed; do
+            [[ -f "$bed" ]] || continue
+            code=$(basename "$bed" .bed)
+            if [[ "$(get_genus "$code")" == "$genus" ]]; then
+                genus_species+=("$code")
+            fi
         done
-        if [[ $faa_count -lt 2 ]]; then
-            echo "跳过属 $genus：只有 $faa_count 个物种有蛋白序列，无法比对"
+        if [[ ${#genus_species[@]} -lt 2 ]]; then
+            echo "跳过属 $genus：只有 ${#genus_species[@]} 个物种，无法比对"
             continue
         fi
         valid_genera+=("$genus")
@@ -847,12 +890,41 @@ if $GENUS_MODE; then
     echo ""
     echo "待处理属: ${valid_genera[*]} (共 ${#valid_genera[@]} 个)"
 
+    # 设置 other_steps
+    other_steps="genetribe"
+
     # 3) 属处理函数（供串行/并行调用）
     process_genus() {
         local genus="$1"
-        local genus_dir="$OUTPUT_DIR/$genus"
-        local ref_info="$genus_dir/reference_species.txt"
-        local ref_sp=$(get_ref_sp "$ref_info")
+        local genus_dir="$WORK_DIR/$genus"
+        mkdir -p "$genus_dir"
+
+        # 收集该属所有物种
+        local genus_species=()
+        for bed in "${default_bed_dir}"/*.bed; do
+            [[ -f "$bed" ]] || continue
+            code=$(basename "$bed" .bed)
+            if [[ "$(get_genus "$code")" == "$genus" ]]; then
+                genus_species+=("$code")
+            fi
+        done
+
+        # 选择最大的物种作为参考
+        local ref_sp=""
+        local ref_size=0
+        for sp in "${genus_species[@]}"; do
+            local dir_name=$(get_dir_name "$sp")
+            local prot_file="$default_input_dir/$dir_name/${sp}.prot.fasta"
+            if [[ -f "$prot_file" ]]; then
+                local size=$(stat -c%s "$prot_file" 2>/dev/null || echo 0)
+                if [[ $size -gt $ref_size ]]; then
+                    ref_size=$size
+                    ref_sp="$sp"
+                fi
+            fi
+        done
+
+        [[ -z "$ref_sp" ]] && { echo "跳过属 $genus：未找到可用参考物种"; return; }
 
         echo ""
         echo "########################################"
@@ -880,8 +952,8 @@ if $GENUS_MODE; then
         done
     else
         # 并行：导出函数和变量，用 xargs 调度
-        export -f process_genus run_pipeline run_stat run_faa run_bed run_chr run_genetribe run_merge run_single_query get_ref_sp discover_genera
-        export INPUT_DIR OUTPUT_DIR MODE FORMAT THREADS CPUS PARALLEL_QUERIES other_steps CURRENT_GENUS CURRENT_REF WORK_DIR
+        export -f process_genus run_pipeline run_stat run_faa run_bed run_chr run_genetribe run_merge run_single_query get_ref_sp discover_genera get_dir_name get_species_name get_genus
+        export INPUT_DIR OUTPUT_DIR MODE FORMAT THREADS CPUS PARALLEL_QUERIES other_steps CURRENT_GENUS CURRENT_REF WORK_DIR default_bed_dir default_input_dir default_manifest
         printf '%s\n' "${valid_genera[@]}" | xargs -P "$JOBS" -I{} bash -c 'process_genus "$@"' _ {}
     fi
 else
