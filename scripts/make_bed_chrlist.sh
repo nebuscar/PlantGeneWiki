@@ -5,7 +5,7 @@ set -eo pipefail
 SCRIPT_NAME=$(basename "$0")
 PROJECT_DIR="/home/nizhu/Projects/plantsdb"
 DEFAULT_INPUT_DIR="${PROJECT_DIR}/data/imp_gene_pos"
-DEFAULT_OUTPUT_DIR="${PROJECT_DIR}/data/imp_gene_pos"
+DEFAULT_CHRLIST_DIR="${PROJECT_DIR}/data/imp_chrlist"
 
 # ====================== 帮助 ======================
 usage() {
@@ -16,7 +16,7 @@ Usage: ./$SCRIPT_NAME [OPTIONS]
 
 Options:
   -i, --input DIR    输入目录（包含 *.bed 文件）[默认: $DEFAULT_INPUT_DIR]
-  -o, --output DIR   输出目录（chrlist 文件保存位置）[默认: $DEFAULT_INPUT_DIR]
+  -o, --output DIR   chrlist 文件输出目录 [默认: $DEFAULT_CHRLIST_DIR]
   -h, --help         帮助
 
 Output:
@@ -25,13 +25,13 @@ Output:
 
 Example:
   ./$SCRIPT_NAME
-  ./$SCRIPT_NAME -i ./data/imp_gene_pos -o ./data/imp_gene_pos
+  ./$SCRIPT_NAME -i ./data/imp_gene_pos -o ./data/imp_chrlist
 EOF
 }
 
 # ====================== 解析参数 ======================
 INPUT_DIR=""
-OUTPUT_DIR=""
+CHRLIST_DIR=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -40,7 +40,7 @@ while [[ $# -gt 0 ]]; do
         shift 2
         ;;
     -o | --output)
-        OUTPUT_DIR="$2"
+        CHRLIST_DIR="$2"
         shift 2
         ;;
     -h | --help)
@@ -56,18 +56,18 @@ while [[ $# -gt 0 ]]; do
 done
 
 INPUT_DIR=${INPUT_DIR:-$DEFAULT_INPUT_DIR}
-OUTPUT_DIR=${OUTPUT_DIR:-$DEFAULT_OUTPUT_DIR}
+CHRLIST_DIR=${CHRLIST_DIR:-$DEFAULT_CHRLIST_DIR}
 
 if [[ ! -d "$INPUT_DIR" ]]; then
     echo "错误：输入目录不存在 -> $INPUT_DIR"
     exit 1
 fi
 
-mkdir -p "$OUTPUT_DIR"
+mkdir -p "$CHRLIST_DIR"
 
 echo "========================================"
 echo "输入目录: $INPUT_DIR"
-echo "输出目录: $OUTPUT_DIR"
+echo "chrlist目录: $CHRLIST_DIR"
 echo "========================================"
 
 # ====================== 生成 chrlist ======================
@@ -75,7 +75,7 @@ bed_count=0
 for bed in "$INPUT_DIR"/*.bed; do
     [[ -f "$bed" ]] || continue
     sp=$(basename "$bed" .bed)
-    output="${OUTPUT_DIR}/${sp}.chrlist"
+    output="${CHRLIST_DIR}/${sp}.chrlist"
 
     # 从 BED 第 2 列提取染色体/contig 名（该 BED 格式为: gene_id, chr, start, end, strand）
     cut -f2 "$bed" 2>/dev/null | sort -u | awk 'NF' >"$output"

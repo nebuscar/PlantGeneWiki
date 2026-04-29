@@ -16,8 +16,8 @@ EMAPPER="/home/nizhu/.local/bin/emapper.py"
 EMAPPER_DB="/DATA/data2/emapperdb-5.0.2"
 
 # 运行节点配置
-REMOTE_NODE="gpu-node2"
-REMOTE_CPU=60
+REMOTE_NODE="localhost"
+REMOTE_CPU=40
 CONDA_ENV="biotools"
 
 # 创建目录
@@ -104,22 +104,21 @@ run_eggnog() {
     fi
 
     # 运行 eggNOG-mapper 生成完整注释
-    log "  在 ${REMOTE_NODE} 上运行 eggNOG-mapper (${REMOTE_CPU} 核)..."
-    ssh "${REMOTE_NODE}" \
-        "cd '${work_dir}' && \
-        source /home/nizhu/software/miniforge3/etc/profile.d/conda.sh && \
-        conda activate ${CONDA_ENV} && \
-        python3 '${EMAPPER}' \
-            -i '${input_file}' \
-            -o '${output_base}' \
-            --data_dir '${EMAPPER_DB}' \
-            -m diamond \
-            --cpu ${REMOTE_CPU} \
-            --no_file_comment"
+    log "  运行 eggNOG-mapper (${REMOTE_CPU} 核)..."
+    cd "${work_dir}" && 
+        source /home/nizhu/software/miniforge3/etc/profile.d/conda.sh && 
+        conda activate ${CONDA_ENV} && 
+        python3 "${EMAPPER}"  \
+            -i "${input_file}"  \
+            -o "${output_base}"  \
+            --data_dir "${EMAPPER_DB}"  \
+            -m diamond  \
+            --cpu ${REMOTE_CPU}  \
+            --no_file_comment
 
     # 等待文件生成
     local count=0
-    while [[ ! -f "${work_dir}/${output_base}.emapper.annotations" && $count -lt 60 ]]; do
+    while [[ ! -f "${work_dir}/${output_base}.emapper.annotations" && $count -lt 120 ]]; do
         sleep 5
         count=$((count + 1))
     done
