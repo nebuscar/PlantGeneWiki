@@ -124,3 +124,9 @@ cp: cannot stat '/DATA/data2/downloads/IMP/Arachis_monticola_PI_263393/Arachis_m
 [Avena_sativa_sang]
 [Avicennia_marina]
 [Azadirachta_indica]
+
+========================================
+Done in 1256s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
