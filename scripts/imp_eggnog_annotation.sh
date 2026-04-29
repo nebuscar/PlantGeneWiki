@@ -93,60 +93,43 @@ run_eggnog() {
     local work_dir="${DATA_DIR}/${species_name}"
     mkdir -p "${work_dir}"
 
-    # 运行 eggNOG-mapper (远程 GPU 节点模式)
-    local annot_file="${work_dir}/${output_base}.emapper.annotations"
-    local Diamond_file="${work_dir}/${output_base}.emapper.dmnd"
+    # 完整注释文件路径
+    local full_annot_file="${work_dir}/${output_base}.emapper.full_annotations"
 
-    # 检查是否已有注释结果
-    if [[ -f "${annot_file}" ]]; then
-        log "  注释结果已存在，跳过: ${annot_file}"
-    else
-        log "  在 ${REMOTE_NODE} 上运行 eggNOG-mapper (${REMOTE_CPU} 核)..."
-
-        # SSH 到远程节点运行 (使用 conda 环境 biotools)
-        ssh "${REMOTE_NODE}" \
-            "source /home/nizhu/software/miniforge3/etc/profile.d/conda.sh && \
-            conda activate ${CONDA_ENV} && \
-            cd '${work_dir}' && \
-            python3 '${EMAPPER}' \
-                -i '${input_file}' \
-                -o '${output_base}' \
-                --data_dir '${EMAPPER_DB}' \
-                -m diamond \
-                --cpu ${REMOTE_CPU} \
-                --no_annot \
-                --no_file_comment" 2>&1 | tee -a "${work_dir}/${output_base}.log"
-
-        # 查找输出文件
-        local generated_annot=$(find "${work_dir}" -name "${output_base}.emapper.annotations" 2>/dev/null | head -1)
-        if [[ -n "${generated_annot}" && -f "${generated_annot}" ]]; then
-            mv "${generated_annot}" "${annot_file}"
-        fi
+    # 如果完整注释已存在，直接返回
+    if [[ -f "${full_annot_file}" ]]; then
+        log "  完整注释已存在: ${full_annot_file}"
+        echo "${full_annot_file}"
+        return 0
     fi
 
-    # 如果需要完整注释（带注释而非仅比对）
-    local full_annot_file="${work_dir}/${output_base}.emapper.full_annotations"
-    if [[ ! -f "${full_annot_file}" ]]; then
-        log "  在 ${REMOTE_NODE} 上生成完整注释..."
-        ssh "${REMOTE_NODE}" \
-            "source /home/nizhu/software/miniforge3/etc/profile.d/conda.sh && \
-            conda activate ${CONDA_ENV} && \
-            cd '${work_dir}' && \
-            python3 '${EMAPPER}' \
-                -i '${input_file}' \
-                -o '${output_base}' \
-                --data_dir '${EMAPPER_DB}' \
-                -m diamond \
-                --cpu ${REMOTE_CPU} \
-                --no_file_comment \
-                --resume" 2>&1 | tee -a "${work_dir}/${output_base}.full.log"
+    # 运行 eggNOG-mapper 生成完整注释
+    log "  在 ${REMOTE_NODE} 上运行 eggNOG-mapper (${REMOTE_CPU} 核)..."
+    ssh "${REMOTE_NODE}" \
+        "cd '${work_dir}' && \
+        source /home/nizhu/software/miniforge3/etc/profile.d/conda.sh && \
+        conda activate ${CONDA_ENV} && \
+        python3 '${EMAPPER}' \
+            -i '${input_file}' \
+            -o '${output_base}' \
+            --data_dir '${EMAPPER_DB}' \
+            -m diamond \
+            --cpu ${REMOTE_CPU} \
+            --no_file_comment"
 
-        local generated_full=$(find "${work_dir}" -name "${output_base}.emapper.annotations" 2>/dev/null | head -1)
-        if [[ -n "${generated_full}" && -f "${generated_full}" ]]; then
-            mv "${generated_full}" "${full_annot_file}"
-        fi
+    # 等待文件生成
+    local count=0
+    while [[ ! -f "${work_dir}/${output_base}.emapper.annotations" && $count -lt 60 ]]; do
+        sleep 5
+        count=$((count + 1))
+    done
+
+    # 移动注释文件到目标位置
+    if [[ -f "${work_dir}/${output_base}.emapper.annotations" ]]; then
+        mv "${work_dir}/${output_base}.emapper.annotations" "${full_annot_file}"
+        log "  注释文件已生成: ${full_annot_file}"
     else
-        log "  完整注释已存在: ${full_annot_file}"
+        log "  警告: 注释文件未生成"
     fi
 
     echo "${full_annot_file}"
