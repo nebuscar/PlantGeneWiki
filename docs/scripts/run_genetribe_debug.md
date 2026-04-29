@@ -78,7 +78,7 @@ for species in "$ref_sp" "$q"; do
     ln -s "$(pwd)/${species}.bed" "genetribe_output/${species}.bed"
     ln -s "$(pwd)/${species}.faa" "genetribe_output/${species}.pep"
 done
-genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
+genetribe core -l "$ref_sp" -f "$q" -d "$out" || true
 ```
 
 ---
@@ -214,7 +214,7 @@ GeneTribe 的 `core.sh` 将结果文件（`.one2one`、`.RBH` 等）通过 `mv` 
 在 genetribe core 完成后，将结果文件从 `$OUTPUT_DIR` 移到 `genetribe_result/` 子目录：
 
 ```bash
-genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$THREADS" || true
+genetribe core -l "$ref_sp" -f "$q" -d "$out" || true
 result_dir="$out"
 for ext in one2one one2many RBH SBH singleton block_pos collinearity_info; do
     for f in "${ref_sp}_${q}.${ext}" "${q}_${ref_sp}.${ext}"; do
@@ -231,5 +231,5 @@ done
 
 | 文件 | 修改内容 |
 |------|----------|
-| `scripts/run_genetribe.sh` | BED 输出限制 6 列；conda PATH 优先级修复；genetribe core 前预链接 .cds/.bed/.pep；移除重复 jcvi 调用；结果整理到 genetribe_result/ |
+| `scripts/ncbi/homolog/run_genetribe.sh` | BED 输出限制 6 列；conda PATH 优先级修复；genetribe core 前预链接 .cds/.bed/.pep；移除重复 jcvi 调用；结果整理到 genetribe_result/ |
 | `genetribe/src/coreCorrectTotal.py` | 匹配失败时输出实际染色体名而非 "unknown"（第 46 行） |

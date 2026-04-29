@@ -2,7 +2,7 @@
 
 ## 概述
 
-植物基因组同源基因鉴定流水线脚本。从 NCBI 下载的基因组数据出发，完成蛋白 ID 统一、GFF 转 BED、染色体列表生成，并运行 [GeneTribe](https://github.com/YulongSong/GeneTribe) + [jcvi](https://github.com/tanghaibao/jcvi) 进行同源基因鉴定和共线性分析。支持按属分组批处理、多属并行、多格式输出。
+植物基因组同源基因鉴定流水线脚本。从 NCBI 下载的基因组数据出发，完成蛋白 ID 统一、GFF 转 BED、染色体列表生成，并运行 [GeneTribe](https://github.com/YulongSong/GeneTribe) + [jcvi](https://github.com/tanghaibao/jcvi) 进行同源基因鉴定和共线性分析。支持按属分组批处理、多格式输出。
 
 ---
 
@@ -50,11 +50,8 @@ Options:
   -i, --input DIR      输入目录（包含物种子文件夹）
   -o, --output DIR     输出目录
   -g, --genus          按属分组运行同源分析（自动批处理各属）
-  -j, --jobs N         属并行数 [默认: 1]
   -m, --mode MODE      运行模式（逗号分隔组合）
   -f, --format FMT     RBH合并表输出格式 [默认: xlsx]
-  -t, --threads N      GeneTribe BLAST 线程数 [默认: 36]
-  -p, --cpus N         jcvi 共线性分析 CPU 数，0=不限制 [默认: 0]
   -h, --help           显示帮助
 ```
 
@@ -95,9 +92,6 @@ Options:
 # 按属分组批处理（推荐）
 ./scripts/run_genetribe.sh -i /DATA/data2/downloads/genomes -m all -g
 
-# 属并行处理（3属并行，每属18线程，总线程≈54）
-./scripts/run_genetribe.sh -i /DATA/data2/downloads/genomes -m all -g -j 3 -t 18
-
 # 仅运行预处理步骤
 ./scripts/run_genetribe.sh -i ./sample -m stat,faa,bed,chr -g
 
@@ -108,12 +102,8 @@ Options:
 ./scripts/run_genetribe.sh -m merge -g -f csv
 ./scripts/run_genetribe.sh -m merge -g -f xlsx,tsv
 
-# 自定义线程数
-./scripts/run_genetribe.sh -m genetribe -g -t 16 -p 4
-
 # 查看单个参数帮助
 ./scripts/run_genetribe.sh -m -h
-./scripts/run_genetribe.sh -j -h
 ```
 
 ---
@@ -230,19 +220,7 @@ LWI29_000001    LWI28_008214    RBH    CM046700.1
 2. 每个属独立统计，选择该属蛋白序列最多的物种为参考
 3. 跳过只有 0 或 1 个物种有 .faa 的属
 4. 每个属的结果输出到独立的属名子目录
-5. 支持 `-j` 多属并行
-
-### 属并行 (-j)
-
-- 每个属使用 `-t` 个 BLAST 线程
-- 总线程数 ≈ `-j` × `-t`，建议不超过服务器总核数
-- 并行数参考：
-
-| 服务器核数 | 推荐 -j -t 组合 | 总线程 |
-|-----------|----------------|--------|
-| 104 | `-j 3 -t 18` | 54 |
-| 64 | `-j 2 -t 16` | 32 |
-| 32 | `-j 1 -t 16` | 16 |
+5. 各属串行处理
 
 ---
 
@@ -271,6 +249,5 @@ LWI29_000001    LWI28_008214    RBH    CM046700.1
 3. **参考物种**：自动选择蛋白序列数最多的物种，如需指定可通过调整 `reference_species.txt` 实现
 4. **CDS 文件**：jcvi 共线性分析需要 CDS 文件，如无则仅运行蛋白水平的同源鉴定
 5. **NCBI 数据**：`faa` 模式专门处理 NCBI 格式的 protein_id/locus_tag 不一致问题，非 NCBI 数据可跳过此步
-6. **jcvi 卡住**：jcvi 共线性分析对大基因组可能非常耗时甚至卡住，建议设置 `-p 4` 限制 CPU
-7. **xlsx 依赖**：输出 xlsx 需要 python3 和 openpyxl，缺失时自动回退到 csv
-8. **属名提取**：物种目录名必须为 `Genus_species` 格式，属名取第一个 `_` 前的部分
+6. **xlsx 依赖**：输出 xlsx 需要 python3 和 openpyxl，缺失时自动回退到 csv
+7. **属名提取**：物种目录名必须为 `Genus_species` 格式，属名取第一个 `_` 前的部分

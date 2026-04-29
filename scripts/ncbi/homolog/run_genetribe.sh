@@ -35,31 +35,7 @@ EOF
 说明: 属名从物种目录名提取（如 Acer_saccharum → Acer）
       结果输出到属名子目录（如 result/homolog/Acer/）
       自动按属批处理，每个属独立选参考物种
-      配合 -j 可多属并行
 示例: ./$SCRIPT_NAME -m all -g
-      ./$SCRIPT_NAME -m all -g -j 3
-EOF
-        ;;
-    -j | --jobs)
-        cat <<EOF
-参数: -j, --jobs N
-功能: 属并行数（-g 模式下同时处理的属数）
-默认: 1（串行）
-说明: 每个属使用 -t 个BLAST线程，总线程数 ≈ j × t
-      建议 j×t ≤ 总CPU核数
-示例: ./$SCRIPT_NAME -m all -g -j 2 -t 18  # 2属并行，每属18线程
-      ./$SCRIPT_NAME -m all -g -j 3 -t 12  # 3属并行，每属12线程
-EOF
-        ;;
-    -q | --parallel-queries)
-        cat <<'EOF'
-参数: -q, --parallel-queries N
-功能: 属内 query 物种并行数
-默认: 1（串行）
-说明: 每个 query 比对使用 t/q 个线程（t 由 -t 参数指定）
-      在 -g 模式下，建议配合 -j 使用
-示例: ./$SCRIPT_NAME -m genetribe -g -j 2 -q 4
-      ./$SCRIPT_NAME -m genetribe -t 36 -q 6   # 6个query并行，每query 6线程
 EOF
         ;;
     -f | --format)
@@ -112,14 +88,9 @@ Usage: ./$SCRIPT_NAME [OPTIONS]
 Options:
   -i, --input DIR      输入目录
   -o, --output DIR     输出目录
-  -e, --env ENV       外部conda环境路径 (包含依赖工具如seqkit等)
   -g, --genus          按属分组运行同源分析（自动批处理各属）
-  -j, --jobs N         属并行数 [默认: 1]
-  -q, --parallel-queries N  query物种并行数 [默认: 1]
   -m, --mode MODE      运行模式
   -f, --format FMT     RBH合并表输出格式 [默认: xlsx]
-  -t, --threads N      GeneTribe BLAST 线程数 [默认: 36]
-  -p, --cpus N         jcvi 共线性分析 CPU 数，0=不限制 [默认: 0]
   -h, --help           帮助
 
 单独参数帮助:
@@ -130,11 +101,7 @@ Options:
   ./$SCRIPT_NAME -m stat
   ./$SCRIPT_NAME -m faa,bed,chr
   ./$SCRIPT_NAME -m merge -f csv
-  ./$SCRIPT_NAME -m all -g
-  ./$SCRIPT_NAME -m genetribe,merge -g
-  ./$SCRIPT_NAME -m genetribe -t 16 -p 4
-  ./$SCRIPT_NAME -m all -g -j 3      # 属内串行，3个属并行
-  ./$SCRIPT_NAME -m genetribe -g -j 2 -q 4  # 2属并行，每属4个query并行
+  ./$SCRIPT_NAME -m all
 EOF
 }
 
@@ -156,19 +123,14 @@ if [[ $# -eq 0 ]]; then
 fi
 
 # ====================== 解析参数 ======================
-PARSED_ARGS=$(getopt -o hi:o:e:m:f:gj:q:t:p: --long help,input:,output:,env:,mode:,format:,genus,jobs:,parallel-queries:,threads:,cpus: --name "$0" -- "$@")
+PARSED_ARGS=$(getopt -o hi:o:m:f:g --long help,input:,output:,mode:,format:,genus --name "$0" -- "$@")
 eval set -- "$PARSED_ARGS"
 
 INPUT_DIR=""
 OUTPUT_DIR=""
-CONDA_ENV_PATH=""
 MODE="all"
 GENUS_MODE=false
 FORMAT="xlsx"
-JOBS=1
-PARALLEL_QUERIES=1
-THREADS=36
-CPUS=0
 
 while true; do
     case "$1" in
@@ -178,10 +140,6 @@ while true; do
         ;;
     -o | --output)
         OUTPUT_DIR="$2"
-        shift 2
-        ;;
-    -e | --env)
-        CONDA_ENV_PATH="$2"
         shift 2
         ;;
     -m | --mode)
@@ -195,22 +153,6 @@ while true; do
     -g | --genus)
         GENUS_MODE=true
         shift
-        ;;
-    -j | --jobs)
-        JOBS="$2"
-        shift 2
-        ;;
-    -q | --parallel-queries)
-        PARALLEL_QUERIES="$2"
-        shift 2
-        ;;
-    -t | --threads)
-        THREADS="$2"
-        shift 2
-        ;;
-    -p | --cpus)
-        CPUS="$2"
-        shift 2
         ;;
     -h | --help)
         usage
@@ -243,28 +185,17 @@ echo "输入目录: $INPUT_DIR"
 echo "输出目录: $OUTPUT_DIR"
 echo "运行模式: $MODE"
 if $GENUS_MODE; then echo "属分组: 开启"; fi
-if $GENUS_MODE && [[ $JOBS -gt 1 ]]; then echo "属并行数: $JOBS"; fi
 echo "输出格式: $FORMAT"
 echo "========================================"
 START_TIME=$(date +%s)
 
 # ====================== 依赖检查 ======================
-# 优先使用外部conda环境中的工具
-if [[ -n "$CONDA_ENV_PATH" && -d "$CONDA_ENV_PATH/bin" ]]; then
-    export PATH="$CONDA_ENV_PATH/bin:$PATH"
-fi
-
-# 添加本地安装的genetribe
-GENETRIBE_LOCAL="/home/nizhu/software/genetribe"
-if [[ -d "$GENETRIBE_LOCAL" ]]; then
-    export PATH="$GENETRIBE_LOCAL:$PATH"
-fi
-
 check_dep() { command -v "$1" &>/dev/null || {
     echo "缺少工具: $1"
     exit 1
 }; }
 check_dep seqkit
+check_dep gff2bed
 check_dep genetribe
 
 # ====================== 全局变量 ======================
@@ -339,7 +270,6 @@ run_faa() {
 
     for species_dir in "${INPUT_DIR}"/*/; do
         species=$(basename "$species_dir")
-        # -g 模式下只处理当前属
         if $GENUS_MODE && [[ -n "$CURRENT_GENUS" ]]; then
             s_genus=${species%%_*}
             [[ $s_genus != "$CURRENT_GENUS" ]] && continue
@@ -354,11 +284,11 @@ run_faa() {
 
         [[ -f $gff && -f $faa ]] || continue
 
-        # 从 GFF 提取 protein_id 和 gene_id/locus_tag 的映射
-        # 逻辑：优先使用 locus_tag 作为最终基因 ID，如果没有则用 protein_id 本身
-        # 这样可以保证 BED 文件中的基因 ID 与 faa 文件中的 ID 完全一致
+        # 从 GFF 提取 protein_id 和 locus_tag 的映射
+        # 关键修复：如果基因只有 protein_id 而没有 locus_tag，用 protein_id 本身作为 locus_tag
+        # 这样可以保证 BED 文件中的基因 ID 能与蛋白序列 ID 匹配
         awk '
-        $3 == "gene" || $3 == "CDS" {
+        $3 == "CDS" || $3 == "gene" {
             pid = ""; locus = "";
             attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
             n = split(attrs, arr, /;/);
@@ -373,9 +303,9 @@ run_faa() {
                 }
             }
             if (pid != "") {
-                # 优先使用 locus_tag，如果没有则用 protein_id 本身（去除版本号）
-                final_id = (locus != "") ? locus : pid;
-                print pid "\t" final_id;
+                # 如果没有 locus_tag，用 protein_id 本身（去除版本号）
+                if (locus == "") locus = pid;
+                print pid "\t" locus;
             }
         }' "$gff" | sort -u >"$id_map"
 
@@ -386,7 +316,7 @@ run_faa() {
             name = substr($0, 2);
             split(name, arr, /[ \t]/);
             acc = arr[1];
-            gsub(/\.[0-9]+$/, "", acc);  # 去除版本号如 .1, .2 等
+            gsub(/\.[0-9]+$/, "", acc);
             new_acc = (acc in m) ? m[acc] : acc;
             rest = (NF > 1) ? substr($0, index($0, $2)) : "";
             printf ">%s%s\n", new_acc, (rest ? " " rest : "");
@@ -440,9 +370,10 @@ run_bed() {
         [[ -f $gff ]] || continue
 
         # 使用与 run_faa 相同的映射逻辑：优先用 locus_tag，如果没有则用 protein_id
+        # 这样可以保证 BED 文件中的 gene ID 与 faa 文件中的 ID 完全一致
         bed_out="$WORK_DIR/${sp}.bed"
         awk -F'\t' '
-        $3 == "gene" || $3 == "CDS" {
+        $3 == "gene" && NF >= 9 {
             pid = ""; locus = "";
             attrs = ""; for (i=9; i<=NF; i++) attrs = attrs (i>9?" ":"") $i;
             n = split(attrs, arr, /;/);
@@ -456,13 +387,21 @@ run_bed() {
                     locus = substr(arr[i], 11);
                 }
             }
-            if (pid != "") {
-                # 优先使用 locus_tag，如果没有则用 protein_id
-                gid = (locus != "") ? locus : pid;
-                print $1 "\t" ($4-1) "\t" $5 "\t" gid "\t.\t" $7
+            # 优先使用 locus_tag，如果没有则用 protein_id
+            if (locus != "") {
+                gid = locus;
+            } else if (pid != "") {
+                gid = pid;
+            } else {
+                next;
             }
+            # 提取基因起始和终止位置
+            start = $4 - 1;  # BED 格式起始位置为 0
+            end = $5;
+            strand = $7;
+            print $1 "\t" start "\t" end "\t" gid "\t.\t" strand
         }
-        ' "$gff" | sort -u >"$bed_out"
+        ' "$gff" >"$bed_out"
 
         if [[ ! -s "$bed_out" ]]; then
             echo "⚠️  BED 为空：$sp（尝试备用提取逻辑）..."
@@ -471,19 +410,7 @@ run_bed() {
                 n = split(attrs, a, /;/); id="";
                 for (i=1; i<=n; i++) {
                     gsub(/^[ \t]+/, "", a[i]);
-                    if (a[i] ~ /^ID=gene-/) { id = substr(a[i], 5); break }
-                }
-                if (id == "") {
-                    for (i=1; i<=n; i++) {
-                        gsub(/^[ \t]+/, "", a[i]);
-                        if (a[i] ~ /^locus_tag=/) { id = substr(a[i], 11); break }
-                    }
-                }
-                if (id == "") {
-                    for (i=1; i<=n; i++) {
-                        gsub(/^[ \t]+/, "", a[i]);
-                        if (a[i] ~ /^protein_id=/) { id = substr(a[i], 12); break }
-                    }
+                    if (a[i] ~ /^ID=/) { id = substr(a[i], 4); sub(/^gene:/, "", id); sub(/^gene-/, "", id); break }
                 }
                 if (id != "") print $1"\t"$4-1"\t"$5"\t"id"\t.\t"$7
             }' "$gff" >"$bed_out"
@@ -497,7 +424,7 @@ run_chr() {
     for bed in "$WORK_DIR"/*.bed; do
         [[ -f $bed ]] || continue
         sp=$(basename "$bed" .bed)
-        cut -f1 "$bed" | sort -u | awk 'NF' >"$WORK_DIR/${sp}.chrlist"
+        cut -s -f1 "$bed" | sort -u | awk 'NF' >"$WORK_DIR/${sp}.chrlist"
     done
 }
 
@@ -532,110 +459,57 @@ run_genetribe() {
         echo "参考物种属: $ref_genus，同属待比对: ${qs[*]}"
     fi
 
-    # GeneTribe 硬编码 .fa 后缀，为 .faa 创建符号链接
-    for species in "$ref_sp" "${qs[@]}"; do
-        faa="$WORK_DIR/${species}.faa"
-        fa_link="$WORK_DIR/${species}.fa"
-        [[ -f "$faa" && ! -e "$fa_link" ]] && ln -s "${species}.faa" "$fa_link"
-    done
-
-    # 激活 conda genetribe 环境
-    # 尝试多种 conda 安装路径
-    for conda_sh in ~/miniconda3/etc/profile.d/conda.sh ~/anaconda3/etc/profile.d/conda.sh ~/software/miniforge3/etc/profile.d/conda.sh; do
-        if [[ -f "$conda_sh" ]]; then
-            source "$conda_sh"
-            break
-        fi
-    done
+    # 激活 conda genetribe 环境，确保 jcvi 可用
     if ! command -v conda &>/dev/null; then
-        echo "错误：未找到 conda，请确保已安装 Miniconda 或 Anaconda"
+        echo "错误：未找到 conda，无法激活 genetribe 环境"
         exit 1
     fi
-    conda activate genetribe
     CONDA_ENV_DIR="$(conda info --base 2>/dev/null)/envs/genetribe"
+    if [[ ! -d "$CONDA_ENV_DIR" ]]; then
+        echo "错误：conda 环境 genetribe 不存在"
+        exit 1
+    fi
+    eval "$(conda shell.bash hook 2>/dev/null)"
+    conda activate genetribe
+    # conda activate 可能因 ~/.local/bin 优先级未能覆盖 python，
+    # genetribe core 内部也会调用 python -m jcvi，必须确保 PATH 中 python 指向 conda 环境
     if [[ -d "$CONDA_ENV_DIR/bin" ]]; then
         export PATH="$CONDA_ENV_DIR/bin:$PATH"
     fi
-    # 添加 biotools 环境路径（包含 seqkit），放在 genetribe 之后
-    BIOTOOLS_ENV_DIR="$(conda info --base 2>/dev/null)/envs/biotools"
-    if [[ -d "$BIOTOOLS_ENV_DIR/bin" ]]; then
-        export PATH="$PATH:$BIOTOOLS_ENV_DIR/bin"
-    fi
 
-    cd "$WORK_DIR"
+    # 在子 shell 中运行，避免 cd 改变全局工作目录
+    (
+        cd "$OUTPUT_DIR"
 
-    # 计算并行度：每个子任务使用 THREADS_PER_JOB = THREADS / PARALLEL_QUERIES
-    THREADS_PER_JOB=$(( THREADS / PARALLEL_QUERIES ))
-    [[ $THREADS_PER_JOB -lt 4 ]] && THREADS_PER_JOB=4
-    echo "总线程: $THREADS, query并行数: $PARALLEL_QUERIES, 每query线程: $THREADS_PER_JOB"
-
-    # 子任务函数（导出到子shell执行）
-    run_single_query() {
-        local q="$1"
-        local ref_sp="$2"
-        local threads="$3"
-        local work_dir="$4"
-
-        # 断点续传：检查已完成的结果
-        local out="genetribe_result/${ref_sp}_vs_$q"
-        local rbh_file="${out}/${ref_sp}_${q}.RBH"
-        if [[ -s "$rbh_file" ]]; then
-            echo "跳过已完成: $ref_sp vs $q"
-            return 0
-        fi
-
-        # 检查必需文件
-        for suf in fa bed chrlist; do
-            if [[ ! -f "${work_dir}/${ref_sp}.$suf" || ! -f "${work_dir}/${q}.$suf" ]]; then
-                echo "⚠️  跳过 $q：缺少文件"
-                return 1
-            fi
-        done
-
-        mkdir -p "$out"
-        # 每个子任务使用独立工作目录，避免文件冲突
-        local task_dir="genetribe_output_${ref_sp}_vs_${q}"
-        mkdir -p "$task_dir"
-        cd "$task_dir"
-
-        # 链接必需文件到独立工作目录
-        for species in "$ref_sp" "$q"; do
-            [[ -f "${work_dir}/${species}.cds" && ! -e "${species}.cds" ]] &&
-                ln -sf "$(cd "$work_dir" && pwd)/${species}.cds" "${species}.cds"
-            [[ -f "${work_dir}/${species}.bed" && ! -e "${species}.bed" ]] &&
-                ln -sf "$(cd "$work_dir" && pwd)/${species}.bed" "${species}.bed"
-            [[ -f "${work_dir}/${species}.faa" && ! -e "${species}.pep" ]] &&
-                ln -sf "$(cd "$work_dir" && pwd)/${species}.faa" "${species}.pep"
-        done
-
-        # 激活 conda 环境并执行
-        eval "$(conda shell.bash hook 2>/dev/null)"
-        conda activate genetribe 2>/dev/null || true
-        local conda_base=$(conda info --base 2>/dev/null)
-        export PATH="$conda_base/envs/genetribe/bin:$PATH"
-
-        genetribe core -l "$ref_sp" -f "$q" -d "$out" -n "$threads" || true
-
-        # 整理结果到输出目录
-        for ext in one2one one2many RBH SBH singleton block_pos collinearity_info; do
-            for f in "${ref_sp}_${q}.${ext}" "${q}_${ref_sp}.${ext}"; do
-                [[ -f "$f" ]] && mv "$f" "$out/"
+        for q in "${qs[@]}"; do
+            for suf in fa bed chrlist; do
+                if [[ ! -f "${ref_sp}.$suf" || ! -f "${q}.$suf" ]]; then
+                    echo "⚠️  跳过 $q：缺少文件 ${ref_sp}.$suf 或 ${q}.$suf"
+                    continue 2
+                fi
             done
+            out="genetribe_result/${ref_sp}_vs_$q"
+            mkdir -p "$out"
+            mkdir -p genetribe_output
+            for species in "$ref_sp" "$q"; do
+                [[ -f "$WORK_DIR/${species}.cds" ]] &&
+                    ln -sf "$WORK_DIR/${species}.cds" "genetribe_output/${species}.cds"
+                [[ -f "$WORK_DIR/${species}.bed" ]] &&
+                    ln -sf "$WORK_DIR/${species}.bed" "genetribe_output/${species}.bed"
+                # jcvi 默认查找 .pep 文件（prot 模式），创建符号链接指向 .faa
+                [[ -f "$WORK_DIR/${species}.faa" ]] &&
+                    ln -sf "$WORK_DIR/${species}.faa" "genetribe_output/${species}.pep"
+            done
+            genetribe core -l "$ref_sp" -f "$q" -d "$out" || true
+            result_dir="$out"
+            for ext in one2one one2many RBH SBH singleton block_pos collinearity_info; do
+                for f in "${ref_sp}_${q}.${ext}" "${q}_${ref_sp}.${ext}"; do
+                    [[ -f "$f" ]] && mv "$f" "$result_dir/"
+                done
+            done
+            echo "完成: $ref_sp vs $q"
         done
-
-        cd "$work_dir"
-        rm -rf "$task_dir"
-        echo "完成: $ref_sp vs $q"
-    }
-    export -f run_single_query
-    export WORK_DIR conda_base
-
-    # 并行执行（使用 xargs）
-    export PARALLEL_QUERIES THREADS_PER_JOB
-    printf '%s\n' "${qs[@]}" | xargs -P "$PARALLEL_QUERIES" -I{} bash -c \
-        'run_single_query "$@"' _ {} "$ref_sp" "$THREADS_PER_JOB" "$WORK_DIR"
-
-    echo "所有 query 比对完成"
+    )
 }
 
 run_merge() {
@@ -773,8 +647,8 @@ wb.save('${base_name}.xlsx')
         esac
     done
 
-    # 清理临时tsv（未被mv走则删除）
-    [[ -f "$merged_out" ]] && rm "$merged_out"
+    # 清理临时 tsv
+    [[ -f "${merged_out}.tmp" ]] && rm "${merged_out}.tmp"
 }
 
 # ====================== 执行模式 ======================
@@ -872,18 +746,10 @@ if $GENUS_MODE; then
         echo "  属 $genus 完成，耗时: ${GENUS_ELAPSED}s"
     }
 
-    # 4) 执行：串行或并行
-    if [[ $JOBS -le 1 ]]; then
-        # 串行
-        for genus in "${valid_genera[@]}"; do
-            process_genus "$genus"
-        done
-    else
-        # 并行：导出函数和变量，用 xargs 调度
-        export -f process_genus run_pipeline run_stat run_faa run_bed run_chr run_genetribe run_merge run_single_query get_ref_sp discover_genera
-        export INPUT_DIR OUTPUT_DIR MODE FORMAT THREADS CPUS PARALLEL_QUERIES other_steps CURRENT_GENUS CURRENT_REF WORK_DIR
-        printf '%s\n' "${valid_genera[@]}" | xargs -P "$JOBS" -I{} bash -c 'process_genus "$@"' _ {}
-    fi
+    # 4) 执行：串行处理每个属
+    for genus in "${valid_genera[@]}"; do
+        process_genus "$genus"
+    done
 else
     # ========== 非 -g 模式（原行为） ==========
     run_pipeline "$MODE"
