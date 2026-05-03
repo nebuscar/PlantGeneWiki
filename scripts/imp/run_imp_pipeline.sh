@@ -176,7 +176,7 @@ get_species_in_genus() {
         local sp_genus="${name%% *}"
         [[ "$sp_genus" == "$genus" ]] || continue
         local sp_dir="${INPUT_DIR}/${dir}"
-        if [[ -d "$sp_dir" ]] && compgen -G "$sp_dir/*.gff3.gz" > /dev/null 2>&1; then
+        if [[ -d "$sp_dir" ]] && compgen -G "$sp_dir/*.gff3.gz" >/dev/null 2>&1; then
             species+=("$dir")
         fi
     done <"$MANIFEST"
@@ -216,8 +216,7 @@ run_sequence() {
     local mrna_gene_map=$(mktemp)
     build_mrna_gene_map "${sp_dir}/${prefix}.gff3.gz" >"$mrna_gene_map"
 
-    # protein_seq: extract by mRNA ID, output with gene ID
-    awk -v map="$mrna_gene_map" '
+    local remap_awk='
 BEGIN { while ((getline < map) > 0) m[$1] = $2 }
 /^>/ {
     split(substr($0,2), arr, /[ \t]/)
@@ -226,24 +225,24 @@ BEGIN { while ((getline < map) > 0) m[$1] = $2 }
     print ">" gene "|" mrna
     next
 }
-{ print }
-' "${sp_dir}/${prefix}.prot.fasta" >"${out_dir}/${sp}.protein.fa"
+{ print }'
 
-    # cds_seq: same approach
-    awk -v map="$mrna_gene_map" '
-BEGIN { while ((getline < map) > 0) m[$1] = $2 }
-/^>/ {
-    split(substr($0,2), arr, /[ \t]/)
-    mrna = arr[1]
-    gene = (mrna in m) ? m[mrna] : mrna
-    print ">" gene "|" mrna
-    next
-}
-{ print }
-' "${sp_dir}/${prefix}.CDS.fasta" >"${out_dir}/${sp}.cds.fa"
+    # protein_seq
+    if [[ -s "${sp_dir}/${prefix}.prot.fasta" ]]; then
+        awk -v map="$mrna_gene_map" "$remap_awk" \
+            "${sp_dir}/${prefix}.prot.fasta" >"${out_dir}/${sp}.protein.fa"
+    fi
 
-    # gene_seq: direct (gene.fasta uses gene ID as header)
-    cp "${sp_dir}/${prefix}.gene.fasta" "${out_dir}/${sp}.gene.fa"
+    # cds_seq
+    if [[ -s "${sp_dir}/${prefix}.CDS.fasta" ]]; then
+        awk -v map="$mrna_gene_map" "$remap_awk" \
+            "${sp_dir}/${prefix}.CDS.fasta" >"${out_dir}/${sp}.cds.fa"
+    fi
+
+    # gene_seq
+    if [[ -s "${sp_dir}/${prefix}.gene.fasta" ]]; then
+        cp "${sp_dir}/${prefix}.gene.fasta" "${out_dir}/${sp}.gene.fa"
+    fi
 
     rm "$mrna_gene_map"
 }
@@ -268,9 +267,13 @@ prefix = [f for f in os.listdir(sp_dir) if f.endswith('.gff3.gz')][0]
 prefix = prefix[:-8]
 
 prot_file = os.path.join(sp_dir, prefix + '.prot.fasta')
+
+# skip if prot.fasta is missing or empty
+if not os.path.isfile(prot_file) or os.path.getsize(prot_file) == 0:
+    sys.exit(0)
+
 mrna_gene = {}
 
-# Build mRNA -> gene mapping
 import gzip
 with gzip.open(os.path.join(sp_dir, prefix + '.gff3.gz'), 'rt') as f:
     for line in f:
@@ -305,6 +308,10 @@ for record in SeqIO.parse(prot_file, 'fasta'):
         pi = mw = ''
     results.append([gene_id, mrna_id, length, pi, mw])
 
+# only write output if there are actual data rows
+if not results:
+    sys.exit(0)
+
 out_path = os.path.join(out_dir, sp + '.properties.tsv')
 with open(out_path, 'w') as f:
     f.write('gene_id\tmRNA_id\tprotein_length\tisoelectric_point\tmolecular_weight\n')
@@ -320,6 +327,15 @@ run_eggnog() {
     local out_dir="${SPECIES_DIR}/${sp}"
     local prefix=$(basename "$sp_dir"/*.gff3.gz | head -1)
     prefix="${prefix%.gff3.gz}"
+
+    [[ -f "${out_dir}/${sp}.eggnog.tsv" ]] && {
+        echo "  skip (done)"
+        return
+    }
+    [[ -s "${sp_dir}/${prefix}.prot.fasta" ]] || {
+        echo "  skip (no prot)"
+        return
+    }
 
     local work_dir="${out_dir}/eggnog_work"
     mkdir -p "$work_dir"
@@ -421,7 +437,9 @@ run_homolog() {
         # Build mRNA->gene map and write gene-ID faa
         local mrna_gene_map
         mrna_gene_map=$(mktemp)
-        build_mrna_gene_map "${sp_dir}/${prefix}.gff3.gz" > "$mrna_gene_map"
+        build_mrna_gene_map "${sp_dir}/${prefix}.gff3.gz" >"$mrna_gene_map"
+        # Remove any existing symlink before writing to avoid following it and corrupting the target
+        [[ -L "${sp}.faa" ]] && rm -f "${sp}.faa"
         awk -v map="$mrna_gene_map" '
 BEGIN { while ((getline < map) > 0) m[$1] = $2 }
 /^>/ {
@@ -432,10 +450,11 @@ BEGIN { while ((getline < map) > 0) m[$1] = $2 }
     next
 }
 { print }
-' "${sp_dir}/${prefix}.prot.fasta" > "${sp}.faa"
+' "${sp_dir}/${prefix}.prot.fasta" >"${sp}.faa"
         rm "$mrna_gene_map"
 
         # BED
+        [[ -L "${sp}.bed" ]] && rm -f "${sp}.bed"
         zcat -f "${sp_dir}/${prefix}.gff3.gz" | awk -F'\t' -v OFS='\t' '
 $3 == "gene" {
     gene = ""
@@ -447,19 +466,38 @@ $3 == "gene" {
 }' >"${sp}.bed"
 
         # chrlist
+        [[ -L "${sp}.chrlist" ]] && rm -f "${sp}.chrlist"
         cut -s -f1 "${sp}.bed" | sort -u >"${sp}.chrlist"
     done
 
-    # Select reference species (longest total protein length)
+    # Select reference species: longest protein length among species with valid chrlist (>=2 chromosomes)
     local ref_sp=""
     local max_len=0
     for sp in "${species[@]}"; do
+        # Skip species with empty/single-entry chrlist (no chromosome info — jcvi will fail)
+        local nchr
+        nchr=$(awk 'NF>0' "${sp}.chrlist" 2>/dev/null | wc -l)
+        if [[ $nchr -lt 2 ]]; then
+            echo "    Warning: $sp has $nchr valid chromosomes, skipping as ref candidate"
+            continue
+        fi
         len=$(awk '/^>/{next} {len+=length($0)} END{print len}' "$sp.faa")
         if [[ $len -gt $max_len ]]; then
             max_len=$len
             ref_sp=$sp
         fi
     done
+    # Fallback: if no species passed chrlist filter, use longest regardless
+    if [[ -z "$ref_sp" ]]; then
+        for sp in "${species[@]}"; do
+            len=$(awk '/^>/{next} {len+=length($0)} END{print len}' "$sp.faa")
+            if [[ $len -gt $max_len ]]; then
+                max_len=$len
+                ref_sp=$sp
+            fi
+        done
+        echo "    Warning: no species with valid chrlist, using $ref_sp as fallback ref"
+    fi
     echo "    Reference: $ref_sp"
 
     # Run genetribe for each query species (requires genetribe conda env for jcvi)
@@ -469,61 +507,81 @@ $3 == "gene" {
 
     local gt_tmp
     gt_tmp=$(mktemp -d /tmp/genetribe_XXXXXX)
-    local rbh_tmp="${genus_dir}/rbh_collected.tsv"
-    : > "$rbh_tmp"
 
     # Symlink all faa/bed/chrlist files into the local tmp dir
     for f in "${genus_dir}"/*.faa "${genus_dir}"/*.bed "${genus_dir}"/*.chrlist; do
         [[ -f "$f" ]] && ln -sf "$f" "${gt_tmp}/$(basename "$f")"
     done
 
+    # query species list: exclude ref and species with invalid chrlist
+    local -a query_species=()
     for sp in "${species[@]}"; do
         [[ "$sp" == "$ref_sp" ]] && continue
-        pushd "$gt_tmp" > /dev/null
+        local nchr
+        nchr=$(awk 'NF>0' "${sp}.chrlist" 2>/dev/null | wc -l)
+        if [[ $nchr -lt 2 ]]; then
+            echo "    Skipping query $sp: invalid chrlist ($nchr chromosomes)"
+            continue
+        fi
+        query_species+=("$sp")
+    done
+
+    if [[ ${#query_species[@]} -eq 0 ]]; then
+        echo "  Skipping $genus: no valid query species after chrlist filter"
+        rm -rf "$gt_tmp"
+        conda deactivate
+        return
+    fi
+
+    for sp in "${query_species[@]}"; do
+        pushd "$gt_tmp" >/dev/null
         rm -rf genetribe_output/
-        genetribe core -l "$ref_sp" -f "$sp" -n 40 2>/dev/null || true
-        # Extract RBH lines immediately after each run
-        for last_f in genetribe_output/"${ref_sp}.${sp}.last" genetribe_output/"${sp}.${ref_sp}.last"; do
-            [[ -f "$last_f" ]] || continue
-            sp1="${last_f##*/}"; sp1="${sp1%.last}"; sp1="${sp1%%.*}"
-            awk -v ref="$ref_sp" -v sp1="$sp1" '
-$3=="RBH" { if (sp1==ref) print $1"\t"$2; else print $2"\t"$1 }
-' "$last_f" >> "$rbh_tmp"
-        done
-        popd > /dev/null
+        genetribe core -l "$ref_sp" -f "$sp" -n 80 2>/dev/null || true
+        # Copy RBH result out of tmp (genetribe outputs ${ref}_${sp}.RBH in cwd)
+        [[ -f "${ref_sp}_${sp}.RBH" ]] && cp "${ref_sp}_${sp}.RBH" "${genus_dir}/"
+        popd >/dev/null
     done
     rm -rf "$gt_tmp"
     conda deactivate
 
-    # Build one2one table from collected RBH
+    # Build merged matrix: ref_gene -> one column per query species
     python3 - <<EOF
+import os
+
 genus_dir = "$genus_dir"
 genus = "$genus"
-rbh_tmp = genus_dir + "/rbh_collected.tsv"
+ref_sp = "$ref_sp"
+query_species = """${query_species[*]}""".split()
 
-rbh_pairs = set()
-try:
-    with open(rbh_tmp) as f:
-        for line in f:
-            parts = line.strip().split('\t')
-            if len(parts) == 2:
-                rbh_pairs.add((parts[0], parts[1]))
-except FileNotFoundError:
-    pass
+# Load RBH pairs for each query species: ref_gene -> query_gene
+sp_maps = {}
+for sp in query_species:
+    rbh_file = os.path.join(genus_dir, f"{ref_sp}_{sp}.RBH")
+    m = {}
+    if os.path.isfile(rbh_file):
+        with open(rbh_file) as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                if len(parts) >= 2:
+                    m[parts[0]] = parts[1]
+    sp_maps[sp] = m
 
-out_path = genus_dir + "/${genus}_homolog_1v1.tsv"
+# Collect all ref genes that appear in at least one query
+all_ref_genes = set()
+for m in sp_maps.values():
+    all_ref_genes.update(m.keys())
+
+out_path = os.path.join(genus_dir, f"{genus}_homolog_1v1.tsv")
 with open(out_path, 'w') as f:
-    f.write('gene_id_ref\tgene_id_query\ttype\n')
-    for ref_gene, query_gene in sorted(rbh_pairs):
-        f.write(f"{ref_gene}\t{query_gene}\tone2one\n")
+    # Header: ref species name as first column, then each query species name
+    header = ref_sp + '\t' + '\t'.join(query_species)
+    f.write(header + '\n')
+    for ref_gene in sorted(all_ref_genes):
+        row = [ref_gene] + [sp_maps[sp].get(ref_gene, '-') for sp in query_species]
+        f.write('\t'.join(row) + '\n')
 
-import os
-try:
-    os.remove(rbh_tmp)
-except:
-    pass
-
-print(f"  one2one pairs: {len(rbh_pairs)}")
+total = len(all_ref_genes)
+print(f"  ref genes with RBH: {total}, queries: {len(query_species)}")
 EOF
 }
 
@@ -583,12 +641,6 @@ if $GENUS_MODE; then
         fi
     done
 fi
-
-# Clean up eggnog_work dirs
-for sp in "${SPECIES_LIST[@]}"; do
-    eggnog_work="${SPECIES_DIR}/${sp}/eggnog_work"
-    [[ -d "$eggnog_work" ]] && rm -rf "$eggnog_work"
-done
 
 END_TIME=$(date +%s)
 ELAPSED=$((END_TIME - START_TIME))

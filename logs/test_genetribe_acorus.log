@@ -1,0 +1,66 @@
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Acorus_americanus
+========================================
+Found 1 species
+
+[Acorus_americanus]
+
+Homolog analysis...
+  Homolog: Acorus (4 species)
+    Warning: Acorus_americanus has 0 valid chromosomes, skipping as ref candidate
+    Reference: Acorus_calamus
+    Skipping query Acorus_americanus: invalid chrlist (0 chromosomes)
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-02 02:16:21 ...prepare files...
+2026-05-02 02:36:34 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-02 02:38:18 ...evaluate optimal α for weighting score...
+2026-05-02 02:39:41 ...α = 50...
+2026-05-02 02:39:41 ...merge raw score...
+2026-05-02 02:39:44 ...process all chromosome pairs...
+2026-05-02 02:39:44 ...number of rounds: 1 ...
+2026-05-02 02:39:46 ...merge results...
+2026-05-02 02:39:48 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-02 02:39:48 ...prepare files...
+2026-05-02 03:00:04 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-02 03:01:47 ...evaluate optimal α for weighting score...
+2026-05-02 03:03:12 ...α = 45...
+2026-05-02 03:03:12 ...merge raw score...
+2026-05-02 03:03:15 ...process all chromosome pairs...
+2026-05-02 03:03:15 ...number of rounds: 1 ...
+2026-05-02 03:03:17 ...merge results...
+2026-05-02 03:03:18 ...done!
+  ref genes with RBH: 21827, queries: 2
+
+========================================
+Done in 2835s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================

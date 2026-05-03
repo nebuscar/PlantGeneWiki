@@ -1,145 +1,170 @@
-# IMP 数据整合分析 - 实施计划
+# IMP 数据整合分析 — 处理计划
 
-## 输出路径
-
-```
-/home/nizhu/Projects/plantsdb/result/result_imp/
-├── <Species_Full_Name>/
-│   └── <Species_Full_Name>.xlsx          # 4 sheets: structure, sequence, properties, eggnog
-└── <Genus>/
-    └── <Genus>_homolog_1v1.xlsx          # one2one homolog mapping within genus
-```
+最后更新：2026-04-30
 
 ---
 
-## 数据格式 (IMP 文件结构，已完成重命名)
+## 当前进度
 
-每个物种目录 (如 `Aegilops_bicornis/`):
-```
-Aegilops_bicornis.gff3.gz     # GFF3 注释 (gene/mRNA/exon/CDS)
-Aegilops_bicornis.prot.fasta  # 蛋白序列 (ID = mRNA ID, 如 IMPTABI1N1_1)
-Aegilops_bicornis.CDS.fasta   # CDS 序列 (ID = mRNA ID)
-Aegilops_bicornis.gene.fasta  # 基因序列 (ID = gene ID, 如 IMPGABI1N1)
-Aegilops_bicornis.fa.gz       # 基因组序列
-```
-
-**关键映射关系 (GFF3)**:
-- `gene` ID: `IMPGABI1N1`
-- `mRNA` ID: `IMPTABI1N1_1`, Parent = `IMPGABI1N1`
-- prot.fasta 的序列 ID = mRNA ID
-
----
-
-## Sheet 设计
-
-### Sheet 1: structure
-| gene_id | chromosome | start | end | strand |
-|---------|------------|-------|-----|--------|
-| IMPGABI1N1 | chr1 | 6184 | 6474 | - |
-
-### Sheet 2: sequence
-| gene_id | mRNA_id | protein_seq | cds_seq | gene_seq |
-|---------|---------|-------------|---------|----------|
-| IMPGABI1N1 | IMPTABI1N1_1 | MRLLLPS... | ATGAGG... | ATGAGG... |
-
-### Sheet 3: properties
-| gene_id | mRNA_id | protein_length | isoelectric_point | molecular_weight |
-|---------|---------|----------------|-------------------|------------------|
-| IMPGABI1N1 | IMPTABI1N1_1 | 142 | 8.52 | 15823.5 |
-
-### Sheet 4: eggnog
-| gene_id | mRNA_id | GO | KEGG | Pfam | Description |
-|---------|---------|-----|------|------|-------------|
-| IMPGABI1N1 | IMPTABI1N1_1 | GO:000... | ko:... | PF... | ... |
-
-### Sheet 5 (homolog): per genus
-| gene_id_ref | gene_id_query | type |
-|-------------|---------------|------|
-| IMPGABI1N1 | IMPGABI2N1 | one2one |
-
----
-
-## ID 映射链
-
-```
-prot.fasta ID (mRNA ID) → GFF3 mRNA.Parent → gene ID
-```
-- prot.fasta ID = mRNA ID
-- GFF3 中 mRNA 有 `Parent=gene_ID`，建立 mRNA → gene 映射
-- 所有输出统一用 `gene_id`，mRNA_id 作为 secondary key
-
----
-
-## 环境配置
-
-| 模块 | 环境 | 工具 |
+| 阶段 | 状态 | 说明 |
 |------|------|------|
-| 1-4 | biotools | awk, seqkit, python + Bio.SeqUtils.ProtParam, emapper.py |
-| 5 (homolog) | genetribe | genetribe |
+| 数据下载（A 开头） | ✅ 完成 | 128 物种，11 unavailable，40 partial |
+| 数据下载（B-Z） | 🔄 待执行 | 按字母分批运行 |
+| 物种注释 structure/sequence/properties | ✅ 完成 | 114 物种，0 字节文件已清理 |
+| 物种注释 eggnog | ✅ 完成 | 51 物种有效，耗时约 20 小时，mmseqs + dbmem |
+| 同属同源 genetribe | ⏳ 待验证 | 脚本已完善，待选合适属端对端测试 |
+
+### 下一步
+
+1. 继续按字母分批下载 B-Z 物种数据
+2. 新下载的物种补跑 structure/sequence/properties/eggnog
+3. 验证 genetribe 同源分析（选小基因组属端对端测试）
+4. 全量数据就绪后运行完整 pipeline（`-m all -g`）
 
 ---
 
-## 实施步骤
+## 输出目录结构
 
-### Step 1: 主脚本 `run_imp_pipeline.sh`
-统一入口，支持 `-m` 选择模块组合，支持 `-g` 属分组模式。
 ```
--i DIR       输入目录 (默认 /DATA/data2/downloads/IMP)
--o DIR       输出目录 (默认 ./result/result_imp)
--g           属分组模式 (启用同源分析)
--m MODE      运行模式: all/structure/sequence/properties/eggnog/homolog
--s NAME      仅处理指定物种
--h           帮助
+result/result_imp/
+├── species/
+│   └── <Species_Full_Name>/
+│       ├── <Species>.structure.tsv      # 基因坐标
+│       ├── <Species>.protein.fa         # 蛋白序列（>gene_id|mRNA_id）
+│       ├── <Species>.cds.fa             # CDS 序列
+│       ├── <Species>.gene.fa            # 基因组序列
+│       ├── <Species>.properties.tsv     # 蛋白理化性质
+│       └── <Species>.eggnog.tsv         # 功能注释
+└── homolog/
+    └── <Genus>/
+        └── <Genus>_homolog_1v1.tsv      # 属内 one2one 同源对
 ```
 
-### Step 2: 物种扫描
-- 遍历 `/DATA/data2/downloads/IMP/*/`
-- 识别有 `*.gff3.gz` + `*.prot.fasta` 的目录
-- 提取物种前缀 (从 gff3.gz 文件名去掉 `.gff3.gz`)
-- 构建 `mRNA_ID → gene_ID` 映射表
+---
 
-### Step 3: 模块 1 - structure
-从 GFF3 gene 记录提取: `gene_id, chromosome, start, end, strand`
+## 输入数据结构（/DATA/data2/downloads/IMP）
 
-### Step 4: 模块 2 - sequence
-- protein_seq: 从 `$PREFIX.prot.fasta` 按 mRNA_ID 提取
-- cds_seq: 从 `$PREFIX.CDS.fasta` 按 mRNA_ID 提取
-- gene_seq: 从 `$PREFIX.gene.fasta` 按 gene_ID 提取
+每个物种目录使用**物种全名**命名，文件也使用全名前缀：
 
-### Step 5: 模块 3 - properties
-Bio.SeqUtils.ProtParam 计算: protein_length, isoelectric_point, molecular_weight
+```
+Arabidopsis_thaliana/
+├── Arabidopsis_thaliana.fa.gz
+├── Arabidopsis_thaliana.gff3.gz
+├── Arabidopsis_thaliana.gene.fasta
+├── Arabidopsis_thaliana.CDS.fasta
+├── Arabidopsis_thaliana.prot.fasta
+├── Arabidopsis_thaliana.promoter2k.fasta
+└── Arabidopsis_thaliana.all.rnaseq.TPM.txt
+```
 
-### Step 6: 模块 4 - eggnog
-emapper.py (biotools 环境)，输出 GO, KEGG, Pfam, Description
-
-### Step 7: 模块 5 - homolog
-同属物种两两比对 (genetribe 环境):
-- 从 manifest Species_Name 提取属名
-- 每属一个工作目录
-- 生成 BED 和 chrlist
-- 运行 `genetribe core -l <ref> -f <query>`
-- 整合所有 one2one 映射
-
-### Step 8: xlsx 整合输出
-- 每个物种: `$OUTPUT_DIR/<Species>/<Species>.xlsx` (4 sheets)
-- 每个属: `$OUTPUT_DIR/<Genus>/<Genus>_homolog_1v1.xlsx`
+**ID 映射关系（GFF3）：**
+- `prot.fasta` 序列 ID = mRNA ID（如 `IMPATA1M00000009943`）
+- GFF3 mRNA 记录的 `Parent=` = gene ID（如 `IMPATA1G00000050244`）
+- 所有输出统一用 `gene_id`，mRNA_id 作为附属键
 
 ---
 
-## 关键设计决策
+## 各模块输出格式
 
-1. **ID 统一**: 所有模块输出用 `gene_id`，mRNA_id 作为 secondary key
-2. **物种名**: 目录名即为物种全称 (下划线分隔)
-3. **文件前缀**: 从 gff3.gz 文件名提取 (如 `Aegilops_bicornis`)
-4. **模块 1-4 整合**: 同一物种 4 个 sheet 共用 `gene_id` 键
-5. **genetribe**: 直接用 prot.fasta (已支持 .faa/.fa/.fasta/.pep/.aa)
+### structure.tsv
+```
+gene_id    chromosome    start    end    strand
+```
+
+### protein.fa / cds.fa
+```
+>gene_id|mRNA_id
+序列...
+```
+
+### gene.fa
+```
+>gene_id
+序列...
+```
+
+### properties.tsv
+```
+gene_id    mRNA_id    protein_length    isoelectric_point    molecular_weight
+```
+
+### eggnog.tsv
+```
+gene_id    mRNA_id    GO    KEGG    Pfam    Description
+```
+
+### homolog/{Genus}_homolog_1v1.tsv
+```
+gene_id_ref    gene_id_query    type
+...            ...              one2one
+```
 
 ---
 
-## 验证方案
+## 主脚本：run_imp_pipeline.sh
 
-1. 选取一个物种 (如 `Aegilops_bicornis`) 单独测试
-2. 验证 gene_id/mRNA_id 映射正确
-3. 验证 xlsx 4 个 sheet 数据关联正确
-4. 选取一个属测试同源分析 (如 `Acer` 属)
-5. 检查 one2one 映射表
+```
+scripts/imp/run_imp_pipeline.sh
+
+-i DIR       输入目录（默认 /DATA/data2/downloads/IMP）
+-o DIR       输出目录（默认 result/result_imp）
+-m MODE      模式：structure / sequence / properties / eggnog / homolog / all
+-g           启用同属同源分析
+-s NAME      仅处理指定物种目录名
+```
+
+**关键设计：**
+- eggnog 模块检测 `.eggnog.tsv` 已存在则跳过（增量友好）
+- sequence 模块检测源文件非空才生成对应输出（缺失文件不产生空文件）
+- 所有模块从 GFF3 构建 mRNA→gene 映射，输出统一使用 gene_id
+- genetribe 在 `/tmp` 本地目录运行，避免 NFS silly-rename 问题
+- eggnog 参数：mmseqs + `--dbmem`（39GB DB 加载入 RAM）+ `--tax_scope Viridiplantae`
+
+---
+
+## 数据下载：imp_download.sh
+
+```
+scripts/imp/imp_download.sh
+
+-p PREFIX    按 dir_name 前缀分批（-p A 只处理 A 开头物种）
+-t THREADS   并行线程数（默认 4）
+-d           预览模式
+--list       仅爬取物种列表
+```
+
+**分批下载计划（1068 个物种）：**
+```bash
+for prefix in A B C D E F G H I J K L M N O P Q R S T U V W X Y Z; do
+    bash scripts/imp/imp_download.sh -p "$prefix" -t 4
+done
+```
+
+**可用性标记文件：** `downloads/IMP/species_availability.tsv`
+
+| Status | 含义 |
+|--------|------|
+| `available` | 全部文件正常 |
+| `partial` | 部分文件 404（通常 tpm，不影响 pipeline） |
+| `unavailable` | 全部 404，IMP 无该物种数据 |
+
+增量运行时自动合并已有记录，不重置。
+
+---
+
+## 环境依赖
+
+| 模块 | conda 环境 | 工具 |
+|------|-----------|------|
+| structure / sequence / properties | 系统 | awk, python3 + biopython |
+| eggnog | biotools | emapper.py v2.1.12, mmseqs2 |
+| homolog | genetribe | genetribe, jcvi |
+
+---
+
+## 变更历史
+
+| 日期 | 内容 |
+|------|------|
+| 2026-04-30 | 拆分输出目录为 species/ 和 homolog/；修复下载脚本 URL/文件名映射；完成 A 开头物种下载；完成全部物种 structure/sequence/properties/eggnog 注释 |
+| 2026-04-29 | 初始计划（见 imp_pipeline_plan_20260429.md） |
