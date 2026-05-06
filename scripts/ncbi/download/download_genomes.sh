@@ -2,7 +2,7 @@
 # NCBI 基因组批量下载脚本
 
 project_dir="/home/nizhu/Projects/plantsdb"
-default_input_dir="${project_dir}/data/meta/species_list_with_taxid.txt"
+default_input_dir="${project_dir}/data/meta/ncbi/species_list_with_taxid.txt"
 input_dir="${default_input_dir}"
 default_out_dir="/DATA/data2/downloads/genomes"
 out_dir="${default_out_dir}"

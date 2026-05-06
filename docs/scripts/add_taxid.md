@@ -77,13 +77,13 @@ No.	Species	Ploidy	Accession	name	Order	Family	Clade
 
 ```bash
 # 输出为 tab 分隔文本
-./add_taxid.sh -i data/meta/species_list.txt -o result.txt
+./add_taxid.sh -i data/meta/ncbi/species_list.txt -o result.txt
 
 # 输出为 CSV
-./add_taxid.sh -i data/meta/species_list.txt -o result.csv
+./add_taxid.sh -i data/meta/ncbi/species_list.txt -o result.csv
 
 # 输出为 Excel（需 ssconvert）
-./add_taxid.sh -i data/meta/species_list.txt -o result.xlsx
+./add_taxid.sh -i data/meta/ncbi/species_list.txt -o result.xlsx
 ```
 
 ---

@@ -5,8 +5,8 @@
 set -euo pipefail
 
 # 默认路径
-DEFAULT_INPUT="/home/nizhu/Projects/plantsdb/data/meta/species_list_unique_with_taxid.txt"
-DEFAULT_OUTPUT="/home/nizhu/Projects/plantsdb/data/meta/species_list_cleaned.tsv"
+DEFAULT_INPUT="/home/nizhu/Projects/plantsdb/data/meta/ncbi/species_list_unique_with_taxid.txt"
+DEFAULT_OUTPUT="/home/nizhu/Projects/plantsdb/data/meta/ncbi/species_list_cleaned.tsv"
 
 INPUT_FILE=""
 OUTPUT_FILE=""

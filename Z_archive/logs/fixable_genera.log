@@ -1,0 +1,85 @@
+[04:10:25] Start: Amborella + Andropogon on cpu-node, PID 3747674
+[04:10:25] [1/2] Running Amborella...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Amborella_trichopoda
+========================================
+Found 1 species
+
+[Amborella_trichopoda]
+
+Homolog analysis...
+  Homolog: Amborella (3 species)
+    Reference: Amborella_trichopoda_var._SantaCruz_75_HAP1
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 04:10:33 ...prepare files...
+2026-05-05 04:15:14 ...calculate BSR, CBS and Penalty...
+
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 04:15:20 ...prepare files...
+2026-05-05 04:20:05 ...calculate BSR, CBS and Penalty...
+
+  ref genes with RBH: 0, queries: 2
+
+========================================
+Done in 595s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[04:20:20] Amborella done
+[04:20:20] Amborella TSV: 1 lines
+[04:20:20] [2/2] Running Andropogon...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Andropogon_gerardi_hap1
+========================================
+Found 1 species
+
+[Andropogon_gerardi_hap1]
+
+Homolog analysis...
+  Homolog: Andropogon (2 species)
+    Reference: Andropogon_gerardi_hap1
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 04:20:36 ...prepare files...
+2026-05-05 06:58:13 ...calculate BSR, CBS and Penalty...
+
+  ref genes with RBH: 0, queries: 1
+
+========================================
+Done in 9566s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[06:59:47] Andropogon done
+[06:59:47] Andropogon TSV: 1 lines
+[06:59:47] All done.

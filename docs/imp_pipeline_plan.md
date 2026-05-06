@@ -1,6 +1,6 @@
 # IMP 数据整合分析 — 处理计划
 
-最后更新：2026-04-30
+最后更新：2026-05-06
 
 ---
 
@@ -12,14 +12,24 @@
 | 数据下载（B-Z） | 🔄 待执行 | 按字母分批运行 |
 | 物种注释 structure/sequence/properties | ✅ 完成 | 114 物种，0 字节文件已清理 |
 | 物种注释 eggnog | ✅ 完成 | 51 物种有效，耗时约 20 小时，mmseqs + dbmem |
-| 同属同源 genetribe | ⏳ 待验证 | 脚本已完善，待选合适属端对端测试 |
+| 同属同源 A-prefix | ✅ 完成 | 13 属成功；6 属数据不可用；Aegilops 运行中 |
+| 同属同源 B-Z prefix | 🔄 待执行 | A-prefix 完成后启动 |
+
+### A-prefix 同源结果详情
+
+| 状态 | 属 |
+|------|----|
+| ✅ 成功（13属） | Acorus、Adansonia、Ajuga、Albizia、Amaranthus、Annona、Aquilegia、Arabidopsis、Arabis、Arachis、Avena、Acer、Actinidia |
+| ⏳ 运行中 | Aegilops（6 物种，大基因组，每对 blast ~15h） |
+| ❌ 数据不可用（6属） | Arctium、Artemisia、Asparagus、Allium、Ambrosia、Aristolochia |
+| ❌ 无法修复 | Amborella（单倍型共线性失败）、Andropogon（hap1 蛋白 ID 格式错误，需重下） |
 
 ### 下一步
 
-1. 继续按字母分批下载 B-Z 物种数据
-2. 新下载的物种补跑 structure/sequence/properties/eggnog
-3. 验证 genetribe 同源分析（选小基因组属端对端测试）
-4. 全量数据就绪后运行完整 pipeline（`-m all -g`）
+1. 等待 Aegilops 完成（大麦族 6 物种，预计 2-3 天）
+2. 启动 B-Z 字母数据下载
+3. 新下载物种补跑 structure/sequence/properties/eggnog
+4. 按字母批量运行 B-Z 同源分析
 
 ---
 
@@ -140,7 +150,7 @@ for prefix in A B C D E F G H I J K L M N O P Q R S T U V W X Y Z; do
 done
 ```
 
-**可用性标记文件：** `downloads/IMP/species_availability.tsv`
+**可用性标记文件：** `data/meta/imp/species_availability.tsv`
 
 | Status | 含义 |
 |--------|------|

@@ -27,7 +27,7 @@ PlantsDB 是一个植物基因组功能注释数据库。第一批次数据整�
 
 ### 2.2 物种列表
 
-- 来源：`data/meta/species_list_cleaned.tsv`
+- 来源：`data/meta/ncbi/species_list_cleaned.tsv`
 - 筛选后数量：待统计（需运行脚本筛选）
 - 存储位置：`docs/submission/species_list_batch1.tsv`
 
@@ -217,7 +217,7 @@ python scripts/integrate_outputs.py -i {result_root}/annotation -o {result_root}
 
 | 文件 | 路径 |
 |------|------|
-| 物种列表 | `data/meta/species_list_cleaned.tsv` |
+| 物种列表 | `data/meta/ncbi/species_list_cleaned.tsv` |
 | 整合脚本 | `scripts/integrate_outputs.py` |
 | 坐标提取 | `Z_archive/extract_genomic_features.py` |
 | 序列提取 | `scripts/extract_cds_pep.py` |

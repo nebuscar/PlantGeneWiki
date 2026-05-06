@@ -10,7 +10,7 @@ PROJECT_DIR="$(dirname "$PROJECT_DIR")"
 
 DEFAULT_INPUT_DIR="/DATA/data2/downloads/IMP"
 DEFAULT_OUTPUT_DIR="${PROJECT_DIR}/result/result_imp"
-MANIFEST="${PROJECT_DIR}/downloads/IMP/species_manifest.tsv"
+MANIFEST="${PROJECT_DIR}/data/meta/imp/species_manifest.tsv"
 
 SCRIPT_NAME=$(basename "$0")
 
@@ -508,9 +508,16 @@ $3 == "gene" {
     local gt_tmp
     gt_tmp=$(mktemp -d /tmp/genetribe_XXXXXX)
 
-    # Symlink all faa/bed/chrlist files into the local tmp dir
+    # Sanitize species names for genetribe: replace dots with underscores
+    # jcvi (used internally by genetribe) treats dots as delimiters in filenames
+    sanitize_gt() { echo "$1" | tr '.' '_'; }
+
+    # Symlink all faa/bed/chrlist files into the local tmp dir (with sanitized names)
     for f in "${genus_dir}"/*.faa "${genus_dir}"/*.bed "${genus_dir}"/*.chrlist; do
-        [[ -f "$f" ]] && ln -sf "$f" "${gt_tmp}/$(basename "$f")"
+        [[ -f "$f" ]] || continue
+        base=$(basename "$f")
+        san_base=$(echo "$base" | tr '.' '_' | sed 's/_faa$/.faa/; s/_bed$/.bed/; s/_chrlist$/.chrlist/')
+        ln -sf "$f" "${gt_tmp}/${san_base}"
     done
 
     # query species list: exclude ref and species with invalid chrlist
@@ -533,12 +540,17 @@ $3 == "gene" {
         return
     fi
 
+    local san_ref_sp
+    san_ref_sp=$(sanitize_gt "$ref_sp")
+
     for sp in "${query_species[@]}"; do
+        local san_sp
+        san_sp=$(sanitize_gt "$sp")
         pushd "$gt_tmp" >/dev/null
         rm -rf genetribe_output/
-        genetribe core -l "$ref_sp" -f "$sp" -n 80 2>/dev/null || true
-        # Copy RBH result out of tmp (genetribe outputs ${ref}_${sp}.RBH in cwd)
-        [[ -f "${ref_sp}_${sp}.RBH" ]] && cp "${ref_sp}_${sp}.RBH" "${genus_dir}/"
+        genetribe core -l "$san_ref_sp" -f "$san_sp" -n 80 2>/dev/null || true
+        # Copy RBH result (genetribe names it using sanitized names; store with original names)
+        [[ -f "${san_ref_sp}_${san_sp}.RBH" ]] && cp "${san_ref_sp}_${san_sp}.RBH" "${genus_dir}/${ref_sp}_${sp}.RBH"
         popd >/dev/null
     done
     rm -rf "$gt_tmp"

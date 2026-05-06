@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 IMP Excel报表生成器
-扫描downloads/IMP/各物种目录，生成xlsx数据报表
+扫描 /DATA/data2/downloads/IMP/ 各物种目录，生成xlsx数据报表
 """
 
 import os
@@ -12,7 +12,7 @@ from openpyxl.styles import Font, Alignment, PatternFill
 from datetime import datetime
 
 BASE_DIR = "/home/nizhu/Projects/plantsdb"
-DOWNLOAD_DIR = f"{BASE_DIR}/downloads/IMP"
+DOWNLOAD_DIR = "/DATA/data2/downloads/IMP"
 
 # 文件类型配置
 FILE_TYPES = {

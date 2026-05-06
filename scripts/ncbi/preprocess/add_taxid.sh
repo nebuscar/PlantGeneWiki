@@ -17,9 +17,9 @@ show_help() {
   -h, --help           显示帮助信息
 
 示例:
-  $0 -i data/meta/species_list.txt -o result.txt
-  $0 -i data/meta/species_list.txt -o ./output/result.csv
-  $0 -i data/meta/species_list.txt -o /home/user/result.xlsx
+  $0 -i data/meta/ncbi/species_list.txt -o result.txt
+  $0 -i data/meta/ncbi/species_list.txt -o ./output/result.csv
+  $0 -i data/meta/ncbi/species_list.txt -o /home/user/result.xlsx
 EOF
 }
 

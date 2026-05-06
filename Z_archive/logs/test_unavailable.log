@@ -1,0 +1,210 @@
+[15:50:08] Start test on cpu-node, PID 3971518
+[15:50:08] Testing Arctium (rep: Arctium_lappa)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Arctium_lappa
+========================================
+Found 1 species
+
+[Arctium_lappa]
+
+Homolog analysis...
+  Homolog: Arctium (2 species)
+    Warning: Arctium_lappa has 0 valid chromosomes, skipping as ref candidate
+    Reference: Arctium_minus
+    Skipping query Arctium_lappa: invalid chrlist (0 chromosomes)
+  Skipping Arctium: no valid query species after chrlist filter
+
+========================================
+Done in 16s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[15:50:24] Done Arctium: exit=0, TSV=0 lines
+---
+[15:50:24] Testing Artemisia (rep: Artemisia_annua)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Artemisia_annua
+========================================
+Found 1 species
+
+[Artemisia_annua]
+
+Homolog analysis...
+  Homolog: Artemisia (3 species)
+    Warning: Artemisia_annua has 0 valid chromosomes, skipping as ref candidate
+    Warning: Artemisia_argyi has 0 valid chromosomes, skipping as ref candidate
+    Reference: Artemisia_tridentata_subsp._tridentata
+    Skipping query Artemisia_annua: invalid chrlist (0 chromosomes)
+    Skipping query Artemisia_argyi: invalid chrlist (0 chromosomes)
+  Skipping Artemisia: no valid query species after chrlist filter
+
+========================================
+Done in 26s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[15:50:50] Done Artemisia: exit=0, TSV=0 lines
+---
+[15:50:50] Testing Asparagus (rep: Asparagus_officinalis)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Asparagus_officinalis
+========================================
+Found 1 species
+
+[Asparagus_officinalis]
+
+Homolog analysis...
+
+========================================
+Done in 10s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[15:51:00] Done Asparagus: exit=0, TSV=0 lines
+---
+[15:51:00] Testing Allium (rep: Allium_cepa)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Allium_cepa
+========================================
+No species found
+[15:51:00] Done Allium: exit=1, TSV=0 lines
+---
+[15:51:00] Testing Ambrosia (rep: Ambrosia_artemisiifolia)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Ambrosia_artemisiifolia
+========================================
+No species found
+[15:51:00] Done Ambrosia: exit=1, TSV=0 lines
+---
+[15:51:00] Testing Aristolochia (rep: Aristolochia_fimbriata)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Aristolochia_fimbriata
+========================================
+Found 1 species
+
+[Aristolochia_fimbriata]
+
+Homolog analysis...
+  Homolog: Aristolochia (2 species)
+    Reference: Aristolochia_fimbriata
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 15:51:04 ...prepare files...
+[15:55:05] Testing Andropogon (Andropogon_gerardi_hap1)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Andropogon_gerardi_hap1
+========================================
+Found 1 species
+
+[Andropogon_gerardi_hap1]
+
+Homolog analysis...
+  Homolog: Andropogon (2 species)
+    Reference: Andropogon_gerardi_hap1
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 15:55:20 ...prepare files...
+2026-05-05 18:30:18 ...calculate BSR, CBS and Penalty...
+
+  ref genes with RBH: 0, queries: 1
+
+========================================
+Done in 9405s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[18:31:50] Done Andropogon: TSV=1 lines
+---
+[18:31:50] Testing Amborella (Amborella_trichopoda)...
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Amborella_trichopoda
+========================================
+Found 1 species
+
+[Amborella_trichopoda]
+
+Homolog analysis...
+  Homolog: Amborella (3 species)
+    Reference: Amborella_trichopoda_var._SantaCruz_75_HAP1
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 18:31:58 ...prepare files...
+2026-05-05 18:36:32 ...calculate BSR, CBS and Penalty...
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 18:36:32 ...prepare files...
+2026-05-05 18:41:17 ...calculate BSR, CBS and Penalty...
+  ref genes with RBH: 0, queries: 2
+
+========================================
+Done in 576s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[18:41:27] Done Amborella: TSV=1 lines
+---
+[18:41:27] All done.

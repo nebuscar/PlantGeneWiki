@@ -528,3 +528,138 @@ Homolog analysis...
    ===============================
 
 2026-05-03 09:26:21 ...prepare files...
+2026-05-03 17:59:00 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-03 18:04:24 ...evaluate optimal α for weighting score...
+2026-05-03 18:07:13 ...α = 60...
+2026-05-03 18:07:13 ...merge raw score...
+2026-05-03 18:07:19 ...process all chromosome pairs...
+2026-05-03 18:07:19 ...number of rounds: 1 ...
+2026-05-03 18:07:20 ...merge results...
+2026-05-03 18:07:23 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-03 18:07:23 ...prepare files...
+2026-05-03 20:09:18 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-03 20:15:39 ...evaluate optimal α for weighting score...
+2026-05-03 20:18:57 ...α = 55...
+2026-05-03 20:18:57 ...merge raw score...
+2026-05-03 20:19:04 ...process all chromosome pairs...
+2026-05-03 20:19:04 ...number of rounds: 1 ...
+2026-05-03 20:19:06 ...merge results...
+2026-05-03 20:19:09 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-03 20:19:09 ...prepare files...
+2026-05-04 05:12:34 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 05:18:24 ...evaluate optimal α for weighting score...
+2026-05-04 05:21:19 ...α = 65...
+2026-05-04 05:21:19 ...merge raw score...
+2026-05-04 05:21:26 ...process all chromosome pairs...
+2026-05-04 05:21:26 ...number of rounds: 1 ...
+2026-05-04 05:21:28 ...merge results...
+2026-05-04 05:21:30 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 05:21:30 ...prepare files...
+2026-05-04 06:11:20 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 06:17:43 ...evaluate optimal α for weighting score...
+2026-05-04 06:22:57 ...α = 90...
+2026-05-04 06:22:57 ...merge raw score...
+2026-05-04 06:23:09 ...process all chromosome pairs...
+2026-05-04 06:23:09 ...number of rounds: 1 ...
+2026-05-04 06:23:17 ...merge results...
+2026-05-04 06:23:21 ...done!
+  ref genes with RBH: 46585, queries: 4
+
+========================================
+Done in 75463s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[06:23:30] Done: Avena
+[06:23:30] Done: Avena
+[06:23:30] [5/21] Homolog: Aegilops (rep: Aegilops_bicornis)
+[06:23:30] [5/21] Homolog: Aegilops (rep: Aegilops_bicornis)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Aegilops_bicornis
+========================================
+Found 1 species
+
+[Aegilops_bicornis]
+
+Homolog analysis...
+  Homolog: Aegilops (6 species)
+    Reference: Aegilops_sharonensis
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 06:24:22 ...prepare files...
+[19:14:36] Re-starting Aegilops (2026-05-05)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Aegilops_bicornis
+========================================
+Found 1 species
+
+[Aegilops_bicornis]
+
+Homolog analysis...
+  Homolog: Aegilops (6 species)
+    Reference: Aegilops_sharonensis
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 19:15:27 ...prepare files...

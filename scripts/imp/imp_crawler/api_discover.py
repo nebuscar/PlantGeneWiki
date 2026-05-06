@@ -12,7 +12,7 @@ from playwright.async_api import async_playwright
 
 BASE_URL = "https://www.bic.ac.cn"
 TARGET_URL = f"{BASE_URL}/IMP/#/Download"
-OUTPUT_DIR = "/home/nizhu/Projects/plantsdb/downloads/IMP"
+OUTPUT_DIR = "/home/nizhu/Projects/plantsdb/data/meta/imp"
 
 
 async def capture_network_requests():

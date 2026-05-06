@@ -8,9 +8,9 @@ TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
 # 默认路径
-DEFAULT_INPUT="/home/nizhu/Projects/plantsdb/data/meta/species_list_cleaned.tsv"
+DEFAULT_INPUT="/home/nizhu/Projects/plantsdb/data/meta/ncbi/species_list_cleaned.tsv"
 DEFAULT_DOWNLOAD_DIR="/DATA/data2/downloads/genomes"
-DEFAULT_OUTPUT="/home/nizhu/Projects/plantsdb/data/meta/species_missing.tsv"
+DEFAULT_OUTPUT="/home/nizhu/Projects/plantsdb/data/meta/ncbi/species_missing.tsv"
 
 INPUT_FILE=""
 DOWNLOAD_DIR=""

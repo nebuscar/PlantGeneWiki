@@ -62,7 +62,7 @@ if $LIST_ONLY; then
 fi
 
 # crawl fresh list if no manifest provided and default doesn't exist
-DEFAULT_MANIFEST="${PROJECT_DIR}/downloads/IMP/species_manifest.tsv"
+DEFAULT_MANIFEST="${PROJECT_DIR}/data/meta/imp/species_manifest.tsv"
 if [[ -z "$MANIFEST" && ! -f "$DEFAULT_MANIFEST" ]]; then
     echo "no manifest found, crawling species list..."
     python3 "${CRAWLER_DIR}/species_crawler.py"

@@ -25,7 +25,7 @@ python -m playwright install chromium
 ## 目录结构
 
 ```
-downloads/IMP/
+data/meta/imp/
 ├── logs/                          # 下载日志
 ├── species_list.json              # 物种列表（JSON）
 ├── species_manifest.tsv           # 物种清单（TSV）
@@ -70,7 +70,7 @@ Base URL: `https://www.bic.ac.cn/data2t/html/IMP/public/data/`
 python3 scripts/imp/imp_crawler/species_crawler.py
 ```
 
-输出：`downloads/IMP/species_manifest.tsv`、`downloads/IMP/species_list.json`
+输出：`data/meta/imp/species_manifest.tsv`、`data/meta/imp/species_list.json`
 
 ---
 
@@ -81,13 +81,13 @@ python3 scripts/imp/imp_crawler/species_crawler.py
 ```bash
 # 全量下载
 python3 -u scripts/imp/imp_crawler/download_manager.py \
-    --manifest downloads/IMP/species_manifest.tsv \
+    --manifest data/meta/imp/species_manifest.tsv \
     --outdir /DATA/data2/downloads/IMP \
     --threads 4
 
 # 按首字母分批
 python3 -u scripts/imp/imp_crawler/download_manager.py \
-    --manifest downloads/IMP/species_manifest.tsv \
+    --manifest data/meta/imp/species_manifest.tsv \
     --outdir /DATA/data2/downloads/IMP \
     --prefix B --threads 4
 
@@ -112,7 +112,7 @@ python3 -u scripts/imp/imp_crawler/download_manager.py \
 | `--dry-run` | 仅打印 URL，不下载 |
 | `--limit` | 限制处理数量 |
 
-**完成后生成 `downloads/IMP/species_availability.tsv`：**
+**完成后生成 `data/meta/imp/species_availability.tsv`：**
 
 ```
 Directory_Name          Species_Code    Status
@@ -171,8 +171,8 @@ bash scripts/imp/imp_download.sh -d --limit 5
 |------|------|
 | `logs/imp_download.log` | 详细下载记录 |
 | `logs/imp_fail.log` | 下载异常记录 |
-| `downloads/IMP/logs/imp_download.log` | 服务端下载日志 |
-| `downloads/IMP/species_availability.tsv` | 物种可用性标记 |
+| `data/meta/imp/logs/imp_download.log` | 服务端下载日志 |
+| `data/meta/imp/species_availability.tsv` | 物种可用性标记 |
 
 ---
 

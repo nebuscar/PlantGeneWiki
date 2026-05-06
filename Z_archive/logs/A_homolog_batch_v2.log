@@ -1,0 +1,720 @@
+[14:14:23] Start on cpu-node, PID 3256015
+[14:14:24] SKIP Acorus (already done, 21828 lines)
+[14:14:24] SKIP Adansonia (already done, 39623 lines)
+[14:14:24] SKIP Arachis (already done, 45734 lines)
+[14:14:24] SKIP Arabidopsis (already done, 31113 lines)
+[14:14:24] SKIP Avena (already done, 46586 lines)
+[14:14:24] [6/22] Homolog: Ajuga (rep: Ajuga_chamaepitys)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Ajuga_chamaepitys
+========================================
+Found 1 species
+
+[Ajuga_chamaepitys]
+
+Homolog analysis...
+  Homolog: Ajuga (2 species)
+    Reference: Ajuga_chamaepitys
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 14:14:35 ...prepare files...
+2026-05-04 15:44:10 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 16:02:37 ...evaluate optimal α for weighting score...
+2026-05-04 16:21:14 ...α = 50...
+2026-05-04 16:21:14 ...merge raw score...
+2026-05-04 16:21:53 ...process all chromosome pairs...
+2026-05-04 16:21:53 ...number of rounds: 1 ...
+2026-05-04 16:21:55 ...merge results...
+2026-05-04 16:22:00 ...done!
+  ref genes with RBH: 18527, queries: 1
+
+========================================
+Done in 7666s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[16:22:10] Done: Ajuga
+[16:22:10] [7/22] Homolog: Albizia (rep: Albizia_julibrissin)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Albizia_julibrissin
+========================================
+Found 1 species
+
+[Albizia_julibrissin]
+
+Homolog analysis...
+  Homolog: Albizia (2 species)
+    Reference: Albizia_julibrissin_2
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 16:22:18 ...prepare files...
+2026-05-04 16:45:38 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 16:48:10 ...evaluate optimal α for weighting score...
+2026-05-04 16:50:09 ...α = 65...
+2026-05-04 16:50:09 ...merge raw score...
+2026-05-04 16:50:14 ...process all chromosome pairs...
+2026-05-04 16:50:14 ...number of rounds: 1 ...
+2026-05-04 16:50:18 ...merge results...
+2026-05-04 16:50:20 ...done!
+  ref genes with RBH: 31232, queries: 1
+
+========================================
+Done in 1700s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[16:50:30] Done: Albizia
+[16:50:30] [8/22] Homolog: Andropogon (rep: Andropogon_gerardi_hap1)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Andropogon_gerardi_hap1
+========================================
+Found 1 species
+
+[Andropogon_gerardi_hap1]
+
+Homolog analysis...
+  Homolog: Andropogon (2 species)
+    Reference: Andropogon_gerardi_hap1
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 16:50:47 ...prepare files...
+2026-05-04 19:27:07 ...calculate BSR, CBS and Penalty...
+
+  ref genes with RBH: 0, queries: 1
+
+========================================
+Done in 9493s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[19:28:43] Done: Andropogon
+[19:28:43] [9/22] Homolog: Annona (rep: Annona_cherimola_Booth)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Annona_cherimola_Booth
+========================================
+Found 1 species
+
+[Annona_cherimola_Booth]
+
+Homolog analysis...
+  Homolog: Annona (2 species)
+    Reference: Annona_cherimola_Fino_de_Jete
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 19:28:50 ...prepare files...
+2026-05-04 20:17:14 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 20:29:29 ...evaluate optimal α for weighting score...
+2026-05-04 20:40:56 ...α = 45...
+2026-05-04 20:40:56 ...merge raw score...
+2026-05-04 20:41:20 ...process all chromosome pairs...
+2026-05-04 20:41:20 ...number of rounds: 1 ...
+2026-05-04 20:41:29 ...merge results...
+2026-05-04 20:41:33 ...done!
+  ref genes with RBH: 48853, queries: 1
+
+========================================
+Done in 4380s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[20:41:43] Done: Annona
+[20:41:43] [10/22] Homolog: Aquilegia (rep: Aquilegia_coerulea)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Aquilegia_coerulea
+========================================
+Found 1 species
+
+[Aquilegia_coerulea]
+
+Homolog analysis...
+  Homolog: Aquilegia (2 species)
+    Reference: Aquilegia_kansuensis
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 20:41:51 ...prepare files...
+2026-05-04 21:04:01 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 21:06:05 ...evaluate optimal α for weighting score...
+2026-05-04 21:07:47 ...α = 55...
+2026-05-04 21:07:47 ...merge raw score...
+2026-05-04 21:07:51 ...process all chromosome pairs...
+2026-05-04 21:07:51 ...number of rounds: 1 ...
+2026-05-04 21:07:53 ...merge results...
+2026-05-04 21:07:54 ...done!
+  ref genes with RBH: 21628, queries: 1
+
+========================================
+Done in 1580s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:08:03] Done: Aquilegia
+[21:08:03] [11/22] Homolog: Arabis (rep: Arabis_alpina)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Arabis_alpina
+========================================
+Found 1 species
+
+[Arabis_alpina]
+
+Homolog analysis...
+  Homolog: Arabis (2 species)
+    Reference: Arabis_montbretiana
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 21:08:11 ...prepare files...
+2026-05-04 21:22:43 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 21:24:33 ...evaluate optimal α for weighting score...
+2026-05-04 21:25:56 ...α = 45...
+2026-05-04 21:25:56 ...merge raw score...
+2026-05-04 21:25:59 ...process all chromosome pairs...
+2026-05-04 21:25:59 ...number of rounds: 1 ...
+2026-05-04 21:26:00 ...merge results...
+2026-05-04 21:26:01 ...done!
+  ref genes with RBH: 16555, queries: 1
+
+========================================
+Done in 1087s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:26:10] Done: Arabis
+[21:26:11] [12/22] Homolog: Arctium (rep: Arctium_lappa)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Arctium_lappa
+========================================
+Found 1 species
+
+[Arctium_lappa]
+
+Homolog analysis...
+  Homolog: Arctium (2 species)
+    Warning: Arctium_lappa has 0 valid chromosomes, skipping as ref candidate
+    Reference: Arctium_minus
+    Skipping query Arctium_lappa: invalid chrlist (0 chromosomes)
+  Skipping Arctium: no valid query species after chrlist filter
+
+========================================
+Done in 16s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:26:27] Done: Arctium
+[21:26:27] [13/22] Homolog: Aristolochia (rep: Aristolochia_contorta)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Aristolochia_contorta
+========================================
+Found 1 species
+
+[Aristolochia_contorta]
+
+Homolog analysis...
+  Homolog: Aristolochia (2 species)
+    Reference: Aristolochia_fimbriata
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 21:26:32 ...prepare files...
+2026-05-04 21:27:33 ...calculate BSR, CBS and Penalty...
+
+  ref genes with RBH: 0, queries: 1
+
+========================================
+Done in 77s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:27:45] Done: Aristolochia
+[21:27:45] [14/22] Homolog: Asparagus (rep: Asparagus_officinalis)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Asparagus_officinalis
+========================================
+Found 1 species
+
+[Asparagus_officinalis]
+
+Homolog analysis...
+
+========================================
+Done in 10s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:27:55] Done: Asparagus
+[21:27:55] [15/22] Homolog: Allium (rep: Allium_cepa)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Allium_cepa
+========================================
+No species found
+[21:27:55] Done: Allium
+[21:27:55] [16/22] Homolog: Amaranthus (rep: Amaranthus_cruentus)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Amaranthus_cruentus
+========================================
+Found 1 species
+
+[Amaranthus_cruentus]
+
+Homolog analysis...
+  Homolog: Amaranthus (3 species)
+    Reference: Amaranthus_tricolor
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 21:28:02 ...prepare files...
+2026-05-04 21:33:41 ...calculate BSR, CBS and Penalty...
+
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 21:33:44 ...prepare files...
+2026-05-04 21:40:24 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 21:41:26 ...evaluate optimal α for weighting score...
+2026-05-04 21:42:20 ...α = 55...
+2026-05-04 21:42:20 ...merge raw score...
+2026-05-04 21:42:22 ...process all chromosome pairs...
+2026-05-04 21:42:22 ...number of rounds: 1 ...
+2026-05-04 21:42:23 ...merge results...
+2026-05-04 21:42:24 ...done!
+  ref genes with RBH: 18047, queries: 2
+
+========================================
+Done in 879s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:42:34] Done: Amaranthus
+[21:42:34] [17/22] Homolog: Amborella (rep: Amborella_trichopoda)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Amborella_trichopoda
+========================================
+Found 1 species
+
+[Amborella_trichopoda]
+
+Homolog analysis...
+  Homolog: Amborella (3 species)
+    Reference: Amborella_trichopoda_var._SantaCruz_75_HAP1
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 21:42:44 ...prepare files...
+2026-05-04 21:47:19 ...calculate BSR, CBS and Penalty...
+
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 21:47:25 ...prepare files...
+2026-05-04 21:52:15 ...calculate BSR, CBS and Penalty...
+
+  ref genes with RBH: 0, queries: 2
+
+========================================
+Done in 597s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:52:31] Done: Amborella
+[21:52:31] [18/22] Homolog: Ambrosia (rep: Ambrosia_artemisiifolia)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Ambrosia_artemisiifolia
+========================================
+No species found
+[21:52:32] Done: Ambrosia
+[21:52:32] [19/22] Homolog: Artemisia (rep: Artemisia_annua)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Artemisia_annua
+========================================
+Found 1 species
+
+[Artemisia_annua]
+
+Homolog analysis...
+  Homolog: Artemisia (3 species)
+    Warning: Artemisia_annua has 0 valid chromosomes, skipping as ref candidate
+    Warning: Artemisia_argyi has 0 valid chromosomes, skipping as ref candidate
+    Reference: Artemisia_tridentata_subsp._tridentata
+    Skipping query Artemisia_annua: invalid chrlist (0 chromosomes)
+    Skipping query Artemisia_argyi: invalid chrlist (0 chromosomes)
+  Skipping Artemisia: no valid query species after chrlist filter
+
+========================================
+Done in 29s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[21:53:01] Done: Artemisia
+[21:53:01] [20/22] Homolog: Acer (rep: Acer_campestre)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Acer_campestre
+========================================
+Found 1 species
+
+[Acer_campestre]
+
+Homolog analysis...
+  Homolog: Acer (4 species)
+    Reference: Acer_campestre
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 21:53:10 ...prepare files...
+2026-05-04 22:48:07 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 22:52:06 ...evaluate optimal α for weighting score...
+2026-05-04 22:55:37 ...α = 75...
+2026-05-04 22:55:37 ...merge raw score...
+2026-05-04 22:55:45 ...process all chromosome pairs...
+2026-05-04 22:55:45 ...number of rounds: 1 ...
+2026-05-04 22:55:46 ...merge results...
+2026-05-04 22:55:49 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 22:55:49 ...prepare files...
+2026-05-04 23:50:54 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-04 23:54:47 ...evaluate optimal α for weighting score...
+2026-05-04 23:57:53 ...α = 65...
+2026-05-04 23:57:53 ...merge raw score...
+2026-05-04 23:58:00 ...process all chromosome pairs...
+2026-05-04 23:58:00 ...number of rounds: 1 ...
+2026-05-04 23:58:02 ...merge results...
+2026-05-04 23:58:04 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-04 23:58:04 ...prepare files...
+2026-05-05 00:53:31 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-05 00:57:19 ...evaluate optimal α for weighting score...
+2026-05-05 01:00:31 ...α = 65...
+2026-05-05 01:00:31 ...merge raw score...
+2026-05-05 01:00:38 ...process all chromosome pairs...
+2026-05-05 01:00:38 ...number of rounds: 1 ...
+2026-05-05 01:00:40 ...merge results...
+2026-05-05 01:00:42 ...done!
+  ref genes with RBH: 26984, queries: 3
+
+========================================
+Done in 11271s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[01:00:52] Done: Acer
+[01:00:52] [21/22] Homolog: Actinidia (rep: Actinidia_arguta)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Actinidia_arguta
+========================================
+Found 1 species
+
+[Actinidia_arguta]
+
+Homolog analysis...
+  Homolog: Actinidia (5 species)
+    Reference: Actinidia_deliciosa
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 01:01:10 ...prepare files...
+2026-05-05 01:24:14 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-05 01:26:29 ...evaluate optimal α for weighting score...
+2026-05-05 01:27:48 ...α = 90...
+2026-05-05 01:27:48 ...merge raw score...
+2026-05-05 01:27:51 ...process all chromosome pairs...
+2026-05-05 01:27:51 ...number of rounds: 1 ...
+2026-05-05 01:27:52 ...merge results...
+2026-05-05 01:27:54 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 01:27:54 ...prepare files...
+2026-05-05 01:51:52 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-05 01:54:42 ...evaluate optimal α for weighting score...
+2026-05-05 01:56:40 ...α = 10...
+2026-05-05 01:56:40 ...merge raw score...
+2026-05-05 01:56:44 ...process all chromosome pairs...
+2026-05-05 01:56:44 ...number of rounds: 1 ...
+2026-05-05 01:56:45 ...merge results...
+2026-05-05 01:56:47 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 01:56:47 ...prepare files...
+2026-05-05 02:20:40 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-05 02:23:09 ...evaluate optimal α for weighting score...
+2026-05-05 02:24:58 ...α = 99...
+2026-05-05 02:24:58 ...merge raw score...
+2026-05-05 02:25:02 ...process all chromosome pairs...
+2026-05-05 02:25:02 ...number of rounds: 1 ...
+2026-05-05 02:25:04 ...merge results...
+2026-05-05 02:25:06 ...done!
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 02:25:06 ...prepare files...
+2026-05-05 02:49:04 ...calculate BSR, CBS and Penalty...
+
+
+
+
+2026-05-05 02:51:38 ...evaluate optimal α for weighting score...
+2026-05-05 02:53:30 ...α = 99...
+2026-05-05 02:53:30 ...merge raw score...
+2026-05-05 02:53:34 ...process all chromosome pairs...
+2026-05-05 02:53:34 ...number of rounds: 1 ...
+2026-05-05 02:53:36 ...merge results...
+2026-05-05 02:53:38 ...done!
+  ref genes with RBH: 38713, queries: 4
+
+========================================
+Done in 6776s
+Species: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+========================================
+[02:53:48] Done: Actinidia
+[02:53:48] [22/22] Homolog: Aegilops (rep: Aegilops_bicornis)
+========================================
+Input:       /DATA/data2/downloads/IMP
+Species out: /home/nizhu/Projects/plantsdb/result/result_imp/species
+Homolog out: /home/nizhu/Projects/plantsdb/result/result_imp/homolog
+Mode:        homolog
+Genus:       enabled
+Species:     Aegilops_bicornis
+========================================
+Found 1 species
+
+[Aegilops_bicornis]
+
+Homolog analysis...
+  Homolog: Aegilops (6 species)
+    Reference: Aegilops_sharonensis
+
+   ===============================
+  ||                             ||
+  ||         GeneTribe           ||
+  ||       Version: v1.2.1       ||
+  ||                             ||
+   ===============================
+
+2026-05-05 02:54:37 ...prepare files...

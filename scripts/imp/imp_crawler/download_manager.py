@@ -9,7 +9,7 @@ from datetime import datetime
 import requests
 
 BASE_DIR = "/home/nizhu/Projects/plantsdb"
-DOWNLOAD_DIR = f"{BASE_DIR}/downloads/IMP"
+DOWNLOAD_DIR = "/DATA/data2/downloads/IMP"
 IMP_BASE = "https://www.bic.ac.cn/data2t/html/IMP/public/data"
 
 # URL uses species code; local output filename uses full directory name (dir)
@@ -142,8 +142,8 @@ def main():
     if args.species:
         species_list = [{'code': args.species, 'name': args.species, 'dir': args.species}]
     else:
-        json_path = f"{BASE_DIR}/downloads/IMP/species_list.json"
-        tsv_path = f"{BASE_DIR}/downloads/IMP/species_manifest.tsv"
+        json_path = f"{BASE_DIR}/data/meta/imp/species_list.json"
+        tsv_path = f"{BASE_DIR}/data/meta/imp/species_manifest.tsv"
         manifest = args.manifest or (json_path if os.path.exists(json_path) else tsv_path)
         if not os.path.exists(manifest):
             print("ERROR: no manifest found", file=sys.stderr)
@@ -162,7 +162,7 @@ def main():
     log_path = os.path.join(args.logdir, "imp_download.log")
     fail_path = os.path.join(args.logdir, "imp_fail.log")
     # availability: dir_name -> status string, persisted to species_availability.tsv
-    avail_path = os.path.join(BASE_DIR, "downloads/IMP/species_availability.tsv")
+    avail_path = os.path.join(BASE_DIR, "data/meta/imp/species_availability.tsv")
     counts = {'ok': 0, 'skip': 0, 'fail': 0}
     total = len(species_list)
 

@@ -18,7 +18,7 @@
 
 ### 物种列表文件
 
-硬编码路径：`data/meta/species_list_with_taxid.txt`，Tab 分隔，关键列：
+硬编码路径：`data/meta/ncbi/species_list_with_taxid.txt`，Tab 分隔，关键列：
 
 | 列号 | 列名     | 说明                       |
 |------|---------|----------------------------|

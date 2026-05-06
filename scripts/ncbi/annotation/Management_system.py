@@ -415,7 +415,7 @@ def main():
     args = parse_args()
 
     TAXONOMY_FILE = (
-        "/home/nizhu/renjinran/plantsdb/data/meta/species_list_unique_with_taxid.txt"
+        "/home/nizhu/Projects/plantsdb/data/meta/ncbi/species_list_unique_with_taxid.txt"
     )
 
     load_taxonomy_mapping(TAXONOMY_FILE)
