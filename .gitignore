@@ -1,11 +1,22 @@
-/downloads/
+# folders
+downloads/
+data/
 sample/
 result/
 tmp/
+.claude/
 
+# files
 *.gz
 *.zip
 *.fna
 *.faa
+*.fa
 *.gff
+*.gtf
 *.gbff
+*.pdf
+*.ppt
+*.pptx
+*.html
+*.out
