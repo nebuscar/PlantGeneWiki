@@ -1,0 +1,2011 @@
+No.species	Species	Taxonomy ID	Ploidy	Accession name	Order	Family	Clade
+1	Abeliophyllum distichum	126358	-	-	Lamiales	Oleaceae	Abeliophyllum
+2	Abelmoschus esculentus	455045	-	cultivar 'Wufu'	Malvales	Malvaceae	Abelmoschus
+3	Abies alba	45372	diploid	-	Pinales	Pinaceae	Abies
+4	Abrus cantoniensis	-	-	cultivar: JGC-3	Fabales	Fabaceae	Abrus
+5	Abrus precatorius	3816	-	-	Fabales	Fabaceae	Abrus
+6	Acacia confusa	3809	diploid	Taiwan Acacia	Fabales	Fabaceae	Acacia
+7	Acacia crassicarpa	499986	diploid	Acra3RX	Fabales	Fabaceae	Acacia
+8	Acacia pycnantha	880440	-	-	Fabales	Fabaceae	Acacia
+9	Acanthochlamys bracteata	145231	diploid	-	Pandanales	Velloziaceae	Acanthochlamys
+10	Acer catalpifolium	-	diploid	-	Sapindales	Sapindaceae	Acer
+11	Acer negundo	4023	diploid	-	Sapindales	Sapindaceae	Acer
+12	Acer palmatum	66201	diploid	-	Sapindales	Sapindaceae	Acer
+13	Acer pentaphyllum	134798	diploid	-	Sapindales	Sapindaceae	Acer
+14	Acer pseudosieboldianum	47968	diploid	-	Sapindales	Sapindaceae	Acer
+15	Acer rubrum	45314	hexaploid	-	Sapindales	Sapindaceae	Acer
+16	Acer saccharum	4024	-	-	Sapindales	Sapindaceae	Acer
+17	Acer truncatum	47965	-	-	Sapindales	Sapindaceae	Acer
+18	Acer yangbiense	1000413	-	-	Sapindales	Sapindaceae	Acer
+19	Achnatherum splendens	-	-	-	Poales	Poaceae	Achnatherum
+20	Aconitum vilmorinianum	226101	-	-	Ranunculales	Ranunculaceae	Aconitum
+21	Acorus gramineus	55184	diploid	JQP20200401GX	Acorales	Acoraceae	Acorus
+22	Acorus tatarinowii	123564	diploid	-	Acorales	Acoraceae	Acorus
+23	Actinidia arguta	64478	tetraploid	var. hypoleuca	Ericales	Actinidiaceae	Actinidia
+24	Actinidia chinensis	3625	diploid	Hongyang	Ericales	Actinidiaceae	Actinidia
+25	Actinidia eriantha	165200	diploid	-	Ericales	Actinidiaceae	Actinidia
+26	Actinidia hemsleyana	165707	diploid	CYMHT	Ericales	Actinidiaceae	Actinidia
+27	Actinidia latifolia	165711	diploid	Kuoye	Ericales	Actinidiaceae	Actinidia
+28	Actinidia polygama	64480	hexaploid	male	Ericales	Actinidiaceae	Actinidia
+29	Actinidia rufa	165716	-	male	Ericales	Actinidiaceae	Actinidia
+30	Actinidia zhejiangensis	165720	diploid	ZJMHT	Ericales	Actinidiaceae	Actinidia
+31	Adansonia digitata	69109	tetraploid	Baobab	Malvales	Malvaceae	Adansonia
+32	Adenophora triphylla	187269	-	Japanese Lady Bell	Asterales	Campanulaceae	Adenophora
+33	Adenosma buchneroides	-	-	-	Lamiales	Plantaginaceae	Adenosma
+34	Adiantum capillus-veneris	13818	diploid	-	Polypodiales	Pteridaceae	Adiantum
+35	Adiantum nelumboides	2759587	-	-	Polypodiales	Pteridaceae	Adiantum
+36	Aechmea fasciata	326768	diploid	-	Poales	Bromeliaceae	Aechmea
+37	Aegiceras corniculatum	59970	hexaploid	-	Ericales	Primulaceae	Aegiceras
+38	Aegilops bicornis	4483	diploid	TB01	Poales	Poaceae	Aegilops
+39	Aegilops comosa	4485	diploid	-	Myrtales	Myrtaceae	Aegilops
+40	Aegilops longissima	4486	diploid	TL05	Poales	Poaceae	Aegilops
+41	Aegilops muticum	-	hexaploid	2130012 (JIC)	Poales	Poaceae	Aegilops
+42	Aegilops searsii	4487	diploid	searsii	Poales	Poaceae	Aegilops
+43	Aegilops sharonensis	58530	diploid	TH02	Poales	Poaceae	Aegilops
+44	Aegilops speltoides	4573	diploid	TS01	Poales	Poaceae	Aegilops
+45	Aegilops tauschii	37682	diploid	-	Poales	Poaceae	Aegilops
+46	Aegilops umbellulata	4491	diploid	TA1851	Poales	Poaceae	Aegilops
+47	Aegle marmelos	68527	diploid	-	Sapindales	Rutaceae	Aegle
+48	Aeonium arboreum	35945	triploid	Velour	Saxifragales	Crassulaceae	Aeonium
+49	Aeschynomene evenia	561484	-	-	Fabales	Fabaceae	Aeschynomene
+50	Aesculus wilsonii	-	diploid	-	Sapindales	Sapindaceae	Aesculus
+51	Aethionema arabicum	228871	-	Arabian rock mustard	Brassicales	Brassicaceae	Aethionema
+52	Agapanthus africanus	51501	tetraploid	-	Asparagales	Amaryllidaceae	Agapanthus
+53	Agastache rugosa	39271	diploid	AG34	Lamiales	Lamiaceae	Agastache
+54	Agave hybrid NO.11648	-	diploid	-	Asparagales	Asparagaceae	Agave hybrid
+55	Ajuga decumbens	167911	diploid	-	Lamiales	Lamiaceae	Ajuga
+56	Akebia trifoliata	155132	diploid	subsp. australis	Ranunculales	Lardizabalaceae	Akebia
+57	Albizia julibrissin	3813	-	silk tree	Fabales	Fabaceae	Albizia
+58	Aldrovanda vesiculosa	173386	-	-	Caryophyllales	Droseraceae	Aldrovanda
+59	Algal Strain CCCryo 101-99	-	haploid	-	-	-	-
+60	Alliaria petiolata	126270	-	-	Brassicales	Brassicaceae	Alliaria
+61	Allium cepa	4679	diploid	DHCU066619	Asparagales	Amaryllidaceae	Allium
+62	Allium fistulosum	35875	-	SXSJC	Asparagales	Amaryllidaceae	Allium
+63	Allium sativum	4682	diploid	-	Asparagales	Amaryllidaceae	Allium
+64	Alloteropsis semialata	435756	-	-	Poales	Poaceae	Alloteropsis
+65	Alnus glutinosa	3517	tetraploid	-	Fagales	Betulaceae	Alnus
+66	Alnus rubra	109069	diploid	clone 639	Fagales	Betulaceae	Alnus
+67	Aloe vera	34199	diploid	-	Asparagales	Asphodelaceae	Aloe
+68	Alopecurus aequalis	114194	-	shortawn foxtail ; orange foxtail	Poales	Poaceae	Alopecurus
+69	Alopecurus myosuroides	81473	diploid	-	Poales	Poaceae	Alopecurus
+70	Alpinia nigra	105678	tetraploid	-	Zingiberales	Zingiberaceae	Alpinia
+71	Alpinia oxyphylla	125261	-	cultivar “changyuanguo	Zingiberales	Zingiberaceae	Alpinia
+72	Alsophila spinulosa	204586	diploid	-	Cyatheales	Cyatheaceae	Alsophila
+73	Alstonia scholaris	52822	diploid	-	Gentianales	Apocynaceae	Alstonia
+74	Amaranthus cruentus	117272	diploid	Arusha	Caryophyllales	Amaranthaceae	Amaranthus
+75	Amaranthus hybridus	3565	diploid	haplotype	Caryophyllales	Amaranthaceae	Amaranthus
+76	Amaranthus hypochondriacus	28502	diploid	AhKP	Caryophyllales	Amaranthaceae	Amaranthus
+77	Amaranthus palmeri	107608	-	-	Caryophyllales	Amaranthaceae	Amaranthus
+78	Amaranthus tricolor	29722	diploid	cv. Red	Caryophyllales	Amaranthaceae	Amaranthus
+79	Amaranthus tuberculatus	277990	-	-	Caryophyllales	Amaranthaceae	Amaranthus
+80	Amborella trichopoda	13333	-	-	Amborellales	Amborellaceae	Amborella
+81	Ambrosia artemisiifolia	4212	diploid	-	Asterales	Asteraceae	Ambrosia
+82	Ambrosia trifida	4214	diploid	giant ragweed	Asterales	Asteraceae	Ambrosia
+83	Ammopiptanthus mongolicus	126911	diploid	-	Fabales	Fabaceae	Ammopiptanthus
+84	Ammopiptanthus nanus	111851	-	-	Fabales	Fabaceae	Ammopiptanthus
+85	Amomum tsao-ko	-	tetraploid	-	Zingiberales	Zingiberaceae	Amomum
+86	Amorphophallus konjac	78372	diploid	-	Alismatales	Araceae	Amorphophallus
+87	Ampelocalamus luodianensis	387595	-	-	Poales	Poaceae	Ampelocalamus
+88	Amphicarpaea edgeworthii	132429	-	-	Fabales	Fabaceae	Amphicarpaea
+89	Anacardium occidentale	171929	diploid	cultivar Bhaskara	Sapindales	Anacardiaceae	Anacardium
+90	Ananas bracteatus	-	diploid	-	Poales	Bromeliaceae	Ananas
+91	Ananas comosus	4615	diploid	F153	Poales	Bromeliaceae	Ananas
+92	Anastatica hierochuntica	663965	-	-	Brassicales	Brassicaceae	Anastatica
+93	Ancylonema nordenskiöldii	-	-	glacier alga	-	-	-
+94	Andrographis paniculata	175694	-	Andrographis	Lamiales	Acanthaceae	Andrographis
+95	Angelica sinensis	165353	-	-	Apiales	Apiaceae	Angelica
+96	Angophora  floribunda	-	-	-	Myrtales	Myrtaceae	Angophora
+97	Angophora floribunda	34308	-	-	Gentianales	Apocynaceae	Angophora
+98	Angraecum sesquipedale	78697	-	Darwin's orchid	Asparagales	Orchidaceae	Angraecum
+99	Anisodus acutangulus	402998	-	-	Solanales	Solanaceae	Anisodus
+100	Anisodus tanguticus	243964	-	-	Solanales	Solanaceae	Anisodus
+101	Annona cherimola	49314	diploid	cultivar “Fino de Jete”	Magnoliales	Annonaceae	Annona
+102	Annona glabra	301703	diploid	improve	Magnoliales	Annonaceae	Annona
+103	Annona muricata	13337	diploid	improve	Magnoliales	Annonaceae	Annona
+104	Anthoceros agrestis	41834	-	Oxford	Anthocerotales	Anthocerotaceae	Anthoceros
+105	Anthoceros angustus	48387	-	-	Anthocerotales	Bryoceae	Anthoceros
+106	Anthoceros punctatus	3234	-	-	Anthocerotales	Anthocerotaceae	Anthoceros
+107	Antiaris toxicaria	241857	-	Upas Tree	Rosales	Moraceae	Antiaris
+108	Antirrhinum hispanicum	49039	-	AhS7S8(S7-haplotype)	Lamiales	Plantaginaceae	Antirrhinum
+109	Antirrhinum linkianum	102601	diploid	-	Lamiales	Plantaginaceae	Antirrhinum
+110	Antirrhinum majus	4151	diploid	-	Lamiales	Plantaginaceae	Antirrhinum
+111	Apatococcus fuscideae (ApafusSAG2523)	-	-	-	Prasiolales	-	-
+112	Apatococcus lobatus (ApalobSAG2145)	-	-	-	Prasiolales	-	-
+113	Apium graveolens	4045	-	Q2-JN11	Apiales	Apiaceae	Apium
+114	Apocynum hendersonii	377127	diploid	-	Gentianales	Apocynaceae	Apocynum
+115	Apocynum pictum	377126	diploid	-	Gentianales	Apocynaceae	Apocynum
+116	Apocynum venetum	377125	diploid	-	Gentianales	Apocynaceae	Apocynum
+117	Apostasia ramifera	1920719	-	-	Asparagales	Orchidaceae	Apostasia
+118	Apostasia shenzhenica	1088818	-	-	Asparagales	Orchidaceae	Apostasia
+119	Apple  Fuji	-	-	-	Rosales	Rosaceae	Apple
+120	Apple  M9	-	-	-	Rosales	Rosaceae	Apple
+121	Apple MM106	-	-	-	Rosales	Rosaceae	Apple
+122	Aquilaria agallocha	-	-	-	Malvales	Thymelaeaceae	Aquilaria
+123	Aquilaria sinensis	210372	-	-	Malvales	Thymelaeaceae	Aquilaria
+124	Aquilaria yunnanensis	452568	-	-	Malvales	Thymelaeaceae	Aquilaria
+125	Aquilegia coerulea	218851	diploid	-	Ranunculales	Ranunculaceae	Aquilegia
+126	Aquilegia oxysepala	432649	-	-	Ranunculales	Ranunculaceae	Aquilegia
+127	Arabidopsis arenosa	38785	-	-	Brassicales	Brassicaceae	Arabidopsis
+128	Arabidopsis halleri	81970	diploid	Tada mine	Brassicales	Brassicaceae	Arabidopsis
+129	Arabidopsis lyrata	59689	-	subsp. lyrata MN47	Brassicales	Brassicaceae	Arabidopsis
+130	Arabidopsis suecica	45249	tetraploid	CS3900	Brassicales	Brassicaceae	Arabidopsis
+131	Arabidopsis thaliana	3702	diploid	Col-0	Brassicales	Brassicaceae	Arabidopsis
+132	Arabis alpina	50452	diploid	Pajares	Brassicales	Brassicaceae	Arabis
+133	Arachis duranensis	130453	diploid	V14167	Fabales	Fabaceae	Arachis
+134	Arachis hypogaea	3818	tetraploid	Fuhuasheng	Fabales	Fabaceae	Arachis
+135	Arachis ipaensis	130454	diploid	K30076	Fabales	Fabaceae	Arachis
+136	Arachis monticola	227691	tetraploid	-	Fabales	Fabaceae	Arachis
+137	Arachis stenosperma	217475	diploid	-	Fabales	Fabaceae	Arachis
+138	Aralia elata	82095	-	-	Apiales	Araliaceae	Aralia
+139	Arbutus unedo	84005	-	-	Ericales	Ericaceae	Arbutus
+140	Arctium lappa	4217	-	-	Asterales	Asteraceae	Arctium
+141	Arctium minus	143172	diploid	lesser burdock	Asterales	Asteraceae	Arctium
+142	Arctostaphylos glauca	89197	diploid	-	Ericales	Ericaceae	Arctostaphylos
+143	Areca catechu	184783	-	Reyan#	Arecales	Arecaceae	Areca
+144	Argania spinosa	-	-	-	Ericales	Sapotaceae	Argania
+145	Aristolochia californica	171875	diploid	California Pipevine	Piperales	Aristolochiaceae	Aristolochia
+146	Aristolochia contorta	266420	-	-	Piperales	Aristolochiaceae	Aristolochia
+147	Aristolochia fimbriata	158543	-	-	Piperales	Aristolochiaceae	Aristolochia
+148	Aristotelia chilensis	138855	-	-	Oxalidales	Elaeocarpaceae	Aristotelia
+149	Armoracia rusticana	3704	tetraploid	HD15	Brassicales	Brassicaceae	Armoracia
+150	Artemisia annua	35608	diploid	-	Asterales	Asteraceae	Artemisia
+151	Artemisia argyi	259893	tetraploid	Xiang Ai	Asterales	Asteraceae	Artemisia
+152	Artemisia selengensis	637485	diploid	-	Asterales	Asteraceae	Artemisia
+153	Artemisia tridentata	55611	diploid	-	Asterales	Asteraceae	Artemisia
+154	Artocarpu altilis	-	-	-	Rosales	Moraceae	Artocarpu
+155	Artocarpu heterophyllus	-	-	-	Rosales	Moraceae	Artocarpu
+156	Artocarpus camansi	709039	diploid	-	Rosales	Moraceae	Artocarpus
+157	Artocarpus heterophyllus	3489	-	S10'	Rosales	Moraceae	Artocarpus
+158	Artocarpus hirsutus	291940	-	-	Rosales	Moraceae	Artocarpus
+159	Artocarpus nanchuanensis	1745975	-	-	Rosales	Moraceae	Artocarpus
+160	Asclepias syriaca	48545	diploid	-	Gentianales	Apocynaceae	Asclepias
+161	Asclepias syriaca	-	diploid	-	Gentianales	Apocynaceae	Asclepias
+162	Asparagus kiusianus	272855	diploid	-	Asparagales	Asphodelaceae	Asparagus
+163	Asparagus officinalis	4686	-	-	Asparagales	Asparagaceae	Asparagus
+164	Asparagus setaceus	272863	-	-	Asparagales	Asparagaceae	Asparagus
+165	Asterochloris glomerata	174040	-	-	Trebouxiales	Trebouxiaceae	Asterochloris
+166	Astragalus membranaceus	649199	-	var. mongholicus	Fabales	Fabaceae	Astragalus
+167	Astragalus sinicus	47065	diploid	Yijiangzi	Fabales	Fabaceae	Astragalus
+168	Astrephomene gubernaculifera	47775	-	NIES-4017	Chlamydomonadales	Astrephomenaceae	Astrephomene
+169	Atalantia buxifolia	76974	diploid	-	Sapindales	Rutaceae	Atalantia
+170	Atractylodes lancea	41486	diploid	-	Asterales	Asteraceae	Atractylodes
+171	Atriplex hortensis	34272	diploid	-	Caryophyllales	Amaranthaceae	Atriplex
+172	Atropa belladonna	33113	hexaploid	-	Solanales	Solanaceae	Atropa
+173	Aubrieta canescens	1076948	-	subsp. canescens	Brassicales	Brassicaceae	Aubrieta
+174	Aubrieta macrostyla	3020387	-	-	Brassicales	Brassicaceae	Aubrieta
+175	Aurinia saxatilis	169069	-	-	Brassicales	Brassicaceae	Aurinia
+176	Australimusa bananas	-	diploid	Bananas	Zingiberales	Musaceae	Australimusa
+177	Avena atlantica	366594	diploid	-	Poales	Poaceae	Avena
+178	Avena eriantha	146534	diploid	-	Poales	Poaceae	Avena
+179	Avena insularis	283872	tetraploid	BYU209	Poales	Poaceae	Avena
+180	Avena longiglumis	4500	diploid	CN58138	Poales	Poaceae	Avena
+181	Avena sativa	4498	hexaploid	cv. 'Sang'	Poales	Poaceae	Avena
+182	Avena sterilis	83444	Hexaploid	-	Poales	Poaceae	Avena
+183	Averrhoa carambola	28974	-	-	Oxalidales	Oxalidaceae	Averrhoa
+184	Avicennia alba	139224	diploid	-	Lamiales	Acanthaceae	Avicennia
+185	Avicennia germinans	41378	diploid	-	Lamiales	Acanthaceae	Avicennia
+186	Avicennia marina	82927	-	-	Lamiales	Acanthaceae	Avicennia
+187	Avicennia officinalis	1134458	-	-	Lamiales	Acanthaceae	Avicennia
+188	Avicennia rumphiana	-	-	-	Lamiales	Acanthaceae	Avicennia
+189	Azadirachta indica	124943	-	-	Sapindales	Meliaceae	Azadirachta
+190	Azolla filiculoides	84609	-	-	Salviniales	Salviniaceae	Azolla
+191	Baccaurea ramifloraLour	-	-	-	Malpighiales	Phyllanthaceae	Baccaurea
+192	Balanophora fungosa	29813	-	var. globosa	Santalales	Balanophoraceae	Balanophora
+193	Balanophora subcupularis	2874248	-	-	Santalales	Balanophoraceae	Balanophora
+194	Bambusa odashimae	1929884	-	-	Poales	Poaceae	Bambusa
+195	Barbarea vulgaris	50459	diploid	-	Brassicales	Brassicaceae	Barbarea
+196	Barringtonia asiatica	79557	-	-	Ericales	Lecythidaceae	Barringtonia
+197	Barringtonia racemosa	107821	-	-	Ericales	Lecythidaceae	Barringtonia
+198	Barthea barthei	1898640	-	-	Myrtales	Melastomataceae	Barthea
+199	Bathycoccus prasinos	41875	-	-	Mamiellales	Bathycoccaceae	Bathycoccus
+200	Bauhinia variegata	167791	tetraploid	-	Fabales	Fabaceae	Bauhinia
+201	Beckmannia syzigachne	368345	-	American sloughgrass	Poales	Poaceae	Beckmannia
+202	Begonia darthvaderiana	2905994	-	-	Cucurbitales	Begoniaceae	Begonia
+203	Begonia fuchsioides	200001	-	-	Cucurbitales	Begoniaceae	Begonia
+204	Begonia loranthoides	200023	-	-	Cucurbitales	Begoniaceae	Begonia
+205	Begonia masoniana	198562	-	-	Cucurbitales	Begoniaceae	Begonia
+206	Begonia peltatifolia	1406276	-	-	Cucurbitales	Begoniaceae	Begonia
+207	Benincasa hispida	102211	diploid	-	Cucurbitales	Cucurbitaceae	Benincasa
+208	Benincasa hispida var. Chieh-qua	1208597	-	-	Cucurbitales	Cucurbitaceae	Benincasa hispida var.
+209	Berberis thunbergii	121720	diploid	-	Ranunculales	Berberidaceae	Berberis
+210	Berberis vulgaris	258209	-	common barberry	Ranunculales	Berberidaceae	Berberis
+211	Bergenia scopulosa	1397840	-	-	Saxifragales	Saxifragaceae	Bergenia
+212	Beta patula	1505710	-	-	Caryophyllales	Amaranthaceae	Beta
+213	Beta vulgaris	161934	diploid	KWS2320	Caryophyllales	Amaranthaceae	Beta
+214	Betula nana	216990	diploid	-	Fagales	Betulaceae	Betula
+215	Betula pendula	3505	diploid	-	Fagales	Betulaceae	Betula
+216	Betula platyphylla	78630	diploid	-	Fagales	Betulaceae	Betula
+217	Biancaea sappan	483143	-	sappan wood	Fabales	Fabaceae	Biancaea
+218	Bidens alba	51260	Tetraploid	-	Asterales	Asteraceae	Bidens
+219	Bidens hawaiensis	980011	-	-	Asterales	Asteraceae	Bidens
+220	Biscutella auriculata	379493	diploid	-	Brassicales	Brassicaceae	Biscutella
+221	Biscutella laevigata	264427	tetraploid	subsp. laevigata	Brassicales	Brassicaceae	Biscutella
+222	Bletilla striata	78707	-	haplotype B	Asparagales	Orchidaceae	Bletilla
+223	Boea hygrometrica	-	-	-	Lamiales	Gesneriaceae	Boea
+224	Boechera puberula	115924	-	-	Brassicales	Brassicaceae	Boechera
+225	Boechera retrofracta	115934	diploid	-	Brassicales	Brassicaceae	Boechera
+226	Boehmeria nivea	83906	diploid	ZZ1	Rosales	Urticaceae	Boehmeria
+227	Boesenbergia rotunda	97729	-	-	Zingiberales	Zingiberaceae	Boesenbergia
+228	Bolboschoenus planiculmis	651555	-	Clubrush	Poales	Cyperaceae	Bolboschoenus
+229	Bombax ceiba	45325	-	-	Malvales	Malvaceae	Bombax
+230	Bonia amplexicaulis	338503	hexaploid	-	Poales	Poaceae	Bonia
+231	Boswellia sacra	173701	-	-	Sapindales	Burseraceae	Boswellia
+232	Bothriochloa decipiens	883134	-	COB1-7	Poales	Poaceae	Bothriochloa
+233	Botryococcus braunii	38881	-	-	Caulerpales	Trebouxiophyceae	Botryococcus
+234	Bougainvillea x buttiana	-	diploid	Mrs. Butt'	Caryophyllales	Nyctaginaceae	Bougainvillea
+235	Brachypodium distachyon	15368	diploid	-	Poales	Poaceae	Brachypodium
+236	Brachypodium hybridum	1071398	tetraploid	ABR113	Poales	Poaceae	Brachypodium
+237	Brachypodium stacei	1071399	diploid	ABR114	Poales	Poaceae	Brachypodium
+238	Brachypodium sylvaticum	29664	diploid	Ain1	Poales	Poaceae	Brachypodium
+239	Brasenia schreberi	4424	-	J.F. Gmel.	Nymphaeales	Cabombaceae	Brasenia
+240	Brassica carinata	52824	tetraploid	“zd-1”	Brassicales	Brassicaceae	Brassica
+241	Brassica cretica	69181	tetraploid	-	Brassicales	Brassicaceae	Brassica
+242	Brassica gravinae	308265	diploid	BRA2847	Nymphaeales	Cabombaceae	Brassica
+243	Brassica juncea	3707	tetraploid	T84-66	Brassicales	Brassicaceae	Brassica
+244	Brassica napus	3708	tetraploid	Darmor-bzh	Brassicales	Brassicaceae	Brassica
+245	Brassica nigra	3710	diploid	YZ12151	Brassicales	Brassicaceae	Brassica
+246	Brassica oleracea	3712	diploid	line 02–12	Brassicales	Brassicaceae	Brassica
+247	Brassica oleracea var. botrytis	3715	-	Cauliflower	Brassicales	Brassicaceae	Brassica
+248	Brassica oleracea var. italica	36774	-	Broccoli	Brassicales	Brassicaceae	Brassica
+249	Brassica rapa	3711	diploid	Chiifu-401-42	Brassicales	Brassicaceae	Brassica
+250	Brassica rapa x Raphanus sativus	1417620	tetraploid	cv BB1	Brassicales	Brassicaceae	Brassica
+251	Brassica repanda	308267	diploid	BRA1645	Brassicales	Brassicaceae	Brassica
+252	Brassica tournefortii	37661	diploid	Bt-2017S-3-00000	Brassicales	Brassicaceae	Brassica
+253	Bretschneidera sinensis	28529	-	-	Brassicales	Akaniaceae	Bretschneidera
+254	Bromus sterilis	55777	diploid	Barren brome	Poales	Poaceae	Bromus
+255	Bromus tectorum	29667	diploid	FMH10	Poales	Poaceae	Bromus
+256	Broussonetia papyrifera	172644	-	-	Rosales	Moraceae	Broussonetia
+257	Bruguiera cylindrica	106616	diploid	-	Malpighiales	Rhizophoraceae	Bruguiera
+258	Bruguiera gymnorhiza	39984	diploid	-	Malpighiales	Rhizophoraceae	Bruguiera
+259	Bruguiera hainesii	413958	tetraploid	-	Malpighiales	Rhizophoraceae	Bruguiera
+260	Bruguiera parviflora	106618	-	-	Malpighiales	Rhizophoraceae	Bruguiera
+261	Bruguiera sexangula	98584	-	-	Malpighiales	Rhizophoraceae	Bruguiera
+262	Bryopsis	3378648	-	-	Bryopsidales	-	-
+263	Buddleja alternifolia	168488	diploid	-	Lamiales	Scrophulariaceae	Buddleja
+264	Bupleurum chinense	52451	diploid	-	Apiales	Apiaceae	Bupleurum
+265	Bursera cuneata	80294	diploid	-	Sapindales	Burseraceae	Bursera
+266	Bursera palmeri	80321	diploid	-	Sapindales	Burseraceae	Bursera
+267	Buxus austro‑yunnanensis	-	-	20010744	Buxales	Buxaceae	Buxus
+268	Buxus sinica	153572	hexaploid	UW 136	Buxales	Buxaceae	Buxus
+269	Cajanus cajan	3821	diploid	Asha	Fabales	Fabaceae	Cajanus
+270	Calamus brandisii	1225072	-	-	Arecales	Arecaceae	Calamus
+271	Calamus simplicifolius	746888	-	-	Arecales	Arecaceae	Calamus
+272	Callerya speciosa	-	diploid	-	Fabales	Fabaceae	Callerya
+273	Callicarpa americana	204211	-	-	Lamiales	Lamiaceae	Callicarpa
+274	Calohypnum plumiforme	98943	-	-	Hypnales	Hypnaceae	Calohypnum
+275	Calophaca sinica	1641257	diploid	-	Fabales	Fabaceae	Calophaca
+276	Calotropis gigantea	4066	diploid	-	Gentianales	Apocynaceae	Calotropis
+277	Calotropis procera	141467	-	-	Gentianales	Apocynaceae	Calotropis
+278	Calycanthus chinensis	3431	-	-	Laurales	Calycanthaceae	Calycanthus
+279	Camelina hispida	883000	diploid	var. hispida PI650139	Brassicales	Brassicaceae	Camelina
+280	Camelina laxa	359823	diploid	PI633185	Brassicales	Brassicaceae	Camelina
+281	Camelina neglecta	2864041	diploid	PI650135	Brassicales	Brassicaceae	Camelina
+282	Camelina sativa	90675	hexaploid	-	Brassicales	Brassicaceae	Camelina
+283	Camellia  sinensis Var.'Sangmok'	-	-	-	Ericales	Theaceae	Camelina
+284	Camellia assamica Masters	-	diploid	tea	Ericales	Theaceae	Camelina
+285	Camellia chekiangoleosa	450940	diploid	-	Ericales	Theaceae	Camelina
+286	Camellia crapnelliana	542719	diploid	-	Ericales	Theaceae	Camelina
+287	Camellia granthamiana	182298	diploid	-	Ericales	Theaceae	Camelina
+288	Camellia granthamiana Sealy	-	tetraploid	Grantham's camellia	Ericales	Theaceae	Camelina
+289	"Camellia japonica ""Naidong"""	-	diploid	cjaND	Ericales	Theaceae	Camelina
+290	Camellia lanceoleosa	1840588	diploid	-	Ericales	Theaceae	Camelina
+291	Camellia limonia	147920	-	-	Ericales	Theaceae	Camelina
+292	Camellia oleifera	385388	diploid	-	Ericales	Theaceae	Camelina
+293	Camellia sinensis	4442	diploid	Yunkang	Ericales	Theaceae	Camellia
+294	Camellia sinensis var. assamica	261999	diploid	-	Ericales	Theaceae	Camellia
+295	Camphora longepaniculata	-	-	-	Laurales	Lauraceae	Camphora
+296	Camptotheca acuminata	16922	-	-	Cornales	Nyssaceae	Camptotheca
+297	Cananga odorata	13393	diploid	ylang-ylang	Magnoliales	Annonaceae	Cananga
+298	Canavalia gladiata	3824	-	sword bean	Fabales	Fabaceae	Canavalia
+299	Canna edulis	-	diploid	-	Zingiberales	Cannaceae	Canna
+300	Canna indica	4628	diploid	-	Zingiberales	Cannaceae	Canna
+301	Cannabis sativa	3483	diploid	PK	Rosales	Cannabaceae	Cannabis
+302	Capparis spinosa	65558	-	var. herbacea(Willd.)	Brassicales	Capparaceae	Capparis
+303	Capsella bursa-pastoris	3719	tetraploid	-	Brassicales	Brassicaceae	Capsella
+304	Capsella grandiflora	264402	-	-	Brassicales	Brassicaceae	Capsella
+305	Capsella rubella	81985	diploid	-	Brassicales	Brassicaceae	Capsella
+306	Capsicum annuum	4072	diploid	CM334	Solanales	Solanaceae	Capsicum
+307	Capsicum baccatum	33114	diploid	-	Solanales	Solanaceae	Capsicum
+308	Capsicum chinense	80379	diploid	PI 159236	Solanales	Solanaceae	Capsicum
+309	Capsicum pubescens	113210	-	Grif 1614	Solanales	Solanaceae	Capsicum
+310	Capsicum rhomboideum	462292	diploid	-	Solanales	Solanaceae	Capsicum
+311	Carallia pectinifolia	98586	diploid	-	Malpighiales	Rhizophoraceae	Carallia
+312	Cardamine chenopodiifolia	3101730	octoploid	-	Brassicales	Brassicaceae	Cardamine
+313	Cardamine enshiensis	-	-	-	Brassicales	Brassicaceae	Cardamine
+314	Cardamine hirsuta	50463	-	-	Brassicales	Brassicaceae	Cardamine
+315	Cardamine occulta	2054765	octoploid	-	Brassicales	Brassicaceae	Cardamine
+316	Cardamine resedifolia	352370	-	-	Brassicales	Brassicaceae	Cardamine
+317	Carex breviculmis	291501	diploid	-	Poales	Cyperaceae	Carex
+318	Carex cristatella	314410	diploid	-	Poales	Cyperaceae	Carex
+319	Carex kokanica	100296	triploid	-	Poales	Cyperaceae	Carex
+320	Carex parvula	544733	tetraploid	-	Poales	Cyperaceae	Carex
+321	Carex pumila	418179	-	-	Poales	Cyperaceae	Carex
+322	Carex scoparia	314463	diploid	-	Poales	Cyperaceae	Carex
+323	Carica papaya	3649	diploid	-	Brassicales	Caricaceae	Carica
+324	Carnegiea gigantea	171969	-	-	Caryophyllales	Cactaceae	Carnegiea
+325	Carpinus fangiana	176857	-	-	Fagales	Betulaceae	Carpinus
+326	Carpinus viminea	176864	-	-	Fagales	Betulaceae	Carpinus
+327	Carrichtera annua	127603	diploid	KEW200556	Brassicales	Brassiceae	Carrichtera
+328	Carthamus tinctorius	4222	diploid	-	Asterales	Asteraceae	Carthamus
+329	Carya cathayensis	139927	-	-	Fagales	Juglandaceae	Carya
+330	Carya illinoinensis	32201	-	-	Fagales	Juglandaceae	Carya
+331	Carya sinensis	139926	diploid	-	Fagales	Juglandaceae	Carya
+332	Caryocar brasiliense	480971	-	-	Malpighiales	Caryocaraceae	Caryocar
+333	Castanea crenata	103480	-	Ginyose	Fagales	Fagaceae	Castanea
+334	Castanea mollissima	60419	-	-	Fagales	Fagaceae	Castanea
+335	Castanea sativa	21020	diploid	sweet chestnut	Fagales	Fagaceae	Castanea
+336	Castanopsis chinensis	279180	-	-	Fagales	Fagaceae	Castanopsis
+337	Castanopsis hystrix	167390	diploid	-	Fagales	Fagaceae	Castanopsis
+338	Castanopsis tibetana	212656	-	-	Fagales	Fagaceae	Castanopsis
+339	Casuarina cunninghamiana	29737	-	-	Fagales	Casuarinaceae	Casuarina
+340	Casuarina equisetifolia	3523	diploid	-	Fagales	Casuarinaceae	Casuarina
+341	Casuarina glauca	3522	diploid	-	Fagales	Casuarinaceae	Casuarina
+342	Catharanthus roseus	4058	diploid	-	Gentianales	Apocynaceae	Catharanthus
+343	Caulerpa lentillifera	148947	-	-	Bryopsidales	Caulerpaceae	Caulerpa
+344	Cavendish banana	-	triploid	BXJ1(haplotype 1)	Zingiberales	Musaceae	Cavendish
+345	Ceiba pentandra	193163	diploid	-	Malvales	Malvaceae	Ceiba
+346	Cenchrus americanus	4543	diploid	-	Poales	Poaceae	Cenchrus
+347	Cenchrus fungigraminus	2981182	tetraploid	-	Poales	Poaceae	Cenchrus
+348	Cenchrus purpureus	154765	-	-	Poales	Poaceae	Cenchrus
+349	Centaurea solstitialis	347529	diploid	Yellow Starthistle	Asterales	Asteraceae	Centaurea
+350	Centella asiatica	48106	-	-	Apiales	Apiaceae	Centella
+351	Cephalotus follicularis	3775	diploid	-	Oxalidales	Cephalotaceae	Cephalotus
+352	Cerasus pseudocerasus	-	-	Chinese cherry	Rosales	Rosaceae	Cerasus
+353	Cerasus serrulata	-	-	-	Rosales	Rosaceae	Cerasus
+354	Cerasus x kanzakura	-	diploid	Kawazu-zakura	Rosales	Rosaceae	Cerasus
+355	Ceratonia siliqua	20340	-	Locust bean	Fabales	Fabaceae	Ceratonia
+356	Ceratophyllum demersum	4428	hexaploid	-	Ceratophyllales	Ceratophyllaceae	Ceratophyllum
+357	Ceratopteris richardii	49495	-	-	Polypodiales	Pteridaceae	Ceratopteris
+358	Cercis canadensis	49801	-	-	Fabales	Fabaceae	Cercis
+359	Cercis chinensis	161750	-	-	Fabales	Fabaceae	Cercis
+360	Ceriops tagal	61143	-	improved	Malpighiales	Rhizophoraceae	Ceriops
+361	Ceriops zippeliana	413951	-	-	Malpighiales	Rhizophoraceae	Ceriops
+362	Chaenomeles speciosa	106546	diploid	haplotype 2	Rosales	Rosaceae	Chaenomeles
+363	Chamaecrista fasciculata	53854	-	-	Fabales	Fabaceae	Chamaecrista
+364	Chara braunii	69332	-	-	Charales	Characeae	Chara
+365	Chenopodium album	3559	hexaploid	fat-hen	Caryophyllales	Chenopodiaceae	Chenopodium
+366	Chenopodium formosanum	1640932	hexaploid	-	Caryophyllales	Chenopodiaceae	Chenopodium
+367	Chenopodium pallidicaule	882375	diploid	PI 478407	Caryophyllales	Amaranthaceae	Chenopodium
+368	Chenopodium quinoa	63459	tetraploid	Kd	Caryophyllales	Amaranthaceae	Chenopodium
+369	Chenopodium suecicum	434248	diploid	-	Caryophyllales	Amaranthaceae	Chenopodium
+370	Chenopodium watsonii	1072233	diploid	BYU 873	Caryophyllales	Chenopodiaceae	Chenopodium
+371	Chimonanthus praecox	13419	-	-	Laurales	Calycanthaceae	Chimonanthus
+372	Chimonanthus salicifolius	2855397	-	-	Laurales	Calycanthaceae	Chimonanthus
+373	Chiococca alba	28527	-	-	Gentianales	Rubiaceae	Chiococca
+374	Chionanthus retusus	126362	diploid	-	Lamiales	Oleaceae	Chionanthus
+375	Chlamydomonas applanata	35704	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+376	Chlamydomonas asymmetrica	51683	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+377	Chlamydomonas debaryana	-	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+378	Chlamydomonas eustigma	1157962	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+379	Chlamydomonas incerta	51695	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+380	Chlamydomonas reinhardtii	3055	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+381	Chlamydomonas schloesseri	2026947	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+382	Chlamydomonas sp. ICE-L	309537	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+383	Chlamydomonas sp. UWO241	-	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+384	Chlamydomonas sphaeroides	28458	-	-	Chlamydomonadales	Chlamydomonadaceae	Chlamydomonas
+385	Chloranthus sessilifolius	146544	diploid	-	Chloranthales	Chloranthaceae	Chloranthus
+386	Chloranthus spicatus	13006	-	GX20200316-1	Chloranthales	Chloranthaceae	Chloranthus
+387	Chlorella desiccata	-	diploid	UTEX 2526	Chlorellales	Chlorellaceae	Chlorella
+388	Chlorella protothecoides	-	-	-	Chlorellales	Chlorellaceae	Chlorella
+389	Chlorella pyrenoidosa	-	-	-	Chlorellales	Chlorellaceae	Chlorella
+390	Chlorella pyrenoidosa DBH	-	tetraploid	-	-	-	-
+391	Chlorella sorokiniana	3076	-	-	Chlorellales	Chlorellaceae	Chlorella
+392	Chlorella sorokiniana NS4-2	-	tetraploid	-	Chlorellales	-	Chlorella
+393	Chlorella variabilis	554065	-	-	Chlorellales	Chlorellaceae	Chlorella
+394	Chlorella vulgaris	3077	-	-	Chlorellales	Chlorellaceae	Chlorella
+395	Chlorella vulgaris (CCAP 211/12)	-	-	-	Rosales	Rosaceae	Chlorella
+396	Chloris gayana	110876	diploid	-	Poales	Poaceae	Chloris
+397	Chloris virgata	314391	diploid	-	Poales	Poaceae	Chloris
+398	Chlorokybus atmophyticus	3144	-	-	Chlorokybales	Chlorokybaceae	Chlorokybus
+399	Chloropicon primus	1764295	diploid	-	Chloropicales	Chloropicaceae	Chloropicon
+400	Chouardia litardierei	-	diploid	-	Asparagales	Hyacinthaceae	Chouardia
+401	Chromochloris zofingiensis	31302	-	-	Sphaeropleales	Chromochloridaceae	Chromochloris
+402	Chrysanthemum indicum	146995	diploid	-	Asterales	Asteraceae	Chrysanthemum
+403	Chrysanthemum lavandulifolium	146996	diploid	-	Asterales	Asteraceae	Chrysanthemum
+404	Chrysanthemum makinoi	1478180	diploid	No. JP131333	Asterales	Asteraceae	Chrysanthemum
+405	Chrysanthemum morifolium	-	hexaploid	Zhongshanzigui	Asterales	Asteraceae	Chrysanthemum
+406	Chrysanthemum nankingense	-	diploid	-	Asterales	Asteraceae	Chrysanthemum
+407	Chrysanthemum seticuspe	1111766	-	-	Asterales	Asteraceae	Chrysanthemum
+408	Chrysopogon serrulatus	330583	-	-	Poales	Poaceae	Chrysopogon
+409	Chrysosplenium sinicum	61241	diploid	Zhonghuajinyao	Saxifragales	Saxifragaceae	Chrysosplenium
+410	Cibotium barometz	29588	-	-	Polypodiales	Cyatheales	Cibotium
+411	Cicer arietinum	3827	diploid	CDC Frontier	Fabales	Fabaceae	Cicer
+412	Cicer reticulatum	90898	diploid	-	Fabales	Fabaceae	Cicer
+413	Cichorium endivia	114280	diploid	K001	Asterales	Asteraceae	Cichorium
+414	Cichorium intybus	13427	-	var. crispum	Asterales	Asteraceae	Cichorium
+415	Cinchona pubescens	50278	-	1977-69	Gentianales	Rubiaceae	Cinchona
+416	Cinnamomum camphora	13429	diploid	-	Laurales	Lauraceae	Cinnamomum
+417	Cinnamomum chago	1757932	-	-	Laurales	Lauraceae	Cinnamomum
+418	Cinnamomum kanehirae	-	diploid	-	Laurales	Lauraceae	Cinnamomum
+419	Cirsium nipponicum	1329804	-	-	Asterales	Asteraceae	Cirsium
+420	Cissus quadrangularis	165298	-	-	Vitales	Vitaceae	Cissus
+421	Cissus rotundifolia	416102	-	-	Vitales	Vitaceae	Cissus
+422	Citropsis gilletiana	231463	-	-	Sapindales	Rutaceae	Citropsis
+423	Citrullus amarus	1567104	-	USVL246-FR2	Cucurbitales	Cucurbitaceae	Citrullus
+424	Citrullus colocynthis	252529	-	PI 537277	Cucurbitales	Cucurbitaceae	Citrullus
+425	Citrullus ecirrhosus	260672	diploid	-	Cucurbitales	Cucurbitaceae	Citrullus
+426	Citrullus lanatus	3654	diploid	97103	Cucurbitales	Cucurbitaceae	Citrullus
+427	Citrullus mucosospermus	519315	-	USVL531-MDR	Cucurbitales	Cucurbitaceae	Citrullus
+428	Citrullus naudinianus	252528	diploid	-	Cucurbitales	Cucurbitaceae	Citrullus
+429	Citrullus rehmii	260675	diploid	-	Cucurbitales	Cucurbitaceae	Citrullus
+430	Citrullus species	-	diploid	-	Cucurbitales	Cucurbitaceae	Citrullus
+431	Citrus australasica	416196	-	-	Sapindales	Rutaceae	Citrus
+432	Citrus australis	341934	-	NA(Collapsed2)	Sapindales	Rutaceae	Citrus
+433	Citrus changshanensis	-	-	-	Sapindales	Rutaceae	Citrus
+434	Citrus clementina	-	-	-	Sapindales	Rutaceae	Citrus
+435	Citrus garrawayi	231467	-	-	Sapindales	Rutaceae	Citrus
+436	Citrus glauca	76963	diploid	-	Sapindales	Rutaceae	Citrus
+437	Citrus grandis	-	diploid	-	Sapindales	Rutaceae	Citrus
+438	Citrus hindsii	159041	diploid	-	Sapindales	Rutaceae	Citrus
+439	Citrus hongheensis	-	-	-	Sapindales	Rutaceae	Citrus
+440	Citrus ichangensis	-	diploid	-	Sapindales	Rutaceae	Citrus
+441	Citrus inodora	416197	diploid	-	Sapindales	Rutaceae	Citrus
+442	Citrus limon	-	diploid	cv. 'Femminello Siracusano' (haplotype 2)	Sapindales	Rutaceae	Citrus
+443	Citrus linwuensis	-	-	-	Sapindales	Rutaceae	Citrus
+444	Citrus mangensis	-	-	-	Sapindales	Rutaceae	Citrus
+445	Citrus maxima	37334	diploid	HCA	Sapindales	Rutaceae	Citrus
+446	Citrus medica	171251	diploid	-	Sapindales	Rutaceae	Citrus
+447	Citrus paradisi x Poncirus trifoliata	-	-	-	Sapindales	Rutaceae	Citrus
+448	Citrus reticulata	85571	diploid	-	Sapindales	Rutaceae	Citrus
+449	Citrus reticulata 'Chachi'	-	-	-	Sapindales	Rutaceae	Citrus
+450	Citrus reticulata cv.Chachiensis	-	-	-	Sapindales	Rutaceae	Citrus
+451	Citrus sinensis	2711	diploid	-	Sapindales	Rutaceae	Citrus
+452	Citrus unshiu	55188	diploid	-	Sapindales	Rutaceae	Citrus
+453	Citrus x clementina	85681	-	Clemenules	Sapindales	Rutaceae	Citrus
+454	Citrus x sinensis	-	diploid	Ridge Pineapple	Sapindales	Rutaceae	Citrus
+455	Cladonia borealis	184061	-	-	Lecanorales	Cladoniaceae	Cladonia
+456	Cladopus chinensis	222648	-	-	Malpighiales	Podostemaceae	Cladopus
+457	Clarkia xantiana ssp. parviflora	-	-	-	Myrtales	Brassicaceae	Clarkia
+458	Clausena lansium	159037	-	HCNGB_00002115	Sapindales	Rutaceae	Clausena
+459	Cleistogenes songorica	121774	-	-	Poales	Poaceae	Cleistogenes
+460	Clerodendrum inerme	-	diploid	improved	Lamiales	Lamiaceae	Clerodendrum
+461	Clethra arborea	59776	-	-	Ericales	Clethraceae	Clethra
+462	Climacium dendroides	70131	-	-	Hypnales	Climaciaceae	Climacium
+463	Clinopodium gracile	1150280	diploid	-	Lamiales	Lamiaceae	Clinopodium
+464	Clitoria ternatea	43366	-	butterfly pea	Fabales	Fabaceae	Clitoria
+465	Closterium peracerosum–strigosum–littorale complex	-	-	NIES-65	Zygnematales	-	Closterium
+466	Cnidium monnieri	94007	diploid	She Chuang Zi	Apiales	Apiaceae	Cnidium
+467	Coccomyxa elongata	1965095	-	-	Chlorellales	Chlorellaceae	Coccomyxa
+468	Coccomyxa pringsheimii (CocpriSAG2167)	-	-	-	Chlorellales	-	-
+469	Coccomyxa subellipsoidea	248742	-	-	-	Coccomyxaceae	Coccomyxa
+470	Coccomyxa viridis	1274662	-	-	-	-	Coccomyxa
+471	cochlearia groenlandica	669661	-	Greenland scurvy grass	Brassicales	Brassicaceae	cochlearia
+472	Cochlearia officinalis	270110	tetraploid	-	Brassicales	Brassicaceae	Cochlearia
+473	Cocos nucifera	13894	diploid	variety Hainan Tall	Arecales	Arecaceae	Cocos
+474	Codonopsis lanceolata	103999	-	-	Asterales	Campanulaceae	Codonopsis
+475	Codonopsis pilosula	86864	-	dang shen	Asterales	Campanulaceae	Codonopsis
+476	Coelastrum proboscideum	795112	-	-	Sphaeropleales	Scenedesmaceae	Coelastrum
+477	Coffea arabica	13443	tetraploid	-	Gentianales	Rubiaceae	Coffea
+478	Coffea arabica var. Geisha	-	tetraploid	-	Gentianales	Rubiaceae	Coffea
+479	Coffea canephora	49390	diploid	-	Gentianales	Rubiaceae	Coffea
+480	Coffea eugenioides	49369	diploid	-	Gentianales	Rubiaceae	Coffea
+481	Coffea humblotiana	59211	diploid	RM-CF-00679	Gentianales	Rubiaceae	Coffea
+482	Coix aquatica	79833	diploid	-	Poales	Poaceae	Coix
+483	Coix lacryma-jobi	4505	diploid	-	Poales	Poaceae	Coix
+484	Collinsia rattanii	183431	-	-	Lamiales	Plantaginaceae	Collinsia
+485	Colocasia esculenta	4460	-	cultivar  Longxiangyu	Alismatales	Araceae	Colocasia
+486	Comarum palustre	57932	-	Potentilla palustris	Rosales	Rosaceae	Comarum
+487	Combretum micranthum	578542	diploid	improved	Myrtales	Combretaceae	Combretum
+488	Commiphora wightii	246360	diploid	IC-471198 to IC-471282	Sapindales	Burseraceae	Commiphora
+489	Conocarpus erectus	134917	diploid	improved	Myrtales	Combretaceae	Conocarpus
+490	Conringia planisiliqua	311912	diploid	-	Brassicales	Brassicaceae	Conringia
+491	Conyza canadensis	-	diploid	TN-R	Asterales	Asteraceae	Conyza
+492	Coptis chinensis	261450	-	-	Ranunculales	Ranunculaceae	Coptis
+493	Coptis teeta	261448	-	-	Ranunculales	Ranunculaceae	Coptis
+494	Corchorus capsularis	210143	diploid	-	Malvales	Malvaceae	Corchorus
+495	Corchorus olitorius	93759	diploid	O-4	Malvales	Malvaceae	Corchorus
+496	Coriandrum sativum	4047	diploid	-	Apiales	Apiaceae	Coriandrum
+497	Coriaria nepalensis	79760	-	-	Cucurbitales	Coriariaceae	Coriaria
+498	Cornus wilsoniana	367357	diploid	-	Cornales	Cornaceae	Cornus
+499	Corrigiola litoralis	46118	-	-	Caryophyllales	Caryophyllaceae	Corrigiola
+500	Corydalis tomentella	1055021	-	-	Ranunculales	Papaveraceae	Corydalis
+501	Corydalis yanhusuo	458692	tetraploid	Yuan-hu or Yan-hu-suo	Ranunculales	Papaveraceae	Corydalis
+502	Corylus americana	78632	-	Rush	Fagales	Betulaceae	Corylus
+503	Corylus avellana	13451	diploid	-	Fagales	Betulaceae	Corylus
+504	Corylus chinensis	80753	diploid	Chinese hazelnut	Fabales	Betulaceae	Corylus
+505	Corylus heterophylla	80754	-	-	Fagales	Betulaceae	Corylus
+506	Corylus mandshurica	139401	-	-	Fagales	Betulaceae	Corylus
+507	Corymbia calophylla	34324	-	-	Myrtales	Myrtaceae	Corymbia
+508	Corymbia citriodora	34329	-	CCV2-018	Myrtales	Myrtaceae	Corymbia
+509	Corymbia maculata	87660	-	-	Myrtales	Myrtaceae	Corymbia
+510	Cosmos bipinnatus	51277	diploid	-	Asterales	Asteraceae	Cosmos
+511	Costus lasius	328769	diploid	-	Zingiberales	Costaceae	Costus
+512	Costus pulverulentus	160685	diploid	-	Zingiberales	Costaceae	Costus
+513	Cotoneaster glaucophyllus	1125981	diploid	-	Rosales	Rosaceae	Cotoneaster
+514	Crataegus pinnatifida	510735	diploid	cultivar:Qiu Jinxing	Rosales	Rosaceae	Crataegus
+515	Cremastra appendiculata	459596	-	-	Asparagales	Orchidaceae	Cremastra
+516	Crocus sativus	82528	triploid	saffron	Asparagales	Iridaceae	Crocus
+517	Crotalaria pallida	3830	-	smooth rattlebox	Fabales	Fabaceae	Crotalaria
+518	Crucihimalaya himalaica	59289	-	-	Brassicales	Brassicaceae	Crucihimalaya
+519	Crucihimalaya lasiocarpa	97993	-	-	Brassicales	Brassicaceae	Crucihimalaya
+520	Cryptocoryne crispatula	3141963	diploid	-	Alismatales	Cryptocoryne	Cryptocoryne
+521	Cryptomeria japonica	3369	diploid	The Japanese cedar	Cupressales	Cupressaceae	Cryptomeria
+522	Cryptotaenia japonica	48117	diploid	-	Apiales	Apiaceae	Cryptotaenia
+523	Cucumis hystrix	396994	diploid	-	Cucurbitales	Cucurbitaceae	Cucumis
+524	Cucumis melo	3656	diploid	DHL92	Cucurbitales	Cucurbitaceae	Cucumis
+525	Cucumis metuliferus	61886	diploid	CM27	Cucurbitales	Cucurbitaceae	Cucumis
+526	Cucumis sativus	3659	diploid	inbred line 9930	Cucurbitales	Cucurbitaceae	Cucumis
+527	Cucumis sativus var. xishuangbannanesis	2219226	-	cucumber	Cucurbitales	Cucurbitaceae	Cucumis
+528	Cucumis sativus x Cucumis hytivus	-	tetraploid	S14	Cucurbitales	Cucurbitaceae	Cucumis
+529	Cucurbita argyrosperma	34294	diploid	-	Cucurbitales	Cucurbitaceae	Cucumis
+530	Cucurbita maxima	3661	diploid	-	Cucurbitales	Cucurbitaceae	Cucurbita
+531	Cucurbita moschata	3662	-	-	Cucurbitales	Cucurbitaceae	Cucurbita
+532	Cucurbita pepo	3663	-	-	Cucurbitales	Cucurbitaceae	Cucurbita
+533	Curcuma alismatifolia	251764	-	Chiang Mai Pink	Zingiberales	Zingiberaceae	Curcuma
+534	Curcuma longa	136217	triploid	-	Zingiberales	Zingiberaceae	Curcuma
+535	Curcuma petiolata	110699	diploid	-	Zingiberales	Zingiberaceae	Curcuma
+536	Cuscuta australis	267555	-	-	Solanales	Convolvulaceae	Cuscuta
+537	Cuscuta campestris	132261	octoploid	Cuscuta	Solanales	Convolvulaceae	Cuscuta
+538	Cyamopsis tetragonoloba	3832	diploid	cultivar RGC-936	Fabales	Fabaceae	Cyamopsis
+539	Cycas panzhihuaensis	123604	diploid	PZHF03	Cycadales	Cycadaceae	Cycas
+540	Cyclocarya paliurus	117167	tetraploid	-	Fagales	Juglandaceae	Cyclocarya
+541	Cydonia oblonga	36610	diploid	-	Rosales	Rosaceae	Cydonia
+542	Cymbidium ensifolium	78740	diploid	-	Asparagales	Orchidaceae	Cymbidium
+543	Cymbidium goeringii	112607	-	-	Asparagales	Orchidaceae	Cymbidium
+544	Cymbidium mannii	1324860	-	-	Asparagales	Orchidaceae	Cymbidium
+545	Cymbidium sinense	112615	diploid	-	Asparagales	Orchidaceae	Cymbidium
+546	Cymbomonas tetramitiformis	36881	diploid	-	Pyramimonadales	Pyramimonadaceae	Cymbomonas
+547	Cymodocea nodosa	55448	-	-	Alismatales	Cymodoceaceae	Cymodocea
+548	Cynara cardunculus	4265	diploid	-	Asterales	Asteraceae	Cynara
+549	Cynodon dactylon	28909	-	cultivar Yangjiang	Poales	Poaceae	Cynodon
+550	Cynodon transvaalensis	75728	diploid	-	Poales	Poaceae	Cynodon
+551	Cyperus esculentus	1053340	-	JiYouSha NO.2	Poales	Cyperaceae	Cyperus
+552	Dactylis glomerata	4509	diploid	-	Poales	Poaceae	Dactylis
+553	Daemonorops jenkinsiana	-	-	-	Arecales	Arecaceae	Daemonorops
+554	Dahlia pinnata	101596	tetraploid	-	Asterales	Asteraceae	Dahlia
+555	Dalbergia candenatensis	1353443	diploid	-	Fabales	Fabaceae	Dalbergia
+556	Dalbergia cochinchinensis	106130	diploid	Pierre ex Laness	Fagales	Fabaceae	Dalbergia
+557	Dalbergia cultrata	862910	-	-	Fagales	Fabaceae	Dalbergia
+558	Dalbergia odorifera	499988	-	-	Fabales	Fabaceae	Dalbergia
+559	Dalbergia oliveri	1030150	-	Gamble ex Prain	Fagales	Fabaceae	Dalbergia
+560	Dalbergia sissoo	107308	diploid	-	Fagales	Fabaceae	Dalbergia
+561	Dasiphora fruticosa	32239	diploid	Galsang flowers	Rosales	Rosaceae	Dasiphora
+562	Dasypyrum villosum	40247	diploid	91C43	Poales	Poaceae	Dasypyrum
+563	Datisca glomerata	34297	-	-	Cucurbitales	Datiscaceae	Datisca
+564	Datura stramonium	4076	diploid	Teotihuacán	Solanales	Solanaceae	Datura
+565	Datura wrightii	434267	diploid	-	Solanales	Solanaceae	Datura
+566	Daucus carota	4039	diploid	DH1	Apiales	Apiaceae	Daucus
+567	Davidia involucrata	16924	-	-	Cornales	Nyssaceae	Davidia
+568	Deinandra increscens	425869	-	-	Asterales	Asteraceae	Deinandra
+569	Delonix regia	72433	diploid	flame tree	Fabales	Fabaceae	Delonix
+570	Dendrobium catenatum	906689	diploid	-	Asparagales	Orchidaceae	Dendrobium
+571	Dendrobium chrysotoxum	161865	diploid	-	Asparagales	Orchidaceae	Dendrobium
+572	Dendrobium loddigesii	117954	-	-	Asparagales	Orchidaceae	Dendrobium
+573	Dendrobium nobile	94219	diploid	-	Asparagales	Orchidaceae	Dendrobium
+574	Dendrobium officinale	142615	-	-	Asparagales	Orchidaceae	Dendrobium
+575	Dendrocalamus brandisii	280849	hexaploid	-	Poales	Poaceae	Dendrocalamus
+576	Dendrocalamus latiflorus	257763	hexaploid	-	Poales	Poaceae	Dendrocalamus
+577	Dendrocalamus sinicus	338490	-	-	Poales	Poaceae	Dendrocalamus
+578	Desmodesmus armatus	375941	diploid	-	Sphaeropleales	Scenedesmaceae	Desmodesmus
+579	Dianthus caryophyllus	3570	-	-	Caryophyllales	Caryophyllaceae	Dianthus
+580	Dichanthelium oligosanthes	888268	diploid	-	Poales	Poaceae	Dichanthelium
+581	Dicorynia guianensis	162748	-	-	Fabales	Fabaceae	Dicorynia
+582	Dicranostigma leptopodum	56851	-	-	Ranunculales	Papaveraceae	Dicranostigma
+583	Digitaria exilis	1010633	tetraploid	-	Poales	Poaceae	Digitaria
+584	Digitaria radicosa	158096	diploid	Timorese crabgrass	Poales	Poaceae	Digitaria
+585	Dimocarpus longan	128017	diploid	-	Sapindales	Sapindaceae	Dimocarpus
+586	Dionaea muscipula	4362	-	-	Caryophyllales	Droseraceae	Dionaea
+587	Dioscorea alata	55571	-	-	Dioscoreales	Dioscoreaceae	Dioscorea
+588	Dioscorea dumetorum	167584	-	-	Dioscoreales	Dioscoreaceae	Dioscorea
+589	Dioscorea rotundata	-	diploid	-	Dioscoreales	Dioscoreaceae	Dioscorea
+590	Dioscorea zingiberensis	325984	-	-	Dioscoreales	Dioscoreaceae	Dioscorea
+591	Diospyros kaki	35925	hexaploid	Xiaoguotianshi	Ericales	Ebenaceae	Diospyros
+592	Diospyros lotus	55363	-	-	Ericales	Ebenaceae	Diospyros
+593	Diospyros oleifera	227308	diploid	Youshi	Ericales	Ebenaceae	Diospyros
+594	Diphasiastrum complanatum	34168	diploid	-	Lycopodiales	Lycopodiaceae	Diphasiastrum
+595	Diplotaxis acris	402674	diploid	KEW554488	Brassicales	Brassiceae	Diplotaxis
+596	Diplotaxis erucoides	3732	diploid	De-2017S-2-00000	Brassicales	Brassiceae	Diplotaxis
+597	Diplotaxis harra	308281	tetraploid	KEW92793	Brassicales	Brassiceae	Diplotaxis
+598	Diplotaxis muralis	360583	tetraploid	Dm-2017S-3-00032	Brassicales	Brassiceae	Diplotaxis
+599	Diplotaxis tenuifolia	264416	-	-	Brassicales	Brassicaceae	Diplotaxis
+600	Diplotaxis tenuisiliqua	402670	diploid	DIPLO10	Brassicales	Brassiceae	Diplotaxis
+601	Diplotaxis viminea	308284	diploid	SGB31066	Brassicales	Brassiceae	Diplotaxis
+602	Dipterocarpus alatus	340438	-	-	Malvales	Dipterocarpaceae	Dipterocarpus
+603	Dipterocarpus gracilis	2823388	-	-	Malvales	Dipterocarpaceae	Dipterocarpus
+604	Dipterocarpus intricatus	340442	-	-	Malvales	Dipterocarpaceae	Dipterocarpus
+605	Dipterocarpus turbinatus	340444	-	HCNGB_00001637	Malvales	Dipterocarpaceae	Dipterocarpus
+606	Dipterocarpus zeylanicus	365539	-	-	Malvales	Dipterocarpaceae	Dipterocarpus
+607	Dipteronia dyeriana	168575	diploid	-	Sapindales	Sapindaceae	Dipteronia
+608	Dipteronia sinensis	43782	diploid	-	Sapindales	Sapindaceae	Dipteronia
+609	Dittrichia graveolens	1532790	diploid	-	Asterales	Asteraceae	Dittrichia
+610	Docynia delavayi	-	diploid	-	Rosales	Rosaceae	Docynia
+611	Draba incana	311941	tetraploid	Hoary Whitlowgrass	Brassicales	Brassicaceae	Draba
+612	Draba nivalis	171823	diploid	-	Brassicales	Brassicaceae	Draba
+613	Dracaena cambodiana	580341	-	-	Asparagales	Asparagaceae	Dracaena
+614	Dracaena cochinchinensis	593754	-	-	Asparagales	Asparagaceae	Dracaena
+615	Drepanocaryum sewerzowii	392624	-	-	Lamiales	Lamiaceae	Drepanocaryum
+616	Drosera capensis	4366	tetraploid	-	Caryophyllales	Droseraceae	Drosera
+617	Drosera spatulata	16681	-	-	Caryophyllales	Droseraceae	Drosera
+618	Dryas drummondii	48231	-	-	Rosales	Rosaceae	Dryas
+619	Duabanga grandiflora	122808	diploid	-	Myrtales	Lythraceae	Duabanga
+620	Dunaliella salina	3046	-	-	Chlamydomonadales	Dunaliellaceae	Dunaliella
+621	Durio zibethinus	66656	-	-	Malvales	Malvaceae	Durio
+622	Echinochloa colona	90396	hexaploid	PI463783	Poales	Poaceae	Echinochloa
+623	Echinochloa crus-galli	90397	hexaploid	-	Poales	Poaceae	Echinochloa
+624	Echinochloa haploclada	502763	-	-	Poales	Poaceae	Echinochloa
+625	Echinochloa oryzicola	338574	-	-	Poales	Poaceae	Echinochloa
+626	Echium plantagineum	113446	diploid	-	Boraginales	Boraginaceae	Echium
+627	Edaphochlamys debaryana	47281	-	-	Chlamydomonadales	Chlamydomonadales	Edaphochlamys
+628	Ehretia macrophylla	163083	diploid	wild loquat	Boraginales	Boraginaceae	Ehretia
+629	Elaeagnus angustifolia	36777	-	-	Rosales	Elaeagnaceae	Elaeagnus
+630	Elaeagnus mollis	1642857	-	-	Rosales	Elaeagnaceae	Elaeagnus
+631	Elaeis guineensis	51953	diploid	AVROS;P5-build	Arecales	Arecaceae	Elaeis
+632	Elaeis oleifera	80265	-	-	Arecales	Arecaceae	Elaeis
+633	Eleocharis dulcis	110284	tetraploid	Chinese water chestnut	Poales	Cyperaceae	Eleocharis
+634	Eleocharis vivipara	63338	tetraploid	-	Poales	Fabaceae	Eleocharis
+635	Elettaria cardamomum	105181	tetraploid	Njallani Green Gold	Zingiberales	Zingiberaceae	Elettaria
+636	Eleusine coracana	4511	tetraploid	-	Poales	Poaceae	Eleusine
+637	Eleusine indica	29674	diploid	-	Poales	Poaceae	Eleusine
+638	Elliptochloris bilobata (EllbilSAG24580)	-	-	-	Chlorellales	-	-
+639	Elymus sibiricus	52830	tetraploid	Siberian wild rye	Poales	Poaceae	Elymus
+640	Embelia ribes	459629	-	-	Ericales	Primulaceae	Embelia
+641	Engelhardia roxburghiana	139932	-	-	Fagales	Juglandaceae	Engelhardia
+642	Ensete glaucum	482298	-	No. 19990288	Zingiberales	Musaceae	Ensete
+643	Ensete ventricosum	4639	diploid	-	Zingiberales	Musaceae	Ensete
+644	Entada phaseoloides	489316	-	-	Fabales	Fabaceae	Entada
+645	Entodon seductrix	105143	-	-	Hypnales	Entodontaceae	Entodon
+646	Epimedium pubescens	153729	diploid	-	Ranunculales	Berberidaceae	Epimedium
+647	Eragrostis curvula	38414	diploid	-	Poales	Poaceae	Eragrostis
+648	Eragrostis nindensis	1262659	-	-	Poales	Poaceae	Eragrostis
+649	Eragrostis tef	110835	tetraploid	DZ-Cr-37	Poales	Poaceae	Eragrostis
+650	Eremochloa ophiuroides	866555	diploid	Ganbei	Poales	Poaceae	Eremochloa
+651	Erianthus fulvus	-	-	ZM13	Poales	Poaceae	Erianthus
+652	Erianthus rufpilus	-	-	Yunnan2009-3	Poales	Poaceae	Erianthus
+653	Erigeron breviscapus	244311	-	-	Asterales	Asteraceae	Erigeron
+654	Erigeron canadensis	72917	-	-	Asterales	Asteraceae	Erigeron
+655	Eriobotrya japonica	32224	diploid	-	Rosales	Rosaceae	Eriobotrya
+656	Eruca sativa	-	diploid	-	Brassicales	Brassicaceae	Eruca
+657	Erucastrum elatum	1078598	-	-	Brassicales	Brassicaceae	Erucastrum
+658	Erysimum cheiranthoides	330168	-	-	Brassicales	Brassicaceae	Erysimum
+659	Erysimum cheiri	71232	-	-	Brassicales	Brassicaceae	Erysimum
+660	Erysimum pusillum	1492262	-	-	Brassicales	Brassicaceae	Erysimum
+661	Erythroxylum novogranatense	1862640	-	-	Malpighiales	Erythroxylaceae	Erythroxylum
+662	Escallonia herrerae	1293975	-	UCBG64.0493	Saxifragales	Campanulidae	Escallonia
+663	Escallonia rubra	112253	-	UCBG92.1500	Saxifragales	Campanulidae	Escallonia
+664	Eschscholzia californica	3467	diploid	-	Ranunculales	Papaveraceae	Eschscholzia
+665	Eucalyptus albens	183809	-	-	Myrtales	Myrtaceae	Eucalyptus
+666	Eucalyptus albensa	-	-	-	Myrtales	Myrtaceae	Eucalyptus
+667	Eucalyptus ANBG9806169	-	-	-	Myrtales	Myrtaceae	Eucalyptus
+668	Eucalyptus brandiana	2654256	-	-	Myrtales	Myrtaceae	Eucalyptus
+669	Eucalyptus caleyi	1711195	-	-	Myrtales	Myrtaceae	Eucalyptus
+670	Eucalyptus camaldulensis	34316	diploid	CPT1	Myrtales	Myrtaceae	Eucalyptus
+671	Eucalyptus cladocalyx	452569	-	-	Myrtales	Myrtaceae	Eucalyptus
+672	Eucalyptus cloeziana	34320	-	-	Myrtales	Myrtaceae	Eucalyptus
+673	Eucalyptus coolabah	881201	-	-	Myrtales	Myrtaceae	Eucalyptus
+674	Eucalyptus curtisii	34319	-	-	Myrtales	Myrtaceae	Eucalyptus
+675	Eucalyptus dawsonii	1711249	-	-	Myrtales	Myrtaceae	Eucalyptus
+676	Eucalyptus decipiens	1711251	-	-	Myrtales	Myrtaceae	Eucalyptus
+677	Eucalyptus erythrocorys	34314	-	-	Myrtales	Myrtaceae	Eucalyptus
+678	Eucalyptus fibrosa	1711299	-	-	Myrtales	Myrtaceae	Eucalyptus
+679	Eucalyptus globulus	34317	diploid	-	Myrtales	Myrtaceae	Eucalyptus
+680	Eucalyptus grandis	71139	diploid	-	Myrtales	Myrtaceae	Eucalyptus
+681	Eucalyptus guilfoylei	183827	-	-	Myrtales	Myrtaceae	Eucalyptus
+682	Eucalyptus lansdowneana	87673	-	-	Myrtales	Myrtaceae	Eucalyptus
+683	Eucalyptus leucophloia	183832	-	-	Myrtales	Myrtaceae	Eucalyptus
+684	Eucalyptus marginata	183836	-	-	Myrtales	Myrtaceae	Eucalyptus
+685	Eucalyptus melliodora	183838	diploid	-	Myrtales	Myrtaceae	Eucalyptus
+686	Eucalyptus melliodora × Eucalyptus sideroxylon	-	-	-	Myrtales	Myrtaceae	Eucalyptus
+687	Eucalyptus melliodoraa	-	-	-	Myrtales	Myrtaceae	Eucalyptus
+688	Eucalyptus microcorys	34315	-	-	Myrtales	Myrtaceae	Eucalyptus
+689	Eucalyptus paniculata	627157	-	-	Myrtales	Myrtaceae	Eucalyptus
+690	Eucalyptus pauciflora	87676	diploid	-	Myrtales	Myrtaceae	Eucalyptus
+691	Eucalyptus polyanthemos	183847	-	-	Myrtales	Myrtaceae	Eucalyptus
+692	Eucalyptus pumila	452574	-	-	Myrtales	Myrtaceae	Eucalyptus
+693	Eucalyptus regnans	87681	-	-	Myrtales	Myrtaceae	Eucalyptus
+694	Eucalyptus salubris	1711522	-	-	Myrtales	Myrtaceae	Eucalyptus
+695	Eucalyptus shirleyi	1234624	-	-	Myrtales	Myrtaceae	Eucalyptus
+696	Eucalyptus sideroxylon	1541731	-	-	Myrtales	Myrtaceae	Eucalyptus
+697	Eucalyptus sideroxylona	-	-	-	Myrtales	Myrtaceae	Eucalyptus
+698	Eucalyptus tenuipes	183854	-	-	Myrtales	Myrtaceae	Eucalyptus
+699	Eucalyptus urophylla x Eucalyptus grandis	765255	-	-	Myrtales	Myrtaceae	Eucalyptus
+700	Eucalyptus victrix	1230916	-	-	Myrtales	Myrtaceae	Eucalyptus
+701	Eucalyptus viminalis	155764	-	-	Myrtales	Myrtaceae	Eucalyptus
+702	Eucalyptus virginea	2654258	-	-	Myrtales	Myrtaceae	Eucalyptus
+703	Eucalyptusglobulus	-	-	-	Myrtales	Myrtaceae	Eucalyptus
+704	Euclidium syriacum	345537	diploid	-	Brassicales	Brassicaceae	Euclidium
+705	Eucommia ulmoides	4392	diploid	-	Garryales	Eucommiaceae	Eucommia
+706	Eudorina sp.	51699	-	male	Chlamydomonadales	Volvocaceae	Eudorina
+707	Euphorbia lathyris	212925	diploid	-	Malpighiales	Euphorbiaceae	Euphorbia
+708	Euphorbia peplus	38846	diploid	Bao AB001	Malpighiales	Euphorbiaceae	Euphorbia
+709	Euphorbia tirucalli	142860	tetraploid	-	Malpighiales	Euphorbiaceae	Euphorbia
+710	Euphrasia confusa Pugsley	-	tetraploid	Confused Eyebright	Lamiales	Orobanchaceae	Euphrasia
+711	Euptelea pleiosperma	106141	-	-	Ranunculales	Eupteleaceae	Euptelea
+712	Euryale ferox	4414	-	-	Nymphaeales	Nymphaeaceae	Euryale
+713	Euryodendron excelsum	194712	diploid	-	Ericales	Pentaphylacaceae	Euryodendron
+714	Euscaphis japonica	210332	diploid	-	Crossosomatales	Staphyleaceae	Euscaphis
+715	Eustoma grandiflorum	-	hexaploid	-	Gentianales	Gentianaceae	Eustoma
+716	Eutrema heterophyllum	347889	diploid	-	Brassicales	Brassicaceae	Eutrema
+717	Eutrema japonicum	75806	tetraploid	Mazuma(haplotype1)	Brassicales	Brassiceae	Eutrema
+718	Eutrema salsugineum	72664	-	EsaV3;improved	Brassicales	Brassicaceae	Eutrema
+719	Eutrema yunnanense	347893	diploid	-	Brassicales	Brassicaceae	Eutrema
+720	Excoecaria agallocha	241838	-	-	Malpighiales	Euphorbiaceae	Excoecaria
+721	Fagopyrum cymosum	62329	diploid	-	Caryophyllales	Polygonaceae	Fagopyrum
+722	Fagopyrum esculentum	3617	diploid	Strain: BC1F6	Caryophyllales	Polygonaceae	Fagopyrum
+723	Fagopyrum homotropicum	85475	diploid	-	Caryophyllales	Polygonaceae	Fagopyrum
+724	Fagopyrum tataricum	62330	diploid	-	Caryophyllales	Polygonaceae	Fagopyrum
+725	Fagus crenata	28929	-	-	Fagales	Fagaceae	Fagus
+726	Fagus sylvatica	28930	diploid	-	Fagales	Fagaceae	Fagus
+727	Faidherbia albida	138055	-	-	Fabales	Fabaceae	Faidherbia
+728	Fallopia multiflora	-	diploid	wild	Caryophyllales	Polygonaceae	Fallopia
+729	Fallopia multiflora var. angulata	-	diploid	-	Caryophyllales	Polygonaceae	Fallopia
+730	Festuca trachyphyila	-	-	Hard fescue	Poales	Poaceae	Festuca
+731	Ficus benghalensis	309271	diploid	-	Rosales	Moraceae	Ficus
+732	Ficus carica	3494	diploid	Horaishi	Rosales	Moraceae	Ficus
+733	Ficus erecta	66383	diploid	haplotype	Rosales	Moraceae	Ficus
+734	Ficus hirta	309429	-	-	Rosales	Moraceae	Ficus
+735	Ficus hispida	462830	-	-	Rosales	Moraceae	Ficus
+736	Ficus microcarpa	66385	-	-	Rosales	Moraceae	Ficus
+737	Ficus religiosa	66387	diploid	-	Rosales	Moraceae	Ficus
+738	Ficus sp.	-	-	-	Rosales	Moraceae	Ficus
+739	Firmiana hainanensis	2954124	diploid	-	Malvales	Malvaceae	Firmiana
+740	Firmiana kwangsiensis	1863013	diploid	-	Malvales	Malvaceae	Firmiana
+741	Flueggea virosa	283121	diploid	Bai-Fan-Shu	Malpighiales	Phyllanthaceae	Flueggea
+742	Foeniculum vulgare	-	diploid	-	Apiales	Apiaceae	Foeniculum
+743	Fokienia hodginsii	-	-	-	Cupressales	Cupressaceae	Fokienia
+744	Fontinalis antipyretica	67435	-	-	Hypnales	Fontinalaceae	Fontinalis
+745	Forsythia ovata	205694	-	-	Lamiales	Oleaceae	Forsythia
+746	Forsythia suspensa	126418	-	-	Lamiales	Oleaceae	Forsythia
+747	Fragaria chiloensis	101007	octoploid	GP33	Rosales	Rosaceae	Fragaria
+748	Fragaria daltoniana	101010	diploid	-	Rosales	Rosaceae	Fragaria
+748	Fragaria iinumae	64939	-	FII_r1.1	Rosales	Rosaceae	Fragaria
+750	Fragaria mandshurica	538574	diploid	-	Rosales	Rosaceae	Fragaria
+750	Fragaria moupinensis	538577	tetraploid	-	Rosales	Rosaceae	Fragaria
+751	Fragaria nilgerrensis	64941	diploid	YN2017-HM1	Rosales	Rosaceae	Fragaria
+753	Fragaria nipponica	101012	-	-	Rosales	Rosaceae	Fragaria
+754	Fragaria nubicola	60188	-	FNU_r1.1	Rosales	Rosaceae	Fragaria
+755	Fragaria orientalis	101013	-	-	Rosales	Rosaceae	Fragaria
+755	Fragaria pentaphylla	101014	diploid	-	Rosales	Rosaceae	Fragaria
+757	Fragaria vesca	57918	diploid	Hawaii-4	Rosales	Rosaceae	Fragaria
+758	Fragaria virginiana	101015	octoploid	haplotype 1	Rosales	Rosaceae	Fragaria
+759	Fragaria viridis	64942	diploid	-	Rosales	Rosaceae	Fragaria
+760	Fragaria x ananassa	3747	octoploid	Reikou	Rosales	Rosaceae	Fragaria
+761	Fragaria × ananassa	-	octoploid	Benihoppe(haplotype 1)	Rosales	Rosaceae	Fragaria
+762	Fraxinus albicans	102695	-	-	Lamiales	Oleaceae	Fragaria
+763	Fraxinus americana	38872	-	-	Lamiales	Oleaceae	Fraxinus
+764	Fraxinus angustifolia	166594	diploid	subsp. angustifolia	Lamiales	Oleaceae	Fraxinus
+765	Fraxinus anomala	56041	-	-	Lamiales	Oleaceae	Fraxinus
+766	Fraxinus baroniana	1616475	-	-	Lamiales	Oleaceae	Fraxinus
+767	Fraxinus chinensis	56033	diploid	-	Lamiales	Oleaceae	Fraxinus
+768	Fraxinus cuspidata	56042	-	-	Lamiales	Oleaceae	Fraxinus
+769	Fraxinus dipetala	126365	-	-	Lamiales	Oleaceae	Fraxinus
+770	Fraxinus excelsior	38873	diploid	-	Lamiales	Oleaceae	Fraxinus
+771	Fraxinus floribunda	490840	-	-	Lamiales	Oleaceae	Fraxinus
+772	Fraxinus gooddingii	490841	-	-	Lamiales	Oleaceae	Fraxinus
+773	Fraxinus greggii	126366	-	-	Lamiales	Oleaceae	Fraxinus
+774	Fraxinus griffithii	880137	-	-	Lamiales	Oleaceae	Fraxinus
+775	Fraxinus hupehensis	490842	diploid	-	Lamiales	Oleaceae	Fraxinus
+776	Fraxinus latifolia	56040	-	-	Lamiales	Oleaceae	Fraxinus
+777	Fraxinus mandschurica	-	diploid	-	Lamiales	Oleaceae	Fraxinus
+778	Fraxinus mandshurica	56029	-	-	Lamiales	Oleaceae	Fraxinus
+779	Fraxinus nigra	56031	-	-	Lamiales	Oleaceae	Fraxinus
+780	Fraxinus ornus	38874	diploid	-	Lamiales	Oleaceae	Fraxinus
+781	Fraxinus paxiana	490846	-	-	Lamiales	Oleaceae	Fraxinus
+782	Fraxinus pennsylvanica	56036	diploid	ash	Lamiales	Oleaceae	Fraxinus
+783	Fraxinus platypoda	56030	-	-	Lamiales	Oleaceae	Fraxinus
+784	Fraxinus quadrangulata	56032	-	-	Lamiales	Oleaceae	Fraxinus
+785	Fraxinus sieboldiana	490850	-	-	Lamiales	Oleaceae	Fraxinus
+786	Fraxinus sogdiana	757441	diploid	-	Lamiales	Oleaceae	Fraxinus
+787	Fraxinus velutina	56038	-	-	Lamiales	Oleaceae	Fraxinus
+788	Fraxinus xanthoxyloides	126421	-	-	Lamiales	Oleaceae	Fraxinus
+789	Galium porrigens	715706	-	-	Gentianales	Rubiaceae	Galium
+790	Gardenia jasminoides	114476	-	-	Gentianales	Rubiaceae	Gardenia
+791	Gastrodia elata	91201	-	NRC-2018	Asparagales	Orchidaceae	Gastrodia
+792	Gastrodia menghaiensis	2587350	-	-	Asparagales	Orchidaceae	Gastrodia
+793	Gaultheria prostrata	1091537	diploid	-	Ericales	Ericaceae	Gaultheria
+794	Gelsemium elegans	427660	-	-	Gentianales	Gelsemiaceae	Gelsemium
+795	Gelsemium sempervirens	28542	-	-	Gentianales	Gelsemiaceae	Gelsemium
+796	Genlisea aurea	192259	-	-	Lamiales	Lentibulariaceae	Genlisea
+797	Gentiana dahurica	225203	-	-	Gentianales	Gentianaceae	Gentiana
+798	Gentiana macrophylla	50765	diploid	-	Gentianales	Gentianaceae	Gentiana
+799	Gentiana straminea	50768	diploid	-	Gentianales	Gentianaceae	Gentiana
+800	Gephyrocapsa ericsonii	1856766	-	RCC4032	Isochrysidales	Noelaerhabdaceae	Gephyrocapsa
+801	Geum urbanum	57919	hexaploid	-	Rosales	Rosaceae	Geum
+802	Gilia yorkii	439153	diploid	-	Ericales	Polemoniaceae	Gilia
+803	Gillenia trifoliata	141003	diploid	-	Rosales	Rosaceae	Gillenia
+804	Ginkgo biloba	3311	-	-	Ginkgoales	Ginkgoaceae	Ginkgo
+805	Glebionis coronaria	99038	diploid	cultivar  'fanji'	Asterales	Asteraceae	Glebionis
+806	Gleditsia sinensis	66096	diploid	Zaojiao	Fabales	Fabaceae	Gleditsia
+807	Glycine cyrtoloba	45689	diploid	G1267	Fabales	Fabaceae	Glycine
+808	Glycine dolichocarpa	82538	-	G1134	Fabales	Fabaceae	Glycine
+809	Glycine falcata	45690	diploid	G1718	Fabales	Fabaceae	Glycine
+810	Glycine latifolia	45691	diploid	-	Fabales	Fabaceae	Glycine
+811	Glycine max	3847	-	William82	Fabales	Fabaceae	Glycine
+812	Glycine soja	3848	diploid	W05	Fabales	Fabaceae	Glycine
+813	Glycine stenophita	96944	diploid	G1974	Fabales	Fabaceae	Glycine
+814	Glycine syndetika	713886	diploid	G1300	Fabales	Fabaceae	Glycine
+815	Glycine tomentella	44015	diploid	G1403	Fabales	Fabaceae	Glycine
+816	Glycyrrhiza uralensis	74613	-	-	Fabales	Fabaceae	Glycyrrhiza
+817	Gnetum montanum	3381	-	-	Gnetales	Gnetaceae	Gnetum
+818	Gongora gibba	2932088	-	-	Asparagales	Orchidaceae	Gongora
+819	Gonium pectorale	33097	-	-	Chlamydomonadales	Volvocaceae	Gonium
+820	Gossypioides kirkii	47615	diploid	-	Malvales	Malvaceae	Gossypioides
+821	Gossypium anomalum	47600	diploid	-	Malvales	Malvaceae	Gossypium
+822	Gossypium arboreum	29729	diploid	Shixiya 1	Malvales	Malvaceae	Gossypium
+823	Gossypium barbadense	3634	tetraploid	Sea Island Cotton (Xinhai 21)	Malvales	Malvaceae	Gossypium
+824	Gossypium bickii	47622	diploid	-	Malvales	Malvaceae	Gossypium
+825	Gossypium darwinii	34276	tetraploid	-	Malvales	Malvaceae	Gossypium
+826	Gossypium davidsonii	34287	diploid	-	Malvales	Malvaceae	Gossypium
+827	Gossypium ekmanianum	1641373	tetraploid	AD602	Malvales	Malvaceae	Gossypium
+828	Gossypium herbaceum	34274	diploid	-	Malvales	Malvaceae	Gossypium
+829	Gossypium hirsutum	3635	tetraploid	TM-1	Malvales	Malvaceae	Gossypium
+830	Gossypium hirsutum Emian22	-	-	cotton	Malvales	Malvaceae	Gossypium
+831	Gossypium longicalyx	34280	diploid	-	Malvales	Malvaceae	Gossypium
+832	Gossypium mustelinum	34275	tetraploid	-	Malvales	Malvaceae	Gossypium
+833	Gossypium purpurascens	-	tetraploid	-	Malvales	Malvaceae	Gossypium
+834	Gossypium raimondii	29730	diploid	CMD 10	Malvales	Malvaceae	Gossypium
+835	Gossypium rotundifolium	47633	diploid	K201	Malvales	Malvaceae	Gossypium
+836	Gossypium stephensii	2563832	tetraploid	AD701	Malvales	Malvaceae	Gossypium
+837	Gossypium stocksii	47602	diploid	-	Malvales	Malvaceae	Gossypium
+838	Gossypium sturtianum	34278	diploid	GPC1lz	Malvales	Malvaceae	Gossypium
+839	Gossypium thurberi	34273	diploid	-	Malvales	Malvaceae	Gossypium
+840	Gossypium tomentosum	34277	tetraploid	-	Malvales	Malvaceae	Gossypium
+841	Gossypium turneri	34284	diploid	-	Malvales	Malvaceae	Gossypium
+842	Green alga Scenedesmus obliquus	-	diploid	green alga	Chlorococcales	Scenedesmaceae	Green
+843	Grona styracifolia	648866	-	-	Fabales	Fabaceae	Grona
+844	Guadua angustifolia	323898	tetraploid	-	Poales	Poaceae	Guadua
+845	Gynandropsis gynandra	190802	-	GYN	Brassicales	Cleomaceae	Gynandropsis
+846	Gynostemma pentaphyllum	182084	diploid	-	Cucurbitales	Cucurbitaceae	Gynostemma
+847	Gypsophila paniculata	235358	-	-	Caryophyllales	Caryophyllaceae	Gypsophila
+848	Haberlea rhodopensis	121481	-	-	Lamiales	Gesneriaceae	Haberlea
+849	Haematococcus lacustris	44745	diploid	-	Volvocales	Haematococcidae	Haematococcus
+850	Haematococcus pluvialis	-	-	-	Chlamydomonadales	Haematococcaceae	Haematococcus
+851	Hakea prostrata	1136207	-	-	Proteales	Proteaceae	Hakea
+852	Halimeda opuntia	118223	tetraploid	-	Bryopsidales	Halimedaceae	Halimeda
+853	Haloxylon ammodendron	151230	diploid	-	Caryophyllales	Chenopodiaceae	Haloxylon
+854	Hamamelis virginiana	4397	-	-	Saxifragales	Hamamelidaceae	Hamamelis
+855	Handroanthus guayacan	429699	-	-	Lamiales	Bignoniaceae	Handroanthus
+856	Handroanthus impetiginosus	429701	diploid	-	Lamiales	Bignoniaceae	Handroanthus
+857	Hedychium spicatum	110723	-	-	Zingiberales	Zingiberaceae	Hedychium
+858	Helianthus annuus	4232	diploid	-	Asterales	Asteraceae	Helianthus
+859	Helianthus tuberosus	4233	hexaploid	-	Asterales	Asteraceae	Helianthus
+860	Helicosporidium sp.	1907511	-	-	Chlorellales	Chlorellaceae	Helicosporidium
+861	Heliophila coronopifolia	263653	-	-	Brassicales	Brassicaceae	Heliophila
+862	Heliophila variabilis	302110	diploid	-	Brassicales	Brassicaceae	Heliophila
+863	Helwingia omeiensis	2021390	-	-	Aquifoliales	Helwingia	Helwingia
+864	Hemerocallis citrina	1249515	diploid	-	Asparagales	Asphodelaceae	Hemerocallis
+865	Heptacodium miconioides	137004	hexaploid	-	Dipsacales	Caprifoliaceae	Heptacodium
+866	Heracleum sosnowskyi	360622	-	-	Apiales	Apiaceae	Heracleum
+867	Heritiera fomes	2171973	-	-	Malvales	Malvaceae	Heritiera
+868	Heritiera littoralis	93780	diploid	-	Malvales	Malvaceae	Heritiera
+869	Herpetospermum pedunculosum	386182	-	-	Cucurbitales	Cucurbitaceae	Herpetospermum
+870	Herrania umbratica	108875	-	-	Malvales	Malvaceae	Herrania
+871	Hevea brasiliensis	3981	diploid	RRIM 600	Malpighiales	Euphorbiaceae	Hevea
+872	Hibiscus cannabinus	229543	diploid	-	Malvales	Malvaceae	Hibiscus
+873	Hibiscus hamabo	-	-	-	Malvales	Malvaceae	Hibiscus
+874	Hibiscus mutabilis	455430	-	-	Malvales	Malvaceae	Hibiscus
+875	Hibiscus sabdariffa	183260	diploid	-	Malvales	Malvaceae	Hibiscus
+876	Hibiscus syriacus	106335	tetraploid	-	Malvales	Malvaceae	Hibiscus
+877	Hibiscus trionum	183268	diploid	-	Malvales	Malvaceae	Hibiscus
+878	Hippophae gyantsensis	193515	-	-	Rosales	Elaeagnaceae	Hippophae
+879	Hippophae rhamnoides	193516	-	-	Rosales	Elaeagnaceae	Hippophae
+880	Hippophae rhamnoides spp. mongolica×Hippophae rhamnoides sinensis	-	diploid	Fructus hippophae	Rosales	Elaeagnaceae	Hippophae
+881	Hippophae tibetana	193519	-	-	Rosales	Elaeagnaceae	Hippophae
+882	Hirschfeldia incana	71354	diploid	Nijmegen	Brassicales	Brassicaceae	Hirschfeldia
+883	Homosporous lycophytes	-	-	-	Lycopodiales	Lycopodiaceae	Homosporous
+884	Hopea chinensis	1506269	diploid	-	Malvales	Dipterocarpaceae	Hopea
+885	Hopea hainanensis	210356	-	HCNGB_00001636	Malvales	Dipterocarpaceae	Hopea
+886	Hopea mollissima	1506270	-	-	Malvales	Dipterocarpaceae	Hopea
+887	Hopea odorata	64598	-	-	Malvales	Dipterocarpaceae	Hopea
+888	Hopea reticulata	2768323	tetraploid	-	Malvales	Dipterocarpaceae	Hopea
+889	Hordeum marinum	4519	diploid	H559	Poales	Poaceae	Hordeum
+890	Hordeum spontaneum	-	diploid	EC-S1	Poales	Poaceae	Hordeum
+891	Hordeum vulgare	4513	diploid	Morex	Poales	Poaceae	Hordeum
+892	Houttuynia cordata	16752	diploid	Yuxingcao	Piperales	Saururaceae	Houttuynia
+893	Hsuehochloa calcarea	3061239	-	-	Poales	Poaceae	Hsuehochloa
+894	Humulus lupulus	3486	diploid	-	Rosales	Cannabaceae	Humulus
+895	Hydrangea macrophylla	23110	-	-	Cornales	Hydrangeaceae	Hydrangea
+896	Hylocereus undatus	-	-	David Bowie	Caryophyllales	Cactaceae	Hylocereus
+897	Hyparrhenia diplandra	798322	-	-	Poales	Poaceae	Hyparrhenia
+898	Hypericum perforatum	65561	-	-	Malpighiales	Guttiferae	Hypericum
+899	Hypnum curvifolium	-	-	-	Hypnales	Hypnaceae	Hypnum
+900	Iberis amara	190884	-	-	Brassicales	Brassicaceae	Iberis
+901	Iberis pinnata	1533145	-	-	Brassicales	Brassicaceae	Iberis
+902	Idesia polycarpa	77057	-	-	Malvales	Salicaceae	Idesia
+903	Ilex asprella	185493	-	JAHQCQ000000000	Aquifoliales	Aquifoliaceae	Ilex
+904	Ilex hylonoma	185518	-	-	Aquifoliales	Aquifoliaceae	Ilex
+905	Ilex latifolia	53205	-	-	Aquifoliales	Aquifoliaceae	Ilex
+906	Ilex polyneura	1043422	diploid	-	Aquifoliales	Aquifoliaceae	Ilex
+907	Impatiens capensis	55378	diploid	-	Ericales	Balsaminaceae	Impatiens
+908	Inga leiocalycina	486065	diploid	-	Fabales	Fabaceae	Inga
+909	Iochroma cyaneum	362357	diploid	Smith 265	Solanales	Solanaceae	Iochroma
+910	Iodes seguinii	2699807	diploid	-	Lamiales	Icacinaceae	Iodes
+911	Ipomoea aquatica	89636	diploid	HNUWS001	Solanales	Convolvulaceae	Ipomoea
+912	Ipomoea batata	-	hexaploid	Sweetpotato	Solanales	Convolvulaceae	Ipomoea
+913	Ipomoea batatas	4120	hexaploid	haplotype	Solanales	Convolvulaceae	Ipomoea
+914	Ipomoea cairica	129201	-	-	Solanales	Convolvulaceae	Ipomoea
+915	Ipomoea nil	35883	diploid	-	Solanales	Convolvulaceae	Ipomoea
+916	Ipomoea trifida	35884	diploid	0431-1	Solanales	Convolvulaceae	Ipomoea
+917	Ipomoea triloba	35885	diploid	NCNSP0323	Solanales	Convolvulaceae	Ipomoea
+918	Iris pallida	29817	diploid	-	Asparagales	Iridaceae	Iris
+919	Isatis indigotica	3242077	-	-	Brassicales	Brassicaceae	Isatis
+920	Isatis lusitanica	651643	-	-	Brassicales	Brassicaceae	Isatis
+921	Ischnosiphon puberulus	210058	-	-	Zingiberales	Marantaceae	Ischnosiphon
+922	Isodon lophanthodies	-	diploid	-	Lamiales	Lamiaceae	Isodon
+923	Isodon rubescens	587669	diploid	-	Lamiales	Lamiaceae	Isodon
+924	Isodon serra	199544	-	-	Lamiales	Lamiaceae	Isodon
+925	Isoetes sinensis	283158	tetraploid	-	Isoetales	Isoetaceae	Isoetes
+926	Isoetes Taiwanensis	99432	diploid	-	Isoetales	Isoetaceae	Isoetes
+927	Jacaranda copaia	228396	-	-	Lamiales	Bignoniaceae	Jacaranda
+928	Jacaranda mimosifolia	185774	diploid	-	Lamiales	Bignoniaceae	Jacaranda
+929	Jaltomata sinuosa	205521	-	-	Solanales	Solanaceae	Jaltomata
+930	Jasminum sambac	660624	diploid	-	Lamiales	Oleaceae	Jasminum
+931	Jatropha curcas	180498	diploid	Palawan	Malpighiales	Euphorbiaceae	Jatropha
+932	Juglans californica	91212	diploid	(Primary;haplotype 1)	Fagales	Juglandaceae	Juglans
+933	Juglans cathayensis	91213	-	-	Fagales	Juglandaceae	Juglans
+934	Juglans cinerea	91214	-	-	Fagales	Juglandaceae	Juglans
+935	Juglans hindsii	91216	-	-	Fagales	Juglandaceae	Juglans
+936	Juglans mandshurica	91218	-	-	Fagales	Juglandaceae	Juglans
+937	Juglans microcarpa	91219	-	DJUG29.11	Fagales	Juglandaceae	Juglans
+938	Juglans nigra	16719	-	N1	Fagales	Juglandaceae	Juglans
+939	Juglans regia	51240	diploid	Chandler	Fagales	Juglandaceae	Juglans
+940	Juglans sigillata	224355	-	DJUG951.04	Fagales	Juglandaceae	Juglans
+941	Juncus effusus	13579	diploid	var. spiralis	Poales	Juncaceae	Juncus
+942	Juncus inflexus	318445	diploid	-	Poales	Juncaceae	Juncus
+943	Kalanchoe fedtschenkoi	63787	diploid	-	Saxifragales	Crassulaceae	Kalanchoe
+944	Kandelia candel	61147	diploid	-	Malpighiales	Rhizophoraceae	Kandelia
+945	Kandelia obovata	413952	-	-	Malpighiales	Rhizophoraceae	Kandelia
+946	Kernera saxatilis	169074	diploid	-	Brassicales	Brassicaceae	Kernera
+947	Kewa caespitosa	2086541	-	-	Caryophyllales	Kewaceae	Kewa
+948	Khaya senegalensis	587579	-	-	Sapindales	Meliaceae	Khaya
+949	Kingdonia uniflora	39325	-	-	Ranunculales	Circaeasteraceae	Kingdonia
+950	Klebsormidium flaccidum	3175	-	-	Klebsormidiales	Klebsormidiaceae	Klebsormidium
+951	Kmeria septentrionalis	-	-	-	Magnoliales	Magnoliaceae	Kmeria
+952	Knightia excelsa	35944	diploid	-	Proteales	Proteaceae	Knightia
+953	Knoxia roxburghii	1905575	diploid	-	Gentianales	Rubiaceae	Knoxia
+954	Kobresia littledalei	-	-	-	Poales	Cyperaceae	Kobresia
+955	Kobresia myosuroides	-	-	-	Poales	Cyperaceae	Kobresia
+956	Kochia scoparia	-	diploid	-	Caryophyllales	Amaranthaceae	Kochia
+957	Kokia cookei	1962115	tetraploid	-	Malvales	Malvaceae	Kokia
+958	Kokia drynarioides	47617	diploid	-	Malvales	Malvaceae	Kokia
+959	Kokia kauaiensis	47620	tetraploid	-	Malvales	Malvaceae	Kokia
+960	Korthalsia laciniosa	1510062	-	-	Arecales	Arecaceae	Korthalsia
+961	Lablab purpureus	35936	-	-	Fabales	Fabaceae	Lablab
+962	Lactuca saligna	75948	diploid	CGN05327	Asterales	Asteraceae	Lactuca
+963	Lactuca sativa	4236	diploid	Cultivar Salinas	Asterales	Asteraceae	Lactuca
+964	Lactuca sativa var. crispa	466611	-	-	Asterales	Asteraceae	Lactuca
+965	Lactuca virosa	75947	diploid	-	Asterales	Asteraceae	Lactuca
+966	Lagenaria siceraria	3668	diploid	USVL1	Cucurbitales	Cucurbitaceae	Lagenaria
+967	Lagerstroemia indica	141186	diploid	-	Myrtales	Lythraceae	Lagerstroemia
+968	Lagerstroemia speciosa	122810	diploid	-	Myrtales	Lythraceae	Lagerstroemia
+969	Laguncularia racemosa	190524	diploid	-	Myrtales	Combretaceae	Laguncularia
+970	Larix kaempferi	54800	-	-	Pinales	Pinaceae	Larix
+971	Larix sibirica Ledeb	-	diploid	-	Pinales	Pinaceae	Larix sibirica
+972	Lathyrus sativus	3860	diploid	cultivar Pusa-24	Fabales	Fabaceae	Lathyrus
+973	Lathyrus tuberosus	49829	diploid	-	Fabales	Fabaceae	Lathyrus
+974	Lavandula angustifolia	39329	-	-	Lamiales	Lamiaceae	Lavandula
+975	Lavandula latifolia	39331	-	-	Lamiales	Lamiaceae	Lavandula
+976	Lavandula x intermedia	1196215	-	Super(LX-LA)	Lamiales	Lamiaceae	Lavandula
+977	Leavenworthia alabamica	310722	diploid	-	Brassicales	Brassicaceae	Leavenworthia
+978	Leersia perrieri	77586	-	-	Poales	Poaceae	Leersia
+979	Lemna minor	4472	-	-	Alismatales	Araceae	Lemna
+980	Lemna minuta	161101	diploid	-	Alismatales	Araceae	Lemna
+981	Leonotis leonurus	378904	diploid	-	Lamiales	Lamiaceae	Leonotis
+982	Leonurus japonicus	-	-	-	Lamiales	Lamiaceae	Leonurus
+983	Leonurus sibiricus	-	-	-	Lamiales	Lamiaceae	Leonurus
+984	Lepidium africanum	153324	-	-	Brassicales	Brassicaceae	Lepidium
+985	Lepidium apetalu	-	diploid	-	Brassicales	Brassicaceae	Lepidium
+986	Lepidium aucheri	153329	-	-	Brassicales	Brassicaceae	Lepidium
+987	Lepidium campestre	65351	-	-	Brassicales	Brassicaceae	Lepidium
+988	Lepidium meyenii	153348	octoploid	-	Brassicales	Brassicaceae	Lepidium
+989	Lepidium sativum	33125	diploid	-	Brassicales	Brassicaceae	Lepidium
+990	Leptochloa chinensis	-	tetraploid	LC16004	Poales	Poaceae	Leptochloa
+991	Leptochloa panicea	-	diploid	-	Poales	Poaceae	Leptochloa
+992	Leptodermis oblonga	1616479	diploid	-	Gentianales	Rubiaceae	Leptodermis
+993	Leptospermum scoparium	295139	-	-	Myrtales	Myrtaceae	Leptospermum
+994	Lespedeza potaninii	1045381	-	Tenggeli	Fabales	Fabaceae	Lespedeza
+995	Leucaena leucocephala	3866	octoploid	white popinac	Fabales	Fabaceae	Leucaena
+996	Lilium davidii var. unicolor	1473204	diploid	Lily	Liliales	Liliaceae	Lilium
+997	Limnomonas spitsbergensis	2954232	-	-	-	-	Limnomonas
+998	Limonium bicolor	293754	diploid	-	Caryophyllales	Plumbaginaceae	Limonium
+999	Linanthus parryae	64432	diploid	haplotype 2	Ericales	Polemoniaceae	Linanthus
+1000	Lindenbergia luchunensis	-	-	-	Lamiales	Orobanchaceae	Lindenbergia
+1001	Lindenbergia philippensis	86093	-	-	Lamiales	Orobanchaceae	Lindenbergia
+1002	Lindera glauca	332435	diploid	female	Laurales	Lauraceae	Lindera
+1003	Lindernia brevidens	-	diploid	-	Lamiales	Linderniaceae	Lindernia
+1004	Lindernia subracemosa	303139	diploid	-	Lamiales	Linderniaceae	Lindernia
+1005	Linum bienne	347648	-	-	Malpighiales	Linaceae	Linum
+1006	Linum tenue	586396	diploid	-	Malpighiales	Linaceae	Linum
+1007	Linum trigynum	586398	diploid	-	Malpighiales	Linaceae	Linum
+1008	Linum usitatissimum	4006	diploid	CDC Bethune	Malpighiales	Linaceae	Linum
+1009	Liquidambar styraciflua	4400	-	American sweetgum	Saxifragales	Altingiaceae	Liquidambar
+1010	Liriodendron chinense	3414	-	-	Magnoliales	Magnoliaceae	Liriodendron
+1011	Litchi chinensis	151069	diploid	Feizixiao	Sapindales	Sapindaceae	Litchi
+1012	Lithocarpus polystachyus	2518020	diploid	-	Fagales	Fagaceae	Lithocarpus
+1013	Lithospermum erythrorhizon	34254	-	-	Boraginales	Boraginaceae	Lithospermum
+1014	Litsea coreana	126736	diploid	-	Laurales	Lauraceae	Litsea
+1015	Litsea cubeba	155299	-	-	Laurales	Lauraceae	Litsea
+1016	Lobelia seguinii	1068520	diploid	Da Jiang Jun;  Ye Yan	Asterales	Campanulaceae	Lobelia
+1017	Lobularia maritima	226051	-	-	Brassicales	Brassicaceae	Lobularia
+1018	Lolium multiflorum	4521	diploid	Italian ryegrass	Poales	Poaceae	Lolium
+1019	Lolium perenne	4522	diploid	-	Poales	Poaceae	Lolium
+1020	Lolium rigidum	89674	diploid	-	Poales	Poaceae	Lolium
+1021	Lonicera caerulea	134520	diploid	blue honeysuckle	Dipsacales	Caprifoliaceae	Lonicera
+1022	Lonicera japonica	105884	diploid	-	Dipsacales	Caprifoliaceae	Lonicera
+1023	Lonicera maackii	51255	diploid	-	Dipsacales	Caprifoliaceae	Lonicera
+1024	Lonicera macranthoides	638627	-	-	Dipsacales	Caprifoliaceae	Lonicera
+1025	Lophocereus schottii	153875	-	-	Caryophyllales	Cactaceae	Lophocereus
+1026	Lotus japonicus	34305	diploid	MG-20	Fabales	Fabaceae	Lotus
+1027	Luffa acutangula	56866	-	-	Cucurbitales	Cucurbitaceae	Luffa
+1028	Luffa acutangula SG261	-	diploid	-	Cucurbitales	Cucurbitaceae	Luffa
+1029	Luffa cylindrica	-	diploid	Loofah	Cucurbitales	Cucurbitaceae	Luffa
+1030	Lumnitzera littorea	99437	diploid	-	Myrtales	Combretaceae	Lumnitzera
+1031	Lumnitzera racemosa	99438	diploid	-	Myrtales	Combretaceae	Lumnitzera
+1032	Lunularia cruciata	56931	-	-	Lunulariales	Lunulariaceae	Lunularia
+1033	Lupinus albus	3870	diploid	AMIGA	Fabales	Fabaceae	Lupinus
+1034	Lupinus angustifolius	3871	diploid	Tanjil	Fabales	Fabaceae	Lupinus
+1035	Lupinus mutabilis	53232	diploid	Andean lupin	Fabales	Fabaceae	Lupinus
+1036	Luvunga scandens	645647	-	-	Rosales	Rosaceae	Luvunga
+1037	Luzula sylvatica	59018	-	-	Poales	Juncaceae	Luzula
+1038	Lycium barbarum	112863	diploid	-	Solanales	Solanaceae	Lycium
+1039	Lycium ruthenicum	112879	diploid	-	Solanales	Solanaceae	Lycium
+1040	Lyciumbarbarum	-	-	wolfberry	Solanales	Solanaceae	Lyciumbarbarum
+1041	Lycopodium clavatum	3252	-	-	Lycopodiales	Lycopodiaceae	Lycopodium
+1042	Macadamia integrifolia	60698	diploid	HAES 741	Proteales	Proteaceae	Macadamia
+1043	Macadamia jansenii	83725	-	No. 1005	Proteales	Proteaceae	Macadamia
+1044	Macadamia jansenii.	-	-	-	Proteales	Proteaceae	Macadamia
+1045	Macadamia tetraphylla	512563	diploid	-	Proteales	Proteaceae	Macadamia
+1046	Macarthuria australis	764202	-	-	Caryophyllales	Macarthuriaceae	Macarthuria
+1047	Macleaya cordata	56857	diploid	-	Ranunculales	Papaveraceae	Macleaya
+1048	Macropodium nivale	391730	-	-	Brassicales	Brassicaceae	Macropodium
+1049	Macrotyloma uniflorum	271171	diploid	HPK-4	Fabales	Fabaceae	Macrotyloma
+1050	Madhuca longifolia	317856	-	Mahua	Ericales	Sapotaceae	Madhuca
+1051	Magnolia biondii	86725	-	Zhang 201801M	Magnoliales	Magnoliaceae	Magnolia
+1052	Magnolia hypoleuca	3408	-	-	Magnoliales	Magnoliaceae	Magnolia
+1053	Magnolia officinalis	85864	diploid	-	Magnoliales	Magnoliaceae	Magnolia
+1054	Magnolia sieboldii	85868	-	-	Magnoliales	Magnoliaceae	Magnolia
+1055	Magnoliaceae sinica	-	diploid	Magnolia sinica	Magnoliales	Magnoliaceae	Magnoliaceae
+1056	Malania oleifera	397392	-	-	Santalales	Olacaceae	Malania
+1057	Malpighia emarginata	151847	-	Acerola	Malpighiales	Malpighiaceae	Malpighia
+1058	Malus asiatica	106548	diploid	Zisai Pearl	Rosales	Rosaceae	Malus
+1059	Malus baccata	106549	diploid	-	Rosales	Rosaceae	Malus
+1060	Malus coronaria	106550	diploid	-	Rosales	Rosaceae	Malus
+1061	Malus domestica	3750	diploid	Hanfu	Rosales	Rosaceae	Malus
+1062	Malus fusca	106553	diploid	PI 589975(haplotype1)	Rosales	Rosaceae	Malus
+1063	Malus hybrid 'Flame'	-	diploid	-	Rosales	Rosaceae	Malus
+1064	Malus hybrid 'Royalty'	-	diploid	-	Rosales	Rosaceae	Malus
+1065	Malus hybrid 'SH6'	-	diploid	-	Rosales	Rosaceae	Malus
+1066	Malus ioensis	106557	diploid	-	Rosales	Rosaceae	Malus
+1067	Malus orientalis	106562	diploid	-	Rosales	Rosaceae	Malus
+1068	Malus prunifolia	106564	diploid	Fupingqiuzi	Rosales	Rosaceae	Malus
+1069	Malus sieversii	106567	diploid	phased	Rosales	Rosaceae	Malus
+1070	Malus sylvestris	3752	diploid	phased	Rosales	Rosaceae	Malus
+1071	Malus x domestica	-	diploid	Golden Delicious	Rosales	Rosaceae	Malus
+1072	Mangifera indica	29780	tetraploid	-	Sapindales	Anacardiaceae	Mangifera
+1073	Manihot esculenta	3983	diploid	AM560-2	Malpighiales	Euphorbiaceae	Manihot
+1074	Marchantia inflexa	71450	-	-	Marchantiales	Marchantiaceae	Marchantia
+1075	Marchantia paleacea	56867	-	-	Marchantiales	Marchantiaceae	Marchantia
+1076	Marchantia polymorpha	3197	-	subsp.ruderalis	Marchantiales	Marchantiaceae	Marchantia
+1077	Marmoritis complanata	672822	-	-	Lamiales	Lamiaceae	Marmoritis
+1078	Marsdenia tenacissima	-	-	-	Gentianales	Apocynaceae	Marsdenia
+1079	Medicago arabica	70936	diploid	spotted medick	Fabales	Fabaceae	Medicago
+1080	Medicago lupulina	47085	diploid	Black Medic	Fabales	Fabaceae	Medicago
+1081	Medicago polymorpha	47084	diploid	-	Fabales	Fabaceae	Medicago
+1082	Medicago ruthenica	70973	diploid	-	Fabales	Fabaceae	Medicago
+1083	Medicago sativa	3879	-	-	Fabales	Fabaceae	Medicago
+1084	Medicago sativa ssp. falcata	-	tetraploid	-	Fabales	Fabaceae	Medicago
+1085	Medicago truncatula	3880	diploid	A17	Fabales	Fabaceae	Medicago
+1086	Megacarpaea delavayi	264428	-	-	Brassicales	Brassicaceae	Megacarpaea
+1087	Megadenia pygmaea	537175	-	-	Brassicales	Brassicaceae	Megadenia
+1088	Melaleuca alternifolia	164405	-	SCU1	Myrtales	Myrtaceae	Melaleuca
+1089	Melaleuca quinquenervia	164942	diploid	haplotype A	Myrtales	Myrtaceae	Melaleuca
+1090	Melastoma candidum	119954	-	-	Myrtales	Melastomataceae	Melastoma
+1091	Melastoma dodecandrum	130512	diploid	-	Myrtales	Melastomataceae	Melastoma
+1092	Melia azedarach	155640	-	Melia azedarach	Sapindales	Meliaceae	Melia
+1093	Melilotus albus	47082	diploid	Ma46	Fabales	Fabaceae	Melilotus
+1094	Melilotus officinalis	47083	diploid	-	Fabales	Fabaceae	Melilotus
+1095	Melocanna baccifera	104005	-	-	Poales	Poaceae	Melocanna
+1096	Meniocus linifolius	457770	diploid	-	Brassicales	Brassicaceae	Meniocus
+1097	Menispermum dauricum	49683	-	-	Ranunculales	Menispermaceae	Menispermum
+1098	Mentha longifolia	38859	diploid	-	Lamiales	Lamiaceae	Mentha
+1099	Mentha suaveolens	38860	diploid	apple mint	Lamiales	Lamiaceae	Mentha
+1100	Mentha suaveolens 'Variegata'	-	diploid	mint	Lamiales	Lamiaceae	Mentha
+1101	Mentha × piperita	-	hexaploid	Peppermint	Lamiales	Lamiaceae	Mentha
+1102	Mercurialis annua	3986	diploid	-	Malpighiales	Euphorbiaceae	Mercurialis
+1103	Mesembryanthemum crystallinum	3544	diploid	-	Caryophyllales	Aizoaceae	Mesembryanthemum
+1104	Mesostigma viride	41882	-	-	-	-	Mesostigma
+1105	Mesotaenium endlicherianum	184485	-	-	Zygnematales	Mesotaeniaceae	Mesotaenium
+1106	Messastrum gracile	81816	-	SE-MC4	Sphaeropleales	Selenastraceae	Messastrum
+1107	Mesua ferrea	210380	-	-	Malpighiales	Calophyllaceae	Mesua
+1108	Metasequoia glyptostroboides	3371	diploid	-	Cupressales	Cupressaceae	Metasequoia
+1109	Metrosideros polymorpha	101976	diploid	-	Myrtales	Myrtaceae	Metrosideros
+1110	Michelia alba DC (MC)	-	diploid	-	Magnoliales	Magnoliaceae	Michelia
+1111	Michelia alba DC (MM)	-	diploid	-	Magnoliales	Magnoliaceae	Michelia
+1112	Micractinium conductrix	554055	-	-	Chlorellales	Chlorellaceae	Micractinium
+1113	Microcos paniculata	197124	-	haplotype A	Malvales	Malvaceae	Microcos
+1114	Micromonas commoda	296587	-	-	Mamiellales	Mamiellaceae	Micromonas
+1115	Micromonas pusilla	38833	-	-	Mamiellales	Mamiellaceae	Micromonas
+1116	Microstegium vimineum	91518	-	-	Poales	Poaceae	Microstegium
+1117	Microtea debilis	696524	-	-	Caryophyllales	Microteaceae	Microtea
+1118	Microthlaspi erraticum	1685480	-	-	Brassicales	Brassicaceae	Microthlaspi
+1119	Mikania micrantha	192012	-	-	Asterales	Asteraceae	Mikania
+1120	Mimosa bimucronata	587864	-	-	Fabales	Fabaceae	Mimosa
+1121	Mimosa pudica	76306	tetraploid	-	Fabales	Fabaceae	Mimosa
+1122	Mimulus guttatus	-	tetraploid	-	Lamiales	Phrymaceae	Mimulus
+1123	Mimulus luteus	-	tetraploid	-	Lamiales	Phrymaceae	Mimulus
+1124	Mimulus sookensis	1256261	tetraploid	-	Lamiales	Phrymaceae	Mimulus
+1125	Miscanthus floridulus	154761	diploid	MF70	Poales	Poaceae	Miscanthus
+1126	Miscanthus lutarioriparius	422564	-	-	Poales	Poaceae	Miscanthus
+1127	Miscanthus sacchariflorus	183675	-	-	Poales	Poaceae	Miscanthus
+1128	Miscanthus sinensis	62337	-	-	Poales	Poaceae	Miscanthus
+1129	Misopates orontium	102599	diploid	-	Lamiales	Plantaginaceae	Misopates
+1130	Mitragyna speciosa	170351	tetraploid	Rifat	Gentianales	Rubiaceae	Mitragyna
+1131	Momordica balsamina	3672	diploid	Balsam apple; Southern Balsam pear; African pumpkin	Cucurbitales	Cucurbitaceae	Momordica
+1132	Momordica charantia	3673	diploid	OHB3-1	Cucurbitales	Cucurbitaceae	Momordica
+1133	Monoraphidium minutum	39955	-	26B-AM	Sphaeropleales	Selenastraceae	Monoraphidium
+1134	Monoraphidium neglectum	145388	diploid	-	Sphaeropleales	Selenastraceae	Monoraphidium
+1135	Monotropa hypopitys	176248	-	-	Ericales	Ericaceae	Monotropa
+1136	Morella rubra	262757	diploid	Y2012-145	Fagales	Myricaceae	Morella
+1137	Moricandia arvensis	180540	-	MOR1	Brassicales	Brassicaceae	Moricandia
+1138	Moricandia moricandioides	308297	-	04–0393–10–00	Brassicales	Brassicaceae	Moricandia
+1139	Moricandia nitens	264187	diploid	M59 (S.Rawthorne) Israel	Brassicales	Brassiceae	Moricandia
+1140	Moricandia sinaica	475162	diploid	M60	Brassicales	Brassiceae	Moricandia
+1141	Moricandia spinosa	475163	tetraploid	M64	Brassicales	Brassiceae	Moricandia
+1142	Moricandia suffruticosa	308298	diploid	KEW0105433	Brassicales	Brassiceae	Moricandia
+1143	Morinda citrifolia	43522	diploid	-	Gentianales	Rubiaceae	Morinda
+1144	Morinda officinalis	-	-	Gaoji 3	Gentianales	Rubiaceae	Morinda
+1145	Moringa oleifera	3735	-	-	Brassicales	Moringaceae	Moringa
+1146	Morus alba	3498	-	-	Rosales	Moraceae	Morus
+1147	Morus genus	-	diploid	-	Rosales	Moraceae	Morus
+1148	Morus indica	248361	-	Kanva-2	Rosales	Moraceae	Morus
+1149	Morus notabilis	981085	-	-	Rosales	Moraceae	Morus
+1150	Morus yunnanensis	1458532	diploid	improved	Rosales	Moraceae	Morus
+1151	Mucuna pruriens	157652	-	-	Fabales	Fabaceae	Mucuna
+1152	Murraya paniculata	43711	diploid	-	Sapindales	Rutaceae	Murraya
+1153	Musa acuminata	4641	-	DH-Pahang	Zingiberales	Musaceae	Musa
+1154	Musa balbisiana	52838	diploid	PKW	Zingiberales	Musaceae	Musa
+1155	Musa beccarii	192045	diploid	N. W. Simmonds	Zingiberales	Musaceae	Musa
+1156	Musa itinerans	574487	diploid	-	Zingiberales	Musaceae	Musa
+1157	Musa ornata	160690	diploid	banana	Zingiberales	Musaceae	Musa
+1158	Musa schizocarpa	52706	diploid	-	Zingiberales	Musaceae	Musa
+1159	Musa textilis	228183	diploid	NSIC 2017 Mt 001	Zingiberales	Musaceae	Musa
+1160	Musa troglodytarum	320322	triploid	-	Zingiberales	Musaceae	Musa
+1161	Musa velutina	228181	diploid	-	Zingiberales	Musaceae	Musa
+1162	Muscadinia rotundifolia	-	diploid	cv. Trayshed (haplotype 2)	Vitales	Vitaceae	Muscadinia
+1163	Musella lasiocarpa	101617	-	-	Zingiberales	Musaceae	Musella
+1164	Mychonastes homosphaera	31300	-	-	Sphaeropleales	Mychonastaceae	Mychonastes
+1165	Myrciaria cauliflora	-	diploid	treegrapes	Myrtales	Myrtaceae	Myrciaria
+1166	Myrica rubra	-	diploid	Chinese bayberry	Fagales	Myricaceae	Myrica
+1167	Myricaria laxiflora	223224	-	-	Caryophyllales	Tamaricaceae	Myricaria
+1168	Myrmecia bisecta (MyrbisSAG2043)	-	-	-	Trebouxiales	-	Myrmecia bisecta
+1169	Nannochloropsis oceanica C018	-	-	microalga	Tetrasporales	Chlorococcaceae	Nannochloropsis oceanica
+1170	Nasturtium officinale	65948	tetraploid	-	Brassicales	Brassicaceae	Nasturtium
+1171	Neltuma pallida	204979	diploid	Peruvian Algarrobo	Fabales	legumous	Neltuma
+1172	Nelumbo lutea	4431	diploid	AL1	Proteales	Nelumbonaceae	Nelumbo
+1173	Nelumbo nucifera	4432	diploid	China Antique	Proteales	Nelumbonaceae	Nelumbo
+1174	Neolamarckia cadamba	153762	diploid	-	Gentianales	Rubiaceae	Neolamarckia
+1175	Nepenthes gracilis	150966	decaploid	SING2019-196(male)	Caryophyllales	Nepenthaceae	Nepenthes
+1176	Nepenthes mirabilis	150983	diploid	-	Caryophyllales	Nepenthaceae	Nepenthes
+1177	Nephelium lappaceum	151071	-	-	Sapindales	Sapindaceae	Nephelium
+1178	Neslia paniculata	98023	diploid	-	Brassicales	Brassicaceae	Neslia
+1179	Nicotiana attenuata	49451	diploid	-	Solanales	Solanaceae	Nicotiana
+1180	Nicotiana benthamiana	4100	tetraploid	-	Solanales	Solanaceae	Nicotiana
+1181	Nicotiana glauca	4090	diploid	-	Solanales	Solanaceae	Nicotiana
+1182	Nicotiana knightiana	118699	diploid	-	Solanales	Solanaceae	Nicotiana
+1183	Nicotiana obtusifolia	200316	diploid	-	Solanales	Solanaceae	Nicotiana
+1184	Nicotiana otophora	4091	diploid	-	Solanales	Solanaceae	Nicotiana
+1185	Nicotiana paniculata	62141	diploid	-	Solanales	Solanaceae	Nicotiana
+1186	Nicotiana rustica	4093	tetraploid	-	Solanales	Solanaceae	Nicotiana
+1187	Nicotiana sylvestris	4096	diploid	-	Solanales	Solanaceae	Nicotiana
+1188	Nicotiana tabacum	4097	tetraploid	K326	Solanales	Solanaceae	Nicotiana
+1189	Nicotiana tomentosiformis	4098	diploid	-	Solanales	Solanaceae	Nicotiana
+1190	Nicotiana undulata	118713	diploid	-	Solanales	Solanaceae	Nicotiana
+1191	Niphotrichum japonicum	254109	-	-	Grimmiales	Grimmiaceae	Niphotrichum
+1192	Nissolia schottii	105944	-	-	Fabales	Fabaceae	Nissolia
+1193	Noccaea caerulescens	107243	-	-	Brassicales	Brassicaceae	Noccaea
+1194	Noccaea goesingensis	60913	-	-	Brassicales	Brassicaceae	Noccaea
+1195	Notholithocarpus densiflorus	165545	diploid	Notholithocarpus densiflorus	Fagales	Fagaceae	Notholithocarpus
+1196	Notopterygium incisum	-	diploid	-	Apiales	Apiaceae	Notopterygium
+1197	Nymphaea colorata	210225	diploid	-	Nymphaeales	Nymphaeaceae	Nymphaea
+1198	Nymphaea thermarum	419125	diploid	-	Nymphaeales	Nymphaeaceae	Nymphaea
+1199	Nymphoides indica	105901	-	-	Asterales	Menyanthaceae	Nymphoides
+1200	Nypa fruticans	4718	diploid	-	Arecales	Arecaceae	Nypa
+1201	Nyssa sinensis	561372	-	-	Cornales	Nyssaceae	Nyssa
+1202	Nyssa yunnanensis	161873	-	-	Cornales	Nyssaceae	Nyssa
+1203	Ochetophila trinervis	262936	-	-	Rosales	Rhamnaceae	Ochetophila
+1204	Ochroma pyramidale	66662	-	HCNGB_00009295	Malvales	Malvaceae	Ochroma
+1205	Ocimum basilicum	39350	-	Genovese	Lamiales	Lamiaceae	Ocimum
+1206	Ocimum sanctum	-	diploid	CIM Ayu	Lamiales	Lamiaceae	Ocimum
+1207	Odontarrhena argentea	226021	-	-	Brassicales	Brassicaceae	Odontarrhena
+1208	Oenanthe javanica	49556	-	-	Apiales	Apiaceae	Oenanthe
+1209	Oenanthe sinensis	305802	-	Zhonghua Shuiqin'	Apiales	Apiaceae	Oenanthe
+1210	Oldenlandia corymbosa	43536	-	M15	Gentianales	Rubiaceae	Oldenlandia
+1211	Oldenlandia diffusa	-	diploid	-	Gentianales	Rubiaceae	Oldenlandia
+1212	Olea europaea	4146	diploid	Farga	Lamiales	Oleaceae	Olea
+1213	Olyra latifolia	38716	diploid	-	Poales	Poaceae	Olyra
+1214	Onobrychis viciifolia	3882	tetraploid	Sainfoin	Fabales	Papilionoideae	Onobrychis
+1215	Ophiorrhiza pumila	157934	diploid	-	Gentianales	Rubiaceae	Ophiorrhiza
+1216	Opuntia exhibit	-	-	cactus pear	Caryophyllales	Cactaceae	Opuntia
+1217	Origanum majorana	268884	-	-	Lamiales	Lamiaceae	Origanum
+1218	Origanum vulgare	39352	-	-	Lamiales	Lamiaceae	Origanum
+1219	Orinus kokonorica	-	tetraploid	-	Poales	Poaceae	Orinus
+1220	Ormosia emarginata	53908	-	-	Fabales	Fabaceae	Ormosia
+1221	Ormosia semicastrata	499992	-	-	Fabales	Fabaceae	Ormosia
+1222	Orobanche coerulescens	223100	-	-	Lamiales	Orobanchaceae	Orobanche
+1223	Orobanche cumana	-	-	-	Lamiales	Orobanchaceae	Orobanche
+1224	Oropetium thomaeum	1148796	diploid	-	Poales	Poaceae	Oropetium
+1225	Orychophragmus violaceus	71234	diploid	-	Brassicales	Brassicaceae	Orychophragmus
+1226	Oryza alta	52545	tetraploid	PPR1	Poales	Poaceae	Oryza
+1227	Oryza australiensis	4532	diploid	AusTRCF 318143	Poales	Poaceae	Oryza
+1228	Oryza barthii	65489	diploid	-	Poales	Poaceae	Oryza
+1229	Oryza brachyantha	4533	diploid	-	Poales	Poaceae	Oryza
+1230	Oryza coarctata	77588	tetraploid	-	Poales	Poaceae	Oryza
+1231	Oryza eichingeri	29689	diploid	-	Poales	Poaceae	Oryza
+1232	Oryza glaberrima	4538	diploid	-	Poales	Poaceae	Oryza
+1233	Oryza glumaepatula	-	diploid	-	Poales	Poaceae	Oryza
+1234	Oryza granulata	-	diploid	No.102117	Poales	Poaceae	Oryza
+1235	Oryza longistaminata	4528	diploid	RD23	Poales	Poaceae	Oryza
+1236	Oryza meridionalis	40149	diploid	-	Poales	Poaceae	Oryza
+1237	Oryza nivara	4536	diploid	-	Poales	Poaceae	Oryza
+1238	Oryza officinalis	4535	diploid	-	Poales	Poaceae	Oryza
+1239	Oryza punctata	4537	-	-	Poales	Poaceae	Oryza
+1240	Oryza rhizomatis	65491	-	-	Poales	Poaceae	Oryza
+1241	Oryza rufipogon	4529	diploid	Taxon A;Ecotype: Australia	Poales	Poaceae	Oryza
+1242	Oryza sativa	4530	diploid	Nipponbare	Poales	Poaceae	Oryza
+1243	Oryza sativa ssp. indica	-	-	indica rice	Poales	Poaceae	Oryza
+1244	Osmanthus fragrans	93977	diploid	-	Lamiales	Oleaceae	Osmanthus
+1245	Ostreobium quekettii	121088	diploid	-	Bryopsidales	Ostreobiaceae	Ostreobium
+1246	Ostreococcus lucimarinus	-	-	-	Mamiellales	Bathycoccaceae	Ostreococcus
+1247	Ostreococcus tauri	70448	-	-	Mamiellales	Bathycoccaceae	Ostreococcus
+1248	Ostrya chinensis	2479193	-	-	Fagales	Betulaceae	Ostrya
+1249	Ostrya rehderiana	80755	-	-	Fagales	Betulaceae	Ostrya
+1250	Otatea glauca	464970	-	-	Poales	Poaceae	Otatea
+1251	Ottelia alismoides	55483	diploid	-	Alismatales	Hydrocharitaceae	Ottelia
+1252	Oxyria digyna	284366	-	mountain sorrel	Caryophyllales	Polygonaceae	Oxyria
+1253	Oxytropis ochrocephala	483875	-	-	Fabales	Fabaceae	Oxytropis
+1254	Pachycereus pringlei	154437	-	-	Caryophyllales	Cactaceae	Pachycereus
+1255	Pachycladon cheesemanii	106773	-	-	Brassicales	Brassicaceae	Pachycladon
+1256	Pachypodium lamerei Drake	-	-	-	Gentianales	Apocynaceae	Pachypodium
+1257	Paeonia ludlowii	459176	diploid	-	Saxifragales	Paeoniaceae	Paeonia
+1258	Paeonia ostii	459177	-	-	Saxifragales	Paeoniaceae	Paeonia
+1259	Paeonia suffruticosa	45171	-	-	Saxifragales	Paeoniaceae	Paeonia
+1260	Panax ginseng	4054	-	IR826 line	Apiales	Araliaceae	Panax
+1261	Panax japonicus	44685	tetraploid	-	Apiales	Araliaceae	Panax
+1262	Panax notoginseng	44586	diploid	-	Apiales	Araliaceae	Panax
+1263	Panax quinquefolius	44588	tetraploid	-	Apiales	Araliaceae	Panax
+1264	Panax stipuleanatus	44682	diploid	-	Apiales	Araliaceae	Panax
+1265	Panax vietnamensis	106132	-	-	Apiales	Araliaceae	Panax
+1266	Pandanus amaryllifolius	260201	diploid	pandan	Pandanales	Pandanaceae	Pandanus
+1267	Panicum hallii	206008	-	FIL2	Poales	Poaceae	Panicum
+1268	Panicum miliaceum	4540	tetraploid	Longmi4	Poales	Poaceae	Panicum
+1269	Panicum virgatum	38727	-	-	Poales	Poaceae	Panicum
+1270	Papaver rhoeas	33128	diploid	YMR1	Ranunculales	Papaveraceae	Papaver
+1271	Papaver setigerum	-	diploid	DCW1	Ranunculales	Papaveraceae	Papaver
+1272	Papaver somniferum	3469	diploid	-	Ranunculales	Papaveraceae	Papaver
+1273	Papilionanthe Miss Joaquim	-	diploid	Agnes	Asparagales	Orchidaceae	Papilionanthe
+1274	Parachlorella kessleri	3074	-	-	Chlorellales	Chlorellaceae	Parachlorella
+1275	Parashorea chinensis	245167	-	-	Malvales	Dipterocarpaceae	Parashorea
+1276	Parasponia andersonii	3476	-	-	Rosales	Cannabaceae	Parasponia
+1277	Paspalum notatum	147272	diploid	-	Poales	Poaceae	Paspalum
+1278	Paspalum notatum Flüggé var. saurae	-	diploid	-	Poales	Poaceae	Paspalum
+1279	Paspalum vaginatum	158149	diploid	clone PI 509022	Poales	Poaceae	Paspalum
+1280	Passiflora edulis	78168	diploid	-	Malpighiales	Passifloraceae	Passiflora
+1281	Passiflora foetida	159421	-	-	Malpighiales	Passifloraceae	Passiflora
+1282	Passiflora organensis	159434	diploid	-	Malpighiales	Passifloraceae	Passiflora
+1283	Paulownia fortunei	586722	diploid	-	Lamiales	Paulowniaceae	Paulownia
+1284	Pedicularis kansuensis	321409	-	-	Lamiales	Orobanchaceae	Pedicularis
+1285	Pedinomonas minor	3159	-	SAG 1965-3	Pedinomonadales	Pedinomonadaceae	Pedinomonas
+1286	Pedinophyceae sp.YPF701	-	-	NIES-2566	-	Pedinophyceae	Pedinophyceae
+1287	Pellacalyx yunnanensis	98587	diploid	-	Malpighiales	Rhizophoraceae	Pellacalyx
+1288	Pemphis acidula	126635	diploid	-	Myrtales	Lythraceae	Pemphis
+1289	Penium margaritaceum	102169	-	-	Desmidiales	Peniaceae	Penium
+1290	Pennisetum alopecuroides	-	diploid	Liqiu	Poales	Poaceae	Pennisetum
+1291	Pennisetum giganteum	2980470	tetraploid	-	Poales	Poaceae	Pennisetum
+1292	Pennisetum glaucum	-	diploid	Tiftleaf 3	Poales	Poaceae	Pennisetum
+1293	Pennisetum purpureum	-	tetraploid	CIAT6263	Poales	Poaceae	Pennisetum
+1294	Penstemon barbatus	160364	diploid	-	Lamiales	Plantaginaceae	Penstemon
+1295	Penstemon davidsonii	160366	diploid	-	Lamiales	Plantaginaceae	Penstemon
+1296	Penstemon eatonii	388140	-	firecracker penstemon	Lamiales	Scrophulariaceae	Penstemon
+1297	Penthorum chinense	49684	-	-	Saxifragales	Penthoraceae	Penthorum
+1298	Penthorum chinense Pursh	-	-	GanHuang Cao	Saxifragales	Penthoraceae	Penthorum
+1299	Pereskia humboldtii	1931378	-	-	Caryophyllales	Cactaceae	Pereskia
+1300	Perilla citriodora	-	-	-	Lamiales	Lamiaceae	Perilla
+1301	Perilla frutescens	48386	diploid	PF40	Lamiales	Lamiaceae	Perilla
+1302	Persea americana	3435	diploid	var. drymifolia	Laurales	Lauraceae	Persea
+1303	Persicaria maackiana	452458	-	Regel	Caryophyllales	Polygonaceae	Persicaria
+1304	Persicaria tinctoria	96455	diploid	-	Caryophyllales	Polygonaceae	Persicaria
+1305	Petrea volubilis	41233	-	-	Lamiales	Verbenaceae	Petrea
+1306	Petroselinum crispum	4043	-	Parsley	Apiales	Apiaceae	Petroselinum
+1307	Petunia axillaris	33119	diploid	-	Solanales	Solanaceae	Petunia
+1308	Petunia inflata	-	diploid	-	Solanales	Solanaceae	Petunia
+1309	Peucedanum praeruptorum	-	-	-	Apiales	Apiaceae	Peucedanum
+1310	Phaeocystis cordata	118079	-	-	-	-	Phaeocystis
+1311	Phalaenopsis aphrodite	212056	diploid	-	Asparagales	Orchidaceae	Phalaenopsis
+1312	Phalaenopsis equestris	78828	diploid	-	Asparagales	Orchidaceae	Phalaenopsis
+1313	Phanera championii	-	diploid	-	Fabales	Fabaceae	Phanera
+1314	Pharnaceum exiguum	2083489	-	-	Caryophyllales	Molluginaceae	Pharnaceum
+1315	Pharus latifolius	38686	diploid	CRB03-4-1	Poales	Poaceae	Pharus
+1316	Phaseolus acutifolius	33129	-	W6 15578(wild)	Fabales	Fabaceae	Phaseolus
+1317	Phaseolus coccineus	3886	diploid	-	Fabales	Fabaceae	Phaseolus
+1318	Phaseolus lunatus	3884	diploid	-	Fabales	Fabaceae	Phaseolus
+1319	Phaseolus vulgaris	3885	diploid	G19833	Fabales	Fabaceae	Phaseolus
+1320	Phelipanche aegyptiaca	99112	-	-	Lamiales	Orobanchaceae	Phelipanche
+1321	Phellodendron amurense	68554	-	-	Sapindales	Rutaceae	Phellodendron
+1322	Phoebe bournei	460784	diploid	Hemsl;improved	Laurales	Lauraceae	Phoebe
+1323	Phoenix dactylifera	42345	diploid	Khalas	Arecales	Arecaceae	Phoenix
+1324	Phoenix roebelenii	446125	diploid	-	Arecales	Arecaceae	Phoenix
+1325	Phragmites australis	29695	-	-	Poales	Poaceae	Phragmites
+1326	Phtheirospermum japonicum	374723	-	-	Lamiales	Orobanchaceae	Phtheirospermum
+1327	Phyllanthus cochinchinensis	296041	-	-	Malpighiales	Phyllanthaceae	Phyllanthus
+1328	Phyllanthus emblica	-	diploid	-	Malpighiales	Phyllanthaceae	Phyllanthus
+1329	Phyllostachys edulis	38705	diploid	-	Poales	Poaceae	Phyllostachys
+1330	Physalis floridana	-	diploid	-	Solanales	Solanaceae	Physalis
+1331	Physalis grisea	2815732	diploid	-	Solanales	Solanaceae	Physalis
+1332	Physalis pruinosa	304161	diploid	-	Solanales	Solanaceae	Physalis
+1333	Physaria acutifolia	98029	-	-	Brassicales	Brassicaceae	Physaria
+1334	Physaria fendleri	63442	-	-	Brassicales	Brassicaceae	Physaria
+1335	Physaria ovalifolia	1244054	-	-	Brassicales	Brassicaceae	Physaria
+1336	Physcomitrella patens	-	-	-	Funariales	Funariaceae	Physcomitrella
+1337	Physcomitrellopsis africana	2050917	diploid	-	Amborellales	Funariaceae	Physcomitrellopsis
+1338	Physcomitrium patens	3218	-	-	Funariales	Funariaceae	Physcomitrium
+1339	Phytolacca americana	3527	tetraploid	-	Caryophyllales	Phytolaccaceae	Phytolacca
+1340	Picea abies	3329	diploid	-	Pinales	Pinaceae	Picea
+1341	Picea engelmannii	3334	diploid	-	Pinales	Pinaceae	Picea
+1342	Picea engelmannii x glauca x sitchensis	-	-	-	Pinales	Pinaceae	Picea
+1343	Picea glauca	3330	diploid	PG29	Pinales	Pinaceae	Picea
+1344	Picea mariana	3335	diploid	-	Pinales	Pinaceae	Picea
+1345	Picea sitchensis	3332	-	-	Pinales	Pinaceae	Picea
+1346	Picochlorum costavermella	2009235	-	-	-	-	Picochlorum
+1347	Picochlorum sp.  SENEW3	-	diploid	-	Picochlorales	Picochloraceae	Picochlorum
+1348	Picrorhiza kurrooa	195120	tetraploid	-	Lamiales	Plantaginaceae	Picrorhiza
+1349	Pinellia pedatisecta	199222	-	-	Alismatales	Araceae	Pinellia
+1350	Pinus albicaulis	71622	diploid	Whitebark pine; WBP	Pinales	Quinquefoliae	Pinus
+1351	Pinus densiflora	77912	-	-	Pinales	Pinaceae	Pinus
+1352	Pinus lambertiana	3343	diploid	-	Pinales	Pinaceae	Pinus
+1353	Pinus tabuliformis	88731	diploid	-	Pinales	Pinaceae	Pinus
+1354	Pinus taeda	3352	diploid	-	Pinales	Pinaceae	Pinus
+1355	Piper longum	49511	diploid	long pepper	Piperales	Piperaceae	Piper
+1356	Piper nigrum	13216	-	-	Piperales	Piperaceae	Piper
+1357	Pistacia chinensis	289741	diploid	subsp. integerrima	Sapindales	Anacardiaceae	Pistacia
+1358	Pistacia vera	55513	-	-	Sapindales	Anacardiaceae	Pistacia
+1359	Pistia stratiotes	4477	diploid	-	Alismatales	Araceae	Pistia
+1360	Pisum sativum	-	diploid	cultivar Cameor	Fabales	Fabaceae	Pisum
+1361	Plantago major	29818	diploid	PlanMa1	Lamiales	Plantaginaceae	Plantago
+1362	Plantago ovata	185002	diploid	-	Lamiales	Plantaginaceae	Plantago
+1363	Plantain	-	triploid	Bananas	Zingiberales	Musaceae	Plantain
+1364	Platanthera guangdongensis	2320717	diploid	-	Asparagales	Orchidaceae	Platanthera
+1365	Platanthera zijinensis	2320716	diploid	-	Asparagales	Orchidaceae	Platanthera
+1366	Platanus × acerifolia	-	hexaploid	London planetree	Proteales	Platanaceae	Platanus ×
+1367	Platycarya longipes	212655	-	-	Fagales	Juglandaceae	Platycarya
+1368	Platycarya strobilacea	91224	-	-	Fagales	Juglandaceae	Platycarya
+1369	Platycodon grandiflorum	-	-	-	Asterales	Campanulaceae	Platycodon
+1370	Platycodon grandiflorus	94286	-	-	Asterales	Campanulaceae	Platycodon
+1371	Plectranthus barbatus	41228	-	-	Lamiales	Lamiaceae	Plectranthus
+1372	Pleurozium schreberi	34163	-	-	Hypnales	Hylocomiaceae	Pleurozium
+1373	Pluchea indica	175518	-	-	Asterales	Asteraceae	Pluchea
+1374	Poa annua	93036	tetraploid	PI 595837	Poales	Poaceae	Poa
+1375	Poa infirma	165094	diploid	-	Poales	Poaceae	Poa
+1376	Poa pratensis	4545	octoploid	-	Poales	Poaceae	Poa
+1377	Poa supina	289064	diploid	cultivar 'Supranova	Poales	Poaceae	Poa
+1378	Poa trivialis	89684	diploid	-	Graminales	Gramineae	Poa
+1379	Pogostemon cablin	28511	-	-	Lamiales	Lamiaceae	Pogostemon
+1380	Pohlia nutans	140635	-	NO.L	Bryales	Mniaceae	Pohlia
+1381	Polygala tenuifolia	355332	tetraploid	-	Fabales	Polygalaceae	Polygala
+1382	Polygonum aviculare	137693	hexaploid	knotgrass	Caryophyllales	Polygonaceae	Polygonum
+1383	Polygonum cuspidatum	83819	-	-	Caryophyllales	Polygonaceae	Polygonum
+1384	Poncirus polyandra	-	diploid	-	Sapindales	Rutaceae	Poncirus
+1385	Poncirus trifoliata	-	diploid	DPI 50-7	Sapindales	Rutaceae	Poncirus
+1386	Pongamia pinnata	56065	diploid	-	Fabales	Fabaceae	Pongamia
+1387	Pontederia crassipes	44947	-	water hyacinth	Commelinales	Pontederiaceae	Pontederia
+1388	Populus alba	43335	diploid	-	Malpighiales	Salicaceae	Populus
+1389	Populus alba x Populus glandulosa	153471	-	-	Malpighiales	Salicaceae	Populus
+1389	Populus alba × Populus tremula var. glandulosa	-	diploid	Poplar	Malpighiales	Salicaceae	Populus
+1391	Populus cathayana	688333	-	-	Malpighiales	Salicaceae	Populus
+1392	Populus davidiana	266767	-	-	Malpighiales	Salicaceae	Populus
+1393	Populus deltoides	3696	-	-	Malpighiales	Salicaceae	Populus
+1394	Populus deltoides x canadensis	-	-	-	Malpighiales	Salicaceae	Populus
+1395	Populus euphratica	75702	-	-	Malpighiales	Salicaceae	Populus
+1396	Populus ilicifolia	1902783	-	-	Malpighiales	Salicaceae	Populus
+1397	Populus koreana	1085088	-	-	Malpighiales	Salicaceae	Populus
+1398	Populus nigra	3691	diploid	black poplar	Malpighiales	Salicaceae	Populus
+1399	Populus pruinosa	492479	-	-	Malpighiales	Salicaceae	Populus
+1400	Populus qiongdaoensis	1903715	-	female	Malpighiales	Salicaceae	Populus
+1401	Populus simonii	295327	-	phased	Malpighiales	Salicaceae	Populus
+1402	Populus tomentosa	118781	diploid	LM50	Malpighiales	Salicaceae	Populus
+1403	Populus tremuloides	3693	-	-	Malpighiales	Salicaceae	Populus
+1404	Populus trichocarpa	3694	-	-	Malpighiales	Salicaceae	Populus
+1405	Populus ussuriensis	696360	diploid	-	Malpighiales	Salicaceae	Populus
+1406	Populus wilsonii	179741	-	-	Malpighiales	Salicaceae	Populus
+1407	Populus x sibirica	1954239	-	Stettler 14	Malpighiales	Salicaceae	Populus
+1408	Popuplus tremula	-	-	-	Malpighiales	Salicaceae	Popuplus
+1409	Portulaca amilis	996330	-	-	Caryophyllales	Portulacaceae	Portulaca
+1410	Portulaca oleracea	46147	diploid	-	Caryophyllales	Portulacaceae	Portulaca
+1411	Posidonia oceanica	55489	diploid	-	Alismatales	Posidoniaceae	Posidonia
+1412	Potamogeton acutifolius	189329	-	-	Alismatales	Potamogetonaceae	Potamogeton
+1413	Potentilla anserina	-	tetraploid	-	Rosales	Rosaceae	Potentilla
+1414	Potentilla micrantha	57941	octoploid	-	Rosales	Rosaceae	Potentilla
+1415	Prasinoderma coloniale	156133	-	-	Prasinodermales	Prasinodermaceae	Prasinoderma
+1416	Premna obtusifolia	-	-	-	Lamiales	Lamiaceae	Premna
+1417	Primula edelbergii	110760	-	-	Ericales	Primulaceae	Primula
+1418	Primula veris	170927	diploid	-	Ericales	Primulaceae	Primula
+1419	Primula vulgaris	175104	diploid	-	Ericales	Primulaceae	Primula
+1420	Primulina eburnea	1245227	diploid	-	Lamiales	Gesneriaceae	Primulina
+1421	Primulina huaijiensis	1492673	diploid	-	Lamiales	Gesneriaceae	Primulina
+1422	Primulina tabacum	48773	diploid	GXHZ1	Lamiales	Gesneriaceae	Primulina
+1423	Prinsepia uniflora	32240	tetraploid	-	Rosales	Rosaceae	Prinsepia
+1424	Prosopis alba	-	diploid	-	Fabales	Fabaceae	Prosopis
+1425	Prosopis cineraria	364024	-	-	Fabales	Fabaceae	Prosopis
+1426	Prosopis alba	-	tetraploid	B1F8T4	Fabales	Fabaceae	Prosopis
+1427	Protea cynaroides	273540	diploid	var. 'Little Prince'	Proteales	Proteaceae	Protea
+1428	Prototheca cutis	575411	-	-	Chlorellales	Chlorellaceae	Prototheca
+1429	Prototheca stagnorum	215448	-	-	Chlorellales	Chlorellaceae	Prototheca
+1430	Prototheca wickerhamii	3111	-	-	Chlorellales	Chlorellaceae	Prototheca
+1431	Prototheca zopfii	3112	-	-	Chlorellales	Chlorellaceae	Prototheca
+1432	Prunella vulgaris	39358	diploid	-	Lamiales	Lamiaceae	Prunella
+1433	Prunus armeniaca	36596	diploid	Chuanzhihong	Rosales	Rosaceae	Prunus
+1434	Prunus avium	42229	diploid	Satonishiki	Rosales	Rosaceae	Prunus
+1435	Prunus campanulata	136465	diploid	Lianmeiren	Rosales	Rosaceae	Prunus
+1436	Prunus cerasus	140311	-	Montmorency	Rosales	Rosaceae	Prunus
+1437	Prunus conradinae	456515	diploid	-	Rosales	Rosaceae	Prunus
+1438	Prunus davidiana	151430	diploid	-	Rosales	Rosaceae	Prunus
+1439	Prunus domestica	3758	hexaploid	"""improved French"""	Rosales	Rosaceae	Prunus
+1440	Prunus dulcis	3755	diploid	Lauranne	Rosales	Rosaceae	Prunus
+1441	Prunus ferganensis	166019	-	Ka Shi 1#	Rosales	Rosaceae	Prunus
+1442	Prunus fruticosa	151433	tetraploid	-	Rosales	Rosaceae	Prunus
+1443	Prunus hongpingensis	-	-	PHP	Rosales	Rosaceae	Prunus
+1444	Prunus humilis	434060	diploid	JO-2	Rosales	Rosaceae	Prunus
+1445	Prunus kansuensis	329890	diploid	Hong Gen Gan Su Tao 1#	Rosales	Rosaceae	Prunus
+1446	Prunus mandshurica	122122	diploid	CH264_4	Rosales	Rosaceae	Prunus
+1447	Prunus mira	151332	diploid	-	Rosales	Rosaceae	Prunus
+1448	Prunus mongolica	1501231	diploid	-	Rosales	Rosaceae	Prunus
+1449	Prunus mume	102107	-	-	Rosales	Rosaceae	Prunus
+1450	Prunus persica	3760	diploid	Lovell	Rosales	Rosaceae	Prunus
+1451	Prunus pseudocerasus	151439	diploid	Chinese cherry	Rosales	Rosaceae	Prunus
+1452	Prunus pusilliflora	1642865	-	DNeasy Plant Mini Kits	Rosales	Rosaceae	Prunus
+1453	Prunus salicina	88123	-	-	Rosales	Rosaceae	Prunus
+1454	Prunus salicina cv. 'Fengtangli'	-	diploid	plum	Rosales	Rosaceae	Prunus
+1455	Prunus sibirica	151440	diploid	CH320_5	Rosales	Rosaceae	Prunus
+1456	Prunus tenella	140661	-	-	Rosales	Rosaceae	Prunus
+1457	Prunus yedoensis	3759	diploid	Pyn-Jeju2	Rosales	Rosaceae	Prunus
+1458	Prunus zhengheensis	1052178	-	PZH	Rosales	Rosaceae	Prunus
+1459	Przewalskia tangutica	337188	-	-	Solanales	Solanaceae	Przewalskia
+1460	Pseudocydonia sinensis	36622	diploid	Chinese quince	Rosales	Rosaceae	Pseudocydonia
+1461	Pseudoroegneria Libanotica	37685	-	-	Poales	Poaceae	Pseudoroegneria
+1462	Pseudoturritis turrita	81982	diploid	-	Brassicales	Brassicaceae	Pseudoturritis
+1463	Psidium guajava	120290	diploid	-	Myrtales	Myrtaceae	Psidium
+1464	Psophocarpus tetragonolobus	3891	diploid	Winged bean; goa bean	Fabales	Fabaceae	Psophocarpus
+1465	Pterocarpus macrocarpus	108278	diploid	-	Fabales	Fabaceae	Pterocarpus
+1466	Pterocarpus santalinus	1071199	diploid	BP-12	Fabales	Fabaceae	Pterocarpus
+1467	Pterocarya stenoptera	91225	-	-	Fagales	Juglandaceae	Pterocarya
+1468	Pteroceltis tatarinowii	63062	diploid	-	Rosales	Cannabaceae	Pteroceltis
+1469	Ptychostomum knowltonii	2779773	-	-	Eubryales	Bryaceae	Ptychostomum
+1470	Puccinellia tenuiflora	240906	-	-	Poales	Poaceae	Puccinellia
+1471	Pueraria lobata	-	diploid	-	Fabales	Fabaceae	Pueraria
+1472	Pugionium cornutum	557876	-	-	Brassicales	Brassicaceae	Pugionium
+1473	Pugionium dolabratum	473980	-	-	Brassicales	Brassicaceae	Pugionium
+1474	Punica granatum	22663	diploid	Dabenzi	Myrtales	Lythraceae	Punica
+1475	Puya raimondii	112807	diploid	-	Poales	Bromeliaceae	Puya
+1476	Pyrus betulifolia	436086	-	-	Rosales	Rosaceae	Pyrus
+1477	Pyrus bretschneideri	-	diploid	-	Rosales	Rosaceae	Pyrus
+1478	Pyrus bretschneideri cv. 'Danshansuli'	-	-	-	Rosales	Rosaceae	Pyrus
+1479	Pyrus communis	23211	diploid	-	Rosales	Rosaceae	Pyrus
+1480	Pyrus communis cv. 'Conference'	-	-	-	Rosales	Rosaceae	Pyrus
+1481	Pyrus pyrifolia	3767	-	-	Rosales	Rosaceae	Pyrus
+1482	Pyrus sinkiangensis	363829	hexaploid	Korla pear	Rosales	Rosaceae	Pyrus
+1483	Pyrus sinkiangensis Yu cv. Korla xiangli×Pyrus bretschneideri Rehd. cv. Eli	-	-	Hongxiangsu	Rosales	Rosaceae	Pyrus
+1484	Pyrus sinkiangensis Yu cv. Korla xiangli×Pyrus bretschneideri Rehd. cv. Xuehua	-	-	Yuluxiang	Rosales	Rosaceae	Pyrus
+1485	Pyrus ussuriensis x Pyrus communis	2448454	diploid	-	Rosales	Rosaceae	Pyrus
+1486	Quercus acutissima	58330	diploid	Tianmushan-1	Fagales	Fagaceae	Quercus
+1487	Quercus dentata	103484	-	-	Fagales	Fagaceae	Quercus
+1488	Quercus gilva	103490	diploid	-	Fagales	Fagaceae	Quercus
+1489	Quercus glauca	103489	diploid	JXL012(haplotype 1)	Fagales	Fagaceae	Quercus
+1490	Quercus ilex	58334	diploid	-	Fagales	Fagaceae	Quercus
+1491	Quercus lobata	97700	diploid	-	Fagales	Fagaceae	Quercus
+1492	Quercus mongolica	103485	-	-	Fagales	Fagaceae	Quercus
+1493	Quercus rex	2029654	diploid	-	Fagales	Fagaceae	Quercus
+1494	Quercus robur	38942	diploid	haplotype	Fagales	Fagaceae	Quercus
+1495	Quercus rubra	3512	diploid	-	Fabales	Fabaceae	Quercus
+1496	Quercus sichourensis	2029655	-	-	Fabales	Fagaceae	Quercus
+1497	Quercus suber	58331	diploid	-	Fagales	Fagaceae	Quercus
+1498	Quercus tomentella	60424	diploid	Island oak	Fagales	Fagaceae	Quercus
+1499	Quercus variabilis	103481	diploid	-	Fagales	Fagaceae	Quercus
+1500	Quillaja saponaria	32244	-	-	Fabales	Quillajaceae	Quillaja
+1501	Raddia distichophylla	38704	diploid	-	Poales	Poaceae	Raddia
+1502	Raddia guianensis	1482630	diploid	-	Poales	Poaceae	Raddia
+1503	Rafflesia leonardi	1477589	-	-	Malpighiales	Rafflesiaceae	Rafflesia
+1504	Raparia bulbosa	-	-	-	Brassicales	Brassicaceae	Raparia
+1505	Raphanus raphanistrum	109996	-	-	Brassicales	Brassicaceae	Raphanus
+1506	Raphanus raphanistrumm x Raphanus sativus	-	-	-	Brassicales	Brassicaceae	Raphanus
+1507	Raphanus sativus	3726	diploid	Aokubi	Brassicales	Brassicaceae	Raphanus
+1508	Raphidocelis subcapitata	307507	-	-	Chlorellales	Chlorellaceae	Raphidocelis
+1509	Reaumuria soongarica	-	diploid	-	Caryophyllales	Tamaricaceae	Reaumuria
+1510	Rehmannia glutinosa	99300	-	-	Lamiales	Orobanchaceae	Rehmannia
+1511	Reticulofenestra parvula	-	-	RCC4036	-	-	Reticulofenestra
+1512	Reynoutria multiflora	-	diploid	-	Caryophyllales	Polygonaceae	Reynoutria
+1513	Rhamnella rubrinervis	2594499	-	-	Rosales	Rhamnaceae	Rhamnella
+1514	Rhazya stricta	396313	diploid	-	Gentianales	Apocynaceae	Rhazya
+1515	Rheum nobile	137697	-	-	Caryophyllales	Polygonaceae	Rheum
+1516	Rheum officinale	137220	tetraploid	-	Caryophyllales	Polygonaceae	Rheum
+1517	Rheum palmatum	137221	diploid	-	Caryophyllales	Polygonaceae	Rheum
+1518	Rheum tanguticum	137226	diploid	-	Caryophyllales	Polygonaceae	Rheum
+1519	Rhipidocladum racemiflorum	464972	-	-	Poales	Poaceae	Rhipidocladum
+1520	Rhizophora apiculata	106626	-	-	Malpighiales	Rhizophoraceae	Rhizophora
+1521	Rhizophora mangle	40031	-	-	Malpighiales	Rhizophoraceae	Rhizophora
+1522	Rhizophora mucronata	61149	-	-	Malpighiales	Rhizophoraceae	Rhizophora
+1523	Rhizophora stylosa	98588	-	-	Malpighiales	Rhizophoraceae	Rhizophora
+1524	Rhodamnia argentea	178133	-	-	Myrtales	Myrtaceae	Rhodamnia
+1525	Rhodiola crenulata	242839	-	-	Saxifragales	Crassulaceae	Rhodiola
+1526	Rhododendron bailiense	3036663	-	-	Ericales	Ericaceae	Rhododendron
+1527	Rhododendron championae	-	hexaploid	-	Ericales	Ericaceae	Rhododendron
+1528	Rhododendron delavayi	321363	diploid	-	Ericales	Ericaceae	Rhododendron
+1529	Rhododendron griersonianum	479676	-	-	Ericales	Ericaceae	Rhododendron
+1530	Rhododendron henanense	2488265	-	subsp. lingbaoense(W.P. Fang)	Ericales	Ericaceae	Rhododendron
+1531	Rhododendron irroratum	321365	-	wild	Ericales	Ericaceae	Rhododendron
+1532	Rhododendron kiyosumense	118354	-	KMT1	Ericales	Ericaceae	Rhododendron
+1533	Rhododendron micranthum	118363	hexaploid	-	Ericales	Ericaceae	Rhododendron
+1534	Rhododendron molle	49168	-	-	Ericales	Ericaceae	Rhododendron
+1535	Rhododendron mucronulatum	105903	hexaploid	-	Ericales	Ericaceae	Rhododendron
+1536	Rhododendron nivale	1044967	hexaploid	-	Ericales	Ericaceae	Rhododendron
+1537	Rhododendron nivale subsp. boreale	1701214	tetraploid	-	Ericales	Ericaceae	Rhododendron
+1538	Rhododendron ovatum	49169	-	-	Ericales	Ericaceae	Rhododendron
+1539	Rhododendron redowskianum	184582	hexaploid	-	Ericales	Ericaceae	Rhododendron
+1540	Rhododendron ripense	-	-	Hi-Oni1	Ericales	Ericaceae	Rhododendron
+1541	Rhododendron simsii	118357	-	-	Ericales	Ericaceae	Rhododendron
+1542	Rhododendron vialii	182163	diploid	haplotype A	Ericales	Ericaceae	Rhododendron
+1543	Rhododendron williamsianum	262921	diploid	-	Ericales	Ericaceae	Rhododendron
+1544	Rhododendronneriiflorum	-	hexaploid	-	Ericales	Ericaceae	Rhododendron
+1545	Rhododendron x pulchrum	-	-	haplotype 1	Ericales	Ericaceae	Rhododendron 
+1546	Rhododendron x pulchrum	-	-	haplotype 2	Ericales	Ericaceae	Rhododendron
+1547	Rhodomyrtus tomentosa	98583	-	LFSTJN-1	Myrtales	Myrtaceae	Rhodomyrtus
+1548	Rhoiptelea chiliantha	60426	-	-	Fagales	Juglandaceae	Rhoiptelea
+1549	Rhus chinensis Mill	-	diploid	Nutgall tree; Chinese sumac	Sapindales	Anacardiaceae	Rhus chinensis
+1550	Rhynchospora breviuscula	2022672	diploid	-	Poales	Cyperaceae	Rhynchospora
+1551	Rhynchospora pubera	906938	octoploid	-	Poales	Cyperaceae	Rhynchospora
+1552	Rhynchospora tenuis	198213	diploid	-	Poales	Cyperaceae	Rhynchospora
+1553	Ribes nigrum	78511	diploid	Blackcurrant	Saxifragales	Grossulariaceae	Ribes
+1554	Ricinus communis	3988	diploid	-	Malpighiales	Euphorbiaceae	Ricinus
+1555	Robinia pseudoacacia	35938	diploid	-	Fabales	Fabaceae	Robinia
+1556	Roridula gorgonias	3772	diploid	-	Ericales	Roridulaceae	Roridula
+1557	Rorippa aquatica	65950	diploid	-	Brassicales	Brassicaceae	Rorippa
+1558	Rosa chinensis	74649	diploid	Old Blush	Rosales	Rosaceae	Rosa
+1559	Rosa gigantea	-	-	RG	Rosales	Rosaceae	Rosa
+1560	Rosa hybrida	-	tetraploid	Modern rose	Rosales	Rosaceae	Rosa
+1561	Rosa lucieae	74648	-	-	Rosales	Rosaceae	Rosa
+1562	Rosa multiflora	74647	-	-	Rosales	Rosaceae	Rosa
+1563	Rosa roxburghii	74654	diploid	-	Rosales	Rosaceae	Rosa
+1564	Rosa rugosa	74645	diploid	-	Rosales	Rosaceae	Rosa
+1565	Rosa wichuraiana	-	diploid	Basye's Thornless	Rosales	Rosaceae	Rosa
+1566	Rosa x damascena	3765	-	-	Rosales	Rosaceae	Rosa
+1567	Roscoea debilis	1576615	diploid	-	Zingiberales	Zingiberaceae	Roscoea
+1568	Rose chinensis	-	diploid	-	Rosales	Rosaceae	Rose
+1569	Rosmarinus officinalis	-	-	-	Lamiales	Lamiaceae	Rosmarinus
+1570	Rubus argutus	59490	diploid	cv. “Hillquist”	Rosales	Rosaceae	Rubus
+1571	Rubus chingii	714495	diploid	-	Rosales	Rosaceae	Rubus
+1572	Rubus corchorifolius	190223	-	-	Rosales	Rosaceae	Rubus
+1573	Rubus idaeus	32247	diploid	Anitra	Rosales	Rosaceae	Rubus
+1574	Rubus leucanthus	1603830	-	-	Rosales	Rosaceae	Rubus
+1575	Rubus occidentalis	75079	diploid	ORUS 4115-3	Rosales	Rosaceae	Rubus
+1576	Rubus rosaefolius	-	-	-	Rosales	Rosaceae	Rubus
+1577	Ruellia speciosa	441023	diploid	-	Lamiales	Acanthaceae	Ruellia
+1578	Rumex hastatulus	273503	diploid	-	Caryophyllales	Polygonaceae	Rumex
+1579	Saccharum spontaneum	62335	-	-	Poales	Poaceae	Saccharum
+1580	Saccharum spp.	-	-	-	Poales	Poaceae	Saccharum
+1581	Saccharum x sp.	-	-	KK3	Poales	Poaceae	Saccharum
+1582	Sageretia thea	72166	diploid	-	Rosales	Rhamnaceae	Sageretia
+1583	Salicornia bigelovii	46105	tetraploid	-	Caryophyllales	Amaranthaceae	Salicornia
+1584	Salicornia europaea	206448	diploid	-	Caryophyllales	Amaranthaceae	Salicornia
+1585	Salix arbutifolia	75699	-	male	Malpighiales	Salicaceae	Salix
+1586	Salix brachista	2182728	diploid	-	Malpighiales	Salicaceae	Salix
+1587	Salix chaenomeloides	75708	-	male	Malpighiales	Salicaceae	Salix
+1588	Salix cheilophila	688336	-	Sand Willow	Malpighiales	Salicaceae	Salix
+1589	Salix dunnii	1413687	-	-	Malpighiales	Salicaceae	Salix
+1590	Salix integra	75711	diploid	P336	Malpighiales	Salicaceae	Salix
+1591	Salix koriyanagi	2511006	diploid	SH3	Malpighiales	Salicaceae	Salix
+1592	Salix matsudana	349989	-	-	Malpighiales	Salicaceae	Salix
+1593	Salix mesnyi	1413691	diploid	-	Malpighiales	Salicaceae	Salix
+1594	Salix purpurea	77065	diploid	94006	Malpighiales	Salicaceae	Salix
+1595	Salix suchowensis	1278906	diploid	-	Malpighiales	Salicaceae	Salix
+1596	Salix triandra	77069	diploid	-	Malpighiales	Salicaceae	Salix
+1597	Salix udensis	889485	diploid	04-BN-051	Malpighiales	Salicaceae	Salix
+1598	Salix viminalis	40686	-	-	Malpighiales	Salicaceae	Salix
+1599	Salvia bowleyana	424416	diploid	-	Lamiales	Lamiaceae	Salvia
+1600	Salvia divinorum	28513	diploid	Diviner's sage	Lamiales	Lamiaceae	Salvia
+1601	Salvia hispanica	49212	-	-	Lamiales	Lamiaceae	Salvia
+1602	Salvia miltiorrhiza	226208	-	-	Lamiales	Lamiaceae	Salvia
+1603	Salvia officinalis	38868	diploid	-	Lamiales	Lamiaceae	Salvia
+1604	Salvia rosmarinus	39367	diploid	WT;U2	Lamiales	Lamiaceae	Salvia
+1605	Salvia splendens	180675	tetraploid	-	Lamiales	Lamiaceae	Salvia
+1606	Salvinia cucullata	32188	-	-	Salviniales	Salviniaceae	Salvinia
+1607	Sambucus nigra Linnaeus	-	diploid	elderberry; European elder	Dipsacales	Adoxaceae	Sambucus
+1608	Sanguina aurantia	2578422	-	watermelon snow	Ranunculales	Chlamydomonadaceae	Sanguina
+1609	Santalum album	35974	-	-	Santalales	Santalaceae	Santalum
+1610	Santalum yasi	453089	-	-	Santalales	Santalaceae	Santalum
+1611	Santalum. album	-	-	-	Santalales	Santalaceae	Santalum.
+1612	Sapindus mukorossi	57655	diploid	-	Sapindales	Sapindaceae	Sapindus
+1613	Saposhnikovia divaricata	203717	diploid	-	Apiales	Apiaceae	Saposhnikovia
+1614	Sapria himalayana	289637	-	-	Malpighiales	Rafflesiaceae	Sapria
+1615	Sauropus androgynus	-	diploid	-	Malpighiales	Phyllanthaceae	Sauropus
+1616	Sauropus spatulifolius	-	-	-	Malpighiales	Phyllanthaceae	Sauropus
+1617	Saururus chinensis	54806	diploid	-	Piperales	Saururaceae	Saururus
+1618	Saussurea involucrata	200489	-	-	Asterales	Asteraceae	Saussurea
+1619	Scaevola hainanensis	1340049	-	-	Asterales	Goodeniaceae	Scaevola
+1620	Scaevola sericea	-	-	-	Asterales	Goodeniaceae	Scaevola
+1621	Scaevola taccada	16481	-	-	Asterales	Goodeniaceae	Scaevola
+1622	Scalesia atractyloides	2708596	-	-	Asterales	Asteraceae	Scalesia
+1623	Scenedesmus quadricauda	3089	-	-	Sphaeropleales	Scenedesmaceae	Scenedesmus
+1624	Scenedesmus sellowii	-	-	-	Malpighiales	Scenedesmaceae	Scenedesmus
+1625	Scenedesmus silvestris	-	-	-	Malpighiales	Scenedesmaceae	Scenedesmus
+1626	Scenedesmus vacuolatus	77546	-	-	Sphaeropleales	Scenedesmaceae	Scenedesmus
+1627	Schizonepeta tenuifolia	2849020	-	-	Lamiales	Lamiaceae	Schizonepeta
+1628	Schoenoplectus tabernaemontani	316508	diploid	Soft-Stem Bulrush	Poales	Cyperaceae	Schoenoplectus
+1629	Sclerocarya birrea	289766	-	-	Sapindales	Anacardiaceae	Sclerocarya
+1630	Scurrula parasitica	227903	-	var. graciliflora	Santalales	Loranthaceae	Scurrula
+1631	Scutellaria baicalensis	65409	diploid	Heibei	Lamiales	Lamiaceae	Scutellaria
+1632	Scutellaria barbata	396367	-	-	Lamiales	Lamiaceae	Scutellaria
+1633	Scutellaria indica	233892	diploid	-	Lamiales	Lamiaceae	Scutellaria
+1634	Scutellaria minor	1053395	diploid	-	Lamiales	Lamiaceae	Scutellaria
+1635	Scyphiphora hydrophyllacea	86994	-	-	Gentianales	Rubiaceae	Scyphiphora
+1636	Secale cereale	4550	diploid	-	Poales	Poaceae	Secale
+1637	Sechium edule	-	diploid	-	Cucurbitales	Cucurbitaceae	Sechium
+1638	Sedum album	23029	tetraploid	-	Saxifragales	Crassulaceae	Sedum
+1639	Selaginella kraussiana	81964	-	-	Selaginellales	Selaginellaceae	Selaginella
+1640	Selaginella lepidophylla	59777	diploid	-	Selaginellales	Selaginellaceae	Selaginella
+1641	Selaginella moellendorffii	88036	diploid	-	Selaginellales	Selaginellaceae	Selaginella
+1642	Selaginella tamariscina	137178	diploid	-	Selaginellales	Selaginellaceae	Selaginella
+1643	Senecio squalidus	121554	diploid	-	Asterales	Asteraceae	Senecio
+1644	Senna siamea	346999	-	-	Fabales	Fabaceae	Senna
+1645	Senna tora	362788	-	-	Fabales	Fabaceae	Senna
+1646	Sequoia sempervirens	28980	hexaploid	-	Cupressales	Cupressaceae	Sequoia
+1647	Sequoiadendron giganteum	99814	diploid	-	Cupressales	Cupressaceae	Sequoiadendron
+1648	Sesamum alatum	300844	diploid	3651	Lamiales	Pedaliaceae	Sesamum
+1648	Sesamum angolense	2727404	diploid	K16	Lamiales	Pedaliaceae	Sesamum
+1648	Sesamum angustifolium	2727405	diploid	G01	Lamiales	Pedaliaceae	Sesamum
+1648	Sesamum calycinum	2727403	diploid	KEN8	Lamiales	Pedaliaceae	Sesamum
+1648	Sesamum indicum	4182	diploid	Yuzhi 11	Lamiales	Pedaliaceae	Sesamum
+1654	Sesamum latifolium	2727402	diploid	KEN1	Lamiales	Pedaliaceae	Sesamum
+1655	Sesamum radiatum	300843	tetraploid	G02	Lamiales	Pedaliaceae	Sesamum
+1656	Sesamum schinzianum	768545	tetraploid	wild	Lamiales	Pedaliaceae	Sesamum
+1657	Sesbania cannabina	206307	diploid	Zhang gu	Poales	Poaceae	Sesbania
+1658	Setaria italica	4555	diploid	Yugu1	Poales	Poaceae	Setaria
+1659	Setaria viridis	4556	-	-	Malvales	Dipterocarpaceae	Setaria
+1660	Sextonia rubra	128702	-	-	Laurales	Lauraceae	Sextonia
+1661	Shorea henryana	-	-	-	Malvales	Dipterocarpaceae	Shorea
+1662	Shorea leprosula	-	-	-	Caryophyllales	Caryophyllaceae	Shorea
+1663	Shorea robusta	666687	diploid	-	Malvales	Dipterocarpeae	Shorea
+1664	Shorea roxburghii	-	diploid	-	Caryophyllales	Caryophyllaceae	Shorea
+1665	Silene conica	39875	diploid	female inbred K-line	Caryophyllales	Caryophyllaceae	Silene
+1666	Silene latifolia	37657	-	-	Caryophyllales	Caryophyllaceae	Silene
+1667	Silene noctiflora	39899	-	male	Caryophyllales	Simmondsiaceae	Silene
+1668	Silk	-	triploid	Bananas	Zingiberales	Musaceae	Silk
+1669	Silybum marianum	92921	diploid	milk thistle	Asterales	Asteraceae	Silybum
+1670	Simmondsia chinensis	3999	-	female	Caryophyllales	Simmondsiaceae	Simmondsia
+1671	Sinapis alba	3728	diploid	KEW33440	Brassicales	Brassicaceae	Sinapis
+1672	Sinapis arvensis	-	-	-	Gentianales	Gentianaceae	Sinapis
+1673	Sindora glabra	2590455	-	-	Cucurbitales	Cucurbitaceae	Sindora
+1674	Sinojackia xylocarpa	168123	diploid	-	Ericales	Styracaceae	Sinojackia
+1675	Sinoswer tia tetraptera	-	-	variety Qingpiguo	Cucurbitales	Cucurbitaceae	Sinoswer tia
+1676	Siraitia grosvenorii	190515	diploid	-	Brassicales	Brassicaceae	Siraitia
+1677	Sisymbrium altissimum	71365	-	-	Asterales	Asteraceae	Sisymbrium
+1678	Sisymbrium irio	3730	diploid	-	Solanales	Solanaceae	Sisymbrium
+1679	Smallanthus sonchifolius	185202	diploid	SP1102	Solanales	Solanaceae	Smallanthus
+1680	Solanum aethiopicum	205524	diploid	SP2271	Solanales	Solanaceae	Solanum
+1681	Solanum americanum	109975	diploid	SP2275	Solanales	Solanaceae	Solanum
+1682	Solanum andigena	-	diploid	nos. 670、716	Solanales	Solanaceae	Solanum
+1683	Solanum andreanum	315332	-	LA2157	Solanales	Solanaceae	Solanum
+1684	Solanum appendiculatum	115661	diploid	PG5076	Solanales	Solanaceae	Solanum
+1685	Solanum arcanum	376710	diploid	PG5032	Solanales	Solanaceae	Solanum
+1686	Solanum boliviense	561126	diploid	-	Solanales	Solanaceae	Solanum
+1687	Solanum brevicaule	205532	diploid	BUK2	Solanales	Solanaceae	Solanum
+1688	Solanum brevicaule × Solanum tuberosum	-	diploid	-	Solanales	Solanaceae	Solanum
+1689	Solanum buesii	856885	diploid	PG6241	Solanales	Solanaceae	Solanum
+1690	Solanum bukasovii	172263	diploid	-	Solanales	Solanaceae	Solanum
+1691	Solanum bulbocastanum	147425	-	-	Solanales	Solanaceae	Solanum
+1692	Solanum burkartii	3108653	diploid	PG5068	Solanales	Solanaceae	Solanum
+1693	Solanum cajamarquense	856892	diploid	PG5062	Solanales	Solanaceae	Solanum
+1694	Solanum candolleanum	315336	diploid	PG5018	Solanales	Solanaceae	Solanum
+1695	Solanum chacoense	4108	diploid	-	Solanales	Solanaceae	Solanum
+1696	Solanum chilense	4083	diploid	-	Solanales	Solanaceae	Solanum
+1697	Solanum chiquidenum	856890	diploid	-	Solanales	Solanaceae	Solanum
+1698	Solanum chmielewskii	62889	-	-	Solanales	Solanaceae	Solanum
+1699	Solanum chomatophilum	317820	diploid	PG4049	Solanales	Solanaceae	Solanum
+1700	Solanum commersonii	4109	diploid	-	Solanales	Solanaceae	Solanum
+1701	Solanum commersonii × Solanum andigena	-	diploid	-	Solanales	Solanaceae	Solanum
+1702	Solanum corneliomulleri	230663	-	LA0317	Solanales	Solanaceae	Solanum
+1703	Solanum etuberosum	200525	diploid	-	Solanales	Solanaceae	Solanum
+1704	Solanum galapagense	315350	-	LA0407	Solanales	Solanaceae	Solanum
+1705	Solanum gandarillasii	561127	diploid	-	Solanales	Solanaceae	Solanum
+1706	Solanum gracilifrons	2898761	diploid	-	Solanales	Solanaceae	Solanum
+1707	Solanum habrochaites	62890	diploid	PG1008	Solanales	Solanaceae	Solanum
+1708	Solanum jamesii	172793	-	LA2951	Solanales	Solanaceae	Solanum
+1709	Solanum lignicaule	315341	diploid	-	Solanales	Solanaceae	Solanum
+1710	Solanum lycopersicoides	142760	-	Heinz 1706	Solanales	Solanaceae	Solanum
+1711	Solanum lycopersicum	4081	-	OH88119	Solanales	Solanaceae	Solanum
+1712	Solanum megistacrolobum	445678	diploid	-	Solanales	Solanaceae	Solanum
+1713	Solanum melongena	4111	diploid	HQ-1315 line	Solanales	Solanaceae	Solanum
+1714	Solanum morelliforme	317827	-	-	Solanales	Solanaceae	Solanum
+1715	Solanum multiinterruptum	317829	-	LA0247	Solanales	Solanaceae	Solanum
+1716	Solanum muricatum	205567	diploid	PG6243	Solanales	Solanaceae	Solanum
+1717	Solanum neorickii	62891	diploid	OKA15	Solanales	Solanaceae	Solanum
+1718	Solanum neorossii	172795	diploid	PG0009	Solanales	Solanaceae	Solanum
+1719	Solanum okadae	73575	diploid	-	Solanales	Solanaceae	Solanum
+1720	Solanum palustre	4115	-	LA716	Solanales	Solanaceae	Solanum
+1721	Solanum paucissectum	856984	diploid	-	Solanales	Solanaceae	Solanum
+1722	Solanum pennellii	28526	-	LA0446	Solanales	Solanaceae	Solanum
+1723	Solanum peruvianum	4082	diploid	update DM 1-3 516 R44；v6.1	Solanales	Solanaceae	Solanum
+1724	Solanum phureja	172790	diploid	W5281.2	Solanales	Solanaceae	Solanum
+1725	Solanum phureja x Solanum tuberosum	188760	-	LA0480	Solanales	Solanaceae	Solanum
+1726	Solanum pimpinellifolium	4084	-	LA2093	Solanales	Solanaceae	Solanum
+1727	Solanum pinnatisectum	50273	diploid	-	Solanales	Solanaceae	Solanum
+1728	Solanum piurae	205571	diploid	-	Solanales	Solanaceae	Solanum
+1729	Solanum rostratum	45839	diploid	PG4032	Solanales	Solanaceae	Solanum
+1730	Solanum sitiens	315349	diploid	F172	Solanales	Solanaceae	Solanum
+1731	Solanum sogarandinum	52705	diploid	-	Solanales	Solanaceae	Solanum
+1732	Solanum sparsipilum	172796	diploid	-	Solanales	Solanaceae	Solanum
+1733	Solanum stenotomum	172797	-	RH89-039-16(haplotype)	Solanales	Solanaceae	Solanum
+1734	Solanum stoloniferum	62892	Tetraploid	potato	Solanales	Solanaceae	Solanum
+1735	Solanum tacnaense	2898762	diploid	-	Solanales	Solanaceae	Solanum
+1736	Solanum tarapatanum	2898763	diploid	-	Solanales	Solanaceae	Solanum
+1737	Solanum tarijense	257458	diploid	-	Solanales	Solanaceae	Solanum
+1738	Solanum tarnii × Solanum tuberosum	-	diploid	-	Solanales	Solanaceae	Solanum
+1739	Solanum torvum	119830	-	-	Solanales	Solanaceae	Solanum
+1740	Solanum tuberosum	4113	-	E4-63	Solanales	Solanaceae	Solanum
+1741	Solanum vernei	162495	-	-	Myrtales	Lythraceae	Solanum
+1742	Solanum verrucosum	315347	diploid	improved	Myrtales	Lythraceae	Solanum
+1743	Sonneratia alba	122812	diploid	-	Myrtales	Lythraceae	Sonneratia
+1744	Sonneratia apetala	122813	diploid	improved	Myrtales	Lythraceae	Sonneratia
+1745	Sonneratia caseolaris	122814	diploid	-	Myrtales	Lythraceae	Sonneratia
+1746	Sonneratia ovata	122816	-	-	Myrtales	Lythraceae	Sonneratia
+1747	Sophora flavescens	49840	-	-	Fabales	Fabaceae	Sophora
+1748	Sophora japonica	-	diploid	-	Fabales	Fabaceae	Sophora
+1749	Sophora koreensis	-	-	-	Rosales	Rosaceae	Sophora
+1750	Sophora moorcroftiana	1323965	diploid	BTx623	Poales	Poaceae	Sophora
+1751	Sorbus pohuashanensis	-	diploid	update BTx623	Poales	Poaceae	Sorbus
+1752	Sorghum	4557	-	“Cuohu Bazi” (CHBZ)	Poales	Poaceae	Sorghum
+1753	Sorghum bicolor	4558	-	Tx430	Poales	Poaceae	Sorghum
+1754	Sorghum propinquum	132711	diploid	-	Fabales	Fabaceae	Sorghum
+1755	Soybean	-	tetraploid	Soybean	Fabales	Fabaceae	Soybean
+1756	Sparganium stoloniferum	203643	-	-	Malpighiales	Euphorbiaceae	Sparganium
+1757	Spartina alterniflora	-	diploid	cordgrass	Poales	Poaceae	Spartina
+1758	Spatholobus suberectus	455371	-	-	Sphagnales	Sphagnaceae	Spatholobus
+1759	Speranskia yunnanensis	2857522	-	-	Sphagnales	Sphagnaceae	Speranskia
+1760	Sphagnum angustifolium	76341	diploid	Cultivar SynViroflay	Caryophyllales	Amaranthaceae	Sphagnum
+1761	Sphagnum divinum	2779801	diploid	Sp75	Caryophyllales	Amaranthaceae	Sphagnum
+1762	Sphenostylis stenocarpa	92480	diploid	African yam bean	Fabales	Fabaceae	Sphenostylis
+1763	Spinacia  tetrandra	-	diploid	-	Caryophyllales	Amaranthaceae	Spinacia
+1764	Spinacia  turkestanica	-	diploid	-	Caryophyllales	Amaranthaceae	Spinacia
+1765	Spinacia oleracea	3562	diploid	03-009	Caryophyllales	Chenopodiaceae	Spinacia
+1766	Spinacia tetrandra	1072235	diploid	-	Caryophyllales	Amaranthaceae	Spinacia
+1767	Spinacia turkestanica	-	diploid	-	Caryophyllales	Amaranthaceae	Spinacia
+1768	Spiraea crenata	409507	-	-	Rosales	Rosaceae	Spiraea
+1769	Spirodela intermedia	51605	tetraploid	strain 7498	Alismatales	Araceae	Spirodela
+1770	Spirodela polyrhiza	29656	tetraploid	update strain 7498	Alismatales	Araceae	Spirodela
+1771	Spirogloea muscicola	2576442	hexaploid	-	Poales	Poaceae	Spirogloea
+1772	Sporobolus alterniflorus	29706	tetraploid	-	Poales	Poaceae	Sporobolus
+1773	Sporobolus pyramidalis	-	diploid	-	Malvales	Thymelaeaceae	Sporobolus
+1774	Sporobolus stapfianus	56623	-	-	Caryophyllales	Cactaceae	Sporobolus
+1775	Stellera chamaejasme	142738	-	-	Asterales	Asteraceae	Stellera
+1776	Stenocereus thurberi	171973	diploid	Zhongshan No. 7'	Asterales	Asteraceae	Stenocereus
+1777	Stenogyne calaminthoides	141791	-	-	Lamiales	Lamiaceae	Stenogyne
+1778	Stephania cepharantha	-	-	-	Ranunculales	Menispermaceae	Stephania
+1779	Stephania japonica	461633	diploid	-	Ranunculales	Menispermaceae	Stephania
+1780	Stephania longa	147244	-	-	Ranunculales	Menispermaceae	Stephania
+1781	Stephania yunnanensis	152371	-	-	Ranunculales	Menispermaceae	Stephania
+1782	Stevia rebaudiana	55670	-	-	Asterales	Asteraceae	Stevia
+1783	Stichococcus bacillaris	37433	diploid	-	Lamiales	Gesneriaceae	Stichococcus
+1784	Stipa capillata	665498	-	Clark 1304	Poales	Poaceae	Stipa
+1785	Streptocarpus rexii	121488	-	-	Lamiales	Orobanchaceae	Streptocarpus
+1786	Streptochaeta angustifolia	38733	-	-	Lamiales	Acanthaceae	Streptochaeta
+1787	Striga asiatica	4170	diploid	-	Lamiales	Acanthaceae	Striga
+1788	Striga hermonthica	68872	-	-	Lamiales	Orobanchaceae	Striga
+1789	Strobilanthes cusia	222567	-	-	Caryophyllales	Amaranthaceae	Strobilanthes
+1790	Suaeda aralocaspica	224144	-	-	Sapindales	Meliaceae	Suaeda
+1791	Suaeda glauca	397272	-	-	Sapindales	Meliaceae	Suaeda
+1792	Suaeda salsa	126914	-	-	Caryophyllales	Amaranthaceae	Suaeda
+1793	Sugarcane R570	-	diploid	Sugarcane;	Poales	Poaceae	Sugarcane
+1794	Sugarcane ZZ1	-	haploid	Sugarcane	Poales	Poaceae	Sugarcane
+1795	Swietenia macrophylla	43891	diploid	-	Ericales	Sapotaceae	Swietenia
+1796	Symbiochloris irregularis (SymirrSAG2036)	-	-	-	Trebouxiales	-	Symbiochloris
+1797	Synsepalum dulcificum	3743	-	1987–1499	Lamiales	Oleaceae	Synsepalum
+1798	Syntrichia caninervis	200751	-	-	Lamiales	Oleaceae	Syntrichia
+1799	Syntrichia ruralis	38588	-	Tortula ruralis	Pottiales	Pottiaceae	Syntrichia
+1800	Syringa oblata	178762	-	-	Lamiales	Oleaceae	Syringa
+1801	Syringa pinnatifolia	149022	diploid	-	Lamiales	Oleaceae	Syringa
+1802	Syzygium aqueum	219865	tetraploid	-	Myrtales	Myrtaceae	Syzygium
+1803	Syzygium aromaticum	219868	-	-	Myrtales	Myrtaceae	Syzygium
+1804	Syzygium cumini	260142	tetraploid	ZT-00170999	Myrtales	Myrtaceae	Syzygium
+1805	Syzygium grande	1042139	diploid	ZT-00170996	Myrtales	Myrtaceae	Syzygium
+1806	Syzygium jambos	334483	-	-	Myrtales	Myrtaceae	Syzygium
+1807	Syzygium maire	334487	diploid	-	Myrtales	Myrtaceae	Syzygium
+1808	Syzygium malaccense	219892	tetraploid	Tub	Myrtales	Myrtaceae	Syzygium
+1809	Syzygium oleosum	219896	tetraploid	ZT-00170991	Myrtales	Myrtaceae	Syzygium
+1810	Syzygium samarangense	260143	-	V-01	Asterales	Asteraceae	Syzygium
+1811	Syzygium syzygioides	1489818	diploid	-	Takakiales	Takakiaceae	Syzygium
+1812	Tagetes erecta	13708	diploid	Lucheng No. 1	Caryophyllales	Tamaricaceae	Tagetes
+1813	Taihangia rupestris var. ciliata	2509618	-	-	Rosales	Rosaceae	Taihangia
+1814	Takakia lepidozioides	37425	-	-	Asterales	Asteraceae	Takakia
+1815	Tamarix austromongolica	262213	-	-	Caryophyllales	Tamaricaceae	Tamarix
+1816	Tamarix chinensis	189791	-	-	Crossosomatales	Staphyleaceae	Tamarix
+1817	Tanacetum cinerariifolium	118510	-	-	Asterales	Asteraceae	Tanacetum
+1818	Tapiscia sinensis	112844	diploid	TK1151	Asterales	Asteraceae	Tapiscia
+1819	Taraxacum kok-saghyz	333970	triploid	TM5	Asterales	Asteraceae	Taraxacum
+1820	Taraxacum mongolicum	90037	-	-	Brassicales	Cleomaceae	Taraxacum
+1821	Taraxacum officinale	50225	-	-	Santalales	Loranthaceae	Taraxacum
+1822	Tarenaya hassleriana	28532	diploid	-	Cupressales	Taxaceae	Tarenaya
+1823	Taxillus chinensis	227909	-	-	Cupressales	Taxaceae	Taxillus
+1824	Taxus chinensis	29808	-	-	Cupressales	Taxaceae	Taxus
+1825	Taxus wallichiana	147273	diploid	-	Lamiales	Lamiaceae	Taxus
+1826	Taxus yunnanensis	-	diploid	HCNGB_00001711	Lamiales	Lamiaceae	Taxus
+1827	Tectona grandis	41396	diploid	-	Proteales	Proteaceae	Tectona
+1828	Telopea speciosissima	54955	-	-	Trochodendrales	Trochodendraceae	Telopea
+1829	Tetrabaena socialis	47790	-	-	Trochodendrales	Trochodendraceae	Tetrabaena
+1830	Tetracentron sinense	13715	-	385-62	Trochodendrales	Trochodendraceae	Tetracentron
+1831	Tetracme quadricornis	358676	diploid	-	Brassicales	Brassicaceae	Tetracme
+1832	Tetradesmus acuminatus	-	tetraploid	-	Zygophyllales	Zygophyllaceae	Tetradesmus
+1833	Tetradesmus obliquus	3088	-	-	Parmales	-	Tetradesmus
+1834	Tetraena mongolica	66646	-	-	Chlorodendrales	Chlorodendraceae	Tetraena
+1835	Tetraparma gracilis	2962635	diploid	female	Vitales	Vitaceae	Tetraparma
+1836	Tetraselmis striata	3165	-	-	Zingiberales	Marantaceae	Tetraselmis
+1837	Tetrastigma hemsleyanum	1006121	diploid	-	Ranunculales	Ranunculaceae	Tetrastigma
+1838	Teucrium marum	711380	diploid	cat thyme	Lamiales	Labiatae	Teucrium
+1839	Thalassia testudinum	55497	diploid	-	Alismatales	Hydrocharitaceae	Thalassia
+1840	Thalia dealbata	210077	diploid	WT478	Ranunculales	Ranunculaceae	Thalia
+1841	Thalictrum thalictroides	46969	-	-	Brassicales	Brassicaceae	Thalictrum
+1842	Thellungiella parvula	-	-	-	Brassicales	Brassicaceae	Thellungiella
+1843	Thellungiella salsuginea	-	-	TtPh16-4	Poales	Poaceae	Thellungiella
+1844	Themeda triandra	106636	diploid	Matina 1-6	Malvales	Malvaceae	Themeda
+1845	Theobroma cacao	3641	diploid	update B97-61/B2;v2	Malvales	Malvaceae	Theobroma
+1846	Theobroma grandiflorum	108881	diploid	cupuassu	Malvales	Malvaceae	Theobroma
+1847	Thinopyrum elongatum	4588	diploid	-	Brassicales	Brassicaceae	Thinopyrum
+1848	Thlaspi arvense	13288	diploid	LiJ461	Brassicales	Brassicaceae	Thlaspi
+1849	Thuja plicata	3316	-	-	Saxifragales	Saxifragaceae	Thuja
+1850	Thymus mandschuricus	532139	-	-	Brassicales	Labiatae	Thymus
+1851	Thymus mongolicus	532141	diploid	-	Lamiales	Lamiaceae	Thymus
+1852	Thymus quinquecostatus	228974	-	var. ciliata	Sapindales	Meliaceae	Thymus
+1853	Tiarella polyphylla	61222	diploid	-	Sapindales	Meliaceae	Tiarella
+1854	Tillandsia duratii	294049	-	-	Poales	Bromeliaceae	Tillandsia
+1855	Tillandsia fasciculata	220113	diploid	-	Poales	Bromeliaceae	Tillandsia
+1856	Tillandsia leiboldiana	1842917	diploid	-	Poales	Bromeliaceae	Tillandsia
+1857	Tinospora sagittata	-	tetraploid	-	Ranunculales	Menispermaceae	Tinospora
+1858	Toniniopsis dissimilis	2906772	-	-	-	-	Toniniopsis
+1859	Toona ciliata	67918	-	-	Cupressales	Taxaceae	Toona
+1860	Toona fargesii	3003557	diploid	honghua xiangchun	Sapindales	Meliaceae	Toona
+1861	Toona sinensis	443222	-	-	Sapindales	Anacardiaceae	Toona
+1862	Torenia fournieri	68875	diploid	wishbone flower	Lamiales	Scrophulariaceae	Torenia
+1863	Torreya grandis	58047	diploid	Gaobachi(female)	Sapindales	Anacardiaceae	Torreya
+1864	Toxicodendron radicans	43853	-	-	Myrtales	Lythraceae	Toxicodendron
+1865	Toxicodendron succedaneum 'Japan'	-	diploid	-	Sapindales	Anacardiaceae	Toxicodendron
+1866	Toxicodendron succedaneum 'Vietnam'	-	diploid	-	Sapindales	Anacardiaceae	Toxicodendron
+1867	Toxicodendron vernicifluum	4013	diploid	-	Myrtales	Lythraceae	Toxicodendron
+1868	Toxicodendron vernicifluum 'Dali'	-	diploid	-	Sapindales	Anacardiaceae	Toxicodendron
+1869	Trapa bicornis	236974	diploid	-	Myrtales	Lythraceae	Trapa
+1870	Trapa incisa	236973	-	-	Myrtales	Lythraceae	Trapa
+1871	Trapa natans	22666	tetraploid	-	Rosales	Cannabaceae	Trapa
+1872	Trebouxia sp (TrespOTU1)	-	-	-	Trebouxiales	-	Trebouxia
+1873	Trebouxia sp (TrespOTU3)	-	-	-	Trebouxiales	-	Trebouxia
+1874	Trebouxia sp (TrespOTU5)	-	-	-	Trebouxiales	-	Trebouxia
+1875	Trema orientalis	-	-	-	Dioscoreales	Dioscoreaceae	Trema
+1876	Triadica sebifera	139772	-	-	Cucurbitales	Cucurbitaceae	Triadica
+1877	Trichopus zeylanicus	167602	octoploid	-	Fabales	Fabaceae	Trichopus
+1878	Trichosanthes anguina	50544	diploid	-	Fabales	Fabaceae	Trichosanthes
+1879	Trichosanthes truncata	685060	-	the pointed leaf gourd	Cucurbitales	Cucurbitaceae	Trichosanthes
+1880	Trifolium alexandrinum	97006	-	Egyptian clover	Fabales	Fabaceae	Trifolium
+1881	Trifolium medium	97028	diploid	-	Fabales	Fabaceae	Trifolium
+1882	Trifolium occidentale	74524	diploid	Tatra	Fabales	Fabaceae	Trifolium
+1883	Trifolium pallescens	74526	diploid	Milvus	Fabales	Fabaceae	Trifolium
+1884	Trifolium pratense	57577	diploid	HEN17-A07	Fabales	Fabaceae	Trifolium
+1885	Trifolium repens	3899	tetraploid	haplotype 1	Fabales	Fabaceae	Trifolium
+1886	Trifolium subterraneum	3900	diploid	TSUd_3.0(improved)	Fabales	Fabaceae	Trifolium
+1887	Triparma columacea	722753	-	-	Parmales	Triparmaceae	Triparma
+1888	Triparma laevis	1534972	-	-	Parmales	Triparmaceae	Triparma
+1889	Triparma strigata	1606541	-	-	Celastrales	Celastraceae	Triparma
+1890	Triparma verrucosa	1606542	-	-	Celastrales	Celastraceae	Triparma
+1891	Triplostegia glandulifera	59180	diploid	-	Dipsacales	Caprifoliaceae	Triplostegia
+1892	Tripterygium sp.	-	hexaploid	Chinese Spring	Poales	Poaceae	Tripterygium
+1893	Tripterygium wilfordii	458696	hexaploid	update CS	Poales	Poaceae	Tripterygium
+1894	Triticum aestivum	4565	hexaploid	update CS;v4	Poales	Poaceae	Triticum
+1895	Triticum monococcum	4568	diploid	PI 306540	Poales	Poaceae	Triticum
+1896	Triticum timopheevii	4570	diploid	-	Poales	Poaceae	Triticum
+1897	Triticum turgidum	4571	diploid	G1812	Poales	Poaceae	Triticum
+1898	Triticum urartu	4572	diploid	-	Trochodendrales	Trochodendraceae	Triticum
+1899	Trochodendron aralioides	4407	diploid	-	Brassicales	Brassicaceae	Trochodendron
+1900	Turnera subulata	218843	diploid	-	Poales	Typhaceae	Turnera
+1901	Turritis glabra	63678	diploid	-	Poales	Typhaceae	Turritis
+1902	Typha angustifolia	59011	-	-	Rosales	Ulmaceae	Typha
+1903	Typha latifolia	4733	-	-	Ulvales	Ulvaceae	Typha
+1904	Ulmus americana	29740	-	-	Ulvales	Ulvaceae	Ulmus
+1905	Ulva compressa	63659	-	-	Ulvales	Ulvaceae	Ulva
+1906	Ulva mutabilis	498180	-	CIAT26162	Poales	Poaceae	Ulva
+1907	Ulva prolifera	3117	-	-	Lamiales	Lentibulariaceae	Ulva
+1908	Uncaria rhynchophylla	43575	-	-	Gentianales	Rubiaceae	Uncaria
+1909	Urochloa ruziziensis	240450	-	-	Lamiales	Lentibulariaceae	Urochloa
+1910	Urtica urens	473050	diploid	small nettle	Rosales	Urticaceae	Urtica
+1911	Utricularia gibba	13748	tetraploid	-	Lamiales	Lentibulariaceae	Utricularia
+1912	Utricularia reniformis	192314	diploid	W8520	Ericales	Ericaceae	Utricularia
+1913	Vaccinium bracteatum	276782	diploid	annotation W8520	Ericales	Ericaceae	Vaccinium
+1914	Vaccinium corymbosum	69266	tetraploid	haplotype	Ericales	Ericaceae	Vaccinium
+1915	Vaccinium darrowii	229202	diploid	-	Ericales	Ericaceae	Vaccinium
+1916	Vaccinium duclouxii	1633937	diploid	cultivar Stevens	Ericales	Ericaceae	Vaccinium
+1917	Vaccinium floribundum	180757	diploid	mortiño	Ericales	Ericaceae	Vaccinium
+1918	Vaccinium macrocarpon	13750	diploid	CNJ95-125-1	Ericales	Ericaceae	Vaccinium
+1919	Vaccinium microcarpum	669730	-	ssp. minus	Ericales	Ericaceae	Vaccinium
+1920	Vaccinium myrtillus	180763	-	ssp. vitis-idaea, LC1	Ericales	Ericaceae	Vaccinium
+1921	Vaccinium vitis-idaea	180772	tetraploid	Lingonberry	Ericales	Ericaceae	Vaccinium
+1922	Vanilla planifolia	51239	-	Daphna-Haploid B	Asparagales	Orchidaceae	Vanilla
+1923	Vatica mangachapoi	210370	diploid	-	Malvales	Dipterocarpeae	Vatica
+1924	Vatica odorata	64582	-	-	Malvales	Dipterocarpaceae	Vatica
+1925	Vatica rassak	2867347	-	-	Malpighiales	Euphorbiaceae	Vatica
+1926	Vatica xishuangbannaensis	2876817	-	VF1-12	Malpighiales	Euphorbiaceae	Vatica
+1927	Vernicia fordii	73154	diploid	Tiffanyb	Fabales	Fabaceae	Vernicia
+1928	Vernicia montana	316732	-	tung oil trees; tung trees	Malpighiales	Euphorbiaceae	Vernicia
+1929	Vicia faba	3906	diploid	-	Fabales	Fabaceae	Vicia
+1930	Vicia sativa	3908	diploid	Jingnong 6	Fabales	Fabaceae	Vicia
+1931	Vicia sativa ssp. amphicarpa	-	tetraploid	-	Fabales	Fabaceae	Vicia
+1932	Vigna aconitifolia	3918	diploid	Moth bean	Fabales	Fabaceae	Vigna
+1933	Vigna angularis	3914	diploid	Shumari	Fabales	Fabaceae	Vigna
+1934	Vigna hirtella	157746	diploid	-	Fabales	Fabaceae	Vigna
+1935	Vigna marina	378243	diploid	Pant U-31	Fabales	Fabaceae	Vigna
+1936	Vigna mungo	3915	diploid	Uttara' (IPU 94-1)	Fabales	Fabaceae	Vigna
+1937	Vigna radiata	157791	diploid	var.radiata RIL59	Fabales	Fabaceae	Vigna
+1938	Vigna reflexopilosa	157742	-	JP252948	Fabales	Fabaceae	Vigna
+1939	Vigna reflexo-pilosa	-	diploid	-	Fabales	Fabaceae	Vigna
+1940	Vigna stipulacea	157751	-	-	Fabales	Fabaceae	Vigna
+1941	Vigna subterranea	115715	diploid	FF25	Fabales	Fabaceae	Vigna
+1942	Vigna trinervia	157753	diploid	VRB3	Fabales	Fabaceae	Vigna
+1943	Vigna umbellata	87088	diploid	VRB3	Fabales	Fabaceae	Vigna
+1944	Vigna unguiculata	3917	diploid	ssp. sesquipedialis NJ	Fabales	Fabaceae	Vigna
+1945	Vinca minor	60093	diploid	KA01	Ericales	Sapotaceae	Vinca
+1946	Viola pubescens	97445	diploid	9018(haplotype 1)	Vitales	Vitaceae	Viola
+1947	Vitellaria paradoxa	292385	diploid	9018(haplotype 2)	Vitales	Vitaceae	Vitellaria
+1948	Vitis acerifolia	506485	-	GH6	Vitales	Vitaceae	Vitis
+1949	Vitis adenoclada	1046253	diploid	T52 (haplotype 2)	Vitales	Vitaceae	Vitis
+1950	Vitis aestivalis	3605	diploid	-	Vitales	Vitaceae	Vitis
+1951	Vitis amurensis	103351	diploid	B40-14(haplotype 1)	Vitales	Vitaceae	Vitis
+1952	Vitis arizonica	103353	diploid	B40-14(haplotype 2)	Vitales	Vitaceae	Vitis
+1953	Vitis berlandieri	2983818	diploid	Kober 5BB haplotype V. riparia	Vitales	Vitaceae	Vitis
+1954	Vitis berlandieri x Vitis riparia	-	diploid	Richter 110 haplotype V. rupestris	Vitales	Vitaceae	Vitis
+1955	Vitis berlandieri x Vitis rupestris	-	-	-	Vitales	Vitaceae	Vitis
+1956	Vitis cinerea x Vitis riparia	266788	diploid	SC2(haplotype 2)	Vitales	Vitaceae	Vitis
+1957	Vitis davidii	103354	-	-	Vitales	Vitaceae	Vitis
+1958	Vitis girdiana	754098	diploid	-	Vitales	Vitaceae	Vitis
+1959	Vitis labrusca	103355	-	Shine Muscat (phased)	Vitales	Vitaceae	Vitis
+1960	Vitis labruscana x Vitis vinifera	-	diploid	TX6703(haplotype 2)	Vitales	Vitaceae	Vitis
+1961	Vitis monticola	754101	diploid	C114-96(haplotype 1)	Vitales	Vitaceae	Vitis
+1962	Vitis mustangensis	756011	-	PI 588149 (haplotype 1)	Vitales	Vitaceae	Vitis
+1963	Vitis mustangensis x Vitis acerifolia	-	diploid	Riparia Gloire de Montpellier(phased)	Vitales	Vitaceae	Vitis
+1964	Vitis riparia	96939	diploid	HP-1(haplotype 1)	Vitales	Vitaceae	Vitis
+1965	Vitis riparia x Vitis rupestris	152275	-	-	Vitales	Vitaceae	Vitis
+1966	Vitis rotundifolia	103349	diploid	B38(haplotype 1)	Vitales	Vitaceae	Vitis
+1967	Vitis rupestris	103352	diploid	PN40024	Vitales	Vitaceae	Vitis
+1968	Vitis vinifera	29760	diploid	Cabernet(phased)	Vitales	Vitaceae	Vitis
+1969	Vitis vinifera cv. 'Manicure Finger'	-	diploid	-	Vitales	Vitaceae	Vitis
+1970	Vitis vinifera ssp. vinifera	-	diploid	cultivated grapevine	Vitales	Vitaceae	Vitis
+1971	Vitis x labruscana x Vitis vinifera	2599122	-	-	Gentianales	Apocynaceae	Vitis
+1972	Vitis zhejiang-adstricta	2899773	-	NIES-3780	Chlamydomonadales	Volvocaceae	Vitis
+1973	Voacanga thouarsii	1237849	-	-	Chlamydomonadales	Volvocaceae	Voacanga
+1974	Volvox africanus	51714	-	NIES-3786(male)	Chlamydomonadales	Volvocaceae	Volvox
+1975	Volvox carteri	3067	-	NIES-3785(female)	Chlamydomonadales	Volvocaceae	Volvox
+1976	Volvox reticuliferus	1737510	-	SZBG 00052740	Welwitschiales	Welwitschiaceae	Volvox
+1977	Vriesea erythrodactylon	1093664	-	-	Poales	Bromeliaceae	Vriesea
+1978	Warburgia ugandensis	549619	-	-	Canellales	Canellaceae	Warburgia
+1979	Welwitschia mirabilis	3377	-	wa8730	Alismatales	Araceae	Welwitschia
+1980	Wolffia australiana	161112	-	8730	Alismatales	Araceae	Wolffia
+1981	Wurfbainia longiligularis	648859	diploid	-	Sapindales	Sapindaceae	Wurfbainia
+1982	Wurfbainia villosa	199627	-	JGXP	Sapindales	Sapindaceae	Wurfbainia
+1983	Xanthoceras sorbifolium	99658	-	WF18('Shanyou 1')	Sapindales	Sapindaceae	Xanthoceras
+1984	Xerophyta viscosa	90708	-	-	Sapindales	Meliaceae	Xerophyta
+1985	Xylocarpus granatum	241841	-	-	Sapindales	Meliaceae	Xylocarpus
+1986	Xylocarpus moluccensis	520510	-	plus	Chlamydomonadales	Volvocaceae	Xylocarpus
+1987	Xylocarpus rumphii	1962071	-	minus	Chlamydomonadales	Volvocaceae	Xylocarpus
+1988	Yamagishiella unicocca	51707	diploid	Jingcai Yangguang	Alismatales	Araceae	Yamagishiella
+1989	Zantedeschia elliottiana	94108	tetraploid	-	Sapindales	Rutaceae	Zantedeschia
+1990	Zanthoxylum armatum	67938	triploid	Sichuan pepper	Sapindales	Rutaceae	Zanthoxylum
+1991	Zanthoxylum bungeanum	328401	diploid	Corn (B73)	Poales	Poaceae	Zanthoxylum
+1992	Zanthoxylum nitidum	354528	diploid	Liang-Mian-Zhen	Sapindales	Rutaceae	Zanthoxylum
+1993	Zea mays	4577	-	ssp. mexicana(haplotype)	Poales	Poaceae	Zea
+1994	Zingiber officinale	94328	diploid	Zhugen';haplotype 2	Zingiberales	Zingiberaceae	Zingiber
+1995	Zingiber officinale Roscoe	-	diploid	ginger	Zingiberales	Zingiberaceae	Zingiber
+1996	Zizania latifolia	58934	-	-	Poales	Poaceae	Zizania
+1997	Zizania palustris	103762	diploid	Junzao	Rosales	Rhamnaceae	Zizania
+1998	Ziziphus jujuba	326968	-	var. spinosa	Rosales	Rhamnaceae	Ziziphus
+1999	Ziziphus jujuba var.'Lingwuchangzao'	-	diploid	-	Rosales	Rhamnaceae	Ziziphus
+2000	Ziziphus jujuba var.'Shiguang'	-	tetraploid	-	Rosales	Rhamnaceae	Ziziphus
+2001	Ziziphus mauritiana	157914	diploid	Indian jujube;  ber; desert apple; green jujube	Rosales	Rhamnaceae	Ziziphus
+2002	Zostera marina	29655	-	-	Alismatales	Zosteraceae	Zostera
+2003	Zostera muelleri	187284	tetraploid	Yaji	Poales	Poaceae	Zostera
+2004	Zoysia japonica	309978	tetraploid	-	Poales	Poaceae	Zoysia
+2005	Zoysia matrella	38722	tetraploid	-	Poales	Poaceae	Zoysia
+2006	Zoysia pacifica	1070856	tetraploid	-	Poales	Poaceae	Zoysia
+2007	Zygnema cf. cylindricum SAG 698-1a_XF	-	-	-	Zygnematales	Zygnemataceae	Zygnema
+2008	Zygnema circumcarinatum SAG 698-1b	-	-	-	Zygnematales	Zygnemataceae	Zygnema
+2009	Zygnema circumcarinatum UTEX 1559	-	-	-	Zygnematales	Zygnemataceae	Zygnema
+2010	Zygnema circumcarinatum UTEX 1560	-	-	-	Zygnematales	Zygnemataceae	Zygnema
+2011	Zygophyllum xanthoxylum	90549	diploid	-	Zygophyllales	Zygophyllaceae	Zygophyllum

@@ -1,4 +1,31 @@
-downloads/
+# system
+.nfs*
+
+# folders
 downloads/
 sample/
-sample/
+result/
+tmp/
+logs/
+data/genomes/
+data/meta/imp/
+data/meta/pgcp/
+
+# files
+**/__pycache__/
+*.gz
+*.zip
+*.fna
+*.faa
+*.fa
+*.gff
+*.gtf
+*.gbff
+*.pdf
+*.ppt
+*.pptx
+*.html
+*.out
+*.docx
+*.db
+*.sqlite3
