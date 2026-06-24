@@ -26,6 +26,10 @@ class StaticWebPageTests(unittest.TestCase):
         self.assertIn('Molecular Annotation', html)
         self.assertIn('PlantGeneWiki Summary', html)
         self.assertIn('Knowledge Score: sample', html)
+        self.assertIn('Genomics &amp; Sequence Records for Atha01G0000010', html)
+        self.assertIn('Jump to:', html)
+        self.assertIn('class="resource-strip"', html)
+        self.assertIn('Pending GFF/GTF normalization', html)
 
     def test_home_page_uses_explore_gene_panel(self):
         html = (PROJECT_ROOT / "apps" / "web" / "dist" / "index.html").read_text(encoding="utf-8")
