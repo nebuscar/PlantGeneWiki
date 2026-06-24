@@ -278,4 +278,56 @@ const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
       </section>
     </article>
   </div>
+
+  <script>
+    const sidebarLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".card-sidebar .sidebar-link[href^='#']"));
+    const sectionById = new Map<string, HTMLAnchorElement>();
+    sidebarLinks.forEach((link) => {
+      const hash = link.getAttribute("href") ?? "";
+      const id = hash.slice(1);
+      if (id) {
+        sectionById.set(id, link);
+      }
+    });
+    const trackedSections = Array.from(sectionById.keys())
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section instanceof HTMLElement);
+
+    function setActiveSidebarLink(id: string) {
+      const nextActiveLink = sectionById.get(id);
+      if (!nextActiveLink) return;
+      sidebarLinks.forEach((link) => {
+        const isActive = link === nextActiveLink;
+        link.classList.toggle("active", isActive);
+        if (isActive) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    function updateActiveSidebarLink() {
+      const headerOffset = 120;
+      const currentSection = trackedSections.reduce((current, section) => {
+        const top = section.getBoundingClientRect().top - headerOffset;
+        return top <= 0 ? section : current;
+      }, trackedSections[0]);
+      if (currentSection?.id) {
+        setActiveSidebarLink(currentSection.id);
+      }
+    }
+
+    sidebarLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const hash = link.getAttribute("href") ?? "";
+        setActiveSidebarLink(hash.slice(1));
+      });
+    });
+
+    updateActiveSidebarLink();
+    window.addEventListener("scroll", updateActiveSidebarLink, { passive: true });
+    window.addEventListener("hashchange", updateActiveSidebarLink);
+  </script>
+
 </BaseLayout>

@@ -36,6 +36,10 @@ class StaticWebPageTests(unittest.TestCase):
         self.assertIn('class="resource-strip"', html)
         self.assertIn('Object Type', html)
         self.assertIn('Primary Dataset', html)
+        self.assertIn('.card-sidebar .sidebar-link', html)
+        self.assertIn('aria-current', html)
+        self.assertIn('hashchange', html)
+        self.assertIn('scroll', html)
 
     def test_home_page_uses_explore_gene_panel(self):
         html = (PROJECT_ROOT / "apps" / "web" / "dist" / "index.html").read_text(encoding="utf-8")
