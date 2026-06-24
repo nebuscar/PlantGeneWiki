@@ -71,7 +71,7 @@ const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
       </div>
       <form class="sidebar-search" action="/search">
         <input name="q" type="search" placeholder="Search in this Card" value={shortGeneId} />
-        <button type="submit" aria-label="Search in this card">?</button>
+        <button type="submit" aria-label="Search in this card"><span class="search-icon" aria-hidden="true">&#128269;</span></button>
       </form>
     </aside>
 

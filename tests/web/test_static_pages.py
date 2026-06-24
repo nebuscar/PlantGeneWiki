@@ -48,6 +48,8 @@ class StaticWebPageTests(unittest.TestCase):
         self.assertIn('Search PlantGeneWiki for any term', html)
         self.assertIn('Knowledge object index', html)
         self.assertIn('href="/favicon.png"', html)
+        self.assertIn('class="search-icon"', html)
+        self.assertIn('&#128269;', html)
 
     def test_sequence_record_page_shows_core_metadata(self):
         html = (PROJECT_ROOT / "apps" / "web" / "dist" / "sequence-records" / "Atha01G0000010.1.v1.36" / "index.html").read_text(encoding="utf-8")
