@@ -49,7 +49,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 2rem;
-  min-height: 78px;
+  min-height: 86px;
   padding: 0 2rem;
   background: linear-gradient(180deg, var(--navy), var(--navy-dark));
   color: #ffffff;
@@ -60,7 +60,11 @@ a:hover {
   display: inline-flex;
   align-items: center;
   color: #ffffff;
-  min-width: 104px;
+  min-width: 328px;
+  padding: 0.45rem 0.75rem;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
   text-decoration: none;
 }
 
@@ -71,7 +75,7 @@ a:hover {
 
 .brand-logo {
   display: block;
-  width: 92px;
+  width: 300px;
   height: auto;
 }
 
