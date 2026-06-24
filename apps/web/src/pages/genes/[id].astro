@@ -25,22 +25,37 @@ const sequenceCount = linkedSequenceRecords.length;
 const sequenceTotalLength = linkedSequenceRecords.reduce((total, record) => total + (record.length ?? 0), 0);
 const sequenceTypes = Array.from(new Set(linkedSequenceRecords.map((record) => record.sequence_type))).filter(Boolean);
 const primaryDataset = linkedDatasets[0];
-const resourceTiles = [
+const permanentFields = [
+  { label: "Symbol", value: item.name || shortGeneId },
+  { label: "Object ID", value: item.object_id },
+  { label: "Object Type", value: item.object_type },
+  { label: "Species", value: speciesRecord?.name ?? item.species, href: `/species/${item.species}` },
+  { label: "Aliases", value: (item.aliases ?? []).join(", ") || "No aliases data available" },
+  { label: "Description", value: item.description || "No description data available" },
+  { label: "Primary Dataset", value: primaryDataset?.name ?? "No primary dataset linked", href: primaryDataset ? `/datasets/${primaryDataset.id}` : undefined },
+  { label: "Sequence Records", value: `${sequenceCount} linked record${sequenceCount === 1 ? "" : "s"}` },
+  { label: "Evidence Records", value: `${evidenceCount} evidence record${evidenceCount === 1 ? "" : "s"}` },
+  { label: "Relations", value: `${relationCount} relation${relationCount === 1 ? "" : "s"}` }
+];
+const researchTiles = [
   { label: "DATASETS", value: datasetCount },
   { label: "SEQUENCES", value: sequenceCount },
   { label: "ANNOTATIONS", value: annotationCount },
   { label: "EVIDENCE", value: evidenceCount },
   { label: "RELATIONS", value: relationCount }
 ];
+const hasSummary = Boolean(item.description);
+const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
 ---
 <BaseLayout title={`${item.name} gene | PlantGeneWiki`} description={item.description}>
   <div class="gene-card-shell">
     <aside class="card-sidebar" aria-label="Gene card navigation">
       <div class="sidebar-group">
         <div class="sidebar-title">Gene Overview</div>
-        <a class="sidebar-link active" href="#overview">Overview <span>({evidenceCount + relationCount})</span></a>
-        <a class="sidebar-link" href="#aliases">Aliases &amp; Identifiers</a>
+        <a class="sidebar-link" href="#overview">Overview <span>({evidenceCount + relationCount})</span></a>
+        <a class="sidebar-link active" href="#aliases">Aliases &amp; Identifiers</a>
         <a class="sidebar-link" href="#summaries">Summaries</a>
+        <a class="sidebar-link" href="#research-products">Research Products</a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-title">Molecular Annotation</div>
@@ -63,54 +78,98 @@ const resourceTiles = [
     <article class="gene-card-main">
       <header class="gene-hero" id="overview">
         <div>
-          <h1 class="gene-title">{shortGeneId} gene <span>- {item.name}</span></h1>
-          <p class="gene-subtitle">{speciesRecord?.name ?? item.species} normalized gene card</p>
+          <h1 class="gene-title">{shortGeneId} gene</h1>
+          <p class="gene-subtitle">{speciesRecord?.name ?? item.species} · {item.object_type} · PlantGeneWiki normalized record</p>
         </div>
         <aside class="status-card">
-          <strong>Plant Gene Record</strong>
+          <strong>{sequenceTypes[0] ? `${sequenceTypes[0]} Gene Record` : "Plant Gene Record"}</strong>
           Knowledge Score: sample
         </aside>
       </header>
 
-      <section class="summary-grid" id="summaries">
-        <div class="summary-label">PlantGeneWiki Summary</div>
-        <div class="summary-body">
-          <p><strong>{item.name}</strong> is a normalized sample gene object used to validate PlantGeneWiki static publishing, relation linking, dataset provenance, and future dynamic API boundaries.</p>
-          <p>{item.description}</p>
-          <p class="summary-links">
-            Gene families and functional categories are represented here as structured annotations, linked sequence records, datasets, evidence claims, and knowledge-graph relations.
-          </p>
+      <section class="card-section" id="aliases">
+        <h2 class="card-section-title">Aliases &amp; Identifiers for {shortGeneId}</h2>
+        <div class="jump-row">Jump to: <a href="#aliases-descriptions">Aliases &amp; Descriptions</a><span>|</span><a href="#aliases-other-links">Other Links</a></div>
+        <div class="card-section-body">
+          <div class="subsection-heading" id="aliases-descriptions">Aliases &amp; Descriptions for {shortGeneId}</div>
+          <table class="permanent-field-table">
+            <tbody>
+              {permanentFields.map((field) => (
+                <tr>
+                  <th>{field.label}</th>
+                  <td>{field.href ? <a href={field.href}>{field.value}</a> : field.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div class="subsection-heading" id="aliases-other-links">Other Links for {shortGeneId}</div>
+          <div class="other-links-grid">
+            <strong>PlantGeneWiki</strong>
+            <a href={searchHref}>Search for {shortGeneId} in PlantGeneWiki</a>
+            <strong>Species Page</strong>
+            <a href={`/species/${item.species}`}>Open {speciesRecord?.name ?? item.species}</a>
+            <strong>Dataset Records</strong>
+            <span>
+              {linkedDatasets.length > 0 ? linkedDatasets.map((dataset, index) => (
+                <>
+                  {index > 0 && ", "}
+                  <a href={`/datasets/${dataset.id}`}>{dataset.name}</a>
+                </>
+              )) : "No dataset links available"}
+            </span>
+            <strong>Sequence Records</strong>
+            <span>
+              {linkedSequenceRecords.length > 0 ? linkedSequenceRecords.map((record, index) => (
+                <>
+                  {index > 0 && ", "}
+                  <a href={`/sequence-records/${record.id}`}>{record.sequence_id}</a>
+                </>
+              )) : "No sequence record links available"}
+            </span>
+          </div>
         </div>
       </section>
 
-      <section class="fact-list" id="aliases">
-        <div class="fact-label">Gene object</div>
-        <div>{item.object_id}</div>
-        <div class="fact-label">Species</div>
-        <div><a href={`/species/${item.species}`}>{speciesRecord?.name ?? item.species}</a></div>
-        <div class="fact-label">Also known as</div>
-        <div>{(item.aliases ?? []).join(", ") || "No aliases in published sample"}</div>
-        <div class="fact-label">Functional categories</div>
-        <div class="annotation-list">
-          {(item.annotations ?? []).length > 0 ? (item.annotations ?? []).map((annotation) => <span class="pill">{annotation}</span>) : <span class="meta">No functional annotation in published sample</span>}
+      <section class="card-section" id="summaries">
+        <h2 class="card-section-title">Summaries for {shortGeneId}</h2>
+        <div class="card-section-body">
+          {hasSummary ? (
+            <div class="summary-grid compact-summary">
+              <div class="summary-label">PlantGeneWiki Summary</div>
+              <div class="summary-body">
+                <p><strong>{item.name}</strong> is a normalized gene object used to validate PlantGeneWiki static publishing, relation linking, dataset provenance, and future dynamic API boundaries.</p>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ) : (
+            <p class="empty-state">No Summaries data available for {shortGeneId}</p>
+          )}
         </div>
       </section>
 
-      <section class="card-section" id="genomics">
-        <h2 class="card-section-title">Genomics &amp; Sequence Records for {shortGeneId}</h2>
-        <div class="jump-row">Jump to: <a href="#genomic-summary">Genomic Summary</a><span>|</span><a href="#sequence-browser">Sequence Records</a><span>|</span><a href="#datasets">Data Sources</a></div>
+      <section class="card-section" id="research-products">
+        <h2 class="card-section-title">Research Products for {shortGeneId}</h2>
         <div class="card-section-body">
           <div class="resource-strip" aria-label="Gene resources">
             <div class="resource-icon" aria-hidden="true">DNA</div>
-            {resourceTiles.map((tile) => (
+            {researchTiles.map((tile) => (
               <div class="resource-tile">
                 <strong>{tile.label}</strong>
                 <span>{tile.value}</span>
               </div>
             ))}
           </div>
+          <p class="empty-state small">Research product counts currently summarize normalized PlantGeneWiki objects. External product catalogs are not yet imported.</p>
+        </div>
+      </section>
+
+      <section class="card-section" id="genomics">
+        <h2 class="card-section-title">Genomics &amp; Location for {shortGeneId}</h2>
+        <div class="jump-row">Jump to: <a href="#genomic-summary">Genomic Locations</a><span>|</span><a href="#sequence-browser">Sequence Records</a><span>|</span><a href="#datasets">Data Sources</a></div>
+        <div class="card-section-body">
           <p class="section-intro">
-            This section shows the normalized sequence resources currently linked to {shortGeneId}. Full genomic coordinates will be populated when GFF/GTF annotation normalization is added; sequence records already provide dataset provenance, sequence type, length, and stable links.
+            This section shows normalized sequence resources currently linked to {shortGeneId}. Chromosomal coordinates will be populated when GFF/GTF annotation normalization is added; sequence records already provide dataset provenance, sequence type, length, and stable links.
           </p>
           <div class="sequence-browser" id="sequence-browser">
             <div class="browser-toolbar">
@@ -169,7 +228,7 @@ const resourceTiles = [
                       {index > 0 && ", "}
                       <a href={`/datasets/${dataset.id}`}>{dataset.name}</a>
                     </>
-                  )) : (item.datasets ?? []).join(", ")}
+                  )) : "No datasets linked"}
                 </td>
               </tr>
             </tbody>
@@ -186,26 +245,26 @@ const resourceTiles = [
               <span>{sequenceRecord.sequence_type}</span>
               <span class="meta">Length: {sequenceRecord.length}</span>
             </div>
-          )) : <p class="meta">No sequence records have been linked to this gene in the published sample.</p>}
+          )) : <p class="empty-state">No sequence records have been linked to this gene in the published sample.</p>}
         </div>
       </section>
 
       <section class="card-section" id="evidence">
         <h2 class="card-section-title">Evidence Records for {shortGeneId}</h2>
         <div class="card-section-body object-list">
-          {(item.evidence_records ?? []).map((record) => (
+          {(item.evidence_records ?? []).length > 0 ? (item.evidence_records ?? []).map((record) => (
             <article class="object-card">
               <strong>{record.claim}</strong>
               <span class="meta">{record.source} - confidence: {record.confidence}</span>
             </article>
-          ))}
+          )) : <p class="empty-state">No evidence records available for {shortGeneId}</p>}
         </div>
       </section>
 
       <section class="card-section" id="relations">
         <h2 class="card-section-title">Relations for {shortGeneId}</h2>
         <div class="card-section-body object-list">
-          {(item.related_objects ?? []).map((relation) => {
+          {(item.related_objects ?? []).length > 0 ? (item.related_objects ?? []).map((relation) => {
             const href = hrefForObjectRef(relation.target);
             return (
               <article class="object-card">
@@ -214,7 +273,7 @@ const resourceTiles = [
                 <span class="meta">{relation.target}</span>
               </article>
             );
-          })}
+          }) : <p class="empty-state">No relations available for {shortGeneId}</p>}
         </div>
       </section>
     </article>
