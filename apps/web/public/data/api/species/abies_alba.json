@@ -1,0 +1,22 @@
+{
+  "object_id": "species:abies_alba",
+  "object_type": "Species",
+  "id": "abies_alba",
+  "name": "Abies alba",
+  "common_name": "European silver fir",
+  "description": "Minimal FASTA normalization example species generated from a PGCP CDS sequence dataset.",
+  "genome_versions": [
+    "PGCP v1"
+  ],
+  "datasets": [
+    "dataset:pgcp:abies_alba:v1:cds"
+  ],
+  "related_objects": [
+    {
+      "source": "species:abies_alba",
+      "predicate": "has_dataset",
+      "target": "dataset:pgcp:abies_alba:v1:cds",
+      "label": "Abies alba PGCP v1 CDS sequences"
+    }
+  ]
+}

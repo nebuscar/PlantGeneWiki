@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Build static web API data from normalized PlantGeneWiki JSONL records."""
 
 from __future__ import annotations
@@ -48,7 +48,6 @@ def require_fields(records: Iterable[dict[str, Any]], fields: list[str], label: 
             raise BuildError(f"{label} record {identifier!r} missing fields: {', '.join(missing)}")
 
 
-
 def public_dataset_record(record: dict[str, Any]) -> dict[str, Any]:
     public_record = dict(record)
     if public_record.get("location_policy") == "internal_raw_storage":
@@ -57,6 +56,7 @@ def public_dataset_record(record: dict[str, Any]) -> dict[str, Any]:
             "label": "internal_raw_storage",
         }
     return public_record
+
 
 def build_search_index(objects: list[dict[str, Any]], datasets: list[dict[str, Any]]) -> list[dict[str, str]]:
     items: list[dict[str, str]] = []
@@ -100,12 +100,18 @@ def build(input_dir: Path, output_dir: Path, clean: bool = True) -> dict[str, in
     species = read_jsonl(input_dir / "species.jsonl")
     genes = read_jsonl(input_dir / "genes.jsonl")
     datasets = read_jsonl(input_dir / "datasets.jsonl")
+    sequence_records = read_jsonl(input_dir / "sequence_records.jsonl")
     relations = read_jsonl(input_dir / "relations.jsonl")
     evidence = read_jsonl(input_dir / "evidence_claims.jsonl")
 
     require_fields(species, ["object_id", "object_type", "id", "name", "description"], "species")
     require_fields(genes, ["object_id", "object_type", "id", "name", "species", "description"], "gene")
     require_fields(datasets, ["object_id", "object_type", "id", "name", "dataset_type", "source", "status"], "dataset")
+    require_fields(
+        sequence_records,
+        ["object_id", "object_type", "id", "name", "sequence_id", "species", "dataset", "sequence_type", "length"],
+        "sequence_record",
+    )
     require_fields(relations, ["source", "predicate", "target"], "relation")
     require_fields(evidence, ["evidence_id", "source", "claim", "confidence"], "evidence")
 
@@ -120,8 +126,10 @@ def build(input_dir: Path, output_dir: Path, clean: bool = True) -> dict[str, in
 
     for record in public_datasets:
         write_json(output_dir / "datasets" / f"{record['id']}.json", record)
+    for record in sequence_records:
+        write_json(output_dir / "sequence_records" / f"{record['id']}.json", record)
 
-    object_records = species + genes
+    object_records = species + genes + sequence_records
     write_json(output_dir / "search" / "index.json", build_search_index(object_records, public_datasets))
     write_json(output_dir / "graph" / "nodes.json", build_graph_nodes(object_records, public_datasets))
     write_json(output_dir / "graph" / "edges.json", relations)
@@ -131,6 +139,7 @@ def build(input_dir: Path, output_dir: Path, clean: bool = True) -> dict[str, in
         "species": len(species),
         "genes": len(genes),
         "datasets": len(datasets),
+        "sequence_records": len(sequence_records),
         "relations": len(relations),
         "evidence_claims": len(evidence),
     }

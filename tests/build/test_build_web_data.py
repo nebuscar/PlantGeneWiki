@@ -1,4 +1,4 @@
-import json
+﻿import json
 import sys
 import tempfile
 import unittest
@@ -17,10 +17,11 @@ class BuildWebDataTests(unittest.TestCase):
             output_dir = Path(directory) / "api"
             counts = build(input_dir, output_dir)
 
-            self.assertEqual(counts["species"], 1)
+            self.assertEqual(counts["species"], 2)
             self.assertEqual(counts["genes"], 1)
-            self.assertEqual(counts["datasets"], 1)
-            self.assertEqual(counts["relations"], 2)
+            self.assertEqual(counts["datasets"], 2)
+            self.assertEqual(counts["sequence_records"], 2)
+            self.assertEqual(counts["relations"], 5)
             self.assertEqual(counts["evidence_claims"], 1)
 
             gene = json.loads((output_dir / "genes" / "Atha01G0000010.v1.36.json").read_text(encoding="utf-8"))
@@ -29,13 +30,22 @@ class BuildWebDataTests(unittest.TestCase):
 
             search_index = json.loads((output_dir / "search" / "index.json").read_text(encoding="utf-8"))
             self.assertTrue(any(item["href"] == "/genes/Atha01G0000010.v1.36" for item in search_index))
+            self.assertTrue(any(item["id"] == "abies_alba" and item["href"] == "/species/abies_alba" for item in search_index))
+            self.assertTrue(any(item["id"] == "Aalbaalba5_s000000100000010.1.v1.0" for item in search_index))
 
             dataset = json.loads((output_dir / "datasets" / "pgcp_atha_gene_json_202606.json").read_text(encoding="utf-8"))
             self.assertEqual(dataset["location"], {"type": "internal", "label": "internal_raw_storage"})
             self.assertNotIn("/home/", json.dumps(dataset))
 
+            sequence = json.loads((output_dir / "sequence_records" / "Aalbaalba5_s000000100000010.1.v1.0.json").read_text(encoding="utf-8"))
+            self.assertEqual(sequence["object_type"], "SequenceRecord")
+            self.assertNotIn("sequence", sequence)
+
             graph_edges = json.loads((output_dir / "graph" / "edges.json").read_text(encoding="utf-8"))
-            self.assertEqual({edge["predicate"] for edge in graph_edges}, {"has_gene", "provided_by_dataset"})
+            self.assertEqual(
+                {edge["predicate"] for edge in graph_edges},
+                {"has_gene", "provided_by_dataset", "has_dataset", "contains_sequence"},
+            )
 
 
 if __name__ == "__main__":

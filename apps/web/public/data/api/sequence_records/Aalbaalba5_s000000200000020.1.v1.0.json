@@ -1,0 +1,19 @@
+{
+  "object_id": "seq:pgcp:abies_alba:v1:cds:Aalbaalba5_s000000200000020.1.v1.0",
+  "object_type": "SequenceRecord",
+  "id": "Aalbaalba5_s000000200000020.1.v1.0",
+  "name": "Aalbaalba5_s000000200000020.1.v1.0",
+  "description": "Second minimal CDS sequence record sample from Abies alba PGCP v1.",
+  "sequence_id": "Aalbaalba5_s000000200000020.1.v1.0",
+  "species": "species:abies_alba",
+  "dataset": "dataset:pgcp:abies_alba:v1:cds",
+  "sequence_type": "CDS",
+  "length": 912,
+  "checksum": {
+    "md5": "sample_md5_redacted"
+  },
+  "inferred_gene_id": "Aalbaalba5_s000000200000020",
+  "inference_method": "header_parse",
+  "confidence": "medium",
+  "updated_at": "2026-06-24"
+}

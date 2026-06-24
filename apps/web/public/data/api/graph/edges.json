@@ -12,5 +12,26 @@
     "target": "dataset:pgcp_atha_gene_json_202606",
     "label": "PGCP Arabidopsis gene JSON snapshot",
     "source_dataset": "dataset:pgcp_atha_gene_json_202606"
+  },
+  {
+    "source": "species:abies_alba",
+    "predicate": "has_dataset",
+    "target": "dataset:pgcp:abies_alba:v1:cds",
+    "label": "Abies alba PGCP v1 CDS sequences",
+    "source_dataset": "dataset:pgcp:abies_alba:v1:cds"
+  },
+  {
+    "source": "dataset:pgcp:abies_alba:v1:cds",
+    "predicate": "contains_sequence",
+    "target": "seq:pgcp:abies_alba:v1:cds:Aalbaalba5_s000000100000010.1.v1.0",
+    "label": "Aalbaalba5_s000000100000010.1.v1.0",
+    "source_dataset": "dataset:pgcp:abies_alba:v1:cds"
+  },
+  {
+    "source": "dataset:pgcp:abies_alba:v1:cds",
+    "predicate": "contains_sequence",
+    "target": "seq:pgcp:abies_alba:v1:cds:Aalbaalba5_s000000200000020.1.v1.0",
+    "label": "Aalbaalba5_s000000200000020.1.v1.0",
+    "source_dataset": "dataset:pgcp:abies_alba:v1:cds"
   }
 ]
