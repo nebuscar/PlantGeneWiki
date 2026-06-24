@@ -1,34 +1,35 @@
 # PGCP Importer Scripts
 
-This directory contains PGCP-specific acquisition and import entry points. PGCP is treated as a source system; normalized downstream processing should consume Dataset, Knowledge Object, Relation, and EvidenceClaim records rather than this directory layout.
+This directory keeps only the currently maintained PGCP acquisition entry point that is still covered by tests. Older PGCP crawl, metadata, download, ortholog extraction, and batch migration scripts have been moved to `archive/pgcp/importers/`.
+
+PGCP is treated as a source system. Normalized downstream processing should consume Dataset, Knowledge Object, Relation, and EvidenceClaim records rather than depend on the old PGCP directory layout.
 
 ## Layout
 
 ```text
 scripts/importers/pgcp/
-|-- download/          # PGCP file download API utilities
-|-- metadata/          # species lists, download metadata, genome endpoint snapshots
-|-- gene_records/      # per-gene JSON and ortholog record collection
-|-- legacy_batches/    # historical batch scripts and migration helpers
+|-- gene_records/      # maintained per-gene JSON downloader
 `-- README.md
 ```
 
-PGCP-derived but generally analytical workflows live under scripts/analysis/, for example enrichment and primer design.
-
 ## Active Entry Points
 
-- gene_records/download_pgcp_gene_json.py: resumable per-gene JSON downloader.
-- gene_records/run_pgcp_atha_json.sh: Arabidopsis thaliana wrapper for the gene JSON downloader.
-- gene_records/pgcp_orthologs.py: batch ortholog table extraction from PGCP gene records.
-- download/download_api.py: PGCP file download API utility.
-- metadata/scrape_biobigdata.py: PGCP download metadata scraper.
-- metadata/crawl_pgcp_data.py: PGCP species metadata crawler.
+- `gene_records/download_pgcp_gene_json.py`: resumable per-gene JSON downloader, retained because it is tested and documents the current PGCP raw JSON acquisition behavior.
 
-## Legacy Or Batch-Specific Files
+## Archived Scripts
 
-- legacy_batches/download_batch.sh and legacy_batches/download_batch2.sh are historical batch download scripts.
-- legacy_batches/copy_pgcp_genes.py copies old PGCP gene outputs into external genome storage. Treat it as a migration helper, not a standard pipeline step.
-- metadata/fetch_pgcp.sh is a generated-style endpoint snapshot script. Prefer structured metadata crawlers for new work.
+Historical scripts are archived under:
+
+```text
+archive/pgcp/importers/
+|-- download/
+|-- metadata/
+|-- legacy_batches/
+|-- pgcp_orthologs.py
+`-- run_pgcp_atha_json.sh
+```
+
+Use archived scripts as references only. New work should prefer reusable `src/plantgenewiki/` tools and normalized Dataset / Knowledge Object outputs.
 
 ## Test Command
 

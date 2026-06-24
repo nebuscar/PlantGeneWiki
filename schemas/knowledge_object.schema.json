@@ -3,24 +3,81 @@
   "$id": "https://plantgenewiki.org/schemas/knowledge_object.schema.json",
   "title": "PlantGeneWiki Knowledge Object",
   "type": "object",
-  "required": ["object_id", "object_type", "id", "name", "description"],
+  "required": [
+    "object_id",
+    "object_type",
+    "id",
+    "name",
+    "description"
+  ],
   "properties": {
-    "object_id": { "type": "string" },
+    "object_id": {
+      "type": "string"
+    },
     "object_type": {
       "type": "string",
-      "enum": ["Species", "Gene", "Orthogroup", "Trait", "Literature", "Pathway", "Cultivar", "Dataset", "Topic"]
+      "enum": [
+        "Species",
+        "Gene",
+        "Orthogroup",
+        "Trait",
+        "Literature",
+        "Pathway",
+        "Cultivar",
+        "Dataset",
+        "SequenceRecord",
+        "Topic"
+      ]
     },
-    "id": { "type": "string" },
-    "name": { "type": "string" },
-    "description": { "type": "string" },
-    "aliases": { "type": "array", "items": { "type": "string" }, "default": [] },
-    "source": { "type": "string" },
-    "version": { "type": "string" },
-    "updated_at": { "type": "string" },
-    "related_objects": { "type": "array", "items": { "$ref": "relation.schema.json" }, "default": [] },
-    "evidence_records": { "type": "array", "items": { "$ref": "evidence_claim.schema.json" }, "default": [] },
-    "datasets": { "type": "array", "items": { "type": "string" }, "default": [] },
-    "wiki_page": { "type": "string" }
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "source": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "related_objects": {
+      "type": "array",
+      "items": {
+        "$ref": "relation.schema.json"
+      },
+      "default": []
+    },
+    "evidence_records": {
+      "type": "array",
+      "items": {
+        "$ref": "evidence_claim.schema.json"
+      },
+      "default": []
+    },
+    "datasets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "wiki_page": {
+      "type": "string"
+    }
   },
   "additionalProperties": true
 }
