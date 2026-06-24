@@ -121,11 +121,29 @@ nav a:hover {
   cursor: pointer;
 }
 
+.search-action:disabled {
+  background: #6f879f;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
 .search-icon {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: currentColor;
-  font-size: 1.05rem;
   line-height: 1;
+}
+
+.search-icon svg {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .page-shell {

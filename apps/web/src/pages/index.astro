@@ -14,17 +14,17 @@ import { datasets, genes, searchItems, sequenceRecords, species } from "../lib/a
     <div class="explore-inner">
       <div class="explore-row">
         <h2 class="explore-title">Explore a Gene</h2>
-        <form class="search-line" action="/genes/Atha01G0000010.v1.36">
-          <input type="search" placeholder="Enter name of gene" value="Atha01G0000010.v1.36" />
-          <button class="search-action" type="submit" aria-label="Open sample gene">&gt;</button>
+        <form class="search-line" data-gene-jump>
+          <input name="gene" type="search" placeholder="Enter name of gene" required autocomplete="off" />
+          <button class="search-action" type="submit" aria-label="Open gene" disabled aria-disabled="true">&gt;</button>
         </form>
         <p class="meta">Examples: <a href="/genes/Atha01G0000010.v1.36">Atha01G0000010.v1.36</a>, <a href="/sequence-records/Atha01G0000010.1.v1.36">Atha01G0000010.1.v1.36</a></p>
       </div>
       <div class="explore-row">
         <h2 class="explore-title">Search PlantGeneWiki for any term</h2>
-        <form class="search-line" action="/search">
-          <input name="q" type="search" placeholder="Enter search term(s)" />
-          <button class="search-action" type="submit" aria-label="Search"><span class="search-icon" aria-hidden="true">&#128269;</span></button>
+        <form class="search-line" action="/search" data-requires-input>
+          <input name="q" type="search" placeholder="Enter search term(s)" required autocomplete="off" />
+          <button class="search-action" type="submit" aria-label="Search" disabled aria-disabled="true"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg></span></button>
         </form>
         <p class="meta">Examples: Arabidopsis, PGCP, CDS, Abies alba</p>
       </div>
@@ -52,4 +52,30 @@ import { datasets, genes, searchItems, sequenceRecords, species } from "../lib/a
       <a href="/datasets/pgcp_atha_gene_json_202606">Open dataset page</a>
     </article>
   </section>
+  <script is:inline>
+    const updateHomeSearchButtons = () => {
+      document.querySelectorAll(".search-line[data-requires-input], .search-line[data-gene-jump]").forEach((form) => {
+        const input = form.querySelector("input");
+        const button = form.querySelector("button");
+        if (!input || !button) return;
+        const hasValue = input.value.trim().length > 0;
+        button.disabled = !hasValue;
+        button.setAttribute("aria-disabled", String(!hasValue));
+      });
+    };
+
+    document.querySelectorAll(".search-line[data-requires-input] input, .search-line[data-gene-jump] input").forEach((input) => {
+      input.addEventListener("input", updateHomeSearchButtons);
+    });
+
+    document.querySelector(".search-line[data-gene-jump]")?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const input = event.currentTarget.querySelector("input");
+      const geneId = input?.value.trim();
+      if (!geneId) return;
+      window.location.href = `/genes/${encodeURIComponent(geneId)}`;
+    });
+
+    updateHomeSearchButtons();
+  </script>
 </BaseLayout>
