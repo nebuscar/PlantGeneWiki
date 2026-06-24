@@ -94,22 +94,6 @@ nav a:hover {
   color: var(--orange-dark);
 }
 
-.header-search {
-  display: flex;
-  min-width: min(360px, 32vw);
-  height: 42px;
-  margin-left: auto;
-  border: 1px solid var(--border-strong);
-}
-
-.header-search input {
-  width: 100%;
-  border: 0;
-  padding: 0 0.9rem;
-  font: inherit;
-}
-
-.header-search button,
 .search-action {
   display: grid;
   place-items: center;
@@ -546,7 +530,6 @@ nav a:hover {
   border-bottom: 0;
 }
 
-
 .gene-subtitle {
   margin: 0.55rem 0 0;
   color: var(--muted);
@@ -793,7 +776,6 @@ nav a:hover {
   color: var(--navy-dark);
 }
 
-
 .subsection-heading {
   margin: 0.75rem 0 1rem;
   padding-left: 0.75rem;
@@ -869,12 +851,6 @@ nav a:hover {
 
   .brand {
     min-width: 0;
-  }
-
-  .header-search {
-    width: 100%;
-    min-width: 0;
-    margin-left: 0;
   }
 
   .gene-card-shell {
