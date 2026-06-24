@@ -16,7 +16,23 @@ class StaticWebPageTests(unittest.TestCase):
 
         self.assertIn('/datasets/pgcp_atha_gene_json_202606', html)
         self.assertIn('/sequence-records/Atha01G0000010.1.v1.36', html)
-        self.assertIn('Sequence Records', html)
+        self.assertIn('Sequence Records for Atha01G0000010', html)
+
+    def test_gene_page_uses_genecards_like_card_structure(self):
+        html = (PROJECT_ROOT / "apps" / "web" / "dist" / "genes" / "Atha01G0000010.v1.36" / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn('class="gene-card-shell"', html)
+        self.assertIn('Gene Overview', html)
+        self.assertIn('Molecular Annotation', html)
+        self.assertIn('PlantGeneWiki Summary', html)
+        self.assertIn('Knowledge Score: sample', html)
+
+    def test_home_page_uses_explore_gene_panel(self):
+        html = (PROJECT_ROOT / "apps" / "web" / "dist" / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn('Explore a Gene', html)
+        self.assertIn('Search PlantGeneWiki for any term', html)
+        self.assertIn('Knowledge object index', html)
 
     def test_sequence_record_page_shows_core_metadata(self):
         html = (PROJECT_ROOT / "apps" / "web" / "dist" / "sequence-records" / "Atha01G0000010.1.v1.36" / "index.html").read_text(encoding="utf-8")

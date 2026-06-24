@@ -15,74 +15,126 @@ const linkedSequenceRecords = sequenceRecords.filter((sequenceRecord) => {
   const possibleGeneIds = new Set([item.id, item.id.replace(/\.v\d+\.\d+$/, ""), ...(item.aliases ?? [])]);
   return explicitLink || possibleGeneIds.has(sequenceRecord.inferred_gene_id ?? "") || possibleGeneIds.has(sequenceRecord.sequence_id);
 });
+const shortGeneId = item.id.replace(/\.v\d+\.\d+$/, "");
 ---
-<BaseLayout title={`${item.name} | PlantGeneWiki`} description={item.description}>
-  <h1 class="page-title">{item.name}</h1>
-  <p class="lede">{item.description}</p>
-  <div class="two-column">
-    <section class="panel">
-      <h2>Gene Object</h2>
-      <table class="data-table">
-        <tbody>
-          <tr><th>Object ID</th><td>{item.object_id}</td></tr>
-          <tr><th>Species</th><td><a href={`/species/${item.species}`}>{item.species}</a></td></tr>
-          <tr><th>Aliases</th><td>{(item.aliases ?? []).join(", ")}</td></tr>
-          <tr>
-            <th>Datasets</th>
-            <td>
-              {linkedDatasets.length > 0 ? linkedDatasets.map((dataset, index) => (
-                <>
-                  {index > 0 && ", "}
-                  <a href={`/datasets/${dataset.id}`}>{dataset.name}</a>
-                </>
-              )) : (item.datasets ?? []).join(", ")}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-    <aside class="panel">
-      <h2>Annotations</h2>
-      <div class="pill-row">
-        {(item.annotations ?? []).map((annotation) => <span class="pill">{annotation}</span>)}
+<BaseLayout title={`${item.name} gene | PlantGeneWiki`} description={item.description}>
+  <div class="gene-card-shell">
+    <aside class="card-sidebar" aria-label="Gene card navigation">
+      <div class="sidebar-group">
+        <div class="sidebar-title">Gene Overview</div>
+        <a class="sidebar-link active" href="#overview">Overview</a>
+        <a class="sidebar-link" href="#aliases">Aliases &amp; Identifiers</a>
+        <a class="sidebar-link" href="#summaries">Summaries</a>
       </div>
+      <div class="sidebar-group">
+        <div class="sidebar-title">Molecular Annotation</div>
+        <a class="sidebar-link" href="#datasets">Datasets</a>
+        <a class="sidebar-link" href="#sequences">Sequences</a>
+        <a class="sidebar-link" href="#relations">Relations</a>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-title">Evidence &amp; Resources</div>
+        <a class="sidebar-link" href="#evidence">Evidence Records</a>
+        <a class="sidebar-link" href="/search">Search</a>
+      </div>
+      <form class="sidebar-search" action="/search">
+        <input name="q" type="search" placeholder="Search in this Card" />
+        <button type="submit" aria-label="Search in this card">?</button>
+      </form>
     </aside>
+
+    <article class="gene-card-main">
+      <header class="gene-hero" id="overview">
+        <div>
+          <h1 class="gene-title">{shortGeneId} gene <span>- {item.name}</span></h1>
+        </div>
+        <aside class="status-card">
+          <strong>Plant Gene Record</strong>
+          Knowledge Score: sample
+        </aside>
+      </header>
+
+      <section class="summary-grid" id="summaries">
+        <div class="summary-label">PlantGeneWiki Summary</div>
+        <div class="summary-body">
+          <p><strong>{item.name}</strong> is a normalized sample gene object used to validate PlantGeneWiki static publishing, relation linking, dataset provenance, and future dynamic API boundaries.</p>
+          <p>{item.description}</p>
+        </div>
+      </section>
+
+      <section class="fact-list" id="aliases">
+        <div class="fact-label">Gene object</div>
+        <div>{item.object_id}</div>
+        <div class="fact-label">Species</div>
+        <div><a href={`/species/${item.species}`}>{item.species}</a></div>
+        <div class="fact-label">Also known as</div>
+        <div>{(item.aliases ?? []).join(", ")}</div>
+        <div class="fact-label">Functional categories</div>
+        <div class="annotation-list">{(item.annotations ?? []).map((annotation) => <span class="pill">{annotation}</span>)}</div>
+      </section>
+
+      <section class="card-section" id="datasets">
+        <h2 class="card-section-title">Datasets for {shortGeneId}</h2>
+        <div class="card-section-body">
+          <table class="data-table">
+            <tbody>
+              <tr><th>Object ID</th><td>{item.object_id}</td></tr>
+              <tr>
+                <th>Datasets</th>
+                <td>
+                  {linkedDatasets.length > 0 ? linkedDatasets.map((dataset, index) => (
+                    <>
+                      {index > 0 && ", "}
+                      <a href={`/datasets/${dataset.id}`}>{dataset.name}</a>
+                    </>
+                  )) : (item.datasets ?? []).join(", ")}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card-section" id="sequences">
+        <h2 class="card-section-title">Sequence Records for {shortGeneId}</h2>
+        <div class="card-section-body">
+          {linkedSequenceRecords.length > 0 ? linkedSequenceRecords.map((sequenceRecord) => (
+            <div class="sequence-row">
+              <strong><a href={`/sequence-records/${sequenceRecord.id}`}>{sequenceRecord.name}</a></strong>
+              <span>{sequenceRecord.sequence_type}</span>
+              <span class="meta">Length: {sequenceRecord.length}</span>
+            </div>
+          )) : <p class="meta">No sequence records have been linked to this gene in the published sample.</p>}
+        </div>
+      </section>
+
+      <section class="card-section" id="evidence">
+        <h2 class="card-section-title">Evidence Records for {shortGeneId}</h2>
+        <div class="card-section-body object-list">
+          {(item.evidence_records ?? []).map((record) => (
+            <article class="object-card">
+              <strong>{record.claim}</strong>
+              <span class="meta">{record.source} - confidence: {record.confidence}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="card-section" id="relations">
+        <h2 class="card-section-title">Relations for {shortGeneId}</h2>
+        <div class="card-section-body object-list">
+          {(item.related_objects ?? []).map((relation) => {
+            const href = hrefForObjectRef(relation.target);
+            return (
+              <article class="object-card">
+                <strong>{relation.predicate}</strong>
+                <span>{href ? <a href={href}>{relation.label ?? relation.target}</a> : relation.label ?? relation.target}</span>
+                <span class="meta">{relation.target}</span>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </article>
   </div>
-  <section class="section">
-    <h2>Sequence Records</h2>
-    <div class="object-list">
-      {linkedSequenceRecords.length > 0 ? linkedSequenceRecords.map((sequenceRecord) => (
-        <article class="object-card">
-          <strong><a href={`/sequence-records/${sequenceRecord.id}`}>{sequenceRecord.name}</a></strong>
-          <span class="meta">{sequenceRecord.sequence_type} - length: {sequenceRecord.length} - confidence: {sequenceRecord.confidence ?? "unknown"}</span>
-        </article>
-      )) : <p class="meta">No sequence records have been linked to this gene in the published sample.</p>}
-    </div>
-  </section>
-  <section class="section">
-    <h2>Evidence Records</h2>
-    <div class="object-list">
-      {(item.evidence_records ?? []).map((record) => (
-        <article class="object-card">
-          <strong>{record.claim}</strong>
-          <span class="meta">{record.source} - confidence: {record.confidence}</span>
-        </article>
-      ))}
-    </div>
-  </section>
-  <section class="section">
-    <h2>Relations</h2>
-    <div class="object-list">
-      {(item.related_objects ?? []).map((relation) => {
-        const href = hrefForObjectRef(relation.target);
-        return (
-          <article class="object-card">
-            <strong>{relation.predicate}</strong>
-            <span>{href ? <a href={href}>{relation.label ?? relation.target}</a> : relation.label ?? relation.target}</span>
-            <span class="meta">{relation.target}</span>
-          </article>
-        );
-      })}
-    </div>
-  </section>
 </BaseLayout>
