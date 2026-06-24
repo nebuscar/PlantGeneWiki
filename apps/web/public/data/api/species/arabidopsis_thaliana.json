@@ -1,0 +1,23 @@
+{
+  "object_id": "species:arabidopsis_thaliana",
+  "object_type": "Species",
+  "id": "arabidopsis_thaliana",
+  "name": "Arabidopsis thaliana",
+  "common_name": "Thale cress",
+  "description": "Reference model plant species used here as the first PlantGeneWiki static publishing sample.",
+  "genome_versions": [
+    "TAIR10",
+    "PGCP snapshot"
+  ],
+  "datasets": [
+    "dataset:pgcp_atha_gene_json_202606"
+  ],
+  "related_objects": [
+    {
+      "source": "species:arabidopsis_thaliana",
+      "predicate": "has_gene",
+      "target": "gene:Atha01G0000010.v1.36",
+      "label": "Atha01G0000010.v1.36"
+    }
+  ]
+}

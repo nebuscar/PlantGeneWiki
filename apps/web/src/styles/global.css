@@ -1,0 +1,251 @@
+:root {
+  color-scheme: light;
+  --bg: #f8faf7;
+  --surface: #ffffff;
+  --surface-soft: #eef5ec;
+  --text: #17211b;
+  --muted: #5c6b61;
+  --border: #d7e2d8;
+  --accent: #286b45;
+  --accent-strong: #174d32;
+  --code: #123622;
+  --shadow: 0 18px 55px rgba(24, 55, 35, 0.08);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, #e7f2e5 0, transparent 34rem), var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-strong);
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+}
+
+.brand {
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 760;
+  letter-spacing: -0.03em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.94rem;
+  font-weight: 620;
+}
+
+.page-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  gap: 2rem;
+  align-items: stretch;
+  padding: 3.5rem 0 2.5rem;
+}
+
+.hero h1,
+.page-title {
+  margin: 0;
+  max-width: 820px;
+  font-size: clamp(2.4rem, 7vw, 5.8rem);
+  line-height: 0.94;
+  letter-spacing: -0.075em;
+}
+
+.lede {
+  max-width: 720px;
+  margin: 1.35rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  line-height: 1.65;
+}
+
+.panel,
+.card,
+.object-card {
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+}
+
+.panel {
+  padding: 1.4rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.card,
+.object-card {
+  padding: 1.25rem;
+}
+
+.card h2,
+.card h3,
+.object-card h2,
+.object-card h3 {
+  margin: 0 0 0.55rem;
+  letter-spacing: -0.04em;
+}
+
+.muted,
+.meta {
+  color: var(--muted);
+}
+
+.meta {
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.pill {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--code);
+  padding: 0.38rem 0.65rem;
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+.section {
+  margin-top: 2.6rem;
+}
+
+.object-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.object-card {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(280px, 0.28fr);
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table th {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.search-box {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.95rem 1rem;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.graph-canvas {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.graph-edge {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.edge-label {
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+  font-weight: 760;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 820px) {
+  .site-header,
+  .hero,
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .graph-edge {
+    grid-template-columns: 1fr;
+  }
+}

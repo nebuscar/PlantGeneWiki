@@ -41,7 +41,7 @@ scripts/
 
 | 文档 | 脚本 | 功能简述 |
 |------|------|---------|
-| [imp_download.md](../../../imp/scripts/imp_download.md) | `imp/imp_download.sh` | 从 IMP 数据库批量下载植物基因组数据（已移至 `docs/imp/scripts/`） |
+| [imp_download.md](../../../archive/docs/imp/scripts/imp_download.md) | `imp/imp_download.sh` | 从 IMP 数据库批量下载植物基因组数据（已移至 `docs/imp/scripts/`） |
 
 ### NCBI 脚本
 
@@ -62,6 +62,6 @@ scripts/
 
 ## 相关目录
 
-- [guides/](../../../imp/guides/) - 安装指南（已移至 `docs/imp/guides/`）
+- [guides/](../../../archive/docs/imp/guides/) - 安装指南（已移至 `docs/imp/guides/`）
 - [submission/](../submission/) - 数据提交规范（归档）
-- [imp_pipeline_plan.md](../../../imp/imp_pipeline_plan.md) - IMP 流程计划与进度（已移至 `docs/imp/`）
+- [imp_pipeline_plan.md](../../../archive/docs/imp/imp_pipeline_plan.md) - IMP 流程计划与进度（已移至 `docs/imp/`）

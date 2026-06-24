@@ -187,7 +187,7 @@ python scripts/generate_mapping.py -i {genomes_root} -f xlsx
 python scripts/calc_protein_properties.py -i {genomes_root} -o {result_root}/annotation -r -f xlsx
 
 # 5. 功能注释
-bash Z_archive/run_eggnog_nested.sh -i {genomes_root} -o {result_root}/eggnog_output -f xlsx -c 30
+bash archive/run_eggnog_nested.sh -i {genomes_root} -o {result_root}/eggnog_output -f xlsx -c 30
 
 # 6. 整合
 python scripts/integrate_outputs.py -i {result_root}/annotation -o {result_root}/integrated -f xlsx
@@ -196,7 +196,7 @@ python scripts/integrate_outputs.py -i {result_root}/annotation -o {result_root}
 ### 7.2 默认路径
 
 - 基因组根目录：`/DATA/data2/downloads/NCBI`
-- 结果输出目录：`/home/nizhu/Projects/plantsdb/result`
+- 结果输出目录：`/home/nizhu/Projects/PlantGeneWiki/result`
 
 ---
 
@@ -219,11 +219,11 @@ python scripts/integrate_outputs.py -i {result_root}/annotation -o {result_root}
 |------|------|
 | 物种列表 | `data/meta/ncbi/species_list_cleaned.tsv` |
 | 整合脚本 | `scripts/integrate_outputs.py` |
-| 坐标提取 | `Z_archive/extract_genomic_features.py` |
+| 坐标提取 | `archive/extract_genomic_features.py` |
 | 序列提取 | `scripts/extract_cds_pep.py` |
 | ID映射 | `scripts/generate_mapping.py` |
 | 蛋白性质 | `scripts/calc_protein_properties.py` |
-| 功能注释 | `Z_archive/run_eggnog_nested.sh` |
+| 功能注释 | `archive/run_eggnog_nested.sh` |
 
 ### 9.2 输出列详解
 

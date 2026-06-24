@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { species } from "../../lib/api-data";
+
+export function getStaticPaths() {
+  return species.map((item) => ({ params: { id: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+---
+<BaseLayout title={`${item.name} | PlantGeneWiki`} description={item.description}>
+  <h1 class="page-title">{item.name}</h1>
+  <p class="lede">{item.description}</p>
+  <div class="two-column">
+    <section class="panel">
+      <h2>Species Object</h2>
+      <table class="data-table">
+        <tbody>
+          <tr><th>Object ID</th><td>{item.object_id}</td></tr>
+          <tr><th>Type</th><td>{item.object_type}</td></tr>
+          <tr><th>Common name</th><td>{item.common_name}</td></tr>
+          <tr><th>Genome versions</th><td>{(item.genome_versions ?? []).join(", ")}</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <aside class="panel">
+      <h2>Datasets</h2>
+      <div class="object-list">
+        {(item.datasets ?? []).map((dataset) => <span class="pill">{dataset}</span>)}
+      </div>
+    </aside>
+  </div>
+  <section class="section">
+    <h2>Relations</h2>
+    <div class="object-list">
+      {(item.related_objects ?? []).map((relation) => (
+        <article class="object-card">
+          <strong>{relation.predicate}</strong>
+          <span>{relation.label ?? relation.target}</span>
+          <span class="meta">{relation.target}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

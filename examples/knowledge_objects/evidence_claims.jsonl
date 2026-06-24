@@ -1,0 +1,1 @@
+{"evidence_id":"evidence:pgcp:Atha01G0000010.v1.36","source":"PGCP API","claim":"PGCP provides raw gene-level JSON and ortholog information for this gene.","evidence_type":"external_database_record","confidence":"medium","review_status":"machine_extracted","source_dataset":"dataset:pgcp_atha_gene_json_202606"}

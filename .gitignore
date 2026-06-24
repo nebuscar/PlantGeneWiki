@@ -1,15 +1,17 @@
-# system
-.nfs*
-
 # folders
 downloads/
-sample/
-result/
+/results/
 tmp/
 logs/
-data/genomes/
-data/meta/imp/
-data/meta/pgcp/
+/data/
+
+# agent local runtime state
+apps/agent/.env
+apps/agent/db/*.db
+apps/agent/db/*.sqlite3
+apps/agent/db/chroma/
+apps/agent/db/papers/
+apps/agent/**/__pycache__/
 
 # files
 **/__pycache__/
@@ -29,3 +31,14 @@ data/meta/pgcp/
 *.docx
 *.db
 *.sqlite3
+
+# frontend local/runtime output
+node_modules/
+apps/web/node_modules/
+apps/web/dist/
+apps/web/.astro/
+apps/web/.env
+apps/web/.env.local
+
+# editor local settings
+.vscode/

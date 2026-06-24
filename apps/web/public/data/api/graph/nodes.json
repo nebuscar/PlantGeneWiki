@@ -1,0 +1,17 @@
+[
+  {
+    "id": "species:arabidopsis_thaliana",
+    "label": "Arabidopsis thaliana",
+    "type": "Species"
+  },
+  {
+    "id": "gene:Atha01G0000010.v1.36",
+    "label": "Atha01G0000010.v1.36",
+    "type": "Gene"
+  },
+  {
+    "id": "dataset:pgcp_atha_gene_json_202606",
+    "label": "PGCP Arabidopsis gene JSON snapshot",
+    "type": "Dataset"
+  }
+]

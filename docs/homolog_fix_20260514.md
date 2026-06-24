@@ -111,7 +111,7 @@ IMPATR6G00000000016	IMPATR3G00000000155
 
 ## 涉及文件
 
-- **修改：** `/home/nizhu/Projects/plantsdb/scripts/imp/run_imp_pipeline.sh`
+- **修改：** `/home/nizhu/Projects/PlantGeneWiki/archive/imp/importer/imp/run_imp_pipeline.sh`
 
 ## 未修改的第三方工具
 

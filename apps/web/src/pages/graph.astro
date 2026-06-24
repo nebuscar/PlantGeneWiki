@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { graph } from "../lib/api-data";
+
+const labelById = Object.fromEntries(graph.nodes.map((node) => [node.id, node.label]));
+---
+<BaseLayout title="Graph | PlantGeneWiki" description="Static PlantGeneWiki graph sample.">
+  <h1 class="page-title">Knowledge Graph</h1>
+  <p class="lede">Static graph sample showing the same node and edge shape that a future graph API can return dynamically.</p>
+  <section class="card-grid">
+    {graph.nodes.map((node) => (
+      <article class="card">
+        <span class="pill">{node.type}</span>
+        <h2>{node.label}</h2>
+        <p class="meta">{node.id}</p>
+      </article>
+    ))}
+  </section>
+  <section class="section panel">
+    <h2>Edges</h2>
+    <div class="graph-canvas">
+      {graph.edges.map((edge) => (
+        <div class="graph-edge">
+          <strong>{labelById[edge.source]}</strong>
+          <span class="edge-label">{edge.predicate}</span>
+          <strong>{labelById[edge.target]}</strong>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

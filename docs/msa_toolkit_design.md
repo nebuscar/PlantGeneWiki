@@ -158,7 +158,7 @@ python3 msa_toolkit.py -i same_species.fa -o output/ --tree
 ## 7. 目录结构
 
 ```
-scripts/msa/
+scripts/analysis/msa/
 ├── msa_toolkit.py      # 集成工具主脚本
 ├── __init__.py         # 模块导出
 └── test_input.fa       # 测试数据

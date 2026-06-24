@@ -1,0 +1,2 @@
+{"source":"species:arabidopsis_thaliana","predicate":"has_gene","target":"gene:Atha01G0000010.v1.36","label":"Atha01G0000010.v1.36","source_dataset":"dataset:pgcp_atha_gene_json_202606"}
+{"source":"gene:Atha01G0000010.v1.36","predicate":"provided_by_dataset","target":"dataset:pgcp_atha_gene_json_202606","label":"PGCP Arabidopsis gene JSON snapshot","source_dataset":"dataset:pgcp_atha_gene_json_202606"}

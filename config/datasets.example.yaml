@@ -1,0 +1,64 @@
+# Example Dataset registry for PlantGeneWiki.
+# Copy this file to config/datasets.yaml and adjust local paths for the server.
+# Large raw data should stay outside the Git repository, for example under /path/to/external/raw-data.
+
+datasets:
+  - id: dataset:brassica_napus_zs11_genome_sequence
+    name: Brassica napus ZS11 genome sequence
+    dataset_type: genome_sequence
+    species: species:brassica_napus
+    version: ZS11
+    storage:
+      type: local_path
+      path: /path/to/external/genomes/Brassica_napus/ZS11/genome.fa
+    source:
+      name: BRAD
+      url: null
+    status:
+      raw_available: true
+      parsed: false
+      indexed: false
+    updated_at: 2026-06-24
+
+  - id: dataset:brassica_napus_zs11_genome_annotation
+    name: Brassica napus ZS11 genome annotation
+    dataset_type: genome_annotation
+    species: species:brassica_napus
+    version: ZS11
+    storage:
+      type: local_path
+      path: /path/to/external/genomes/Brassica_napus/ZS11/annotation.gff3
+    source:
+      name: BRAD
+      url: null
+    transforms:
+      - output_object_type: Gene
+        relation_examples:
+          - Species --has_gene--> Gene
+          - Gene --belongs_to_species--> Species
+    status:
+      raw_available: true
+      parsed: false
+      indexed: false
+    updated_at: 2026-06-24
+
+  - id: dataset:pgcp_arabidopsis_thaliana_gene_json
+    name: PGCP Arabidopsis thaliana gene JSON snapshot
+    dataset_type: external_database_record
+    species: species:arabidopsis_thaliana
+    version: pgcp_snapshot_2026_06
+    storage:
+      type: local_path
+      path: /path/to/external/pgcp/arabidopsis_thaliana_json/raw
+    source:
+      name: PGCP
+      url: https://biobigdata.nju.edu.cn/pgdatabase/
+    transforms:
+      - output_object_type: Gene
+      - output_object_type: Orthogroup
+      - output_relation: Gene --belongs_to_orthogroup--> Orthogroup
+    status:
+      raw_available: true
+      parsed: false
+      indexed: false
+    updated_at: 2026-06-24

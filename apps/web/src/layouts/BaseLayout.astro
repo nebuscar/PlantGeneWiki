@@ -1,0 +1,28 @@
+---
+import "../styles/global.css";
+
+const { title = "PlantGeneWiki", description = "Static-first PlantGeneWiki knowledge base." } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">PlantGeneWiki</a>
+      <nav aria-label="Main navigation">
+        <a href="/search">Search</a>
+        <a href="/graph">Graph</a>
+        <a href="/species/arabidopsis_thaliana">Species</a>
+        <a href="/genes/Atha01G0000010.v1.36">Gene</a>
+      </nav>
+    </header>
+    <main class="page-shell">
+      <slot />
+    </main>
+  </body>
+</html>

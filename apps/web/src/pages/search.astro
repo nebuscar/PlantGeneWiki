@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { searchItems } from "../lib/api-data";
+---
+<BaseLayout title="Search | PlantGeneWiki" description="Search PlantGeneWiki sample knowledge objects.">
+  <h1 class="page-title">Search</h1>
+  <p class="lede">Static search prototype backed by a small prebuilt index. Later this can be replaced by `/api/search` without changing the page contract.</p>
+  <section class="section panel">
+    <label class="meta" for="search-input">Filter objects</label>
+    <input class="search-box" id="search-input" type="search" placeholder="Try Arabidopsis, gene, or PGCP" />
+    <div class="object-list" id="results">
+      {searchItems.map((item) => (
+        <article class="object-card" data-search={`${item.title} ${item.summary} ${item.type}`.toLowerCase()}>
+          <span class="pill">{item.type}</span>
+          <h2><a href={item.href}>{item.title}</a></h2>
+          <p class="meta">{item.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+  <script>
+    const input = document.querySelector("#search-input");
+    const cards = Array.from(document.querySelectorAll("[data-search]"));
+    input?.addEventListener("input", (event) => {
+      const query = event.currentTarget.value.toLowerCase().trim();
+      cards.forEach((card) => {
+        const haystack = card.getAttribute("data-search") || "";
+        card.style.display = haystack.includes(query) ? "grid" : "none";
+      });
+    });
+  </script>
+</BaseLayout>

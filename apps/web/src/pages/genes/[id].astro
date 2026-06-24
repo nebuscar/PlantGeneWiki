@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { genes } from "../../lib/api-data";
+
+export function getStaticPaths() {
+  return genes.map((item) => ({ params: { id: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+---
+<BaseLayout title={`${item.name} | PlantGeneWiki`} description={item.description}>
+  <h1 class="page-title">{item.name}</h1>
+  <p class="lede">{item.description}</p>
+  <div class="two-column">
+    <section class="panel">
+      <h2>Gene Object</h2>
+      <table class="data-table">
+        <tbody>
+          <tr><th>Object ID</th><td>{item.object_id}</td></tr>
+          <tr><th>Species</th><td><a href={`/species/${item.species}`}>{item.species}</a></td></tr>
+          <tr><th>Aliases</th><td>{(item.aliases ?? []).join(", ")}</td></tr>
+          <tr><th>Datasets</th><td>{(item.datasets ?? []).join(", ")}</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <aside class="panel">
+      <h2>Annotations</h2>
+      <div class="pill-row">
+        {(item.annotations ?? []).map((annotation) => <span class="pill">{annotation}</span>)}
+      </div>
+    </aside>
+  </div>
+  <section class="section">
+    <h2>Evidence Records</h2>
+    <div class="object-list">
+      {(item.evidence_records ?? []).map((record) => (
+        <article class="object-card">
+          <strong>{record.claim}</strong>
+          <span class="meta">{record.source} - confidence: {record.confidence}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section class="section">
+    <h2>Relations</h2>
+    <div class="object-list">
+      {(item.related_objects ?? []).map((relation) => (
+        <article class="object-card">
+          <strong>{relation.predicate}</strong>
+          <span>{relation.label ?? relation.target}</span>
+          <span class="meta">{relation.target}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

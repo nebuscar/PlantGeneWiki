@@ -1,0 +1,10 @@
+sources:
+  pgcp:
+    site: "https://biobigdata.nju.edu.cn/pgdatabase/"
+    genome_api: "https://biobigdata.nju.edu.cn/pgdatabaseAPI/genome"
+    gene_api: "https://biobigdata.nju.edu.cn/pgdatabaseAPI/gene"
+    status: "paused_until_api_recovers"
+  imp:
+    local_metadata_dir: "data/meta/imp"
+  ncbi:
+    local_metadata_dir: "data/genomes/metadata"

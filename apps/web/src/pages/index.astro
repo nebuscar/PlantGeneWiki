@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { datasets, genes, searchItems, species } from "../lib/api-data";
+---
+<BaseLayout title="PlantGeneWiki" description="A static-first plant genomics knowledge base prototype.">
+  <section class="hero">
+    <div>
+      <h1>Static-first plant knowledge objects.</h1>
+      <p class="lede">
+        PlantGeneWiki publishes stable Species, Gene, Dataset, Relation, and Evidence records as static data first. The same object shape can later move behind a dynamic API.
+      </p>
+      <div class="pill-row">
+        <span class="pill">Wiki pages</span>
+        <span class="pill">Knowledge objects</span>
+        <span class="pill">Dataset registry</span>
+        <span class="pill">Future API compatible</span>
+      </div>
+    </div>
+    <aside class="panel">
+      <h2>Prototype data</h2>
+      <p class="meta">This first web shell uses sample published JSON only. Raw PGCP JSON and genome files remain outside the website.</p>
+      <table class="data-table">
+        <tbody>
+          <tr><th>Species</th><td>{species.length}</td></tr>
+          <tr><th>Genes</th><td>{genes.length}</td></tr>
+          <tr><th>Datasets</th><td>{datasets.length}</td></tr>
+          <tr><th>Search rows</th><td>{searchItems.length}</td></tr>
+        </tbody>
+      </table>
+    </aside>
+  </section>
+
+  <section class="card-grid" aria-label="Primary routes">
+    <article class="card">
+      <h2>Species</h2>
+      <p class="meta">Browse organism-level context, genome versions, datasets, and related genes.</p>
+      <a href="/species/arabidopsis_thaliana">Open species page</a>
+    </article>
+    <article class="card">
+      <h2>Gene</h2>
+      <p class="meta">Inspect normalized gene metadata, relations, evidence, and dataset provenance.</p>
+      <a href="/genes/Atha01G0000010.v1.36">Open gene page</a>
+    </article>
+    <article class="card">
+      <h2>Dataset</h2>
+      <p class="meta">Track source, version, status, and raw data publication policy.</p>
+      <a href="/datasets/pgcp_atha_gene_json_202606">Open dataset page</a>
+    </article>
+  </section>
+</BaseLayout>

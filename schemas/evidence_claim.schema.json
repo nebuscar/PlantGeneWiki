@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plantgenewiki.org/schemas/evidence_claim.schema.json",
+  "title": "PlantGeneWiki Evidence Claim",
+  "type": "object",
+  "required": ["evidence_id", "source", "claim", "confidence"],
+  "properties": {
+    "evidence_id": { "type": "string" },
+    "source": { "type": "string" },
+    "claim": { "type": "string" },
+    "evidence_type": { "type": "string" },
+    "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+    "review_status": { "type": "string", "enum": ["unreviewed", "machine_extracted", "human_reviewed"] },
+    "source_dataset": { "type": "string" },
+    "source_url": { "type": "string" }
+  },
+  "additionalProperties": true
+}

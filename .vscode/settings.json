@@ -1,6 +1,0 @@
-{
-    "secondaryExplorer.paths": [
-        "${workspaceFolder}/data/meta/pgcp",
-        "/DATA/data2/downloads"
-    ]
-}

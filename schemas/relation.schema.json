@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plantgenewiki.org/schemas/relation.schema.json",
+  "title": "PlantGeneWiki Relation",
+  "type": "object",
+  "required": ["source", "predicate", "target"],
+  "properties": {
+    "source": { "type": "string" },
+    "predicate": { "type": "string" },
+    "target": { "type": "string" },
+    "label": { "type": "string" },
+    "evidence": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "source_dataset": { "type": "string" }
+  },
+  "additionalProperties": true
+}

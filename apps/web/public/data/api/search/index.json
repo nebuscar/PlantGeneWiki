@@ -1,0 +1,23 @@
+[
+  {
+    "type": "Dataset",
+    "id": "pgcp_atha_gene_json_202606",
+    "title": "PGCP Arabidopsis gene JSON snapshot",
+    "href": "/datasets/pgcp_atha_gene_json_202606",
+    "summary": "Raw PGCP gene JSON files remain outside the web app. The website publishes metadata and normalized knowledge objects only."
+  },
+  {
+    "type": "Gene",
+    "id": "Atha01G0000010.v1.36",
+    "title": "Atha01G0000010.v1.36",
+    "href": "/genes/Atha01G0000010.v1.36",
+    "summary": "Sample PGCP gene record used to validate the static API shape and future dynamic migration boundary."
+  },
+  {
+    "type": "Species",
+    "id": "arabidopsis_thaliana",
+    "title": "Arabidopsis thaliana",
+    "href": "/species/arabidopsis_thaliana",
+    "summary": "Reference model plant species used here as the first PlantGeneWiki static publishing sample."
+  }
+]
