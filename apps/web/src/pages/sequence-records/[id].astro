@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { hrefForObjectRef, sequenceRecords } from "../../lib/api-data";
+
+export function getStaticPaths() {
+  return sequenceRecords.map((item) => ({ params: { id: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const datasetHref = hrefForObjectRef(item.dataset);
+const speciesHref = hrefForObjectRef(item.species);
+---
+<BaseLayout title={`${item.name} | PlantGeneWiki`} description={item.description}>
+  <h1 class="page-title">{item.name}</h1>
+  <p class="lede">{item.description}</p>
+  <section class="panel section">
+    <h2>SequenceRecord</h2>
+    <table class="data-table">
+      <tbody>
+        <tr><th>Object ID</th><td>{item.object_id}</td></tr>
+        <tr><th>Sequence ID</th><td>{item.sequence_id}</td></tr>
+        <tr><th>Species</th><td>{speciesHref ? <a href={speciesHref}>{item.species}</a> : item.species}</td></tr>
+        <tr><th>Dataset</th><td>{datasetHref ? <a href={datasetHref}>{item.dataset}</a> : item.dataset}</td></tr>
+        <tr><th>Sequence Type</th><td>{item.sequence_type}</td></tr>
+        <tr><th>Length</th><td>{item.length}</td></tr>
+        <tr><th>Inferred Gene ID</th><td>{item.inferred_gene_id ?? ""}</td></tr>
+        <tr><th>Confidence</th><td>{item.confidence ?? "unknown"}</td></tr>
+      </tbody>
+    </table>
+  </section>
+</BaseLayout>

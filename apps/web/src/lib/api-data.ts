@@ -58,6 +58,25 @@ export type Dataset = {
   [key: string]: unknown;
 };
 
+export type SequenceRecord = {
+  object_id: string;
+  object_type: "SequenceRecord";
+  id: string;
+  name: string;
+  description: string;
+  sequence_id: string;
+  species: string;
+  dataset: string;
+  sequence_type: string;
+  length: number;
+  checksum?: Record<string, string>;
+  inferred_gene_id?: string;
+  inference_method?: string;
+  confidence?: string;
+  related_objects?: Relation[];
+  updated_at?: string;
+};
+
 export type SearchItem = {
   type: string;
   id: string;
@@ -82,6 +101,7 @@ export type GraphEdge = {
 const speciesModules = import.meta.glob<Species>("../../public/data/api/species/*.json", { eager: true, import: "default" });
 const geneModules = import.meta.glob<Gene>("../../public/data/api/genes/*.json", { eager: true, import: "default" });
 const datasetModules = import.meta.glob<Dataset>("../../public/data/api/datasets/*.json", { eager: true, import: "default" });
+const sequenceRecordModules = import.meta.glob<SequenceRecord>("../../public/data/api/sequence_records/*.json", { eager: true, import: "default" });
 const searchModules = import.meta.glob<SearchItem[]>("../../public/data/api/search/index.json", { eager: true, import: "default" });
 const graphNodeModules = import.meta.glob<GraphNode[]>("../../public/data/api/graph/nodes.json", { eager: true, import: "default" });
 const graphEdgeModules = import.meta.glob<GraphEdge[]>("../../public/data/api/graph/edges.json", { eager: true, import: "default" });
@@ -98,6 +118,7 @@ function firstArray<T>(modules: Record<string, T[]>): T[] {
 export const species = values(speciesModules).sort((a, b) => a.name.localeCompare(b.name));
 export const genes = values(geneModules).sort((a, b) => a.name.localeCompare(b.name));
 export const datasets = values(datasetModules).sort((a, b) => a.name.localeCompare(b.name));
+export const sequenceRecords = values(sequenceRecordModules).sort((a, b) => a.name.localeCompare(b.name));
 export const searchItems = firstArray(searchModules);
 export const evidenceClaims = firstArray(evidenceModules);
 
@@ -116,4 +137,26 @@ export function getGene(id: string) {
 
 export function getDataset(id: string) {
   return datasets.find((item) => item.id === id);
+}
+
+export function getSequenceRecord(id: string) {
+  return sequenceRecords.find((item) => item.id === id);
+}
+
+export function hrefForObjectRef(ref: string): string | undefined {
+  if (ref.startsWith("species:")) {
+    return `/species/${ref.slice("species:".length)}`;
+  }
+  if (ref.startsWith("gene:")) {
+    return `/genes/${ref.slice("gene:".length)}`;
+  }
+  if (ref.startsWith("dataset:")) {
+    const dataset = datasets.find((item) => item.object_id === ref || `dataset:${item.id}` === ref);
+    return dataset ? `/datasets/${dataset.id}` : undefined;
+  }
+  if (ref.startsWith("seq:")) {
+    const sequenceRecord = sequenceRecords.find((item) => item.object_id === ref);
+    return sequenceRecord ? `/sequence-records/${sequenceRecord.id}` : undefined;
+  }
+  return undefined;
 }

@@ -19,10 +19,10 @@ import { searchItems } from "../lib/api-data";
     </div>
   </section>
   <script>
-    const input = document.querySelector("#search-input");
-    const cards = Array.from(document.querySelectorAll("[data-search]"));
-    input?.addEventListener("input", (event) => {
-      const query = event.currentTarget.value.toLowerCase().trim();
+    const input = document.querySelector<HTMLInputElement>("#search-input");
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-search]"));
+    input?.addEventListener("input", () => {
+      const query = input.value.toLowerCase().trim();
       cards.forEach((card) => {
         const haystack = card.getAttribute("data-search") || "";
         card.style.display = haystack.includes(query) ? "grid" : "none";

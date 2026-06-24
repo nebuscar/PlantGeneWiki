@@ -33,5 +33,19 @@
     "target": "seq:pgcp:abies_alba:v1:cds:Aalbaalba5_s000000200000020.1.v1.0",
     "label": "Aalbaalba5_s000000200000020.1.v1.0",
     "source_dataset": "dataset:pgcp:abies_alba:v1:cds"
+  },
+  {
+    "source": "gene:Atha01G0000010.v1.36",
+    "predicate": "has_sequence",
+    "target": "seq:pgcp:arabidopsis_thaliana:pgcp_atha_gene_json_202606:Atha01G0000010.1.v1.36",
+    "label": "Atha01G0000010.1.v1.36",
+    "source_dataset": "dataset:pgcp_atha_gene_json_202606"
+  },
+  {
+    "source": "dataset:pgcp_atha_gene_json_202606",
+    "predicate": "contains_sequence",
+    "target": "seq:pgcp:arabidopsis_thaliana:pgcp_atha_gene_json_202606:Atha01G0000010.1.v1.36",
+    "label": "Atha01G0000010.1.v1.36",
+    "source_dataset": "dataset:pgcp_atha_gene_json_202606"
   }
 ]

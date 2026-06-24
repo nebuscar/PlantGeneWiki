@@ -25,6 +25,11 @@
     "type": "SequenceRecord"
   },
   {
+    "id": "seq:pgcp:arabidopsis_thaliana:pgcp_atha_gene_json_202606:Atha01G0000010.1.v1.36",
+    "label": "Atha01G0000010.1.v1.36",
+    "type": "SequenceRecord"
+  },
+  {
     "id": "dataset:pgcp_atha_gene_json_202606",
     "label": "PGCP Arabidopsis gene JSON snapshot",
     "type": "Dataset"

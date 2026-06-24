@@ -1,12 +1,20 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { genes } from "../../lib/api-data";
+import { datasets, genes, hrefForObjectRef, sequenceRecords } from "../../lib/api-data";
 
 export function getStaticPaths() {
   return genes.map((item) => ({ params: { id: item.id }, props: { item } }));
 }
 
 const { item } = Astro.props;
+const linkedDatasets = (item.datasets ?? [])
+  .map((datasetRef) => datasets.find((dataset) => dataset.object_id === datasetRef || dataset.id === datasetRef || `dataset:${dataset.id}` === datasetRef))
+  .filter((dataset): dataset is (typeof datasets)[number] => Boolean(dataset));
+const linkedSequenceRecords = sequenceRecords.filter((sequenceRecord) => {
+  const explicitLink = (item.related_objects ?? []).some((relation) => relation.target === sequenceRecord.object_id);
+  const possibleGeneIds = new Set([item.id, item.id.replace(/\.v\d+\.\d+$/, ""), ...(item.aliases ?? [])]);
+  return explicitLink || possibleGeneIds.has(sequenceRecord.inferred_gene_id ?? "") || possibleGeneIds.has(sequenceRecord.sequence_id);
+});
 ---
 <BaseLayout title={`${item.name} | PlantGeneWiki`} description={item.description}>
   <h1 class="page-title">{item.name}</h1>
@@ -19,7 +27,17 @@ const { item } = Astro.props;
           <tr><th>Object ID</th><td>{item.object_id}</td></tr>
           <tr><th>Species</th><td><a href={`/species/${item.species}`}>{item.species}</a></td></tr>
           <tr><th>Aliases</th><td>{(item.aliases ?? []).join(", ")}</td></tr>
-          <tr><th>Datasets</th><td>{(item.datasets ?? []).join(", ")}</td></tr>
+          <tr>
+            <th>Datasets</th>
+            <td>
+              {linkedDatasets.length > 0 ? linkedDatasets.map((dataset, index) => (
+                <>
+                  {index > 0 && ", "}
+                  <a href={`/datasets/${dataset.id}`}>{dataset.name}</a>
+                </>
+              )) : (item.datasets ?? []).join(", ")}
+            </td>
+          </tr>
         </tbody>
       </table>
     </section>
@@ -30,6 +48,17 @@ const { item } = Astro.props;
       </div>
     </aside>
   </div>
+  <section class="section">
+    <h2>Sequence Records</h2>
+    <div class="object-list">
+      {linkedSequenceRecords.length > 0 ? linkedSequenceRecords.map((sequenceRecord) => (
+        <article class="object-card">
+          <strong><a href={`/sequence-records/${sequenceRecord.id}`}>{sequenceRecord.name}</a></strong>
+          <span class="meta">{sequenceRecord.sequence_type} - length: {sequenceRecord.length} - confidence: {sequenceRecord.confidence ?? "unknown"}</span>
+        </article>
+      )) : <p class="meta">No sequence records have been linked to this gene in the published sample.</p>}
+    </div>
+  </section>
   <section class="section">
     <h2>Evidence Records</h2>
     <div class="object-list">
@@ -44,13 +73,16 @@ const { item } = Astro.props;
   <section class="section">
     <h2>Relations</h2>
     <div class="object-list">
-      {(item.related_objects ?? []).map((relation) => (
-        <article class="object-card">
-          <strong>{relation.predicate}</strong>
-          <span>{relation.label ?? relation.target}</span>
-          <span class="meta">{relation.target}</span>
-        </article>
-      ))}
+      {(item.related_objects ?? []).map((relation) => {
+        const href = hrefForObjectRef(relation.target);
+        return (
+          <article class="object-card">
+            <strong>{relation.predicate}</strong>
+            <span>{href ? <a href={href}>{relation.label ?? relation.target}</a> : relation.label ?? relation.target}</span>
+            <span class="meta">{relation.target}</span>
+          </article>
+        );
+      })}
     </div>
   </section>
 </BaseLayout>

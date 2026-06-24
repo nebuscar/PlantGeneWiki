@@ -69,6 +69,8 @@ def build_search_index(objects: list[dict[str, Any]], datasets: list[dict[str, A
             href = f"/genes/{record_id}"
         elif object_type == "Dataset":
             href = f"/datasets/{record_id}"
+        elif object_type == "SequenceRecord":
+            href = f"/sequence-records/{record_id}"
         else:
             href = f"/search#{record_id}"
         items.append(

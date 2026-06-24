@@ -24,15 +24,22 @@
     "type": "SequenceRecord",
     "id": "Aalbaalba5_s000000100000010.1.v1.0",
     "title": "Aalbaalba5_s000000100000010.1.v1.0",
-    "href": "/search#Aalbaalba5_s000000100000010.1.v1.0",
+    "href": "/sequence-records/Aalbaalba5_s000000100000010.1.v1.0",
     "summary": "Minimal CDS sequence record sample from Abies alba PGCP v1."
   },
   {
     "type": "SequenceRecord",
     "id": "Aalbaalba5_s000000200000020.1.v1.0",
     "title": "Aalbaalba5_s000000200000020.1.v1.0",
-    "href": "/search#Aalbaalba5_s000000200000020.1.v1.0",
+    "href": "/sequence-records/Aalbaalba5_s000000200000020.1.v1.0",
     "summary": "Second minimal CDS sequence record sample from Abies alba PGCP v1."
+  },
+  {
+    "type": "SequenceRecord",
+    "id": "Atha01G0000010.1.v1.36",
+    "title": "Atha01G0000010.1.v1.36",
+    "href": "/sequence-records/Atha01G0000010.1.v1.36",
+    "summary": "Minimal CDS sequence record linked to the sample Arabidopsis PGCP gene object."
   },
   {
     "type": "Species",

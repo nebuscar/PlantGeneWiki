@@ -20,8 +20,8 @@ class BuildWebDataTests(unittest.TestCase):
             self.assertEqual(counts["species"], 2)
             self.assertEqual(counts["genes"], 1)
             self.assertEqual(counts["datasets"], 2)
-            self.assertEqual(counts["sequence_records"], 2)
-            self.assertEqual(counts["relations"], 5)
+            self.assertEqual(counts["sequence_records"], 3)
+            self.assertEqual(counts["relations"], 7)
             self.assertEqual(counts["evidence_claims"], 1)
 
             gene = json.loads((output_dir / "genes" / "Atha01G0000010.v1.36.json").read_text(encoding="utf-8"))
@@ -32,6 +32,7 @@ class BuildWebDataTests(unittest.TestCase):
             self.assertTrue(any(item["href"] == "/genes/Atha01G0000010.v1.36" for item in search_index))
             self.assertTrue(any(item["id"] == "abies_alba" and item["href"] == "/species/abies_alba" for item in search_index))
             self.assertTrue(any(item["id"] == "Aalbaalba5_s000000100000010.1.v1.0" for item in search_index))
+            self.assertTrue(any(item["href"] == "/sequence-records/Atha01G0000010.1.v1.36" for item in search_index))
 
             dataset = json.loads((output_dir / "datasets" / "pgcp_atha_gene_json_202606.json").read_text(encoding="utf-8"))
             self.assertEqual(dataset["location"], {"type": "internal", "label": "internal_raw_storage"})
@@ -44,7 +45,7 @@ class BuildWebDataTests(unittest.TestCase):
             graph_edges = json.loads((output_dir / "graph" / "edges.json").read_text(encoding="utf-8"))
             self.assertEqual(
                 {edge["predicate"] for edge in graph_edges},
-                {"has_gene", "provided_by_dataset", "has_dataset", "contains_sequence"},
+                {"has_gene", "provided_by_dataset", "has_dataset", "contains_sequence", "has_sequence"},
             )
 
 
