@@ -45,6 +45,20 @@ a:hover {
   text-decoration: underline;
 }
 
+.example-link {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #1175d6;
+  font: inherit;
+  cursor: pointer;
+}
+
+.example-link:hover {
+  color: var(--orange-dark);
+  text-decoration: underline;
+}
+
 .site-header {
   display: flex;
   align-items: center;
@@ -119,12 +133,6 @@ nav a:hover {
   color: #ffffff;
   font-size: 1.25rem;
   cursor: pointer;
-}
-
-.search-action:disabled {
-  background: #6f879f;
-  cursor: not-allowed;
-  opacity: 0.65;
 }
 
 .search-icon {
