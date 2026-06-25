@@ -85,7 +85,7 @@ const relationSummary = relationCount > 0
       </div>
       <div class="sidebar-group">
         <div class="sidebar-title">Evidence &amp; Resources</div>
-        <a class="sidebar-link" href="#evidence">Evidence Records</a>
+        <a class="sidebar-link" href="#publications">Publications</a>
       </div>
       <form class="sidebar-search" data-card-search>
         <input name="q" type="search" placeholder="Search in this card" autocomplete="off" />
@@ -162,7 +162,7 @@ const relationSummary = relationCount > 0
         <div class="overview-row">
           <div class="overview-label">Evidence</div>
           <div class="overview-content overview-links">
-            <a href="#evidence">{evidenceCount} evidence record{evidenceCount === 1 ? "" : "s"}</a>
+            <a href="#publications">{evidenceCount} publication source{evidenceCount === 1 ? "" : "s"}</a>
             <span class="overview-muted">Literature-derived claims will appear after literature normalization.</span>
           </div>
         </div>
@@ -336,15 +336,48 @@ const relationSummary = relationCount > 0
         </div>
       </section>
 
-      <section class="card-section" id="evidence">
-        <h2 class="card-section-title">Evidence Records for {shortGeneId}</h2>
-        <div class="card-section-body object-list">
-          {(item.evidence_records ?? []).length > 0 ? (item.evidence_records ?? []).map((record) => (
-            <article class="object-card">
-              <strong>{record.claim}</strong>
-              <span class="meta">{record.source} - confidence: {record.confidence}</span>
-            </article>
-          )) : <p class="empty-state">No evidence records available for {shortGeneId}</p>}
+      <section class="card-section" id="publications">
+        <h2 class="card-section-title">Publications for {shortGeneId}</h2>
+        <div class="jump-row">Jump to: <a href="#review-publications">Review Publications</a><span>|</span><a href="#publication-records">Publications</a><span>|</span><a href="#external-literature-databases">External literature databases</a></div>
+        <div class="card-section-body">
+          <p class="section-intro">
+            This section collects literature and evidence sources linked to {shortGeneId}. Literature normalization pending: curated Literature objects, PMID/DOI identifiers, review articles, and citation metadata will be populated by the literature import workflow.
+          </p>
+
+          <div class="subsection-heading" id="review-publications">Review Publications for {shortGeneId}</div>
+          <p class="empty-state">No review publication records have been normalized for {shortGeneId}.</p>
+
+          <div class="subsection-heading" id="publication-records">Publications for {shortGeneId}</div>
+          {(item.evidence_records ?? []).length > 0 ? (
+            <table class="data-table publication-table">
+              <thead>
+                <tr>
+                  <th>Title / Claim</th>
+                  <th>Source</th>
+                  <th>Evidence Type</th>
+                  <th>Confidence</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(item.evidence_records ?? []).map((record) => (
+                  <tr>
+                    <td>{record.claim}</td>
+                    <td>{record.source}</td>
+                    <td>{record.evidence_type ?? "evidence_record"}</td>
+                    <td>{record.confidence}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : <p class="empty-state">No publication records have been normalized for {shortGeneId}.</p>}
+
+          <div class="subsection-heading" id="external-literature-databases">External literature databases for {shortGeneId}</div>
+          <div class="other-links-grid">
+            <strong>PlantGeneWiki</strong>
+            <a href={`/search?q=${encodeURIComponent(`${shortGeneId} literature`)}`}>Search PlantGeneWiki for {shortGeneId} literature</a>
+            <strong>Future imports</strong>
+            <span>PubMed, DOI, abstract, PDF, and model-extracted evidence claims will be linked here after Literature object normalization.</span>
+          </div>
         </div>
       </section>
 
