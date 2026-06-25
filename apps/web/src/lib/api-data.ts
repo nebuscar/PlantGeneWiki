@@ -7,6 +7,15 @@ export type Relation = {
   source_dataset?: string;
 };
 
+export type GenomeLocation = {
+  assembly: string;
+  seqid: string;
+  start: number;
+  end: number;
+  strand: string;
+  coordinate_system?: string;
+};
+
 export type EvidenceRecord = {
   evidence_id: string;
   source: string;
@@ -42,6 +51,7 @@ export type Gene = {
   related_objects?: Relation[];
   evidence_records?: EvidenceRecord[];
   datasets?: string[];
+  genome_location?: GenomeLocation;
 };
 
 export type Dataset = {

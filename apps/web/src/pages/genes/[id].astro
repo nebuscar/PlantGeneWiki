@@ -25,6 +25,10 @@ const sequenceCount = linkedSequenceRecords.length;
 const sequenceTotalLength = linkedSequenceRecords.reduce((total, record) => total + (record.length ?? 0), 0);
 const sequenceTypes = Array.from(new Set(linkedSequenceRecords.map((record) => record.sequence_type))).filter(Boolean);
 const primaryDataset = linkedDatasets[0];
+const genomeLocation = item.genome_location;
+const formattedGenomeLocation = genomeLocation ? `${genomeLocation.seqid}:${genomeLocation.start}-${genomeLocation.end}` : "Pending GFF/GTF normalization";
+const genomeLocationLabel = genomeLocation ? `${formattedGenomeLocation} (${genomeLocation.strand} strand)` : formattedGenomeLocation;
+const coordinateSystem = genomeLocation?.coordinate_system ?? "Not available";
 const permanentFields = [
   { label: "Symbol", value: item.name || shortGeneId },
   { label: "Object ID", value: item.object_id },
@@ -35,7 +39,8 @@ const permanentFields = [
   { label: "Primary Dataset", value: primaryDataset?.name ?? "No primary dataset linked", href: primaryDataset ? `/datasets/${primaryDataset.id}` : undefined },
   { label: "Sequence Records", value: `${sequenceCount} linked record${sequenceCount === 1 ? "" : "s"}` },
   { label: "Evidence Records", value: `${evidenceCount} evidence record${evidenceCount === 1 ? "" : "s"}` },
-  { label: "Relations", value: `${relationCount} relation${relationCount === 1 ? "" : "s"}` }
+  { label: "Relations", value: `${relationCount} relation${relationCount === 1 ? "" : "s"}` },
+  { label: "Genome Location", value: genomeLocationLabel }
 ];
 const researchTiles = [
   { label: "DATASETS", value: datasetCount },
@@ -245,14 +250,16 @@ const relationSummary = relationCount > 0
         <div class="jump-row">Jump to: <a href="#genomic-summary">Genomic Locations</a><span>|</span><a href="#sequence-browser">Sequence Records</a><span>|</span><a href="#datasets">Data Sources</a></div>
         <div class="card-section-body">
           <p class="section-intro">
-            This section shows normalized sequence resources currently linked to {shortGeneId}. Chromosomal coordinates will be populated when GFF/GTF annotation normalization is added; sequence records already provide dataset provenance, sequence type, length, and stable links.
+            {genomeLocation
+              ? <>This section shows the normalized genome location for {shortGeneId} from GFF3 annotation, together with linked sequence records and dataset provenance.</>
+              : <>This section shows normalized sequence resources currently linked to {shortGeneId}. Chromosomal coordinates will be populated when GFF/GTF annotation normalization is added; sequence records already provide dataset provenance, sequence type, length, and stable links.</>}
           </p>
           <div class="sequence-browser" id="sequence-browser">
             <div class="browser-toolbar">
               <strong>PlantGeneWiki</strong>
               <span>{speciesRecord?.name ?? item.species}</span>
               <span>{sequenceTypes.join(", ") || "sequence records"}</span>
-              <span>{sequenceTotalLength.toLocaleString()} bp indexed</span>
+              <span>{genomeLocation ? formattedGenomeLocation : `${sequenceTotalLength.toLocaleString()} bp indexed`}</span>
             </div>
             <div class="browser-ruler" aria-hidden="true">
               <span></span><span></span><span></span><span></span><span></span>
@@ -276,7 +283,7 @@ const relationSummary = relationCount > 0
           <div class="location-summary" id="genomic-summary">
             <div>
               <strong>Current Assembly</strong>
-              <span>{primaryDataset?.name ?? "No assembly dataset linked"}</span>
+              <span>{genomeLocation?.assembly ?? primaryDataset?.name ?? "No assembly dataset linked"}</span>
             </div>
             <div>
               <strong>Sequence Types</strong>
@@ -284,7 +291,11 @@ const relationSummary = relationCount > 0
             </div>
             <div>
               <strong>Unified Location</strong>
-              <span>Pending GFF/GTF normalization</span>
+              <span>{genomeLocationLabel}</span>
+            </div>
+            <div>
+              <strong>Coordinate System</strong>
+              <span>{coordinateSystem}</span>
             </div>
           </div>
         </div>
