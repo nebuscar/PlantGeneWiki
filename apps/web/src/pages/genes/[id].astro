@@ -46,6 +46,20 @@ const researchTiles = [
 ];
 const hasSummary = Boolean(item.description);
 const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
+const geneSummaryText = item.description || `No curated summary is available for ${shortGeneId}.`;
+const aliasSummary = (item.aliases ?? []).length > 0 ? (item.aliases ?? []).join(", ") : "No aliases data available";
+const datasetSummary = linkedDatasets.length > 0
+  ? linkedDatasets.map((dataset) => ({ label: dataset.name, href: `/datasets/${dataset.id}` }))
+  : [];
+const sequenceSummary = linkedSequenceRecords.length > 0
+  ? linkedSequenceRecords.map((record) => ({ label: `${record.sequence_type}: ${record.sequence_id}`, href: `/sequence-records/${record.id}` }))
+  : [];
+const functionSummary = annotationCount > 0
+  ? `${annotationCount} normalized annotation record${annotationCount === 1 ? "" : "s"} available`
+  : "Functional annotation import pending";
+const relationSummary = relationCount > 0
+  ? `${relationCount} linked relation${relationCount === 1 ? "" : "s"} available`
+  : "No normalized relations available";
 ---
 <BaseLayout title={`${item.name} gene | PlantGeneWiki`} description={item.description}>
   <div class="gene-card-shell">
@@ -85,6 +99,69 @@ const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
           Knowledge Score: sample
         </aside>
       </header>
+
+      <section class="gene-overview-summary" aria-label={`Overview summary for ${shortGeneId}`}>
+        <div class="overview-row overview-primary">
+          <div class="overview-label">PlantGeneWiki Summary</div>
+          <div class="overview-content">
+            <p><em>{item.name || shortGeneId}</em> is a normalized plant gene object in PlantGeneWiki. This overview summarizes stable identifiers, currently linked datasets, sequence records, evidence, and relationship coverage for quick inspection.</p>
+            <p>{geneSummaryText}</p>
+          </div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-label">Also known as</div>
+          <div class="overview-content">{aliasSummary}</div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-label">Functional Categories</div>
+          <div class="overview-content overview-links">
+            <span>{functionSummary}</span>
+            <a href="#research-products">Research product summary</a>
+          </div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-label">Datasets</div>
+          <div class="overview-content overview-links">
+            {datasetSummary.length > 0 ? datasetSummary.map((dataset, index) => (
+              <>
+                {index > 0 && <span class="overview-separator">|</span>}
+                <a href={dataset.href}>{dataset.label}</a>
+              </>
+            )) : <span class="overview-muted">No dataset links available</span>}
+          </div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-label">Sequence Records</div>
+          <div class="overview-content overview-links">
+            {sequenceSummary.length > 0 ? sequenceSummary.map((record, index) => (
+              <>
+                {index > 0 && <span class="overview-separator">|</span>}
+                <a href={record.href}>{record.label}</a>
+              </>
+            )) : <span class="overview-muted">No sequence records linked</span>}
+          </div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-label">Relations</div>
+          <div class="overview-content overview-links">
+            <a href="#relations">{relationSummary}</a>
+            <a href="#genomics">Genomics &amp; location</a>
+          </div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-label">Evidence</div>
+          <div class="overview-content overview-links">
+            <a href="#evidence">{evidenceCount} evidence record{evidenceCount === 1 ? "" : "s"}</a>
+            <span class="overview-muted">Literature-derived claims will appear after literature normalization.</span>
+          </div>
+        </div>
+      </section>
 
       <section class="card-section" id="aliases">
         <h2 class="card-section-title">Aliases &amp; Identifiers for {shortGeneId}</h2>

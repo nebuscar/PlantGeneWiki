@@ -500,6 +500,60 @@ nav a:hover {
   color: #101923;
 }
 
+.gene-overview-summary {
+  padding: 1.35rem 1.9rem 1.55rem;
+  border-bottom: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.overview-row {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 1.4rem;
+  padding: 0.38rem 0;
+}
+
+.overview-primary {
+  padding-top: 0;
+  padding-bottom: 1.05rem;
+}
+
+.overview-label {
+  color: var(--navy-dark);
+  font-size: 1.02rem;
+  font-weight: 800;
+}
+
+.overview-content {
+  min-width: 0;
+  border-left: 1px solid var(--border);
+  padding-left: 1.35rem;
+  color: #25313b;
+  line-height: 1.62;
+}
+
+.overview-content p {
+  margin: 0 0 0.85rem;
+}
+
+.overview-content p:last-child {
+  margin-bottom: 0;
+}
+
+.overview-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.18rem 0.55rem;
+}
+
+.overview-muted {
+  color: var(--muted);
+}
+
+.overview-separator {
+  color: #9aa6b2;
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: 190px minmax(0, 1fr);
@@ -910,12 +964,14 @@ nav a:hover {
   }
 
   .gene-hero,
+  .overview-row,
   .summary-grid,
   .fact-list,
   .two-column {
     grid-template-columns: 1fr;
   }
 
+  .overview-content,
   .summary-body {
     border-left: 0;
     padding-left: 0;
