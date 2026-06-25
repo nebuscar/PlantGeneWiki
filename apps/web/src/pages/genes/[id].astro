@@ -52,7 +52,7 @@ const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
     <aside class="card-sidebar" aria-label="Gene card navigation">
       <div class="sidebar-group">
         <div class="sidebar-title">Gene Overview</div>
-        <a class="sidebar-link" href="#overview">Overview <span>({evidenceCount + relationCount})</span></a>
+        <a class="sidebar-link" href="#overview">Overview</a>
         <a class="sidebar-link active" href="#aliases">Aliases &amp; Identifiers</a>
         <a class="sidebar-link" href="#summaries">Summaries</a>
         <a class="sidebar-link" href="#research-products">Research Products</a>
@@ -60,17 +60,16 @@ const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
       <div class="sidebar-group">
         <div class="sidebar-title">Molecular Annotation</div>
         <a class="sidebar-link" href="#genomics">Genomics &amp; Location</a>
-        <a class="sidebar-link" href="#sequences">Sequences <span>({sequenceCount})</span></a>
-        <a class="sidebar-link" href="#datasets">Datasets <span>({datasetCount})</span></a>
-        <a class="sidebar-link" href="#relations">Relations <span>({relationCount})</span></a>
+        <a class="sidebar-link" href="#sequences">Sequences</a>
+        <a class="sidebar-link" href="#datasets">Datasets</a>
+        <a class="sidebar-link" href="#relations">Relations</a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-title">Evidence &amp; Resources</div>
-        <a class="sidebar-link" href="#evidence">Evidence Records <span>({evidenceCount})</span></a>
-        <a class="sidebar-link" href="/search">Search</a>
+        <a class="sidebar-link" href="#evidence">Evidence Records</a>
       </div>
-      <form class="sidebar-search" action="/search">
-        <input name="q" type="search" placeholder="Search in this Card" value={shortGeneId} />
+      <form class="sidebar-search" data-card-search>
+        <input name="q" type="search" placeholder="Search in this card" autocomplete="off" />
         <button type="submit" aria-label="Search in this card"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg></span></button>
       </form>
     </aside>
@@ -328,6 +327,79 @@ const searchHref = `/search?q=${encodeURIComponent(shortGeneId)}`;
     updateActiveSidebarLink();
     window.addEventListener("scroll", updateActiveSidebarLink, { passive: true });
     window.addEventListener("hashchange", updateActiveSidebarLink);
+
+    const cardSearchForm = document.querySelector<HTMLFormElement>(".sidebar-search[data-card-search]");
+    const cardSearchInput = cardSearchForm?.querySelector<HTMLInputElement>("input[name='q']");
+    const cardSearchRoot = document.querySelector<HTMLElement>(".gene-card-main");
+
+    function escapeRegExp(value: string) {
+      return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    function clearCardSearchHighlights() {
+      cardSearchRoot?.querySelectorAll("mark.card-search-hit").forEach((mark) => {
+        const parent = mark.parentNode;
+        if (!parent) return;
+        parent.replaceChild(document.createTextNode(mark.textContent ?? ""), mark);
+        parent.normalize();
+      });
+    }
+
+    function highlightCardSearch(query: string) {
+      clearCardSearchHighlights();
+      const trimmedQuery = query.trim();
+      if (!trimmedQuery || !cardSearchRoot) return [];
+
+      const matcher = new RegExp(escapeRegExp(trimmedQuery), "gi");
+      const walker = document.createTreeWalker(cardSearchRoot, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const parent = node.parentElement;
+          if (!parent || !node.textContent?.trim()) return NodeFilter.FILTER_REJECT;
+          if (["SCRIPT", "STYLE", "MARK"].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+          matcher.lastIndex = 0;
+          return matcher.test(node.textContent) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      const textNodes: Text[] = [];
+      while (walker.nextNode()) {
+        textNodes.push(walker.currentNode as Text);
+      }
+
+      const hits: HTMLElement[] = [];
+      textNodes.forEach((node) => {
+        const text = node.textContent ?? "";
+        const fragment = document.createDocumentFragment();
+        let lastIndex = 0;
+        text.replace(matcher, (match, offset) => {
+          if (offset > lastIndex) {
+            fragment.append(document.createTextNode(text.slice(lastIndex, offset)));
+          }
+          const mark = document.createElement("mark");
+          mark.className = "card-search-hit";
+          mark.textContent = match;
+          fragment.append(mark);
+          hits.push(mark);
+          lastIndex = offset + match.length;
+          return match;
+        });
+        if (lastIndex < text.length) {
+          fragment.append(document.createTextNode(text.slice(lastIndex)));
+        }
+        node.parentNode?.replaceChild(fragment, node);
+      });
+      return hits;
+    }
+
+    cardSearchInput?.addEventListener("input", () => {
+      highlightCardSearch(cardSearchInput.value);
+    });
+
+    cardSearchForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const hits = highlightCardSearch(cardSearchInput?.value ?? "");
+      hits[0]?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
   </script>
 
 </BaseLayout>
