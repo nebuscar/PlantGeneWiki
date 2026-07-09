@@ -62,30 +62,33 @@ def parse_gff_attributes(attr_text: str) -> dict[str, str]:
 def iter_gff_features(path: str | Path) -> Iterator[GffFeature]:
     gff_path = Path(path)
     with open_gff_text(gff_path) as handle:
-        for raw_line in handle:
-            line = raw_line.strip()
-            if not line or line.startswith("#"):
-                continue
-            fields = line.split("	")
-            if len(fields) != 9:
-                continue
-            seqid, source, feature_type, start, end, score, strand, phase, attrs = fields
-            try:
-                start_int = int(start)
-                end_int = int(end)
-            except ValueError:
-                continue
-            yield GffFeature(
-                seqid=seqid,
-                source=source,
-                feature_type=feature_type,
-                start=start_int,
-                end=end_int,
-                score=score,
-                strand=strand,
-                phase=phase,
-                attributes=parse_gff_attributes(attrs),
-            )
+        try:
+            for raw_line in handle:
+                line = raw_line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                fields = line.split("\t")
+                if len(fields) != 9:
+                    continue
+                seqid, source, feature_type, start, end, score, strand, phase, attrs = fields
+                try:
+                    start_int = int(start)
+                    end_int = int(end)
+                except ValueError:
+                    continue
+                yield GffFeature(
+                    seqid=seqid,
+                    source=source,
+                    feature_type=feature_type,
+                    start=start_int,
+                    end=end_int,
+                    score=score,
+                    strand=strand,
+                    phase=phase,
+                    attributes=parse_gff_attributes(attrs),
+                )
+        except (EOFError, gzip.BadGzipFile):
+            return
 
 
 def normalize_gff3_dataset(
