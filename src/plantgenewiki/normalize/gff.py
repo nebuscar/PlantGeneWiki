@@ -102,6 +102,7 @@ def normalize_gff3_dataset(
     genes: dict[str, GffFeature] = {}
     transcripts: dict[str, GffFeature] = {}
     transcript_to_gene: dict[str, str] = {}
+    gene_to_transcripts: dict[str, list[str]] = defaultdict(list)
     child_features: dict[str, list[GffFeature]] = defaultdict(list)
     feature_counts: Counter[str] = Counter()
 
@@ -116,6 +117,7 @@ def normalize_gff3_dataset(
             transcripts[feature_id] = feature
             if parent_id:
                 transcript_to_gene[feature_id] = parent_id
+                gene_to_transcripts[parent_id].append(feature_id)
         elif parent_id:
             child_features[parent_id].append(feature)
 
@@ -127,7 +129,7 @@ def normalize_gff3_dataset(
         gene_object_id = f"gene:{species_id}:{gene_id}"
         gene_name = gene.attributes.get("Name") or gene_id
         transcript_records = []
-        transcript_ids = [tid for tid, parent in transcript_to_gene.items() if parent == gene_id]
+        transcript_ids = list(gene_to_transcripts.get(gene_id, []))
         transcript_ids.sort(key=lambda tid: (transcripts[tid].start, transcripts[tid].end, tid))
         primary_transcript = transcript_ids[0] if transcript_ids else None
 
