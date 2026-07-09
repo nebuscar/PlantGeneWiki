@@ -70,12 +70,17 @@ def iter_gff_features(path: str | Path) -> Iterator[GffFeature]:
             if len(fields) != 9:
                 continue
             seqid, source, feature_type, start, end, score, strand, phase, attrs = fields
+            try:
+                start_int = int(start)
+                end_int = int(end)
+            except ValueError:
+                continue
             yield GffFeature(
                 seqid=seqid,
                 source=source,
                 feature_type=feature_type,
-                start=int(start),
-                end=int(end),
+                start=start_int,
+                end=end_int,
                 score=score,
                 strand=strand,
                 phase=phase,
