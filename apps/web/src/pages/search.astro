@@ -67,7 +67,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
 
     const nodeHref = (node) => {
       if (node.object_type === "Gene") {
-        return `/search?node=${encodeURIComponent(node.node_id)}`;
+        return `/gene?node=${encodeURIComponent(node.node_id)}`;
       }
       if (node.object_type === "Species") {
         return `/species/${encodeURIComponent(node.species_id || node.node_id.replace("species:", ""))}`;
