@@ -1152,3 +1152,238 @@ nav a:hover {
   }
 }
 
+.kg-page {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.kg-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.kg-status-card {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.kg-status-card strong,
+.kg-status-card span {
+  display: block;
+}
+
+.kg-query-panel {
+  display: grid;
+  grid-template-columns: minmax(18rem, 1.5fr) minmax(14rem, 1fr) auto;
+  gap: 0.85rem;
+  align-items: end;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.kg-query-panel label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.kg-query-panel input {
+  min-height: 42px;
+  border: 1px solid var(--border-strong);
+  padding: 0 0.75rem;
+  font: inherit;
+}
+
+.kg-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.kg-canvas-card,
+.kg-detail-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.kg-canvas-card {
+  overflow: hidden;
+}
+
+.kg-canvas-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, #f7fbff, #ffffff);
+}
+
+.kg-canvas-header strong,
+.kg-canvas-header span {
+  display: block;
+}
+
+.kg-canvas-header span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.kg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.kg-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.kg-dot {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+}
+
+.kg-dot.gene { background: #0b61a4; }
+.kg-dot.species { background: #2c9a4b; }
+.kg-dot.dataset { background: #f58216; }
+.kg-dot.sequence { background: #7b61ff; }
+.kg-dot.annotation { background: #75808a; }
+
+.kg-svg {
+  display: block;
+  width: 100%;
+  height: min(68vh, 680px);
+  min-height: 520px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(11, 97, 164, 0.08), transparent 34%),
+    linear-gradient(180deg, #fbfdff 0%, #f2f6fa 100%);
+}
+
+.kg-edge-line {
+  stroke: rgba(71, 88, 105, 0.55);
+  stroke-width: 1.8;
+}
+
+#kg-arrow path {
+  fill: rgba(71, 88, 105, 0.65);
+}
+
+.kg-edge-text {
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 5px;
+  fill: #32475c;
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.kg-node {
+  cursor: pointer;
+}
+
+.kg-node circle {
+  stroke: #ffffff;
+  stroke-width: 4;
+  filter: drop-shadow(0 5px 8px rgba(22, 44, 66, 0.2));
+}
+
+.kg-node.gene circle { fill: #0b61a4; }
+.kg-node.species circle { fill: #2c9a4b; }
+.kg-node.dataset circle { fill: #f58216; }
+.kg-node.sequence circle { fill: #7b61ff; }
+.kg-node.annotation circle { fill: #75808a; }
+.kg-node.other circle { fill: #94a3b8; }
+
+.kg-node-label,
+.kg-node-type {
+  fill: #ffffff;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.kg-node-label {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.kg-node-type {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.kg-loading {
+  fill: var(--muted);
+  font-size: 18px;
+}
+
+.kg-detail-card {
+  padding: 1rem;
+  align-self: stretch;
+}
+
+.kg-detail-card h2 {
+  margin: 0.55rem 0 0.75rem;
+  color: var(--navy-dark);
+  line-height: 1.15;
+}
+
+.kg-detail-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0 0 1rem;
+}
+
+.kg-detail-list dt {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kg-detail-list dd {
+  margin: 0 0 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.primary-link {
+  display: inline-block;
+  border: 1px solid var(--navy);
+  background: var(--navy);
+  color: #fff;
+  padding: 0.65rem 0.85rem;
+  font-weight: 700;
+}
+
+.primary-link:hover {
+  color: #fff;
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  text-decoration: none;
+}
+
+@media (max-width: 1050px) {
+  .kg-hero,
+  .kg-query-panel,
+  .kg-workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
