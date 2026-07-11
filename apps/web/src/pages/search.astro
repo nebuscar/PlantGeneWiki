@@ -1,32 +1,123 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { searchItems } from "../lib/api-data";
+
+const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
 ---
-<BaseLayout title="Search | PlantGeneWiki" description="Search PlantGeneWiki sample knowledge objects.">
+<BaseLayout title="Search | PlantGeneWiki" description="Search PlantGeneWiki graph API.">
   <h1 class="page-title">Search</h1>
-  <p class="lede">Static search prototype backed by a small prebuilt index. Later this can be replaced by `/api/search` without changing the page contract.</p>
-  <section class="section panel">
-    <label class="meta" for="search-input">Filter objects</label>
-    <input class="search-box" id="search-input" type="search" placeholder="Try Arabidopsis, gene, or PGCP" />
-    <div class="object-list" id="results">
-      {searchItems.map((item) => (
-        <article class="object-card" data-search={`${item.title} ${item.summary} ${item.type}`.toLowerCase()}>
-          <span class="pill">{item.type}</span>
-          <h2><a href={item.href}>{item.title}</a></h2>
-          <p class="meta">{item.summary}</p>
-        </article>
-      ))}
+  <p class="lede">
+    This page queries the backend PlantGeneWiki graph index. Broad fuzzy search is intentionally limited;
+    use object type and species filters for large-scale graph queries.
+  </p>
+
+  <section class="section panel graph-search-panel" data-api-base={apiBase}>
+    <form class="graph-search-form" id="graph-search-form">
+      <label>
+        <span class="meta">Query</span>
+        <input class="search-box" id="search-input" name="q" type="search" placeholder="Atha01G0000010" autocomplete="off" />
+      </label>
+      <label>
+        <span class="meta">Object Type</span>
+        <select id="object-type" name="object_type">
+          <option value="">Any indexed ID prefix</option>
+          <option value="Gene">Gene</option>
+          <option value="Species">Species</option>
+          <option value="Dataset">Dataset</option>
+          <option value="SequenceRecord">SequenceRecord</option>
+          <option value="GeneLocation">GeneLocation</option>
+          <option value="GeneStructure">GeneStructure</option>
+          <option value="EvidenceClaim">EvidenceClaim</option>
+        </select>
+      </label>
+      <label>
+        <span class="meta">Species ID</span>
+        <input id="species-id" name="species_id" type="search" placeholder="arabidopsis_thaliana" autocomplete="off" />
+      </label>
+      <button class="primary-button" type="submit">Search Graph</button>
+    </form>
+
+    <div class="api-note">
+      API: <code data-api-url>Resolving graph API endpoint...</code>
+    </div>
+
+    <div class="object-list" id="results" aria-live="polite">
+      <article class="object-card">
+        <span class="pill">Graph API</span>
+        <h2>Enter a query to search the graph index</h2>
+        <p class="meta">Example: query <code>Atha01G0000010</code>, object type <code>Gene</code>, species <code>arabidopsis_thaliana</code>.</p>
+      </article>
     </div>
   </section>
-  <script>
-    const input = document.querySelector<HTMLInputElement>("#search-input");
-    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-search]"));
-    input?.addEventListener("input", () => {
-      const query = input.value.toLowerCase().trim();
-      cards.forEach((card) => {
-        const haystack = card.getAttribute("data-search") || "";
-        card.style.display = haystack.includes(query) ? "grid" : "none";
-      });
+
+  <script is:inline define:vars={{ apiBase }}>
+    const resolvedApiBase = apiBase || `${window.location.protocol}//${window.location.hostname}:8001`;
+    const form = document.querySelector("#graph-search-form");
+    const input = document.querySelector("#search-input");
+    const objectType = document.querySelector("#object-type");
+    const speciesId = document.querySelector("#species-id");
+    const results = document.querySelector("#results");
+
+    document.querySelector("[data-api-url]").textContent = `${resolvedApiBase}/api/graph/search`;
+
+    const escapeHtml = (value) => String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+
+    const nodeHref = (node) => {
+      if (node.object_type === "Gene") {
+        return `/search?node=${encodeURIComponent(node.node_id)}`;
+      }
+      if (node.object_type === "Species") {
+        return `/species/${encodeURIComponent(node.species_id || node.node_id.replace("species:", ""))}`;
+      }
+      return `/search?node=${encodeURIComponent(node.node_id)}`;
+    };
+
+    const renderNodes = (nodes) => {
+      if (!nodes.length) {
+        results.innerHTML = `<article class="object-card"><span class="pill">No result</span><h2>No graph nodes matched</h2><p class="meta">Try adding object type and species filters, or use a full/prefix node identifier.</p></article>`;
+        return;
+      }
+      results.innerHTML = nodes.map((node) => `
+        <article class="object-card">
+          <span class="pill">${escapeHtml(node.object_type)}</span>
+          <h2><a href="${nodeHref(node)}">${escapeHtml(node.label || node.node_id)}</a></h2>
+          <p class="meta"><strong>Node ID:</strong> <code>${escapeHtml(node.node_id)}</code></p>
+          <p class="meta"><strong>Species:</strong> ${escapeHtml(node.species_id || "not available")}</p>
+        </article>
+      `).join("");
+    };
+
+    const runSearch = async () => {
+      const q = input.value.trim();
+      if (!q) return;
+      const params = new URLSearchParams({ q });
+      if (objectType.value) params.set("object_type", objectType.value);
+      if (speciesId.value.trim()) params.set("species_id", speciesId.value.trim());
+      params.set("limit", "25");
+
+      results.innerHTML = `<article class="object-card"><span class="pill">Loading</span><h2>Querying graph API...</h2></article>`;
+      try {
+        const response = await fetch(`${resolvedApiBase}/api/graph/search?${params.toString()}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        renderNodes(payload.nodes ?? []);
+      } catch (error) {
+        results.innerHTML = `<article class="object-card"><span class="pill">Error</span><h2>Graph API request failed</h2><p class="meta">${escapeHtml(error.message)}</p></article>`;
+      }
+    };
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      runSearch();
     });
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("q")) input.value = params.get("q");
+    if (params.get("object_type")) objectType.value = params.get("object_type");
+    if (params.get("species_id")) speciesId.value = params.get("species_id");
+    if (input.value.trim()) runSearch();
   </script>
 </BaseLayout>
