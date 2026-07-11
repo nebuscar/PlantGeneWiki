@@ -22,11 +22,24 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
     <form class="kg-query-panel" id="kg-query-form">
       <label>
         <span class="meta">Gene query</span>
-        <input id="kg-query" name="q" type="search" value="Atha01G0000010" autocomplete="off" />
+        <input id="kg-query" name="q" type="search" value="Atha01G0000010" list="kg-gene-options" autocomplete="off" />
+        <datalist id="kg-gene-options"></datalist>
       </label>
       <label>
         <span class="meta">Species</span>
-        <input id="kg-species" name="species_id" type="search" value="arabidopsis_thaliana" autocomplete="off" />
+        <input id="kg-species" name="species_id" type="search" value="arabidopsis_thaliana" list="kg-species-options" autocomplete="off" />
+        <datalist id="kg-species-options">
+          <option value="arabidopsis_thaliana">Arabidopsis thaliana</option>
+          <option value="abies_alba">Abies alba</option>
+          <option value="zea_mays">Zea mays</option>
+          <option value="oryza_sativa">Oryza sativa</option>
+          <option value="glycine_max">Glycine max</option>
+          <option value="brassica_napus">Brassica napus</option>
+          <option value="brassica_rapa">Brassica rapa</option>
+          <option value="solanum_lycopersicum">Solanum lycopersicum</option>
+          <option value="vitis_vinifera">Vitis vinifera</option>
+          <option value="zoysia_japonica">Zoysia japonica</option>
+        </datalist>
       </label>
       <button class="primary-button" type="submit">Load Graph</button>
     </form>
@@ -61,6 +74,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
     const resolvedApiBase = apiBase || `${window.location.protocol}//${window.location.hostname}:8001`;
     const form = document.querySelector("#kg-query-form");
     const queryInput = document.querySelector("#kg-query");
+    const geneOptions = document.querySelector("#kg-gene-options");
     const speciesInput = document.querySelector("#kg-species");
     const svg = document.querySelector("[data-graph-svg]");
     const detail = document.querySelector("[data-node-detail]");
@@ -95,6 +109,47 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
       if (type === "Dataset") return 32;
       if (type === "SequenceRecord") return 28;
       return 26;
+    };
+
+    let suggestionTimer;
+    let suggestionAbort;
+
+    const setGeneOptions = (nodes) => {
+      geneOptions.innerHTML = (nodes ?? []).map((node) => {
+        const value = node.properties?.id || node.label || node.node_id;
+        const label = `${node.label || value} · ${node.species_id || ""}`;
+        return `<option value="${escapeHtml(value)}">${escapeHtml(label)}</option>`;
+      }).join("");
+    };
+
+    const loadGeneSuggestions = () => {
+      const q = queryInput.value.trim();
+      const species = speciesInput.value.trim();
+      if (q.length < 2 || !species) {
+        setGeneOptions([]);
+        return;
+      }
+      window.clearTimeout(suggestionTimer);
+      suggestionTimer = window.setTimeout(async () => {
+        try {
+          suggestionAbort?.abort();
+          suggestionAbort = new AbortController();
+          const params = new URLSearchParams({
+            q,
+            object_type: "Gene",
+            species_id: species,
+            limit: "12"
+          });
+          const response = await fetch(`${resolvedApiBase}/api/graph/search?${params.toString()}`, {
+            signal: suggestionAbort.signal
+          });
+          if (!response.ok) return;
+          const payload = await response.json();
+          setGeneOptions(payload.nodes ?? []);
+        } catch (error) {
+          if (error.name !== "AbortError") setGeneOptions([]);
+        }
+      }, 220);
     };
 
     const renderDetail = (node) => {
@@ -216,7 +271,14 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
       loadGraph();
     });
 
+    queryInput?.addEventListener("input", loadGeneSuggestions);
+    queryInput?.addEventListener("focus", loadGeneSuggestions);
+    speciesInput?.addEventListener("input", () => {
+      setGeneOptions([]);
+      loadGeneSuggestions();
+    });
+
     loadGraph();
+    loadGeneSuggestions();
   </script>
 </BaseLayout>
-
