@@ -66,7 +66,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
   <script is:inline define:vars={{ apiBase }}>
     const getInputValue = (form) => form.querySelector("input")?.value.trim() ?? "";
 
-    const resolvedApiBase = apiBase || `${window.location.protocol}//${window.location.hostname}:8001`;
+    const resolvedApiBase = apiBase || '';
     const formatNumber = (value) => new Intl.NumberFormat("en-US").format(value ?? 0);
 
     const summaryTarget = document.querySelector("[data-summary-status]");

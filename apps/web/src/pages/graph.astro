@@ -71,7 +71,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "";
   </section>
 
   <script is:inline define:vars={{ apiBase }}>
-    const resolvedApiBase = apiBase || `${window.location.protocol}//${window.location.hostname}:8001`;
+    const resolvedApiBase = apiBase || '';
     const form = document.querySelector("#kg-query-form");
     const queryInput = document.querySelector("#kg-query");
     const geneOptions = document.querySelector("#kg-gene-options");
