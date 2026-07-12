@@ -13,6 +13,9 @@ apps/agent/db/chroma/
 apps/agent/db/papers/
 apps/agent/**/__pycache__/
 
+# Local API secrets
+/apps/api/.env
+
 # files
 **/__pycache__/
 *.gz
