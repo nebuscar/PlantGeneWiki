@@ -28,6 +28,7 @@ logs/
 *.ppt
 *.pptx
 *.html
+!apps/web/index.html
 *.out
 *.docx
 *.db
