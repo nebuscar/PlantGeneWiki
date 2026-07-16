@@ -22,7 +22,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/species/:id",
     name: "species",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/SpeciesView.vue"),
     meta: { title: "Species" },
   },
   {
@@ -34,25 +34,25 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/datasets/:id",
     name: "dataset",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/DatasetView.vue"),
     meta: { title: "Dataset" },
   },
   {
     path: "/sequence-records/:id",
     name: "sequence-record",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/SequenceRecordView.vue"),
     meta: { title: "Sequence Record" },
   },
   {
     path: "/literature",
     name: "literature",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/LiteratureView.vue"),
     meta: { title: "Literature" },
   },
   {
     path: "/tools",
     name: "tools",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/ToolsView.vue"),
     meta: { title: "Tools" },
   },
   {
