@@ -38,13 +38,14 @@ export function searchNodes(
   return apiRequest<GraphSearchResponse>(`/api/graph/search?${query.toString()}`, { signal });
 }
 
-export function getNode(nodeId: string): Promise<GraphNode> {
-  return apiRequest<GraphNode>(`/api/graph/nodes/${encodeURIComponent(nodeId)}`);
+export function getNode(nodeId: string, signal?: AbortSignal): Promise<GraphNode> {
+  return apiRequest<GraphNode>(`/api/graph/nodes/${encodeURIComponent(nodeId)}`, { signal });
 }
 
 export function getNeighbors(
   nodeId: string,
   options: NeighborOptions = {},
+  signal?: AbortSignal,
 ): Promise<GraphNeighborhood> {
   const query = new URLSearchParams();
   appendOptionalParam(query, "direction", options.direction);
@@ -53,6 +54,7 @@ export function getNeighbors(
   const suffix = query.size > 0 ? `?${query.toString()}` : "";
   return apiRequest<GraphNeighborhood>(
     `/api/graph/neighbors/${encodeURIComponent(nodeId)}${suffix}`,
+    { signal },
   );
 }
 

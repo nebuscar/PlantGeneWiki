@@ -28,7 +28,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/graph",
     name: "graph",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/GraphView.vue"),
     meta: { title: "Knowledge Graph" },
   },
   {
