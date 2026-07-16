@@ -83,10 +83,25 @@ class SQLiteGraphStore:
         if not query:
             return []
 
+        normalized_species_id = (
+            species_id[len("species:") :]
+            if species_id and species_id.startswith("species:")
+            else species_id
+        )
         has_scope = bool(object_type or species_id)
-        if has_scope:
+        rank_node_id = query
+        if object_type == "Gene" and normalized_species_id:
+            rank_node_id = f"gene:{normalized_species_id}:{query}"
             clauses = ["(node_id = ? OR label = ? OR node_id LIKE ? OR label LIKE ?)"]
-            params: list[Any] = [query, query, f"{query}%", f"{query}%"]
+            params: list[Any] = [
+                rank_node_id,
+                query,
+                f"{rank_node_id}%",
+                f"{query}%",
+            ]
+        elif has_scope:
+            clauses = ["(node_id = ? OR label = ? OR node_id LIKE ? OR label LIKE ?)"]
+            params = [query, query, f"{query}%", f"{query}%"]
         else:
             # Global fuzzy/label search is intentionally avoided here: the full graph
             # has more than 100M nodes. Broad semantic/fuzzy search should use a
@@ -96,9 +111,9 @@ class SQLiteGraphStore:
         if object_type:
             clauses.append("object_type = ?")
             params.append(object_type)
-        if species_id:
+        if normalized_species_id:
             clauses.append("species_id = ?")
-            params.append(species_id)
+            params.append(normalized_species_id)
         params.append(max(1, min(limit, 100)))
 
         sql = f"""
@@ -111,7 +126,7 @@ class SQLiteGraphStore:
                 node_id
             LIMIT ?
         """
-        params_with_rank = params[:-1] + [query, query, params[-1]]
+        params_with_rank = params[:-1] + [rank_node_id, query, params[-1]]
         with self.connect() as connection:
             rows = connection.execute(sql, params_with_rank).fetchall()
         return [self._node_from_row(row) for row in rows]
@@ -231,7 +246,9 @@ class SQLiteGraphStore:
             "object_type": row["object_type"],
             "label": row["label"],
             "species_id": row["species_id"],
-            "source_file": row["source_file"],
+            "source_file": (
+                Path(row["source_file"]).name if row["source_file"] else None
+            ),
             "properties": json.loads(row["properties_json"]),
         }
 

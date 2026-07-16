@@ -41,7 +41,7 @@ class SQLiteGraphStoreTest(unittest.TestCase):
             """
         )
         nodes = [
-            ("gene:atha:Atha01G0000010.v1.36", "Gene", "Atha01G0000010.v1.36", "arabidopsis_thaliana"),
+            ("gene:arabidopsis_thaliana:Atha01G0000010.v1.36", "Gene", "Atha01G0000010", "arabidopsis_thaliana"),
             ("species:arabidopsis_thaliana", "Species", "Arabidopsis thaliana", "arabidopsis_thaliana"),
             (
                 "GeneLocation:gene:atha:Atha01G0000010.v1.36",
@@ -62,7 +62,7 @@ class SQLiteGraphStoreTest(unittest.TestCase):
                     object_type,
                     label,
                     species_id,
-                    "test.jsonl",
+                    "/DATA/data2/legacy/processed/test.jsonl",
                     json.dumps({"object_id": node_id, "name": label}),
                 ),
             )
@@ -73,13 +73,13 @@ class SQLiteGraphStoreTest(unittest.TestCase):
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                "gene:atha:Atha01G0000010.v1.36",
+                "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
                 "belongs_to_species",
                 "species:arabidopsis_thaliana",
                 "arabidopsis_thaliana",
                 "dataset:test",
                 "test",
-                json.dumps({"source": "gene:atha:Atha01G0000010.v1.36"}),
+                json.dumps({"source": "gene:arabidopsis_thaliana:Atha01G0000010.v1.36"}),
             ),
         )
         connection.commit()
@@ -90,17 +90,32 @@ class SQLiteGraphStoreTest(unittest.TestCase):
         self.tempdir.cleanup()
 
     def test_get_node(self) -> None:
-        node = self.store.get_node("gene:atha:Atha01G0000010.v1.36")
+        node = self.store.get_node("gene:arabidopsis_thaliana:Atha01G0000010.v1.36")
         self.assertIsNotNone(node)
         self.assertEqual(node["object_type"], "Gene")
+        self.assertEqual(node["source_file"], "test.jsonl")
 
     def test_search_nodes(self) -> None:
         nodes = self.store.search_nodes("Atha01G0000010", object_type="Gene")
         self.assertEqual(len(nodes), 1)
-        self.assertEqual(nodes[0]["label"], "Atha01G0000010.v1.36")
+        self.assertEqual(nodes[0]["label"], "Atha01G0000010")
+
+    def test_search_nodes_resolves_full_gene_id_with_species_scope(self) -> None:
+        nodes = self.store.search_nodes(
+            "Atha01G0000010.v1.36",
+            object_type="Gene",
+            species_id="arabidopsis_thaliana",
+        )
+        self.assertEqual(len(nodes), 1)
+        self.assertEqual(
+            nodes[0]["node_id"],
+            "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+        )
 
     def test_get_neighbors(self) -> None:
-        result = self.store.get_neighbors("gene:atha:Atha01G0000010.v1.36")
+        result = self.store.get_neighbors(
+            "gene:arabidopsis_thaliana:Atha01G0000010.v1.36"
+        )
         self.assertEqual(result["node"]["object_type"], "Gene")
         self.assertEqual(result["edges"][0]["predicate"], "belongs_to_species")
         self.assertEqual(result["nodes"][0]["object_type"], "Species")
