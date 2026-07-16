@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-Replace the existing Astro prototype with a responsive Vue application and rename the active product from PlantGeneWiki to PhytoAtlas across the current codebase.
+Replace the legacy frontend prototype with a responsive Vue application and rename the active product from the legacy product name to PhytoAtlas across the current codebase.
 
 The redesign must support a public Wiki reading experience, dynamic API-backed search, interactive knowledge graph exploration, and future analysis services without retaining Astro or a compatibility layer for the previous product name.
 
@@ -57,7 +57,7 @@ The application remains in `apps/web` so existing deployment ownership boundarie
 
 - FastAPI
 - Existing graph store adapter and graph API
-- Python package renamed from `plantgenewiki_api` to `phytoatlas_api`
+- Python package renamed from the legacy package name to `phytoatlas_api`
 
 The API must remain independent from the frontend build and deployment.
 
