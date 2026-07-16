@@ -5,13 +5,11 @@ tmp/
 logs/
 /data/
 
-# agent local runtime state
-apps/agent/.env
-apps/agent/db/*.db
-apps/agent/db/*.sqlite3
-apps/agent/db/chroma/
-apps/agent/db/papers/
-apps/agent/**/__pycache__/
+# local Python environment
+.venv/
+
+# local archive mapping
+/config/archives.local.yaml
 
 # Local API secrets
 /apps/api/.env
