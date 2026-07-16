@@ -1,0 +1,23 @@
+archives:
+  - archive_id: meta-20260716
+    category: metadata
+    source_path: data/meta
+    archive_path: archive://plantgenewiki/meta
+    source_or_batch: legacy_project_data
+    version: 2026-07-16
+    file_count: 1420
+    size_bytes: 5935438567
+    checksum_manifest: sha256:a5e1ef638a45514461d3b02765799aa8e8c70310f9fd132da452058e7b49fa4b
+    archived_at: 2026-07-16T03:29:23.918300+00:00
+    status: verified
+  - archive_id: pgcp-ortho-20260716
+    category: orthology
+    source_path: data/pgcp_ortho
+    archive_path: archive://plantgenewiki/pgcp_ortho
+    source_or_batch: legacy_project_data
+    version: 2026-07-16
+    file_count: 26807
+    size_bytes: 27242737389
+    checksum_manifest: sha256:9fbbf9456166df5eb758a10f04a062a8d65a9350978b5860754da4c8958189cd
+    archived_at: 2026-07-16T03:29:26.457851+00:00
+    status: verified
