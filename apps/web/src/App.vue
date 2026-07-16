@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import AppFooter from "./components/AppFooter.vue";
+import AppHeader from "./components/AppHeader.vue";
 </script>
 
 <template>
   <div class="app-shell">
-    <header class="app-header">
-      <RouterLink class="brand-link" :to="{ name: 'home' }">PhytoAtlas</RouterLink>
-    </header>
+    <AppHeader />
     <main class="app-main">
       <RouterView />
     </main>
+    <AppFooter />
   </div>
 </template>
