@@ -1,4 +1,4 @@
-"""Normalize FASTA/FASTA.GZ datasets into PlantGeneWiki knowledge objects."""
+"""Normalize FASTA/FASTA.GZ datasets into PhytoAtlas knowledge objects."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Normalize species-level gene TSV annotations into PlantGeneWiki Gene objects."""
+"""Normalize species-level gene TSV annotations into PhytoAtlas Gene objects."""
 
 from __future__ import annotations
 

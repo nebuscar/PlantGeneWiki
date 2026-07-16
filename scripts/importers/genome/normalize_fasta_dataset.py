@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Normalize one FASTA/FASTA.GZ file into PlantGeneWiki JSONL objects."""
+"""Normalize one FASTA/FASTA.GZ file into PhytoAtlas JSONL objects."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from plantgenewiki.normalize.fasta import normalize_fasta_dataset, write_normalized_fasta_outputs
+from phytoatlas.normalize.fasta import normalize_fasta_dataset, write_normalized_fasta_outputs
 
 
 def main() -> int:

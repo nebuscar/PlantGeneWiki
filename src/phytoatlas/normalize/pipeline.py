@@ -6,9 +6,9 @@ import json
 from pathlib import Path
 from typing import Any, Iterable
 
-from plantgenewiki.normalize.fasta import normalize_fasta_dataset, write_jsonl
-from plantgenewiki.normalize.gene_tsv import normalize_gene_tsv_dataset
-from plantgenewiki.normalize.gff import normalize_gff3_dataset
+from phytoatlas.normalize.fasta import normalize_fasta_dataset, write_jsonl
+from phytoatlas.normalize.gene_tsv import normalize_gene_tsv_dataset
+from phytoatlas.normalize.gff import normalize_gff3_dataset
 
 
 def build_minimal_species_knowledge_base(
@@ -112,7 +112,7 @@ def build_minimal_species_knowledge_base(
         "object_id": f"species:{species_id}",
         "id": species_id,
         "name": species_name,
-        "description": f"PlantGeneWiki normalized species record for {species_name}.",
+        "description": f"PhytoAtlas normalized species record for {species_name}.",
         "datasets": [dataset["object_id"] for dataset in gene_tsv_result.datasets],
         "updated_at": updated_at,
     }

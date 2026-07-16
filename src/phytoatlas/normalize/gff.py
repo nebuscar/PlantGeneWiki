@@ -1,4 +1,4 @@
-"""Normalize GFF3/GFF3.GZ genome annotations into PlantGeneWiki objects."""
+"""Normalize GFF3/GFF3.GZ genome annotations into PhytoAtlas objects."""
 
 from __future__ import annotations
 

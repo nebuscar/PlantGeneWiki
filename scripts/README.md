@@ -29,7 +29,7 @@ scripts/
 - services/ contains scripts for running local applications, currently the agent service wrapper.
 - maintenance/ contains cleanup or migration utilities that should not become product APIs.
 
-Reusable parsing, normalization, provenance, and object-building logic should move into src/plantgenewiki/ once the schema is stable.
+Reusable parsing, normalization, provenance, and object-building logic should move into src/phytoatlas/ once the schema is stable.
 
 ## Data Policy
 

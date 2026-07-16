@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a queryable PlantGeneWiki graph index from normalized PGCP JSONL outputs."""
+"""Build a queryable PhytoAtlas graph index from normalized PGCP JSONL outputs."""
 
 from __future__ import annotations
 
@@ -12,8 +12,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
 
-DEFAULT_PROCESSED_ROOT = Path("/DATA/data2/plantgenewiki/processed/pgcp_v1")
-DEFAULT_OUTPUT_ROOT = Path("/DATA/data2/plantgenewiki/graph/pgcp_v1")
+DEFAULT_PROCESSED_ROOT = Path("/DATA/data2/phytoatlas/processed/pgcp_v1")
+DEFAULT_OUTPUT_ROOT = Path("/DATA/data2/phytoatlas/graph/pgcp_v1")
 
 NODE_FILES = (
     "species.jsonl",
@@ -206,7 +206,7 @@ def build_graph_index(
     overwrite: bool,
     batch_size: int,
 ) -> dict[str, Any]:
-    database_path = output_root / "plantgenewiki_pgcp_v1.sqlite"
+    database_path = output_root / "phytoatlas_pgcp_v1.sqlite"
     connection = open_database(database_path, overwrite=overwrite)
     species_dirs = list(iter_species_dirs(processed_root))
     if limit is not None:

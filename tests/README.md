@@ -8,7 +8,7 @@ This directory contains automated checks for PlantGeneWiki code and scripts.
 
 ## Target Layout
 
-As src/plantgenewiki grows, tests should mirror the package and workflow boundaries:
+As src/phytoatlas grows, tests should mirror the package and workflow boundaries:
 
 ```text
 tests/

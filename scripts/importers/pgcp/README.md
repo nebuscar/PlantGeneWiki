@@ -29,7 +29,7 @@ archive/pgcp/importers/
 `-- run_pgcp_atha_json.sh
 ```
 
-Use archived scripts as references only. New work should prefer reusable `src/plantgenewiki/` tools and normalized Dataset / Knowledge Object outputs.
+Use archived scripts as references only. New work should prefer reusable `src/phytoatlas/` tools and normalized Dataset / Knowledge Object outputs.
 
 ## Test Command
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Batch-normalize PGCP genome directories into PlantGeneWiki JSONL graph objects."""
+"""Batch-normalize PGCP genome directories into PhytoAtlas JSONL graph objects."""
 
 from __future__ import annotations
 
@@ -13,10 +13,10 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from plantgenewiki.normalize.pipeline import build_minimal_species_knowledge_base  # noqa: E402
+from phytoatlas.normalize.pipeline import build_minimal_species_knowledge_base  # noqa: E402
 
 DEFAULT_INPUT_ROOT = Path("/DATA/data2/genomes")
-DEFAULT_OUTPUT_ROOT = Path("/DATA/data2/plantgenewiki/processed/pgcp_v1")
+DEFAULT_OUTPUT_ROOT = Path("/DATA/data2/phytoatlas/processed/pgcp_v1")
 
 
 def iter_pgcp_species_dirs(input_root: Path):

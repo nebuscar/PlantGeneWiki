@@ -8,7 +8,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from plantgenewiki.normalize.gff import normalize_gff3_dataset, parse_gff_attributes, write_normalized_gff_outputs  # noqa: E402
+from phytoatlas.normalize.gff import normalize_gff3_dataset, parse_gff_attributes, write_normalized_gff_outputs  # noqa: E402
 
 
 class GffNormalizeTests(unittest.TestCase):

@@ -9,7 +9,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from plantgenewiki.normalize.fasta import normalize_fasta_dataset, write_normalized_fasta_outputs  # noqa: E402
+from phytoatlas.normalize.fasta import normalize_fasta_dataset, write_normalized_fasta_outputs  # noqa: E402
 
 
 class FastaNormalizeTests(unittest.TestCase):

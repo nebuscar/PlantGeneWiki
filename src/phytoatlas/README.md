@@ -1,6 +1,6 @@
-# plantgenewiki
+# phytoatlas
 
-Reusable core package for PlantGeneWiki.
+Reusable core package for PhytoAtlas.
 
 This package is intentionally minimal for now. It provides a stable location for core abstractions that should not remain scattered across scripts or application prototypes.
 
