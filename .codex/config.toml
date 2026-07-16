@@ -27,6 +27,6 @@ config_file = "agents/application-engineer.toml"
 nickname_candidates = ["App", "Integrator"]
 
 [agents.reviewer]
-description = "Perform read-only review of tests, data quality, regressions, secrets, and scope."
+description = "Perform read-only review of tests, data quality, regressions, sensitive credentials, and scope."
 config_file = "agents/reviewer.toml"
 nickname_candidates = ["Reviewer", "Auditor"]
