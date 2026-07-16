@@ -1,4 +1,4 @@
-"""FastAPI application for PlantGeneWiki."""
+"""FastAPI application for PhytoAtlas."""
 
 from __future__ import annotations
 
@@ -13,15 +13,15 @@ from .graph_store import DEFAULT_GRAPH_DB, GraphStoreError, SQLiteGraphStore
 
 
 def get_graph_store() -> SQLiteGraphStore:
-    return SQLiteGraphStore(Path(os.getenv("PLANTGENEWIKI_GRAPH_DB", DEFAULT_GRAPH_DB)))
+    return SQLiteGraphStore(Path(os.getenv("PHYTOATLAS_GRAPH_DB", DEFAULT_GRAPH_DB)))
 
 
-app = FastAPI(title="PlantGeneWiki API", version="0.1.0")
+app = FastAPI(title="PhytoAtlas API", version="0.1.0")
 
 origins = [
     origin.strip()
     for origin in os.getenv(
-        "PLANTGENEWIKI_CORS_ORIGINS",
+        "PHYTOATLAS_CORS_ORIGINS",
         "http://localhost:4322,http://127.0.0.1:4322,http://localhost:5173,http://127.0.0.1:5173",
     ).split(",")
     if origin.strip()

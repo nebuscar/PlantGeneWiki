@@ -1,4 +1,4 @@
-"""SQLite-backed graph query store for PlantGeneWiki."""
+"""SQLite-backed graph query store for PhytoAtlas."""
 
 from __future__ import annotations
 
@@ -9,9 +9,9 @@ from typing import Any, Literal
 
 
 DEFAULT_GRAPH_DB = Path(
-    "/DATA/data2/plantgenewiki/graph/pgcp_v1/plantgenewiki_pgcp_v1.sqlite"
+    "/DATA/data2/phytoatlas/graph/pgcp_v1/phytoatlas_pgcp_v1.sqlite"
 )
-DEFAULT_GRAPH_SUMMARY = Path("/DATA/data2/plantgenewiki/graph/pgcp_v1/graph_summary.json")
+DEFAULT_GRAPH_SUMMARY = Path("/DATA/data2/phytoatlas/graph/pgcp_v1/graph_summary.json")
 
 
 class GraphStoreError(RuntimeError):
@@ -19,7 +19,7 @@ class GraphStoreError(RuntimeError):
 
 
 class SQLiteGraphStore:
-    """Small read-only query layer over the PlantGeneWiki graph SQLite index."""
+    """Small read-only query layer over the PhytoAtlas graph SQLite index."""
 
     def __init__(self, database_path: str | Path = DEFAULT_GRAPH_DB) -> None:
         self.database_path = Path(database_path)

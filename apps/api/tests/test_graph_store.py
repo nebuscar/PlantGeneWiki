@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from plantgenewiki_api.graph_store import SQLiteGraphStore
+from phytoatlas_api.graph_store import SQLiteGraphStore
 
 
 class SQLiteGraphStoreTest(unittest.TestCase):

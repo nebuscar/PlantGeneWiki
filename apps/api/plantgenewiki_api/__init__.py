@@ -1,2 +1,0 @@
-"""PlantGeneWiki API package."""
-

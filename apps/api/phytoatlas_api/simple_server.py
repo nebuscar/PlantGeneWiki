@@ -1,4 +1,4 @@
-"""Dependency-free HTTP server for PlantGeneWiki graph queries.
+"""Dependency-free HTTP server for PhytoAtlas graph queries.
 
 This server is intended for environments where FastAPI is not installed yet.
 It exposes the same minimal graph endpoints using Python's standard library.
@@ -22,7 +22,7 @@ def int_query(query: dict[str, list[str]], name: str, default: int, upper: int) 
     return max(0, min(value, upper))
 
 
-class PlantGeneWikiHandler(BaseHTTPRequestHandler):
+class PhytoAtlasHandler(BaseHTTPRequestHandler):
     store = SQLiteGraphStore()
 
     def log_message(self, format: str, *args: object) -> None:
@@ -117,10 +117,10 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.database:
-        PlantGeneWikiHandler.store = SQLiteGraphStore(args.database)
+        PhytoAtlasHandler.store = SQLiteGraphStore(args.database)
 
-    server = ThreadingHTTPServer((args.host, args.port), PlantGeneWikiHandler)
-    print(f"PlantGeneWiki API listening on http://{args.host}:{args.port}", flush=True)
+    server = ThreadingHTTPServer((args.host, args.port), PhytoAtlasHandler)
+    print(f"PhytoAtlas API listening on http://{args.host}:{args.port}", flush=True)
     server.serve_forever()
     return 0
 
