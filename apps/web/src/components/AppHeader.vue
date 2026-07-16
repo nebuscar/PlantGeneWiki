@@ -19,7 +19,7 @@ function openSearch(query: string) {
   <header class="app-header">
     <div class="header-inner">
       <RouterLink class="brand-link" :to="{ name: 'home' }" aria-label="PhytoAtlas home">
-        <span class="brand-mark" aria-hidden="true">PA</span>
+        <img class="brand-mark" src="/phytoatlas-mark.svg" alt="" />
         <span>PhytoAtlas</span>
       </RouterLink>
       <nav class="primary-nav" aria-label="Primary navigation">

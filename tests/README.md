@@ -1,6 +1,6 @@
 # tests
 
-This directory contains automated checks for PlantGeneWiki code and scripts.
+This directory contains automated checks for PhytoAtlas code and scripts.
 
 ## Current Layout
 

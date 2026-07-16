@@ -1,4 +1,4 @@
-# Example Dataset registry for PlantGeneWiki.
+# Example Dataset registry for PhytoAtlas.
 # Copy this file to config/datasets.yaml and adjust local paths for the server.
 # Large raw data should stay outside the Git repository, for example under /path/to/external/raw-data.
 

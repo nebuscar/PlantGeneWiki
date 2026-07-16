@@ -1,4 +1,4 @@
-# PlantGeneWiki Agent Instructions
+# PhytoAtlas Agent Instructions
 
 ## Communication
 

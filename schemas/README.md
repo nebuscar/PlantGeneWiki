@@ -1,8 +1,8 @@
 # Schemas
 
-JSON Schemas for PlantGeneWiki exchange records.
+JSON Schemas for PhytoAtlas exchange records.
 
-These schemas define the stable contract between normalized knowledge objects, static published data, and future dynamic APIs.
+These schemas define the stable contract between normalized knowledge objects, graph and vector indexes, and dynamic APIs.
 
 Current schema files:
 

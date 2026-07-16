@@ -1,6 +1,6 @@
 # Example Knowledge Objects
 
-Small normalized records used to validate the PlantGeneWiki publishing pipeline.
+Small normalized records used to validate the PhytoAtlas object pipeline.
 
 These files are not raw data. They are API-shaped knowledge objects, sequence records, relations, datasets, and evidence claims that can be rebuilt from real normalized data later.
 
@@ -14,4 +14,4 @@ examples/knowledge_objects/
 `-- evidence_claims.jsonl
 ```
 
-The build script reads these files and writes published web data under `apps/web/public/data/api/`.
+These records support schema validation, normalization tests, and local API fixtures.

@@ -1,6 +1,6 @@
 # src
 
-This directory contains reusable PlantGeneWiki library code.
+This directory contains reusable PhytoAtlas library code.
 
 Use src/ for code that is shared by multiple scripts, apps, tests, or future services. Do not put one-off command-line workflows here; those should stay under scripts/.
 
@@ -14,4 +14,4 @@ Use src/ for code that is shared by multiple scripts, apps, tests, or future ser
 
 ## Initial Package
 
-The initial package is plantgenewiki.
+The initial package is phytoatlas.

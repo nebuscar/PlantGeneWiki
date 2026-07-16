@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://plantgenewiki.org/schemas/dataset.schema.json",
-  "title": "PlantGeneWiki Dataset Record",
+  "$id": "https://phytoatlas.org/schemas/dataset.schema.json",
+  "title": "PhytoAtlas Dataset Record",
   "type": "object",
   "required": ["object_id", "object_type", "id", "name", "dataset_type", "source", "status", "location_policy"],
   "properties": {

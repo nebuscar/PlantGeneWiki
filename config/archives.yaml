@@ -2,7 +2,7 @@ archives:
   - archive_id: meta-20260716
     category: metadata
     source_path: data/meta
-    archive_path: archive://plantgenewiki/meta
+    archive_path: archive://phytoatlas/meta
     source_or_batch: legacy_project_data
     version: 2026-07-16
     file_count: 1420
@@ -13,7 +13,7 @@ archives:
   - archive_id: pgcp-ortho-20260716
     category: orthology
     source_path: data/pgcp_ortho
-    archive_path: archive://plantgenewiki/pgcp_ortho
+    archive_path: archive://phytoatlas/pgcp_ortho
     source_or_batch: legacy_project_data
     version: 2026-07-16
     file_count: 26807

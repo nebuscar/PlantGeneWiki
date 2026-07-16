@@ -24,7 +24,7 @@ scripts/
 
 - importers/ may know about source-specific APIs, raw file layouts, download batches, and acquisition quirks. Current active importer work is PGCP-focused; IMP scripts are archived under archive/imp/.
 - analysis/ contains analysis workflows that operate on FASTA, GFF, gene lists, proteins, structures, or normalized/semi-normalized data.
-- build/ should generate PlantGeneWiki products: objects, relations, EvidenceClaims, Wiki pages, graph exports, and vector indexes.
+- build/ should generate PhytoAtlas products: objects, relations, EvidenceClaims, Wiki pages, graph exports, and vector indexes.
 - datasets/ should maintain Dataset registry records, path checks, manifests, versions, and checksums.
 - services/ contains scripts for running local applications, currently the agent service wrapper.
 - maintenance/ contains cleanup or migration utilities that should not become product APIs.

@@ -37,7 +37,6 @@ logs/
 node_modules/
 apps/web/node_modules/
 apps/web/dist/
-apps/web/.astro/
 apps/web/.env
 apps/web/.env.local
 

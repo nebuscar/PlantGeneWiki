@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://plantgenewiki.org/schemas/relation.schema.json",
-  "title": "PlantGeneWiki Relation",
+  "$id": "https://phytoatlas.org/schemas/relation.schema.json",
+  "title": "PhytoAtlas Relation",
   "type": "object",
   "required": ["source", "predicate", "target"],
   "properties": {

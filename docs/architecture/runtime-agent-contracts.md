@@ -2,7 +2,7 @@
 
 ## Scope
 
-These contracts describe future PlantGeneWiki product Agents. They do not configure Codex development subagents and do not select an orchestration framework.
+These contracts describe future PhytoAtlas product Agents. They do not configure Codex development subagents and do not select an orchestration framework.
 
 ## Common task envelope
 

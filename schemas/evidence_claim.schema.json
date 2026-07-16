@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://plantgenewiki.org/schemas/evidence_claim.schema.json",
-  "title": "PlantGeneWiki Evidence Claim",
+  "$id": "https://phytoatlas.org/schemas/evidence_claim.schema.json",
+  "title": "PhytoAtlas Evidence Claim",
   "type": "object",
   "required": ["evidence_id", "source", "claim", "confidence"],
   "properties": {

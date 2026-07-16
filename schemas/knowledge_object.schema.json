@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://plantgenewiki.org/schemas/knowledge_object.schema.json",
-  "title": "PlantGeneWiki Knowledge Object",
+  "$id": "https://phytoatlas.org/schemas/knowledge_object.schema.json",
+  "title": "PhytoAtlas Knowledge Object",
   "type": "object",
   "required": [
     "object_id",
