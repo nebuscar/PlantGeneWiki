@@ -1,0 +1,32 @@
+[features]
+multi_agent = true
+
+[agents]
+max_threads = 4
+max_depth = 1
+job_max_runtime_seconds = 1800
+
+[agents.data-curator]
+description = "Audit, normalize, archive, and trace biological datasets and schemas."
+config_file = "agents/data-curator.toml"
+nickname_candidates = ["Curator", "Archivist"]
+
+[agents.vector-engineer]
+description = "Design and validate chunks, embeddings, Qdrant indexes, and semantic retrieval."
+config_file = "agents/vector-engineer.toml"
+nickname_candidates = ["Vector", "Retriever"]
+
+[agents.graph-engineer]
+description = "Design knowledge objects, evidence-backed relations, graph imports, and graph queries."
+config_file = "agents/graph-engineer.toml"
+nickname_candidates = ["Graph", "Mapper"]
+
+[agents.application-engineer]
+description = "Integrate FastAPI, frontend pages, service contracts, and application workflows."
+config_file = "agents/application-engineer.toml"
+nickname_candidates = ["App", "Integrator"]
+
+[agents.reviewer]
+description = "Perform read-only review of tests, data quality, regressions, secrets, and scope."
+config_file = "agents/reviewer.toml"
+nickname_candidates = ["Reviewer", "Auditor"]
