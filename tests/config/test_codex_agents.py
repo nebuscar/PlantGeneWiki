@@ -13,18 +13,33 @@ EXPECTED_ROLES = {
     "application-engineer": "workspace-write",
     "reviewer": "read-only",
 }
-FORBIDDEN_TEXT = ("DB_PASSWORD", "api_key", "token =", "/home/", "/DATA/")
+AGENT_LIMIT_KEYS = {
+    "max_threads",
+    "max_depth",
+    "job_max_runtime_seconds",
+}
+FORBIDDEN_TEXT = (
+    "api_key",
+    "password",
+    "secret",
+    "bearer",
+    "token",
+    ".env",
+    "/home",
+    "/data",
+)
 
 ########## 2. tests ##########
 class CodexAgentConfigTest(unittest.TestCase):
     def test_registry_uses_stable_multi_agent_limits(self):
         config = tomllib.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(set(config["features"]), {"multi_agent"})
         self.assertTrue(config["features"]["multi_agent"])
-        self.assertNotIn("multi_agent_v2", config["features"])
         agents = config["agents"]
         self.assertEqual(agents["max_threads"], 4)
         self.assertEqual(agents["max_depth"], 1)
         self.assertEqual(agents["job_max_runtime_seconds"], 1800)
+        self.assertEqual(set(agents) - AGENT_LIMIT_KEYS, set(EXPECTED_ROLES))
 
     def test_all_roles_have_safe_focused_config(self):
         config = tomllib.loads(CONFIG_PATH.read_text(encoding="utf-8"))
@@ -38,7 +53,7 @@ class CodexAgentConfigTest(unittest.TestCase):
             self.assertEqual(role_config["sandbox_mode"], sandbox_mode)
             self.assertGreater(len(role_config["developer_instructions"]), 200)
             for forbidden in FORBIDDEN_TEXT:
-                self.assertNotIn(forbidden, role_text)
+                self.assertNotIn(forbidden, role_text.casefold())
 
 
 if __name__ == "__main__":
