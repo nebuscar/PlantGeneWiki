@@ -6,5 +6,11 @@ withDefaults(defineProps<{ title?: string; message?: string }>(), {
 </script>
 
 <template>
-  <div class="state-card state-card--error" role="alert"><div><strong>{{ title }}</strong><p>{{ message }}</p></div></div>
+  <div class="state-card state-card--error" role="alert">
+    <div>
+      <strong>{{ title }}</strong>
+      <p>{{ message }}</p>
+      <slot />
+    </div>
+  </div>
 </template>

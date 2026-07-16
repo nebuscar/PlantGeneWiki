@@ -16,7 +16,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/genes/:id",
     name: "gene",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/GeneView.vue"),
     meta: { title: "Gene" },
   },
   {
