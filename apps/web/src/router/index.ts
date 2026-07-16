@@ -10,7 +10,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/search",
     name: "search",
-    component: () => import("../views/PlanningView.vue"),
+    component: () => import("../views/SearchView.vue"),
     meta: { title: "Search" },
   },
   {

@@ -27,12 +27,15 @@ function appendOptionalParam(params: URLSearchParams, name: string, value?: stri
   }
 }
 
-export function searchNodes(params: GraphSearchParams): Promise<GraphSearchResponse> {
+export function searchNodes(
+  params: GraphSearchParams,
+  signal?: AbortSignal,
+): Promise<GraphSearchResponse> {
   const query = new URLSearchParams({ q: params.q });
   appendOptionalParam(query, "object_type", params.objectType);
   appendOptionalParam(query, "species_id", params.speciesId);
   appendOptionalParam(query, "limit", params.limit);
-  return apiRequest<GraphSearchResponse>(`/api/graph/search?${query.toString()}`);
+  return apiRequest<GraphSearchResponse>(`/api/graph/search?${query.toString()}`, { signal });
 }
 
 export function getNode(nodeId: string): Promise<GraphNode> {
