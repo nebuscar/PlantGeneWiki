@@ -89,6 +89,27 @@ class SQLiteGraphStoreTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.tempdir.cleanup()
 
+    def insert_edge(self, predicate: str, target: str) -> None:
+        connection = sqlite3.connect(self.db_path)
+        connection.execute(
+            """
+            INSERT INTO edges
+            (source, predicate, target, species_id, source_dataset, evidence, properties_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+                predicate,
+                target,
+                "arabidopsis_thaliana",
+                "dataset:test",
+                "test",
+                "{}",
+            ),
+        )
+        connection.commit()
+        connection.close()
+
     def test_get_node(self) -> None:
         node = self.store.get_node("gene:arabidopsis_thaliana:Atha01G0000010.v1.36")
         self.assertIsNotNone(node)
@@ -119,6 +140,45 @@ class SQLiteGraphStoreTest(unittest.TestCase):
         self.assertEqual(result["node"]["object_type"], "Gene")
         self.assertEqual(result["edges"][0]["predicate"], "belongs_to_species")
         self.assertEqual(result["nodes"][0]["object_type"], "Species")
+
+    def test_get_neighbors_reports_complete_counts_after_exclusion(self) -> None:
+        self.insert_edge("has_sequence", "GeneLocation:gene:atha:Atha01G0000010.v1.36")
+        self.insert_edge("has_sequence", "species:arabidopsis_thaliana")
+        self.insert_edge("has_structure", "GeneLocation:gene:atha:Atha01G0000010.v1.36")
+
+        result = self.store.get_neighbors(
+            "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+            exclude_predicates=("has_sequence", "has_sequence"),
+            limit=10,
+        )
+
+        self.assertEqual(result["total_edges"], 4)
+        self.assertEqual(result["matched_edges"], 2)
+        self.assertEqual(
+            result["predicate_counts"],
+            {"belongs_to_species": 1, "has_sequence": 2, "has_structure": 1},
+        )
+        self.assertFalse(result["truncated"])
+        self.assertEqual(
+            [edge["predicate"] for edge in result["edges"]],
+            ["belongs_to_species", "has_structure"],
+        )
+
+    def test_get_neighbors_reports_filtered_truncation(self) -> None:
+        self.insert_edge("has_sequence", "GeneLocation:gene:atha:Atha01G0000010.v1.36")
+        self.insert_edge("has_sequence", "species:arabidopsis_thaliana")
+
+        result = self.store.get_neighbors(
+            "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+            predicate="has_sequence",
+            limit=1,
+        )
+
+        self.assertEqual(result["total_edges"], 3)
+        self.assertEqual(result["matched_edges"], 2)
+        self.assertEqual(result["predicate_counts"]["has_sequence"], 2)
+        self.assertEqual(len(result["edges"]), 1)
+        self.assertTrue(result["truncated"])
 
     def test_get_neighbors_orders_edges_deterministically(self) -> None:
         connection = sqlite3.connect(self.db_path)
@@ -196,4 +256,3 @@ class SQLiteGraphStoreTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

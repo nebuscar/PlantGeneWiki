@@ -138,39 +138,69 @@ class SQLiteGraphStore:
         direction: Literal["in", "out", "both"] = "both",
         limit: int = 50,
         predicate: str | None = None,
+        exclude_predicates: tuple[str, ...] = (),
     ) -> dict[str, Any]:
         node = self.get_node(node_id)
+        empty = {
+            "node": node,
+            "edges": [],
+            "nodes": [],
+            "total_edges": 0,
+            "matched_edges": 0,
+            "predicate_counts": {},
+            "truncated": False,
+        }
         if node is None:
-            return {"node": None, "edges": [], "nodes": []}
+            return empty
 
         limit = max(1, min(limit, 500))
-        clauses: list[str] = []
-        params: list[Any] = []
-
         if direction == "out":
-            clauses.append("source = ?")
-            params.append(node_id)
+            direction_clause = "source = ?"
+            direction_params: list[Any] = [node_id]
         elif direction == "in":
-            clauses.append("target = ?")
-            params.append(node_id)
+            direction_clause = "target = ?"
+            direction_params = [node_id]
         else:
-            clauses.append("(source = ? OR target = ?)")
-            params.extend([node_id, node_id])
+            direction_clause = "(source = ? OR target = ?)"
+            direction_params = [node_id, node_id]
 
+        clauses = [direction_clause]
+        params = list(direction_params)
         if predicate:
             clauses.append("predicate = ?")
             params.append(predicate)
-        params.append(limit)
+        for excluded in sorted({item for item in exclude_predicates if item}):
+            clauses.append("predicate != ?")
+            params.append(excluded)
 
-        edge_sql = f"""
-            SELECT source, predicate, target, species_id, source_dataset, evidence, properties_json
-            FROM edges
-            WHERE {' AND '.join(clauses)}
-            ORDER BY predicate, source, target, edge_id
-            LIMIT ?
-        """
         with self.connect() as connection:
-            edge_rows = connection.execute(edge_sql, params).fetchall()
+            predicate_counts = {
+                row["predicate"]: row["count"]
+                for row in connection.execute(
+                    f"""
+                    SELECT predicate, COUNT(*) AS count
+                    FROM edges
+                    WHERE {direction_clause}
+                    GROUP BY predicate
+                    ORDER BY predicate
+                    """,
+                    direction_params,
+                )
+            }
+            matched_edges = connection.execute(
+                f"SELECT COUNT(*) FROM edges WHERE {' AND '.join(clauses)}",
+                params,
+            ).fetchone()[0]
+            edge_rows = connection.execute(
+                f"""
+                SELECT source, predicate, target, species_id, source_dataset, evidence, properties_json
+                FROM edges
+                WHERE {' AND '.join(clauses)}
+                ORDER BY predicate, source, target, edge_id
+                LIMIT ?
+                """,
+                [*params, limit],
+            ).fetchall()
             edges = [self._edge_from_row(row) for row in edge_rows]
             related_ids = sorted(
                 {
@@ -182,7 +212,15 @@ class SQLiteGraphStore:
             )
             related_nodes = self._get_nodes_by_ids(connection, related_ids)
 
-        return {"node": node, "edges": edges, "nodes": related_nodes}
+        return {
+            "node": node,
+            "edges": edges,
+            "nodes": related_nodes,
+            "total_edges": sum(predicate_counts.values()),
+            "matched_edges": matched_edges,
+            "predicate_counts": predicate_counts,
+            "truncated": len(edges) < matched_edges,
+        }
 
     def get_gene_wiki_record(self, node_id: str) -> dict[str, Any]:
         node = self.get_node(node_id)
