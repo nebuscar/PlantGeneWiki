@@ -138,7 +138,7 @@ def build_minimal_species_knowledge_base(
     manifest = {
         "species_id": species_id,
         "species_name": species_name,
-        "output_dir": str(output_path),
+        "output_dir": ".",
         "counts": {
             "species": 1,
             "genes": len(genes),
