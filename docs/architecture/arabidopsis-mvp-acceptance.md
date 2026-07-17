@@ -89,3 +89,25 @@ Browser records:
 Both records rendered all nine permanent sections. The rich record showed 27 transcripts, 27 CDS records, 27 Protein records, and 54 sequence links. The sparse record showed a negative-strand location, one transcript, one CDS record, and one Protein record. Homology and Publications correctly displayed `Not available`; neither page exposed raw JSON, `source_file`, internal paths, or browser console errors.
 
 Versioned public-ID resolution is scoped to `arabidopsis_thaliana` for this milestone, avoiding an unbounded full-graph label scan. General multi-species public-ID and alias resolution remains a documented non-goal.
+
+## 8. Knowledge Graph usability acceptance
+
+Acceptance completed on 2026-07-18 against graph snapshot `pgcp_v1/phytoatlas_pgcp_v1.sqlite`.
+
+| Check | Result |
+|---|---|
+| Core Python suite | PASS: 30 tests |
+| FastAPI suite | PASS: 15 tests |
+| Vue suite | PASS: 48 tests |
+| Production frontend build | PASS |
+| Core graph API | PASS: 59 total, 5 core, 54 sequence relations |
+| Default graph presentation | PASS: 6 real nodes and 1 derived summary |
+| Sequence drawer | PASS: 27 CDS and 27 Protein records |
+| Real sequence graph modes | PASS: 27 CDS and 27 Protein nodes |
+| Desktop and mobile layout | PASS: no overlap or horizontal overflow |
+| Route history and validation states | PASS |
+| Gene Wiki deep link | PASS |
+| Preview service lifecycle | PASS: strict ports and complete process-group cleanup |
+| Browser console and path safety | PASS |
+
+The six real default nodes are the center Gene, Species, two distinct Dataset nodes, GeneLocation, and GeneStructure. The derived `Sequences (54)` summary is a presentation element only. It is not stored as a graph node or interpreted as a biological relation.
