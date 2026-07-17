@@ -75,11 +75,16 @@ def graph_neighbors(
     node_id: str,
     direction: Literal["in", "out", "both"] = Query(default="both"),
     predicate: str | None = Query(default=None),
+    exclude_predicate: list[str] | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=500),
 ) -> dict:
     try:
         result = get_graph_store().get_neighbors(
-            node_id, direction=direction, predicate=predicate, limit=limit
+            node_id,
+            direction=direction,
+            predicate=predicate,
+            exclude_predicates=tuple(exclude_predicate or ()),
+            limit=limit,
         )
     except GraphStoreError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
@@ -116,4 +121,3 @@ def species_genes(
         )
     except GraphStoreError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
-

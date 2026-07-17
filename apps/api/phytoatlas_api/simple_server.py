@@ -22,6 +22,15 @@ def int_query(query: dict[str, list[str]], name: str, default: int, upper: int) 
     return max(0, min(value, upper))
 
 
+def neighbor_query_options(query: dict[str, list[str]]) -> dict[str, object]:
+    return {
+        "direction": query.get("direction", ["both"])[0],
+        "predicate": query.get("predicate", [None])[0],
+        "exclude_predicates": tuple(query.get("exclude_predicate", [])),
+        "limit": int_query(query, "limit", 50, 500),
+    }
+
+
 class PhytoAtlasHandler(BaseHTTPRequestHandler):
     store = SQLiteGraphStore()
 
@@ -71,12 +80,7 @@ class PhytoAtlasHandler(BaseHTTPRequestHandler):
             neighbors_prefix = "/api/graph/neighbors/"
             if path.startswith(neighbors_prefix):
                 node_id = unquote(path[len(neighbors_prefix) :])
-                result = self.store.get_neighbors(
-                    node_id,
-                    direction=query.get("direction", ["both"])[0],
-                    predicate=query.get("predicate", [None])[0],
-                    limit=int_query(query, "limit", 50, 500),
-                )
+                result = self.store.get_neighbors(node_id, **neighbor_query_options(query))
                 if result["node"] is None:
                     self.send_json({"detail": f"Node not found: {node_id}"}, status=404)
                     return
@@ -127,4 +131,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

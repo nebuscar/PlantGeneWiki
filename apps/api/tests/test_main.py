@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 from fastapi import HTTPException
 
-from phytoatlas_api.main import app, gene_wiki, health
+from phytoatlas_api.main import app, gene_wiki, graph_neighbors, health
 
 ########## 1. tests ##########
 class ApiIdentityTest(unittest.TestCase):
@@ -29,6 +29,37 @@ class GeneWikiApiTest(unittest.TestCase):
         with self.assertRaises(HTTPException) as context:
             gene_wiki("gene:missing")
         self.assertEqual(context.exception.status_code, 404)
+
+class GraphNeighborApiTest(unittest.TestCase):
+    @patch("phytoatlas_api.main.get_graph_store")
+    def test_graph_neighbors_forwards_repeated_exclusions(self, get_store):
+        expected = {
+            "node": {"node_id": "gene:test"},
+            "edges": [],
+            "nodes": [],
+            "total_edges": 54,
+            "matched_edges": 0,
+            "predicate_counts": {"has_sequence": 54},
+            "truncated": False,
+        }
+        get_store.return_value.get_neighbors.return_value = expected
+
+        result = graph_neighbors(
+            "gene:test",
+            direction="both",
+            predicate=None,
+            exclude_predicate=["has_sequence", "has_sequence"],
+            limit=100,
+        )
+
+        self.assertEqual(result, expected)
+        get_store.return_value.get_neighbors.assert_called_once_with(
+            "gene:test",
+            direction="both",
+            predicate=None,
+            exclude_predicates=("has_sequence", "has_sequence"),
+            limit=100,
+        )
 
 if __name__ == "__main__":
     unittest.main()

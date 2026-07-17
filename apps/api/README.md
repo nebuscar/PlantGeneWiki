@@ -37,3 +37,19 @@ python -m unittest discover -s tests -v
 - `GET /api/graph/nodes/{node_id}`
 - `GET /api/graph/neighbors/{node_id}`
 - `GET /api/graph/species/{species_id}/genes`
+
+## Neighborhood filters
+
+`GET /api/graph/neighbors/{node_id}` accepts `direction`, `predicate`, `limit`,
+and repeatable `exclude_predicate` query parameters. For example:
+
+```text
+/api/graph/neighbors/gene%3Atest?exclude_predicate=has_sequence&exclude_predicate=contains_gene&limit=100
+```
+
+Neighborhood responses include:
+
+- `total_edges`: complete directional relationship count before predicate filters.
+- `matched_edges`: relationship count after predicate filters and before `limit`.
+- `predicate_counts`: complete directional counts grouped by predicate.
+- `truncated`: whether `limit` omitted matching relationships.
