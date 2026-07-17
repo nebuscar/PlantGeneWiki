@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { toCytoscapeElements } from "../../src/lib/graph-elements";
+import {
+  SEQUENCE_SUMMARY_ID,
+  toCytoscapeElements,
+} from "../../src/lib/graph-elements";
 
 const center = {
   node_id: "gene:atha:Atha01",
@@ -45,5 +48,28 @@ describe("toCytoscapeElements", () => {
     const elements = toCytoscapeElements(neighborhood);
     expect(elements.nodes.filter((item) => item.data.id === center.node_id)).toHaveLength(1);
     expect(elements.edges[0].data.predicate).toBe("belongs_to_species");
+  });
+
+  it("adds a derived sequence summary without mutating graph truth", () => {
+    const originalNodes = [...neighborhood.nodes];
+    const elements = toCytoscapeElements(neighborhood, { sequenceCount: 54 });
+    const summary = elements.nodes.find((item) => item.data.id === SEQUENCE_SUMMARY_ID);
+
+    expect(summary?.data).toMatchObject({
+      label: "Sequences (54)",
+      presentationKind: "summary",
+      objectType: "SequenceSummary",
+    });
+    expect(elements.selectionById.get(SEQUENCE_SUMMARY_ID)).toEqual({
+      kind: "summary",
+      summary: {
+        id: SEQUENCE_SUMMARY_ID,
+        label: "Sequences (54)",
+        predicate: "has_sequence",
+        count: 54,
+      },
+    });
+    expect(neighborhood.nodes).toEqual(originalNodes);
+    expect(neighborhood.nodes.some((node) => node.node_id === SEQUENCE_SUMMARY_ID)).toBe(false);
   });
 });

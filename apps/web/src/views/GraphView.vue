@@ -8,7 +8,7 @@ import GraphToolbar from "../components/graph/GraphToolbar.vue";
 import NodeInspector from "../components/graph/NodeInspector.vue";
 import { toCytoscapeElements } from "../lib/graph-elements";
 import { getNeighbors, getNode, searchNodes } from "../services/graph";
-import type { GraphNeighborhood, GraphNode } from "../types/graph";
+import type { GraphNeighborhood, GraphNode, GraphSelection } from "../types/graph";
 
 const centerQuery = ref("");
 const speciesId = ref("");
@@ -68,6 +68,10 @@ async function loadGraph() {
     if (controller === requestController) loading.value = false;
   }
 }
+
+function handleSelection(selection: GraphSelection) {
+  if (selection.kind === "node") selectedNode.value = selection.node;
+}
 </script>
 
 <template>
@@ -87,7 +91,7 @@ async function loadGraph() {
     <LoadingState v-if="loading" />
     <ErrorState v-else-if="error" :message="error"><button type="button" @click="loadGraph">Retry</button></ErrorState>
     <div v-else class="graph-layout">
-      <GraphCanvas :neighborhood="neighborhood" @select="selectedNode = $event" />
+      <GraphCanvas :neighborhood="neighborhood" @select="handleSelection" />
       <NodeInspector :node="selectedNode" />
     </div>
   </div>

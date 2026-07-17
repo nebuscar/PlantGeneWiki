@@ -63,6 +63,17 @@ export interface GraphQueryState {
   predicate: string;
 }
 
+export interface SequenceSummarySelection {
+  id: string;
+  label: string;
+  predicate: "has_sequence";
+  count: number;
+}
+
+export type GraphSelection =
+  | { kind: "node"; node: GraphNode }
+  | { kind: "summary"; summary: SequenceSummarySelection };
+
 export interface GraphSummary {
   database: string;
   node_count: number;
