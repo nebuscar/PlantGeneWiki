@@ -1,5 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getGraphSummary, ObjectNotFoundError, resolveObject, searchNodes } from "../../src/services/graph";
+import {
+  getGeneWikiRecord,
+  getGraphSummary,
+  ObjectNotFoundError,
+  resolveObject,
+  searchNodes,
+} from "../../src/services/graph";
 import { ApiError } from "../../src/services/http";
 import type { GraphNode } from "../../src/types/graph";
 
@@ -62,6 +68,24 @@ describe("graph service", () => {
     );
 
     await expect(resolveObject("Gene", "missing")).rejects.toBeInstanceOf(ObjectNotFoundError);
+  });
+
+  it("requests the complete Gene Wiki record with an encoded node ID", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ node: null, edges: [], nodes: [] }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    await getGeneWikiRecord("gene:arabidopsis_thaliana:Atha01G0000010.v1.36");
+
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining(
+        "/api/wiki/genes/gene%3Aarabidopsis_thaliana%3AAtha01G0000010.v1.36",
+      ),
+      expect.any(Object),
+    );
   });
 
   it("preserves FastAPI error status, path, and detail", async () => {

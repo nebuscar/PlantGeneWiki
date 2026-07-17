@@ -1,5 +1,6 @@
 import { apiRequest } from "./http";
 import type {
+  GeneWikiRecord,
   GraphNeighborhood,
   GraphNode,
   GraphSearchParams,
@@ -54,6 +55,16 @@ export function getNeighbors(
   const suffix = query.size > 0 ? `?${query.toString()}` : "";
   return apiRequest<GraphNeighborhood>(
     `/api/graph/neighbors/${encodeURIComponent(nodeId)}${suffix}`,
+    { signal },
+  );
+}
+
+export function getGeneWikiRecord(
+  nodeId: string,
+  signal?: AbortSignal,
+): Promise<GeneWikiRecord> {
+  return apiRequest<GeneWikiRecord>(
+    `/api/wiki/genes/${encodeURIComponent(nodeId)}`,
     { signal },
   );
 }

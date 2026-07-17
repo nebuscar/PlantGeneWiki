@@ -46,6 +46,8 @@ export interface GraphNeighborhood {
   nodes: GraphNode[];
 }
 
+export interface GeneWikiRecord extends GraphNeighborhood {}
+
 export interface GraphSummary {
   database: string;
   node_count: number;

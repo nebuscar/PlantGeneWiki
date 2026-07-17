@@ -59,6 +59,17 @@ def graph_node(node_id: str) -> dict:
     return node
 
 
+@app.get("/api/wiki/genes/{node_id:path}")
+def gene_wiki(node_id: str) -> dict:
+    try:
+        result = get_graph_store().get_gene_wiki_record(node_id)
+    except GraphStoreError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    if result["node"] is None:
+        raise HTTPException(status_code=404, detail=f"Gene not found: {node_id}")
+    return result
+
+
 @app.get("/api/graph/neighbors/{node_id:path}")
 def graph_neighbors(
     node_id: str,
