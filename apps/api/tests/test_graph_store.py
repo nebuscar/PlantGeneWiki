@@ -180,6 +180,70 @@ class SQLiteGraphStoreTest(unittest.TestCase):
         self.assertEqual(len(result["edges"]), 1)
         self.assertTrue(result["truncated"])
 
+    def test_filtered_neighbors_stay_within_directional_scan_budget(self) -> None:
+        connection = sqlite3.connect(self.db_path)
+        connection.execute("CREATE INDEX idx_edges_source ON edges(source)")
+        connection.execute("CREATE INDEX idx_edges_target ON edges(target)")
+        connection.execute("CREATE INDEX idx_edges_predicate ON edges(predicate)")
+        connection.executemany(
+            """
+            INSERT INTO edges
+            (source, predicate, target, species_id, source_dataset, evidence, properties_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                (
+                    f"gene:unrelated:{index}",
+                    "has_sequence",
+                    f"seq:unrelated:{index}",
+                    "arabidopsis_thaliana",
+                    "dataset:test",
+                    "test",
+                    "{}",
+                )
+                for index in range(10_000)
+            ),
+        )
+        connection.execute(
+            """
+            INSERT INTO edges
+            (source, predicate, target, species_id, source_dataset, evidence, properties_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+                "has_sequence",
+                "GeneLocation:gene:atha:Atha01G0000010.v1.36",
+                "arabidopsis_thaliana",
+                "dataset:test",
+                "test",
+                "{}",
+            ),
+        )
+        connection.commit()
+        connection.close()
+
+        class BudgetStore(SQLiteGraphStore):
+            def connect(inner_self) -> sqlite3.Connection:
+                limited = super().connect()
+                callbacks = 0
+
+                def progress() -> int:
+                    nonlocal callbacks
+                    callbacks += 1
+                    return int(callbacks > 300)
+
+                limited.set_progress_handler(progress, 100)
+                return limited
+
+        result = BudgetStore(self.db_path).get_neighbors(
+            "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+            predicate="has_sequence",
+            limit=10,
+        )
+        self.assertEqual(result["matched_edges"], 1)
+        self.assertEqual(len(result["edges"]), 1)
+
     def test_get_neighbors_orders_edges_deterministically(self) -> None:
         connection = sqlite3.connect(self.db_path)
         for predicate, target in (

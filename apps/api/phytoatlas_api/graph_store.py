@@ -167,7 +167,8 @@ class SQLiteGraphStore:
         clauses = [direction_clause]
         params = list(direction_params)
         if predicate:
-            clauses.append("predicate = ?")
+            # Preserve source/target index selection on graph-scale predicate tables.
+            clauses.append("+predicate = ?")
             params.append(predicate)
         for excluded in sorted({item for item in exclude_predicates if item}):
             clauses.append("predicate != ?")
