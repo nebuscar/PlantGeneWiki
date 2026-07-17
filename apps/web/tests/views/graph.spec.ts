@@ -166,6 +166,11 @@ async function mountGraph(path: string, configure: () => void = () => undefined)
     routes: [
       { path: "/graph", name: "graph", component: GraphView },
       { path: "/genes/:id", name: "gene", component: { template: "<div />" } },
+      {
+        path: "/sequence-records/:id",
+        name: "sequence-record",
+        component: { template: "<div />" },
+      },
     ],
   });
   await router.push(path);
@@ -316,6 +321,12 @@ it("opens real sequence modes from the derived summary and returns to core", asy
   expect(sequenceRecord.nodes.every((node) => node.properties.sequence_type === "CDS")).toBe(true);
   expect(sequenceCanvas.props("sequenceCount")).toBe(0);
   expect(wrapper.text()).toContain("Viewing 27 CDS records");
+  const selectedSequenceNode = sequenceRecord.nodes[0];
+  sequenceCanvas.vm.$emit("select", { kind: "node", node: selectedSequenceNode });
+  await flushPromises();
+  expect(wrapper.getComponent({ name: "NodeInspector" }).props("node")).toEqual(
+    selectedSequenceNode,
+  );
 
   await wrapper.get('[data-test="back-to-core"]').trigger("click");
   const coreCanvas = wrapper.getComponent({ name: "GraphCanvas" });
@@ -323,4 +334,5 @@ it("opens real sequence modes from the derived summary and returns to core", asy
   expect(coreRecord.nodes).toHaveLength(5);
   expect(coreRecord.node).toEqual(center);
   expect(coreCanvas.props("sequenceCount")).toBe(54);
+  expect(wrapper.getComponent({ name: "NodeInspector" }).props("node")).toEqual(center);
 });

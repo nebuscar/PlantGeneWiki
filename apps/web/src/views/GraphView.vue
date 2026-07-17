@@ -194,6 +194,7 @@ function showSequenceType(type: SequenceType, record: GraphNeighborhood) {
 
 function backToCore() {
   sequenceMode.value = null;
+  selectedNode.value = coreNeighborhood.value?.node ?? null;
 }
 
 watch(() => route.fullPath, loadRoute, { immediate: true });
