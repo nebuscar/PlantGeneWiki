@@ -43,3 +43,6 @@ apps/web/.env.local
 
 # editor local settings
 .vscode/
+
+# isolated development worktrees
+.worktrees/
