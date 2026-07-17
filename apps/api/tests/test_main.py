@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 from fastapi import HTTPException
 
+from phytoatlas_api import main as main_module
 from phytoatlas_api.main import app, gene_wiki, graph_neighbors, health
 
 ########## 1. tests ##########
@@ -11,6 +12,11 @@ class ApiIdentityTest(unittest.TestCase):
     def test_api_uses_phytoatlas_identity(self):
         self.assertEqual(app.title, "PhytoAtlas API")
         self.assertEqual(health(), {"status": "ok"})
+
+    def test_api_allows_isolated_preview_origins_by_default(self):
+        default_origins = getattr(main_module, "DEFAULT_CORS_ORIGINS", ())
+        self.assertIn("http://localhost:4323", default_origins)
+        self.assertIn("http://127.0.0.1:4323", default_origins)
 
 class GeneWikiApiTest(unittest.TestCase):
     @patch("phytoatlas_api.main.get_graph_store")

@@ -97,7 +97,7 @@ Acceptance completed on 2026-07-18 against graph snapshot `pgcp_v1/phytoatlas_pg
 | Check | Result |
 |---|---|
 | Core Python suite | PASS: 30 tests |
-| FastAPI suite | PASS: 15 tests |
+| FastAPI suite | PASS: 16 tests |
 | Vue suite | PASS: 48 tests |
 | Production frontend build | PASS |
 | Core graph API | PASS: 59 total, 5 core, 54 sequence relations |

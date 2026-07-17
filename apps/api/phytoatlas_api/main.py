@@ -11,6 +11,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .graph_store import DEFAULT_GRAPH_DB, GraphStoreError, SQLiteGraphStore
 
+DEFAULT_CORS_ORIGINS = (
+    "http://localhost:4322",
+    "http://127.0.0.1:4322",
+    "http://localhost:4323",
+    "http://127.0.0.1:4323",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+)
 
 def get_graph_store() -> SQLiteGraphStore:
     return SQLiteGraphStore(Path(os.getenv("PHYTOATLAS_GRAPH_DB", DEFAULT_GRAPH_DB)))
@@ -22,7 +30,7 @@ origins = [
     origin.strip()
     for origin in os.getenv(
         "PHYTOATLAS_CORS_ORIGINS",
-        "http://localhost:4322,http://127.0.0.1:4322,http://localhost:5173,http://127.0.0.1:5173",
+        ",".join(DEFAULT_CORS_ORIGINS),
     ).split(",")
     if origin.strip()
 ]
