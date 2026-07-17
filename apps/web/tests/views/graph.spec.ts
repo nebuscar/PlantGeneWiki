@@ -112,6 +112,39 @@ const coreNeighborhood: GraphNeighborhood = {
   truncated: false,
 };
 
+function sequenceNode(index: number, sequenceType: "CDS" | "PROTEIN"): GraphNode {
+  return {
+    node_id: `seq:${sequenceType.toLowerCase()}:${index}`,
+    object_type: "SequenceRecord",
+    label: `${sequenceType}-${index}`,
+    species_id: "arabidopsis_thaliana",
+    source_file: "sequence_records.jsonl",
+    properties: { sequence_type: sequenceType },
+  };
+}
+
+const sequenceNodes = [
+  ...Array.from({ length: 27 }, (_, index) => sequenceNode(index + 1, "CDS")),
+  ...Array.from({ length: 27 }, (_, index) => sequenceNode(index + 1, "PROTEIN")),
+];
+const sequenceNeighborhood: GraphNeighborhood = {
+  node: center,
+  nodes: sequenceNodes,
+  edges: sequenceNodes.map((node) => ({
+    source: center.node_id,
+    predicate: "has_sequence",
+    target: node.node_id,
+    species_id: "arabidopsis_thaliana",
+    source_dataset: "dataset:test",
+    evidence: "test",
+    properties: {},
+  })),
+  total_edges: 59,
+  matched_edges: 54,
+  predicate_counts: { has_sequence: 54 },
+  truncated: false,
+};
+
 beforeEach(() => vi.clearAllMocks());
 
 async function mountGraph(path: string, configure: () => void = () => undefined) {
@@ -130,7 +163,20 @@ async function mountGraph(path: string, configure: () => void = () => undefined)
   const wrapper = mount(GraphView, {
     global: {
       plugins: [router],
-      stubs: { GraphCanvas: { template: "<div data-test='graph-canvas' />" } },
+      stubs: {
+        GraphCanvas: {
+          name: "GraphCanvas",
+          props: ["neighborhood", "sequenceCount"],
+          emits: ["select"],
+          template: "<div data-test='graph-canvas' />",
+        },
+        SequenceDrawer: {
+          name: "SequenceDrawer",
+          props: ["open", "centerNodeId", "expectedCount"],
+          emits: ["close", "showType"],
+          template: "<div v-if='open' data-test='sequence-drawer' />",
+        },
+      },
     },
   });
   await flushPromises();
@@ -233,4 +279,39 @@ it("does not let an older request replace a newer route", async () => {
   await flushPromises();
   expect(wrapper.text()).toContain("Second");
   expect(wrapper.text()).not.toContain("Atha04G0031690");
+});
+
+it("opens real sequence modes from the derived summary and returns to core", async () => {
+  const { router, wrapper } = await mountGraph("/graph");
+  wrapper.getComponent({ name: "GraphCanvas" }).vm.$emit("select", {
+    kind: "summary",
+    summary: {
+      id: "presentation:sequence-summary",
+      label: "Sequences (54)",
+      predicate: "has_sequence",
+      count: 54,
+    },
+  });
+  await flushPromises();
+  await flushPromises();
+  expect(router.currentRoute.value.query.predicate).toBe("has_sequence");
+
+  const drawer = wrapper.getComponent({ name: "SequenceDrawer" });
+  expect(drawer.props("open")).toBe(true);
+  drawer.vm.$emit("showType", "CDS", sequenceNeighborhood);
+  await flushPromises();
+
+  const sequenceCanvas = wrapper.getComponent({ name: "GraphCanvas" });
+  const sequenceRecord = sequenceCanvas.props("neighborhood") as GraphNeighborhood;
+  expect(sequenceRecord.nodes).toHaveLength(27);
+  expect(sequenceRecord.nodes.every((node) => node.properties.sequence_type === "CDS")).toBe(true);
+  expect(sequenceCanvas.props("sequenceCount")).toBe(0);
+  expect(wrapper.text()).toContain("Viewing 27 CDS records");
+
+  await wrapper.get('[data-test="back-to-core"]').trigger("click");
+  const coreCanvas = wrapper.getComponent({ name: "GraphCanvas" });
+  const coreRecord = coreCanvas.props("neighborhood") as GraphNeighborhood;
+  expect(coreRecord.nodes).toHaveLength(4);
+  expect(coreRecord.node).toEqual(center);
+  expect(coreCanvas.props("sequenceCount")).toBe(54);
 });
