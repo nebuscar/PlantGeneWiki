@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { RouterLink, useRoute } from "vue-router";
-import ErrorState from "../components/states/ErrorState.vue";
-import LoadingState from "../components/states/LoadingState.vue";
+import { useRoute } from "vue-router";
+import GeneFunctionPanel from "../components/genes/GeneFunctionPanel.vue";
+import GeneLocationPanel from "../components/genes/GeneLocationPanel.vue";
+import GeneSequencePanel from "../components/genes/GeneSequencePanel.vue";
+import GeneStructurePanel from "../components/genes/GeneStructurePanel.vue";
 import EvidencePanel from "../components/objects/EvidencePanel.vue";
 import KnowledgeSection from "../components/objects/KnowledgeSection.vue";
 import NotAvailable from "../components/objects/NotAvailable.vue";
 import ObjectPageLayout from "../components/objects/ObjectPageLayout.vue";
-import { useObjectRecord } from "../composables/useObjectRecord";
-import type { GraphEdge, GraphNode } from "../types/graph";
+import ErrorState from "../components/states/ErrorState.vue";
+import LoadingState from "../components/states/LoadingState.vue";
+import { useGeneRecord } from "../composables/useGeneRecord";
+import { findRelatedNodes, readFunctionAnnotations } from "../lib/gene-record";
+import type { GraphEdge } from "../types/graph";
 
 const route = useRoute();
 const publicId = computed(() => String(route.params.id ?? ""));
-const { node, neighborhood, loading, error, reload } = useObjectRecord("Gene", publicId);
+const { node, record, loading, error, reload } = useGeneRecord(publicId);
 
 const sections = [
   { id: "overview", label: "Overview" },
@@ -36,44 +41,27 @@ function property(...keys: string[]) {
   return null;
 }
 
-function valueText(value: unknown) {
-  if (Array.isArray(value)) {
-    return value.join(", ");
-  }
-  if (typeof value === "object" && value !== null) {
-    return JSON.stringify(value, null, 2);
-  }
-  return String(value);
-}
-
-function relatedNodes(objectType: string) {
-  return neighborhood.value?.nodes.filter((item) => item.object_type === objectType) ?? [];
-}
-
-function relationEdges(pattern: RegExp) {
-  return neighborhood.value?.edges.filter((edge) => pattern.test(edge.predicate)) ?? [];
-}
-
-const locationNodes = computed(() => relatedNodes("GeneLocation"));
-const structureNodes = computed(() => relatedNodes("GeneStructure"));
-const sequenceNodes = computed(() => relatedNodes("SequenceRecord"));
-const publicationNodes = computed(() => relatedNodes("Literature"));
-const homologyEdges = computed(() => relationEdges(/ortholog|homolog|orthogroup/i));
-const evidenceEdges = computed(() =>
-  (neighborhood.value?.edges ?? []).filter((edge) => edge.evidence || edge.source_dataset),
+const relatedNodes = computed(() => record.value?.nodes ?? []);
+const locationNode = computed(
+  () => findRelatedNodes(relatedNodes.value, "GeneLocation")[0] ?? node.value,
 );
-
-function objectRoute(item: GraphNode) {
-  const routes: Record<string, string> = {
-    Gene: "gene",
-    Species: "species",
-    Dataset: "dataset",
-    SequenceRecord: "sequence-record",
-  };
-  const name = routes[item.object_type];
-  const id = typeof item.properties.id === "string" ? item.properties.id : item.label || item.node_id;
-  return name ? { name, params: { id } } : null;
-}
+const structureNodes = computed(() => findRelatedNodes(relatedNodes.value, "GeneStructure"));
+const sequenceNodes = computed(() => findRelatedNodes(relatedNodes.value, "SequenceRecord"));
+const publicationNodes = computed(() => findRelatedNodes(relatedNodes.value, "Literature"));
+const homologyEdges = computed(() =>
+  (record.value?.edges ?? []).filter((edge) => /ortholog|homolog|orthogroup/i.test(edge.predicate)),
+);
+const evidenceEdges = computed(() =>
+  (record.value?.edges ?? []).filter((edge) => edge.evidence || edge.source_dataset),
+);
+const overviewDescription = computed(() => readFunctionAnnotations(node.value).description);
+const aliases = computed(() => {
+  const value = property("aliases");
+  if (Array.isArray(value)) {
+    return value.filter((item): item is string => typeof item === "string");
+  }
+  return typeof value === "string" ? [value] : [];
+});
 
 function edgeLabel(edge: GraphEdge) {
   return `${edge.predicate}: ${edge.source === node.value?.node_id ? edge.target : edge.source}`;
@@ -93,7 +81,7 @@ function edgeLabel(edge: GraphEdge) {
     :sections="sections"
   >
     <KnowledgeSection id="overview" title="Overview">
-      <p v-if="property('description', 'function')">{{ valueText(property("description", "function")) }}</p>
+      <p v-if="overviewDescription">{{ overviewDescription }}</p>
       <NotAvailable v-else />
     </KnowledgeSection>
 
@@ -101,39 +89,24 @@ function edgeLabel(edge: GraphEdge) {
       <dl class="field-list">
         <div><dt>Node ID</dt><dd>{{ node?.node_id || "Not available" }}</dd></div>
         <div><dt>Public ID</dt><dd>{{ property("id", "object_id") || node?.label || "Not available" }}</dd></div>
-        <div><dt>Aliases</dt><dd><span v-if="property('aliases')">{{ valueText(property("aliases")) }}</span><NotAvailable v-else /></dd></div>
+        <div><dt>Aliases</dt><dd><span v-if="aliases.length">{{ aliases.join(", ") }}</span><NotAvailable v-else /></dd></div>
       </dl>
     </KnowledgeSection>
 
     <KnowledgeSection id="location" title="Location">
-      <ul v-if="locationNodes.length" class="relation-list">
-        <li v-for="item in locationNodes" :key="item.node_id"><strong>{{ item.label }}</strong><pre>{{ valueText(item.properties) }}</pre></li>
-      </ul>
-      <p v-else-if="property('location', 'genome_location')">{{ valueText(property("location", "genome_location")) }}</p>
-      <NotAvailable v-else />
+      <GeneLocationPanel :node="locationNode" />
     </KnowledgeSection>
 
     <KnowledgeSection id="structure" title="Structure">
-      <ul v-if="structureNodes.length" class="relation-list">
-        <li v-for="item in structureNodes" :key="item.node_id"><strong>{{ item.label }}</strong><pre>{{ valueText(item.properties) }}</pre></li>
-      </ul>
-      <p v-else-if="property('structure', 'transcripts')">{{ valueText(property("structure", "transcripts")) }}</p>
-      <NotAvailable v-else />
+      <GeneStructurePanel :nodes="structureNodes" />
     </KnowledgeSection>
 
     <KnowledgeSection id="function" title="Function">
-      <pre v-if="property('annotations', 'go', 'function')">{{ valueText(property("annotations", "go", "function")) }}</pre>
-      <NotAvailable v-else />
+      <GeneFunctionPanel :node="node" />
     </KnowledgeSection>
 
     <KnowledgeSection id="sequences" title="Sequences">
-      <ul v-if="sequenceNodes.length" class="relation-list">
-        <li v-for="item in sequenceNodes" :key="item.node_id">
-          <RouterLink v-if="objectRoute(item)" :to="objectRoute(item)!">{{ item.label || item.node_id }}</RouterLink>
-          <span v-else>{{ item.label || item.node_id }}</span>
-        </li>
-      </ul>
-      <NotAvailable v-else />
+      <GeneSequencePanel :nodes="sequenceNodes" />
     </KnowledgeSection>
 
     <KnowledgeSection id="homology" title="Homology">
@@ -167,5 +140,4 @@ function edgeLabel(edge: GraphEdge) {
 .relation-list { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
 .relation-list li { padding: 14px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-moss-50); overflow-wrap: anywhere; }
 .relation-status { margin-right: 8px; color: var(--color-forest-700); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
-pre { max-width: 100%; overflow: auto; white-space: pre-wrap; color: var(--color-ink); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.84rem; }
 </style>

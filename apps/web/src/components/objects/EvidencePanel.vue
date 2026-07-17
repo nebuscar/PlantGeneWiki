@@ -13,7 +13,7 @@ defineProps<{ edges: GraphEdge[] }>();
         <span class="evidence-status">{{ edge.evidence ? "Asserted" : "Inferred" }}</span>
       </div>
       <span>{{ edge.evidence || edge.source_dataset || "Evidence-linked relation" }}</span>
-      <code>{{ edge.source }} ??{{ edge.target }}</code>
+      <code>{{ edge.source }} -> {{ edge.target }}</code>
     </li>
   </ul>
   <NotAvailable v-else />
