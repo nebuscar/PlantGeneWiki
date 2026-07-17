@@ -2,7 +2,10 @@ import { ref, toValue, watch, type MaybeRefOrGetter } from "vue";
 import { getGeneWikiRecord, resolveObject } from "../services/graph";
 import type { GeneWikiRecord, GraphNode } from "../types/graph";
 
-export function useGeneRecord(publicId: MaybeRefOrGetter<string>) {
+export function useGeneRecord(
+  publicId: MaybeRefOrGetter<string>,
+  speciesId = "arabidopsis_thaliana",
+) {
   const node = ref<GraphNode | null>(null);
   const record = ref<GeneWikiRecord | null>(null);
   const loading = ref(false);
@@ -21,7 +24,7 @@ export function useGeneRecord(publicId: MaybeRefOrGetter<string>) {
     }
     loading.value = true;
     try {
-      const resolvedNode = await resolveObject("Gene", id);
+      const resolvedNode = await resolveObject("Gene", id, speciesId);
       const resolvedRecord = await getGeneWikiRecord(resolvedNode.node_id);
       if (currentRequest !== requestId) {
         return;

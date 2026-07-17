@@ -48,7 +48,11 @@ describe("useGeneRecord", () => {
     const state = useGeneRecord(ref(publicId));
 
     await vi.waitFor(() => expect(state.record.value).toEqual(record));
-    expect(mockedResolveObject).toHaveBeenCalledWith("Gene", publicId);
+    expect(mockedResolveObject).toHaveBeenCalledWith(
+      "Gene",
+      publicId,
+      "arabidopsis_thaliana",
+    );
     expect(mockedGetGeneWikiRecord).toHaveBeenCalledWith(node.node_id);
     expect(state.node.value).toEqual(node);
     expect(state.loading.value).toBe(false);

@@ -56,7 +56,13 @@ describe("graph service", () => {
       ),
     );
 
-    await expect(resolveObject("Gene", "Atha01G0000010.v1.36")).resolves.toEqual(node);
+    await expect(
+      resolveObject("Gene", "Atha01G0000010.v1.36", "arabidopsis_thaliana"),
+    ).resolves.toEqual(node);
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining("species_id=arabidopsis_thaliana"),
+      expect.any(Object),
+    );
   });
 
   it("throws a typed error when no exact object matches", async () => {

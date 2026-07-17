@@ -95,7 +95,11 @@ function hasExactPublicId(node: GraphNode, publicId: string): boolean {
   return node.label === publicId || node.properties.id === publicId;
 }
 
-export async function resolveObject(objectType: string, publicId: string): Promise<GraphNode> {
+export async function resolveObject(
+  objectType: string,
+  publicId: string,
+  speciesId?: string,
+): Promise<GraphNode> {
   const candidate = publicId.trim();
   if (!candidate) {
     throw new ObjectNotFoundError(objectType, publicId);
@@ -107,6 +111,7 @@ export async function resolveObject(objectType: string, publicId: string): Promi
   const result = await searchNodes({
     q: candidate,
     objectType,
+    speciesId,
     limit: 20,
   });
   const match = result.nodes.find((node) => hasExactPublicId(node, candidate));

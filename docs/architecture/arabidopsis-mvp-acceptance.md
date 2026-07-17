@@ -66,3 +66,26 @@ Exit code `0` means the gate passed. Exit code `1` means the report was written 
 - Semantic retrieval quality
 - Multi-species consistency
 - Production graph-store selection
+
+## 7. Golden Gene Wiki acceptance run
+
+Acceptance completed on 2026-07-17 against graph snapshot `pgcp_v1/phytoatlas_pgcp_v1.sqlite`.
+
+| Check | Result |
+|---|---|
+| Golden gene data contract | PASS: 20 of 20 genes |
+| Core Python suite | PASS: 28 tests |
+| FastAPI suite | PASS: 10 tests |
+| Vue suite | PASS: 31 tests |
+| Production frontend build | PASS |
+| Rich Gene Wiki browser smoke | PASS |
+| Sparse Gene Wiki browser smoke | PASS |
+
+Browser records:
+
+- Rich: `http://localhost:4322/genes/Atha04G0031690.v1.36`
+- Sparse: `http://localhost:4322/genes/Atha01G0000130.v1.36`
+
+Both records rendered all nine permanent sections. The rich record showed 27 transcripts, 27 CDS records, 27 Protein records, and 54 sequence links. The sparse record showed a negative-strand location, one transcript, one CDS record, and one Protein record. Homology and Publications correctly displayed `Not available`; neither page exposed raw JSON, `source_file`, internal paths, or browser console errors.
+
+Versioned public-ID resolution is scoped to `arabidopsis_thaliana` for this milestone, avoiding an unbounded full-graph label scan. General multi-species public-ID and alias resolution remains a documented non-goal.

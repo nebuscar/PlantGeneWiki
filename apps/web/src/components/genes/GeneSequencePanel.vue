@@ -16,8 +16,8 @@ const available = computed(() => groups.value.cds.length + groups.value.protein.
       <h3>{{ group.label }} ({{ group.records.length }})</h3>
       <ul v-if="group.records.length">
         <li v-for="record in group.records" :key="record.nodeId">
-          <RouterLink :to="{ name: 'sequence-record', params: { id: record.publicId } }">{{ record.name }}</RouterLink>
-          <span>{{ record.length === null ? "Length not available" : `${record.length} residues` }}</span>
+          <RouterLink :to="{ name: 'sequence-record', params: { id: record.nodeId } }">{{ record.name }}</RouterLink>
+          <span>{{ record.length === null ? "Length not available" : `${record.length} ${group.label === "CDS" ? "nt" : "aa"}` }}</span>
         </li>
       </ul>
       <NotAvailable v-else />

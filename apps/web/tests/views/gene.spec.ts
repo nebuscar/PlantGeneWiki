@@ -190,6 +190,16 @@ describe("GeneView", () => {
     expect(wrapper.text()).toContain("Protein (27)");
     expect(wrapper.text()).not.toContain('"transcripts":');
     expect(wrapper.text()).not.toContain("/DATA/data2");
+    expect(wrapper.text()).toContain("1200 nt");
+    expect(wrapper.text()).toContain("399 aa");
+    const sequenceLinks = wrapper.findAll('a[href^="/sequence-records/"]');
+    expect(sequenceLinks).toHaveLength(54);
+    const sequenceHrefs = sequenceLinks.map((link) =>
+      decodeURIComponent(link.attributes("href") ?? ""),
+    );
+    expect(sequenceHrefs).toContain("/sequence-records/seq:cds:1");
+    expect(sequenceHrefs).toContain("/sequence-records/seq:protein:1");
+    expect(new Set(sequenceHrefs)).toHaveLength(54);
   });
 
   it("keeps all permanent sections readable for a sparse gene", async () => {
