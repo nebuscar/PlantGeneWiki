@@ -268,19 +268,23 @@ onBeforeUnmount(cancelRequest);
 </template>
 
 <style scoped>
+.graph-view {
+  margin-top: clamp(-36px, -3vw, -20px);
+}
 .graph-heading {
   max-width: 820px;
-  margin-bottom: 26px;
+  margin-bottom: 18px;
 }
 .graph-heading h1 {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: var(--color-forest-950);
-  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-size: clamp(2.4rem, 5vw, 4.25rem);
   letter-spacing: -0.05em;
   line-height: 1;
 }
 .graph-heading > p:last-child {
-  max-width: 720px;
+  max-width: 1000px;
+  margin-bottom: 0;
   color: var(--color-muted);
 }
 .graph-meta {

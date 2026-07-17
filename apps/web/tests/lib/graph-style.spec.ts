@@ -13,6 +13,7 @@ describe("graph style contract", () => {
     expect(style("edge").label).toBe("");
     expect(style("node[?isCenter], node:selected, node.hovered").label).toBe("data(label)");
     expect(style("edge:selected, edge.hovered").label).toBe("data(predicate)");
+    expect(style('node[presentationKind = "summary"]').label).toBe("data(label)");
     expect(style('node[presentationKind = "summary"]')["border-style"]).toBe("dashed");
     expect(style('edge[presentationKind = "summary"]')["line-style"]).toBe("dashed");
   });

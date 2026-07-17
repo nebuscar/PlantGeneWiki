@@ -35,6 +35,12 @@ export const graphStyles: StylesheetJson = [
   {
     selector: 'node[presentationKind = "summary"]',
     style: {
+      label: "data(label)",
+      "font-size": 10,
+      "text-halign": "center",
+      "text-valign": "center",
+      "text-wrap": "ellipsis",
+      "text-max-width": "100px",
       shape: "round-rectangle",
       "background-color": "#ffffff",
       "border-color": "#7b61d1",

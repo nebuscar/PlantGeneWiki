@@ -37,7 +37,16 @@ const species = coreNode(
   "Species",
   "Arabidopsis thaliana",
 );
-const dataset = coreNode("dataset:pgcp:arabidopsis", "Dataset", "PGCP Arabidopsis");
+const geneDataset = coreNode(
+  "dataset:pgcp:arabidopsis:gene_annotation",
+  "Dataset",
+  "PGCP Gene Annotation",
+);
+const genomeDataset = coreNode(
+  "dataset:pgcp:arabidopsis:genome_annotation",
+  "Dataset",
+  "PGCP Genome Annotation",
+);
 const location = coreNode(
   "location:Atha04G0031690",
   "GeneLocation",
@@ -51,7 +60,7 @@ const structure = coreNode(
 
 const coreNeighborhood: GraphNeighborhood = {
   node: center,
-  nodes: [species, dataset, location, structure],
+  nodes: [species, geneDataset, genomeDataset, location, structure],
   edges: [
     {
       source: center.node_id,
@@ -63,7 +72,7 @@ const coreNeighborhood: GraphNeighborhood = {
       properties: {},
     },
     {
-      source: dataset.node_id,
+      source: geneDataset.node_id,
       predicate: "contains_gene",
       target: center.node_id,
       species_id: "arabidopsis_thaliana",
@@ -92,7 +101,7 @@ const coreNeighborhood: GraphNeighborhood = {
     {
       source: center.node_id,
       predicate: "provided_by_dataset",
-      target: dataset.node_id,
+      target: genomeDataset.node_id,
       species_id: "arabidopsis_thaliana",
       source_dataset: "dataset:test",
       evidence: "test",
@@ -203,7 +212,7 @@ it("seeds and loads the real example from a bare route", async () => {
     expect.any(AbortSignal),
   );
   expect(wrapper.text()).toContain("59 source relationships");
-  expect(wrapper.text()).toContain("6 displayed items");
+  expect(wrapper.text()).toContain("7 displayed items");
 });
 
 it("keeps an invalid supplied route instead of replacing it", async () => {
@@ -311,7 +320,7 @@ it("opens real sequence modes from the derived summary and returns to core", asy
   await wrapper.get('[data-test="back-to-core"]').trigger("click");
   const coreCanvas = wrapper.getComponent({ name: "GraphCanvas" });
   const coreRecord = coreCanvas.props("neighborhood") as GraphNeighborhood;
-  expect(coreRecord.nodes).toHaveLength(4);
+  expect(coreRecord.nodes).toHaveLength(5);
   expect(coreRecord.node).toEqual(center);
   expect(coreCanvas.props("sequenceCount")).toBe(54);
 });

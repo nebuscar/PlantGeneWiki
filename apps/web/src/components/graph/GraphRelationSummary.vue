@@ -49,9 +49,11 @@ function predicateLabel(predicate: string): string {
 <style scoped>
 .relation-summary {
   display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: center;
   gap: 9px;
-  margin-top: 16px;
-  padding-top: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid var(--color-border);
 }
 .relation-summary > span {
@@ -86,5 +88,10 @@ button[aria-pressed="true"] {
   border-color: var(--color-forest-700);
   color: #fff;
   background: var(--color-forest-700);
+}
+@media (max-width: 760px) {
+  .relation-summary {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

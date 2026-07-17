@@ -50,7 +50,7 @@ defineEmits<{ submit: []; selectPredicate: [predicate: string] }>();
 
 <style scoped>
 .graph-toolbar {
-  padding: 20px;
+  padding: 16px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
