@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { RouterLink, useRoute } from "vue-router";
 import GeneFunctionPanel from "../components/genes/GeneFunctionPanel.vue";
 import GeneLocationPanel from "../components/genes/GeneLocationPanel.vue";
 import GeneSequencePanel from "../components/genes/GeneSequencePanel.vue";
@@ -62,6 +62,19 @@ const aliases = computed(() => {
   }
   return typeof value === "string" ? [value] : [];
 });
+const graphRoute = computed(() => {
+  if (!node.value) return null;
+  const propertyId = node.value.properties.id;
+  const center = typeof propertyId === "string" ? propertyId : node.value.node_id;
+  return {
+    name: "graph",
+    query: {
+      center,
+      species: node.value.species_id || undefined,
+      view: "core",
+    },
+  };
+});
 
 function edgeLabel(edge: GraphEdge) {
   return `${edge.predicate}: ${edge.source === node.value?.node_id ? edge.target : edge.source}`;
@@ -80,6 +93,16 @@ function edgeLabel(edge: GraphEdge) {
     :subtitle="node?.species_id || 'Species not available'"
     :sections="sections"
   >
+    <template #actions>
+      <RouterLink
+        v-if="graphRoute"
+        data-test="view-in-graph"
+        class="graph-link"
+        :to="graphRoute"
+      >
+        View in graph
+      </RouterLink>
+    </template>
     <KnowledgeSection id="overview" title="Overview">
       <p v-if="overviewDescription">{{ overviewDescription }}</p>
       <NotAvailable v-else />
@@ -140,4 +163,5 @@ function edgeLabel(edge: GraphEdge) {
 .relation-list { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
 .relation-list li { padding: 14px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-moss-50); overflow-wrap: anywhere; }
 .relation-status { margin-right: 8px; color: var(--color-forest-700); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
+.graph-link { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 14px; border-radius: 8px; color: #fff; background: var(--color-forest-700); text-decoration: none; font-size: 0.86rem; font-weight: 750; }
 </style>

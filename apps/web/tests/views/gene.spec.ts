@@ -160,6 +160,7 @@ async function mountGene(publicId: string, gene: GraphNode, record: GeneWikiReco
     history: createMemoryHistory(),
     routes: [
       { path: "/genes/:id", name: "gene", component: GeneView },
+      { path: "/graph", name: "graph", component: { template: "<div />" } },
       { path: "/sequence-records/:id", name: "sequence-record", component: { template: "<div />" } },
     ],
   });
@@ -185,6 +186,14 @@ describe("GeneView", () => {
   it("renders a rich real-data-shaped gene record", async () => {
     const wrapper = await mountGene("Atha04G0031690.v1.36", richGene, richRecord);
     expect(wrapper.get("h1").text()).toContain("Atha04G0031690");
+    const graphLink = wrapper.get('[data-test="view-in-graph"]');
+    const graphUrl = new URL(graphLink.attributes("href") ?? "", "http://localhost");
+    expect(graphUrl.pathname).toBe("/graph");
+    expect(Object.fromEntries(graphUrl.searchParams)).toEqual({
+      center: "Atha04G0031690.v1.36",
+      species: "arabidopsis_thaliana",
+      view: "core",
+    });
     expect(wrapper.text()).toContain("27 transcripts");
     expect(wrapper.text()).toContain("CDS (27)");
     expect(wrapper.text()).toContain("Protein (27)");
