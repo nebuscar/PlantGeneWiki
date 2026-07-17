@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   getGeneWikiRecord,
   getGraphSummary,
+  getNeighbors,
   ObjectNotFoundError,
   resolveObject,
   searchNodes,
@@ -30,6 +31,58 @@ describe("graph service", () => {
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining("object_type=Gene"),
       expect.objectContaining({ headers: expect.objectContaining({ Accept: "application/json" }) }),
+    );
+  });
+
+  it("serializes every excluded predicate", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          node: null,
+          nodes: [],
+          edges: [],
+          total_edges: 0,
+          matched_edges: 0,
+          predicate_counts: {},
+          truncated: false,
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      ),
+    );
+
+    await getNeighbors("gene:test", {
+      excludePredicates: ["has_sequence", "contains_gene"],
+      limit: 100,
+    });
+
+    const request = vi.mocked(fetch).mock.calls[0][0].toString();
+    const query = new URL(request, "http://localhost").searchParams;
+    expect(query.getAll("exclude_predicate")).toEqual(["has_sequence", "contains_gene"]);
+    expect(query.get("limit")).toBe("100");
+  });
+
+  it("passes cancellation through public object resolution", async () => {
+    const node: GraphNode = {
+      node_id: "gene:arabidopsis_thaliana:Atha01",
+      object_type: "Gene",
+      label: "Atha01",
+      species_id: "arabidopsis_thaliana",
+      source_file: "genes.jsonl",
+      properties: { id: "Atha01" },
+    };
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ query: "Atha01", count: 1, nodes: [node] }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const controller = new AbortController();
+
+    await resolveObject("Gene", "Atha01", "arabidopsis_thaliana", controller.signal);
+
+    expect(fetch).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ signal: controller.signal }),
     );
   });
 

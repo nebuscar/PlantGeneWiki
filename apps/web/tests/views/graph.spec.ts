@@ -22,7 +22,15 @@ const center = {
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(searchNodes).mockResolvedValue({ query: "Atha01", count: 1, nodes: [center] });
-  vi.mocked(getNeighbors).mockResolvedValue({ node: center, nodes: [], edges: [] });
+  vi.mocked(getNeighbors).mockResolvedValue({
+    node: center,
+    nodes: [],
+    edges: [],
+    total_edges: 0,
+    matched_edges: 0,
+    predicate_counts: {},
+    truncated: false,
+  });
 });
 
 describe("GraphView", () => {

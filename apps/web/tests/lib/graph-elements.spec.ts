@@ -34,6 +34,10 @@ const neighborhood = {
       properties: {},
     },
   ],
+  total_edges: 1,
+  matched_edges: 1,
+  predicate_counts: { belongs_to_species: 1 },
+  truncated: false,
 };
 
 describe("toCytoscapeElements", () => {

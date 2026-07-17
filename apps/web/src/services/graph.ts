@@ -51,6 +51,9 @@ export function getNeighbors(
   const query = new URLSearchParams();
   appendOptionalParam(query, "direction", options.direction);
   appendOptionalParam(query, "predicate", options.predicate);
+  for (const predicate of options.excludePredicates ?? []) {
+    query.append("exclude_predicate", predicate);
+  }
   appendOptionalParam(query, "limit", options.limit);
   const suffix = query.size > 0 ? `?${query.toString()}` : "";
   return apiRequest<GraphNeighborhood>(
@@ -99,21 +102,25 @@ export async function resolveObject(
   objectType: string,
   publicId: string,
   speciesId?: string,
+  signal?: AbortSignal,
 ): Promise<GraphNode> {
   const candidate = publicId.trim();
   if (!candidate) {
     throw new ObjectNotFoundError(objectType, publicId);
   }
   if (isFullNodeId(candidate)) {
-    return getNode(candidate);
+    return getNode(candidate, signal);
   }
 
-  const result = await searchNodes({
-    q: candidate,
-    objectType,
-    speciesId,
-    limit: 20,
-  });
+  const result = await searchNodes(
+    {
+      q: candidate,
+      objectType,
+      speciesId,
+      limit: 20,
+    },
+    signal,
+  );
   const match = result.nodes.find((node) => hasExactPublicId(node, candidate));
   if (!match) {
     throw new ObjectNotFoundError(objectType, candidate);

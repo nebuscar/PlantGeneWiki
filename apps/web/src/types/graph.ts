@@ -37,16 +37,31 @@ export type NeighborDirection = "in" | "out" | "both";
 export interface NeighborOptions {
   direction?: NeighborDirection;
   predicate?: string;
+  excludePredicates?: string[];
   limit?: number;
 }
 
-export interface GraphNeighborhood {
+export interface GraphRecord {
   node: GraphNode;
   edges: GraphEdge[];
   nodes: GraphNode[];
 }
 
-export interface GeneWikiRecord extends GraphNeighborhood {}
+export interface GraphNeighborhood extends GraphRecord {
+  total_edges: number;
+  matched_edges: number;
+  predicate_counts: Record<string, number>;
+  truncated: boolean;
+}
+
+export interface GeneWikiRecord extends GraphRecord {}
+
+export interface GraphQueryState {
+  center: string;
+  species: string;
+  view: string;
+  predicate: string;
+}
 
 export interface GraphSummary {
   database: string;

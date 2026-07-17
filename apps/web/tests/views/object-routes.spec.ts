@@ -26,7 +26,15 @@ beforeEach(() => {
   vi.mocked(resolveObject).mockImplementation(async (type) => nodes[type as keyof typeof nodes]);
   vi.mocked(getNeighbors).mockImplementation(async (id) => {
     const node = Object.values(nodes).find((item) => item.node_id === id)!;
-    return { node, nodes: [], edges: [] };
+    return {
+      node,
+      nodes: [],
+      edges: [],
+      total_edges: 0,
+      matched_edges: 0,
+      predicate_counts: {},
+      truncated: false,
+    };
   });
   vi.mocked(listSpeciesGenes).mockResolvedValue({ species_id: "arabidopsis_thaliana", total: 0, limit: 50, offset: 0, genes: [] });
   vi.stubGlobal("IntersectionObserver", class { observe = vi.fn(); disconnect = vi.fn(); unobserve = vi.fn(); });
