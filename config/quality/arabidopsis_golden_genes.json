@@ -1,28 +1,421 @@
 {
   "schema_version": "1.0",
   "species_id": "arabidopsis_thaliana",
-  "required_sections": ["overview", "genome_location", "gene_structure", "sequences", "functional_annotation", "transcription_factor", "expression", "interactions", "pathways"],
-  "allowed_unavailable_sections": ["homology", "publications"],
+  "required_sections": [
+    "overview",
+    "genome_location",
+    "gene_structure",
+    "sequences",
+    "functional_annotation",
+    "transcription_factor",
+    "expression",
+    "interactions",
+    "pathways"
+  ],
+  "allowed_unavailable_sections": [
+    "homology",
+    "publications"
+  ],
   "genes": [
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha01G0000010.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0000010.v1.36","aliases":["AT1G01010.Araport11.447"],"reason":"Positive-strand NAC transcription factor","expected":{"strand":"+","tf_type":"TF","tf_family":"NAC","minimum_go_terms":2,"minimum_transcripts":1,"minimum_cds_records":1,"minimum_protein_records":1}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha01G0000020.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0000020.v1.36","aliases":["AT1G01020.Araport11.447"],"reason":"Negative-strand gene with six transcripts","expected":{"strand":"-","tf_type":null,"tf_family":null,"minimum_go_terms":1,"minimum_transcripts":6,"minimum_cds_records":6,"minimum_protein_records":6}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha04G0031690.v1.36","object_id":"gene:arabidopsis_thaliana:Atha04G0031690.v1.36","aliases":["AT4G30820.Araport11.447"],"reason":"High transcript and sequence count","expected":{"strand":"+","tf_type":null,"tf_family":null,"minimum_go_terms":4,"minimum_transcripts":27,"minimum_cds_records":27,"minimum_protein_records":27}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha03G0008690.v1.36","object_id":"gene:arabidopsis_thaliana:Atha03G0008690.v1.36","aliases":["AT3G09100.Araport11.447"],"reason":"Gene with thirteen GO terms","expected":{"strand":"-","tf_type":null,"tf_family":null,"minimum_go_terms":13,"minimum_transcripts":2,"minimum_cds_records":2,"minimum_protein_records":2}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha05G0030650.v1.36","object_id":"gene:arabidopsis_thaliana:Atha05G0030650.v1.36","aliases":["AT5G37510.Araport11.447"],"reason":"Long functional description","expected":{"strand":"+","tf_type":null,"tf_family":null,"minimum_go_terms":8,"minimum_transcripts":2,"minimum_cds_records":2,"minimum_protein_records":2}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha01G0038670.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0038670.v1.36","aliases":["AT1G48090.Araport11.447"],"reason":"381 CDS features without GO terms","expected":{"strand":"-","tf_type":null,"tf_family":null,"minimum_go_terms":0,"minimum_transcripts":6,"minimum_cds_records":6,"minimum_protein_records":6}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha01G0000130.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0000130.v1.36","aliases":["AT1G01130.Araport11.447"],"reason":"Sparse negative-strand single-transcript gene","expected":{"strand":"-","tf_type":null,"tf_family":null,"minimum_go_terms":0,"minimum_transcripts":1,"minimum_cds_records":1,"minimum_protein_records":1}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha01G0000180.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0000180.v1.36","aliases":["AT1G01180.Araport11.447"],"reason":"Sparse positive-strand single-transcript gene","expected":{"strand":"+","tf_type":null,"tf_family":null,"minimum_go_terms":0,"minimum_transcripts":1,"minimum_cds_records":1,"minimum_protein_records":1}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha01G0000030.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0000030.v1.36","aliases":["AT1G01030.Araport11.447"],"reason":"B3 transcription factor","expected":{"strand":"-","tf_type":"TF","tf_family":"B3","minimum_go_terms":1,"minimum_transcripts":2,"minimum_cds_records":2,"minimum_protein_records":2}},
-    {"group":"engineering_boundary","symbol":null,"public_id":"Atha02G0017280.v1.36","object_id":"gene:arabidopsis_thaliana:Atha02G0017280.v1.36","aliases":["AT2G23985.Araport11.447"],"reason":"26 transcripts without GO terms","expected":{"strand":"+","tf_type":null,"tf_family":null,"minimum_go_terms":0,"minimum_transcripts":26,"minimum_cds_records":26,"minimum_protein_records":26}},
-    {"group":"biological_representative","symbol":"DCL1","public_id":"Atha01G0000040.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0000040.v1.36","aliases":["AT1G01040.Araport11.447"],"reason":"Dicer-like 1 representative","expected":{"strand":"+","tf_type":null,"tf_family":null,"minimum_go_terms":9,"minimum_transcripts":2,"minimum_cds_records":2,"minimum_protein_records":2}},
-    {"group":"biological_representative","symbol":"FT","public_id":"Atha01G0055360.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0055360.v1.36","aliases":["AT1G65480.Araport11.447"],"reason":"FLOWERING LOCUS T representative","expected":{"strand":"+","tf_type":null,"tf_family":null,"minimum_go_terms":0,"minimum_transcripts":2,"minimum_cds_records":2,"minimum_protein_records":2}},
-    {"group":"biological_representative","symbol":"FLC","public_id":"Atha05G0009420.v1.36","object_id":"gene:arabidopsis_thaliana:Atha05G0009420.v1.36","aliases":["AT5G10140.Araport11.447"],"reason":"FLOWERING LOCUS C representative","expected":{"strand":"-","tf_type":"TF","tf_family":"MADS-MIKC","minimum_go_terms":7,"minimum_transcripts":4,"minimum_cds_records":4,"minimum_protein_records":4}},
-    {"group":"biological_representative","symbol":"CO","public_id":"Atha05G0015000.v1.36","object_id":"gene:arabidopsis_thaliana:Atha05G0015000.v1.36","aliases":["AT5G15840.Araport11.447"],"reason":"CONSTANS representative","expected":{"strand":"-","tf_type":"TR","tf_family":"Others","minimum_go_terms":2,"minimum_transcripts":2,"minimum_cds_records":2,"minimum_protein_records":2}},
-    {"group":"biological_representative","symbol":"LFY","public_id":"Atha05G0057090.v1.36","object_id":"gene:arabidopsis_thaliana:Atha05G0057090.v1.36","aliases":["AT5G61850.Araport11.447"],"reason":"LEAFY representative","expected":{"strand":"+","tf_type":"TF","tf_family":"LFY","minimum_go_terms":2,"minimum_transcripts":2,"minimum_cds_records":2,"minimum_protein_records":2}},
-    {"group":"biological_representative","symbol":"AP1","public_id":"Atha01G0059300.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0059300.v1.36","aliases":["AT1G69120.Araport11.447"],"reason":"APETALA1 representative","expected":{"strand":"-","tf_type":"TF","tf_family":"MADS-MIKC","minimum_go_terms":7,"minimum_transcripts":3,"minimum_cds_records":3,"minimum_protein_records":3}},
-    {"group":"biological_representative","symbol":"NPR1","public_id":"Atha01G0054030.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0054030.v1.36","aliases":["AT1G64280.Araport11.447"],"reason":"NONEXPRESSOR OF PR GENES 1 representative","expected":{"strand":"-","tf_type":"TR","tf_family":"TRAF","minimum_go_terms":1,"minimum_transcripts":1,"minimum_cds_records":1,"minimum_protein_records":1}},
-    {"group":"biological_representative","symbol":"PIF4","public_id":"Atha02G0037780.v1.36","object_id":"gene:arabidopsis_thaliana:Atha02G0037780.v1.36","aliases":["AT2G43010.Araport11.447"],"reason":"PHYTOCHROME INTERACTING FACTOR 4 representative","expected":{"strand":"+","tf_type":"TF","tf_family":"bHLH","minimum_go_terms":1,"minimum_transcripts":5,"minimum_cds_records":5,"minimum_protein_records":5}},
-    {"group":"biological_representative","symbol":"ABI3","public_id":"Atha03G0026240.v1.36","object_id":"gene:arabidopsis_thaliana:Atha03G0026240.v1.36","aliases":["AT3G24650.Araport11.447"],"reason":"ABSCISIC ACID INSENSITIVE 3 representative","expected":{"strand":"+","tf_type":"TF","tf_family":"B3","minimum_go_terms":1,"minimum_transcripts":1,"minimum_cds_records":1,"minimum_protein_records":1}},
-    {"group":"biological_representative","symbol":"PHYA","public_id":"Atha01G0009170.v1.36","object_id":"gene:arabidopsis_thaliana:Atha01G0009170.v1.36","aliases":["AT1G09570.Araport11.447"],"reason":"PHYTOCHROME A representative","expected":{"strand":"-","tf_type":null,"tf_family":null,"minimum_go_terms":10,"minimum_transcripts":6,"minimum_cds_records":6,"minimum_protein_records":6}}
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha01G0000010.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+      "aliases": [
+        "AT1G01010.Araport11.447"
+      ],
+      "reason": "Positive-strand NAC transcription factor",
+      "expected": {
+        "strand": "+",
+        "tf_type": "TF",
+        "tf_family": "NAC",
+        "minimum_go_terms": 2,
+        "minimum_transcripts": 1,
+        "minimum_cds_records": 1,
+        "minimum_protein_records": 1,
+        "minimum_cds_features": 6
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha01G0000020.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0000020.v1.36",
+      "aliases": [
+        "AT1G01020.Araport11.447"
+      ],
+      "reason": "Negative-strand gene with six transcripts",
+      "expected": {
+        "strand": "-",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 1,
+        "minimum_transcripts": 6,
+        "minimum_cds_records": 6,
+        "minimum_protein_records": 6,
+        "minimum_cds_features": 42
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha04G0031690.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha04G0031690.v1.36",
+      "aliases": [
+        "AT4G30820.Araport11.447"
+      ],
+      "reason": "High transcript and sequence count",
+      "expected": {
+        "strand": "+",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 4,
+        "minimum_transcripts": 27,
+        "minimum_cds_records": 27,
+        "minimum_protein_records": 27,
+        "minimum_cds_features": 117
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha03G0008690.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha03G0008690.v1.36",
+      "aliases": [
+        "AT3G09100.Araport11.447"
+      ],
+      "reason": "Gene with thirteen GO terms",
+      "expected": {
+        "strand": "-",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 13,
+        "minimum_transcripts": 2,
+        "minimum_cds_records": 2,
+        "minimum_protein_records": 2,
+        "minimum_cds_features": 27
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha05G0030650.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha05G0030650.v1.36",
+      "aliases": [
+        "AT5G37510.Araport11.447"
+      ],
+      "reason": "Long functional description",
+      "expected": {
+        "strand": "+",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 8,
+        "minimum_transcripts": 2,
+        "minimum_cds_records": 2,
+        "minimum_protein_records": 2,
+        "minimum_cds_features": 11
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha01G0038670.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0038670.v1.36",
+      "aliases": [
+        "AT1G48090.Araport11.447"
+      ],
+      "reason": "381 CDS features without GO terms",
+      "expected": {
+        "strand": "-",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 0,
+        "minimum_transcripts": 6,
+        "minimum_cds_records": 6,
+        "minimum_protein_records": 6,
+        "minimum_cds_features": 381
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha01G0000130.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0000130.v1.36",
+      "aliases": [
+        "AT1G01130.Araport11.447"
+      ],
+      "reason": "Sparse negative-strand single-transcript gene",
+      "expected": {
+        "strand": "-",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 0,
+        "minimum_transcripts": 1,
+        "minimum_cds_records": 1,
+        "minimum_protein_records": 1,
+        "minimum_cds_features": 3
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha01G0000180.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0000180.v1.36",
+      "aliases": [
+        "AT1G01180.Araport11.447"
+      ],
+      "reason": "Sparse positive-strand single-transcript gene",
+      "expected": {
+        "strand": "+",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 0,
+        "minimum_transcripts": 1,
+        "minimum_cds_records": 1,
+        "minimum_protein_records": 1,
+        "minimum_cds_features": 1
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha01G0000030.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0000030.v1.36",
+      "aliases": [
+        "AT1G01030.Araport11.447"
+      ],
+      "reason": "B3 transcription factor",
+      "expected": {
+        "strand": "-",
+        "tf_type": "TF",
+        "tf_family": "B3",
+        "minimum_go_terms": 1,
+        "minimum_transcripts": 2,
+        "minimum_cds_records": 2,
+        "minimum_protein_records": 2,
+        "minimum_cds_features": 3
+      }
+    },
+    {
+      "group": "engineering_boundary",
+      "symbol": null,
+      "public_id": "Atha02G0017280.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha02G0017280.v1.36",
+      "aliases": [
+        "AT2G23985.Araport11.447"
+      ],
+      "reason": "26 transcripts without GO terms",
+      "expected": {
+        "strand": "+",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 0,
+        "minimum_transcripts": 26,
+        "minimum_cds_records": 26,
+        "minimum_protein_records": 26,
+        "minimum_cds_features": 46
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "DCL1",
+      "public_id": "Atha01G0000040.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0000040.v1.36",
+      "aliases": [
+        "AT1G01040.Araport11.447"
+      ],
+      "reason": "Dicer-like 1 representative",
+      "expected": {
+        "strand": "+",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 9,
+        "minimum_transcripts": 2,
+        "minimum_cds_records": 2,
+        "minimum_protein_records": 2,
+        "minimum_cds_features": 40
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "FT",
+      "public_id": "Atha01G0055360.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0055360.v1.36",
+      "aliases": [
+        "AT1G65480.Araport11.447"
+      ],
+      "reason": "FLOWERING LOCUS T representative",
+      "expected": {
+        "strand": "+",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 0,
+        "minimum_transcripts": 2,
+        "minimum_cds_records": 2,
+        "minimum_protein_records": 2,
+        "minimum_cds_features": 8
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "FLC",
+      "public_id": "Atha05G0009420.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha05G0009420.v1.36",
+      "aliases": [
+        "AT5G10140.Araport11.447"
+      ],
+      "reason": "FLOWERING LOCUS C representative",
+      "expected": {
+        "strand": "-",
+        "tf_type": "TF",
+        "tf_family": "MADS-MIKC",
+        "minimum_go_terms": 7,
+        "minimum_transcripts": 4,
+        "minimum_cds_records": 4,
+        "minimum_protein_records": 4,
+        "minimum_cds_features": 27
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "CO",
+      "public_id": "Atha05G0015000.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha05G0015000.v1.36",
+      "aliases": [
+        "AT5G15840.Araport11.447"
+      ],
+      "reason": "CONSTANS representative",
+      "expected": {
+        "strand": "-",
+        "tf_type": "TR",
+        "tf_family": "Others",
+        "minimum_go_terms": 2,
+        "minimum_transcripts": 2,
+        "minimum_cds_records": 2,
+        "minimum_protein_records": 2,
+        "minimum_cds_features": 3
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "LFY",
+      "public_id": "Atha05G0057090.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha05G0057090.v1.36",
+      "aliases": [
+        "AT5G61850.Araport11.447"
+      ],
+      "reason": "LEAFY representative",
+      "expected": {
+        "strand": "+",
+        "tf_type": "TF",
+        "tf_family": "LFY",
+        "minimum_go_terms": 2,
+        "minimum_transcripts": 2,
+        "minimum_cds_records": 2,
+        "minimum_protein_records": 2,
+        "minimum_cds_features": 6
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "AP1",
+      "public_id": "Atha01G0059300.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0059300.v1.36",
+      "aliases": [
+        "AT1G69120.Araport11.447"
+      ],
+      "reason": "APETALA1 representative",
+      "expected": {
+        "strand": "-",
+        "tf_type": "TF",
+        "tf_family": "MADS-MIKC",
+        "minimum_go_terms": 7,
+        "minimum_transcripts": 3,
+        "minimum_cds_records": 3,
+        "minimum_protein_records": 3,
+        "minimum_cds_features": 23
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "NPR1",
+      "public_id": "Atha01G0054030.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0054030.v1.36",
+      "aliases": [
+        "AT1G64280.Araport11.447"
+      ],
+      "reason": "NONEXPRESSOR OF PR GENES 1 representative",
+      "expected": {
+        "strand": "-",
+        "tf_type": "TR",
+        "tf_family": "TRAF",
+        "minimum_go_terms": 1,
+        "minimum_transcripts": 1,
+        "minimum_cds_records": 1,
+        "minimum_protein_records": 1,
+        "minimum_cds_features": 4
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "PIF4",
+      "public_id": "Atha02G0037780.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha02G0037780.v1.36",
+      "aliases": [
+        "AT2G43010.Araport11.447"
+      ],
+      "reason": "PHYTOCHROME INTERACTING FACTOR 4 representative",
+      "expected": {
+        "strand": "+",
+        "tf_type": "TF",
+        "tf_family": "bHLH",
+        "minimum_go_terms": 1,
+        "minimum_transcripts": 5,
+        "minimum_cds_records": 5,
+        "minimum_protein_records": 5,
+        "minimum_cds_features": 30
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "ABI3",
+      "public_id": "Atha03G0026240.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha03G0026240.v1.36",
+      "aliases": [
+        "AT3G24650.Araport11.447"
+      ],
+      "reason": "ABSCISIC ACID INSENSITIVE 3 representative",
+      "expected": {
+        "strand": "+",
+        "tf_type": "TF",
+        "tf_family": "B3",
+        "minimum_go_terms": 1,
+        "minimum_transcripts": 1,
+        "minimum_cds_records": 1,
+        "minimum_protein_records": 1,
+        "minimum_cds_features": 6
+      }
+    },
+    {
+      "group": "biological_representative",
+      "symbol": "PHYA",
+      "public_id": "Atha01G0009170.v1.36",
+      "object_id": "gene:arabidopsis_thaliana:Atha01G0009170.v1.36",
+      "aliases": [
+        "AT1G09570.Araport11.447"
+      ],
+      "reason": "PHYTOCHROME A representative",
+      "expected": {
+        "strand": "-",
+        "tf_type": null,
+        "tf_family": null,
+        "minimum_go_terms": 10,
+        "minimum_transcripts": 6,
+        "minimum_cds_records": 6,
+        "minimum_protein_records": 6,
+        "minimum_cds_features": 25
+      }
+    }
   ]
 }

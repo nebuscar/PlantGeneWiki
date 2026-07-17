@@ -11,10 +11,17 @@ from phytoatlas.quality.gene_profile import profile_gene_candidates
 
 
 ########## 1. arguments ##########
+def non_negative_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("--limit must be non-negative")
+    return parsed
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--species-dir", required=True, type=Path)
-    parser.add_argument("--limit", default=5, type=int)
+    parser.add_argument("--limit", default=5, type=non_negative_int)
     parser.add_argument("--output", type=Path)
     return parser.parse_args()
 

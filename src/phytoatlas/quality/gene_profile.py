@@ -14,6 +14,8 @@ def profile_gene_candidates(
     species_dir: str | Path,
     limit: int = 5,
 ) -> dict[str, list[dict[str, Any]]]:
+    if limit < 0:
+        raise ValueError("limit must be non-negative")
     path = Path(species_dir)
     structures = {
         str(record.get("object_id") or ""): record

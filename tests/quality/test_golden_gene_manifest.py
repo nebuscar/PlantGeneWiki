@@ -24,6 +24,15 @@ class GoldenGeneManifestTest(unittest.TestCase):
         self.assertEqual(len(manifest["required_sections"]), 9)
         self.assertEqual(manifest["allowed_unavailable_sections"], ["homology", "publications"])
 
+    def test_manifest_has_measured_cds_feature_minima(self) -> None:
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        for gene in manifest["genes"]:
+            value = gene["expected"]["minimum_cds_features"]
+            self.assertIsInstance(value, int)
+            self.assertGreaterEqual(value, 0)
+        target = next(gene for gene in manifest["genes"] if gene["public_id"] == "Atha01G0038670.v1.36")
+        self.assertEqual(target["expected"]["minimum_cds_features"], 381)
+
 
 if __name__ == "__main__":
     unittest.main()

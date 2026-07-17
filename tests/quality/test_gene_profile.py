@@ -74,3 +74,33 @@ class GeneProfileTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         self.assertEqual(report["highest_go_count"][0]["object_id"], gene_id)
         self.assertEqual(json.loads(result.stdout)["highest_go_count"][0]["object_id"], gene_id)
+
+    def test_rejects_negative_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            for filename in ("genes.jsonl", "gene_structures.jsonl", "sequence_records.jsonl"):
+                (root / filename).write_text("", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                profile_gene_candidates(root, limit=-1)
+
+    def test_cli_rejects_negative_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            repo_root = Path(__file__).resolve().parents[2]
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(repo_root / "scripts" / "maintenance" / "profile_gene_candidates.py"),
+                    "--species-dir",
+                    str(root),
+                    "--limit",
+                    "-1",
+                ],
+                cwd=repo_root,
+                env={**os.environ, "PYTHONPATH": str(repo_root / "src")},
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("--limit must be non-negative", result.stderr)
