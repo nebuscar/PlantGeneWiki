@@ -1,77 +1,160 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import ErrorState from "../components/states/ErrorState.vue";
 import LoadingState from "../components/states/LoadingState.vue";
 import GraphCanvas from "../components/graph/GraphCanvas.vue";
 import GraphLegend from "../components/graph/GraphLegend.vue";
 import GraphToolbar from "../components/graph/GraphToolbar.vue";
 import NodeInspector from "../components/graph/NodeInspector.vue";
-import { toCytoscapeElements } from "../lib/graph-elements";
-import { getNeighbors, getNode, searchNodes } from "../services/graph";
-import type { GraphNeighborhood, GraphNode, GraphSelection } from "../types/graph";
+import {
+  DEFAULT_GRAPH_QUERY,
+  graphQueryError,
+  readGraphQuery,
+  writeGraphQuery,
+} from "../lib/graph-query";
+import { getNeighbors, getNode, resolveObject } from "../services/graph";
+import { ApiError } from "../services/http";
+import type {
+  GraphNeighborhood,
+  GraphNode,
+  GraphQueryState,
+  GraphSelection,
+} from "../types/graph";
 
+const route = useRoute();
+const router = useRouter();
 const centerQuery = ref("");
 const speciesId = ref("");
-const predicate = ref("");
-const neighborhood = ref<GraphNeighborhood | null>(null);
+const selectedPredicate = ref("");
+const coreNeighborhood = ref<GraphNeighborhood | null>(null);
 const selectedNode = ref<GraphNode | null>(null);
 const loading = ref(false);
 const error = ref("");
-let controller: AbortController | null = null;
+const validationError = ref("");
+let requestController: AbortController | null = null;
 
-const graphCounts = computed(() => neighborhood.value
-  ? toCytoscapeElements(neighborhood.value)
-  : null);
+const predicateCounts = computed(() => coreNeighborhood.value?.predicate_counts ?? {});
+const sequenceCount = computed(() => predicateCounts.value.has_sequence ?? 0);
+const displayedItemCount = computed(() => {
+  if (!coreNeighborhood.value) return 0;
+  return coreNeighborhood.value.nodes.length + 1 + (sequenceCount.value > 0 ? 1 : 0);
+});
 
-function exactNode(nodes: GraphNode[], query: string) {
-  return nodes.find((node) => node.node_id === query || node.label === query || node.properties.id === query);
+function cancelRequest() {
+  requestController?.abort();
+  requestController = null;
 }
 
-async function loadGraph() {
-  const query = centerQuery.value.trim();
-  if (!query) return;
-  controller?.abort();
-  const requestController = new AbortController();
-  controller = requestController;
+function errorMessage(reason: unknown, query: GraphQueryState): string {
+  if (reason instanceof ApiError && reason.status === 503) {
+    return "Knowledge graph is temporarily unavailable.";
+  }
+  if (reason instanceof ApiError && reason.status === 404) {
+    return `Gene not found: ${query.center}.`;
+  }
+  if (reason instanceof Error && reason.name === "ObjectNotFoundError") {
+    return `Gene not found: ${query.center}.`;
+  }
+  return "Unable to load the knowledge graph.";
+}
+
+async function loadGraph(query: GraphQueryState) {
+  cancelRequest();
+  const controller = new AbortController();
+  requestController = controller;
   loading.value = true;
   error.value = "";
+  validationError.value = "";
   try {
-    let center: GraphNode;
-    if (query.includes(":")) {
-      center = await getNode(query, requestController.signal);
-    } else {
-      const result = await searchNodes(
-        {
-          q: query,
-          objectType: "Gene",
-          speciesId: speciesId.value.trim() || undefined,
-          limit: 20,
-        },
-        requestController.signal,
-      );
-      center = exactNode(result.nodes, query) ?? result.nodes[0];
-      if (!center) throw new Error(`Gene not found: ${query}`);
-    }
-    const result = await getNeighbors(center.node_id, {
-      predicate: predicate.value.trim() || undefined,
-      limit: 100,
-    }, requestController.signal);
+    const center = query.center.includes(":")
+      ? await getNode(query.center, controller.signal)
+      : await resolveObject("Gene", query.center, query.species, controller.signal);
     if (controller !== requestController) return;
-    neighborhood.value = result;
+    const options =
+      query.predicate && query.predicate !== "has_sequence"
+        ? { predicate: query.predicate, limit: 100 }
+        : { excludePredicates: ["has_sequence"], limit: 100 };
+    const result = await getNeighbors(center.node_id, options, controller.signal);
+    if (controller !== requestController) return;
+    coreNeighborhood.value = result;
     selectedNode.value = result.node;
   } catch (reason) {
     if (reason instanceof DOMException && reason.name === "AbortError") return;
     if (controller === requestController) {
-      error.value = reason instanceof Error ? reason.message : "Unable to load graph";
+      coreNeighborhood.value = null;
+      selectedNode.value = null;
+      error.value = errorMessage(reason, query);
     }
   } finally {
     if (controller === requestController) loading.value = false;
   }
 }
 
+async function loadRoute() {
+  const parsed = readGraphQuery(route.query);
+  if (parsed === null) {
+    await router.replace({ name: "graph", query: writeGraphQuery(DEFAULT_GRAPH_QUERY) });
+    return;
+  }
+  centerQuery.value = parsed.center;
+  speciesId.value = parsed.species;
+  selectedPredicate.value = parsed.predicate;
+  const validation = graphQueryError(parsed);
+  validationError.value = validation;
+  error.value = "";
+  if (validation) {
+    cancelRequest();
+    loading.value = false;
+    coreNeighborhood.value = null;
+    selectedNode.value = null;
+    return;
+  }
+  await loadGraph(parsed);
+}
+
+async function navigateToQuery(query: GraphQueryState) {
+  const location = { name: "graph", query: writeGraphQuery(query) };
+  if (router.resolve(location).fullPath === route.fullPath) {
+    await loadRoute();
+    return;
+  }
+  await router.push(location);
+}
+
+async function submitGraph() {
+  const query: GraphQueryState = {
+    center: centerQuery.value.trim(),
+    species: speciesId.value.trim(),
+    view: "core",
+    predicate: selectedPredicate.value,
+  };
+  const validation = graphQueryError(query);
+  validationError.value = validation;
+  if (validation) {
+    cancelRequest();
+    loading.value = false;
+    return;
+  }
+  await navigateToQuery(query);
+}
+
+async function selectPredicate(predicate: string) {
+  selectedPredicate.value = predicate;
+  await navigateToQuery({
+    center: centerQuery.value.trim(),
+    species: speciesId.value.trim(),
+    view: "core",
+    predicate,
+  });
+}
+
 function handleSelection(selection: GraphSelection) {
   if (selection.kind === "node") selectedNode.value = selection.node;
 }
+
+watch(() => route.fullPath, loadRoute, { immediate: true });
+onBeforeUnmount(cancelRequest);
 </script>
 
 <template>
@@ -79,29 +162,122 @@ function handleSelection(selection: GraphSelection) {
     <header class="graph-heading">
       <p class="eyebrow">Relationship explorer</p>
       <h1>Knowledge Graph</h1>
-      <p>Center the graph on an indexed Gene, filter its typed neighborhood, and inspect connected knowledge objects.</p>
+      <p>
+        Explore normalized relationships around a scoped Gene, then open real connected
+        knowledge objects for details.
+      </p>
     </header>
     <GraphToolbar
       v-model:center-query="centerQuery"
       v-model:species-id="speciesId"
-      v-model:predicate="predicate"
-      @submit="loadGraph"
+      :predicate-counts="predicateCounts"
+      :selected-predicate="selectedPredicate"
+      :validation-error="validationError"
+      @submit="submitGraph"
+      @select-predicate="selectPredicate"
     />
-    <div class="graph-meta"><GraphLegend /><span v-if="graphCounts">{{ graphCounts.nodes.length }} nodes / {{ graphCounts.edges.length }} edges</span></div>
+    <div class="graph-meta">
+      <GraphLegend />
+      <div v-if="coreNeighborhood" class="graph-meta__counts" aria-live="polite">
+        <span>{{ coreNeighborhood.total_edges }} source relationships</span>
+        <span>{{ displayedItemCount }} displayed items</span>
+        <span v-if="coreNeighborhood.truncated">
+          Showing {{ coreNeighborhood.edges.length }} of {{ coreNeighborhood.matched_edges }} matches
+        </span>
+      </div>
+    </div>
     <LoadingState v-if="loading" />
-    <ErrorState v-else-if="error" :message="error"><button type="button" @click="loadGraph">Retry</button></ErrorState>
-    <div v-else class="graph-layout">
-      <GraphCanvas :neighborhood="neighborhood" @select="handleSelection" />
+    <ErrorState
+      v-else-if="error"
+      title="Knowledge graph unavailable"
+      :message="error"
+    >
+      <button type="button" class="retry-button" @click="loadRoute">Retry</button>
+    </ErrorState>
+    <div v-else-if="coreNeighborhood" class="graph-layout">
+      <GraphCanvas
+        :neighborhood="coreNeighborhood"
+        :sequence-count="sequenceCount"
+        @select="handleSelection"
+      />
       <NodeInspector :node="selectedNode" />
+    </div>
+    <div v-else class="graph-empty">
+      Submit a valid scoped Gene to load its normalized neighborhood.
     </div>
   </div>
 </template>
 
 <style scoped>
-.graph-heading { max-width: 820px; margin-bottom: 26px; }
-.graph-heading h1 { margin-bottom: 12px; color: var(--color-forest-950); font-size: clamp(2.6rem, 6vw, 5rem); letter-spacing: -0.05em; }
-.graph-heading > p:last-child { color: var(--color-muted); }
-.graph-meta { display: flex; justify-content: space-between; gap: 20px; margin: 18px 0; color: var(--color-muted); font-size: 0.8rem; }
-.graph-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 320px); gap: 20px; }
-@media (max-width: 860px) { .graph-layout { grid-template-columns: 1fr; } }
+.graph-heading {
+  max-width: 820px;
+  margin-bottom: 26px;
+}
+.graph-heading h1 {
+  margin-bottom: 12px;
+  color: var(--color-forest-950);
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+.graph-heading > p:last-child {
+  max-width: 720px;
+  color: var(--color-muted);
+}
+.graph-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 18px 0;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+.graph-meta__counts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 16px;
+  font-weight: 700;
+}
+.graph-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 320px);
+  gap: 20px;
+}
+.graph-empty {
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+  background: var(--color-surface);
+  text-align: center;
+}
+.retry-button {
+  margin-top: 4px;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--color-forest-700);
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+@media (max-width: 860px) {
+  .graph-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .graph-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .graph-meta__counts {
+    justify-content: flex-start;
+  }
+}
 </style>
