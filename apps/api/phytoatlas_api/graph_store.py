@@ -166,6 +166,7 @@ class SQLiteGraphStore:
             SELECT source, predicate, target, species_id, source_dataset, evidence, properties_json
             FROM edges
             WHERE {' AND '.join(clauses)}
+            ORDER BY predicate, source, target, edge_id
             LIMIT ?
         """
         with self.connect() as connection:
@@ -181,6 +182,33 @@ class SQLiteGraphStore:
             )
             related_nodes = self._get_nodes_by_ids(connection, related_ids)
 
+        return {"node": node, "edges": edges, "nodes": related_nodes}
+
+    def get_gene_wiki_record(self, node_id: str) -> dict[str, Any]:
+        node = self.get_node(node_id)
+        if node is None or node["object_type"] != "Gene":
+            return {"node": None, "edges": [], "nodes": []}
+
+        with self.connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT source, predicate, target, species_id, source_dataset, evidence, properties_json
+                FROM edges
+                WHERE source = ? OR target = ?
+                ORDER BY predicate, source, target, edge_id
+                """,
+                (node_id, node_id),
+            ).fetchall()
+            edges = [self._edge_from_row(row) for row in rows]
+            related_ids = sorted(
+                {
+                    value
+                    for edge in edges
+                    for value in (edge["source"], edge["target"])
+                    if value != node_id
+                }
+            )
+            related_nodes = self._get_nodes_by_ids(connection, related_ids)
         return {"node": node, "edges": edges, "nodes": related_nodes}
 
     def list_species_genes(

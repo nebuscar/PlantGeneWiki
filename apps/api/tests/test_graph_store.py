@@ -120,6 +120,74 @@ class SQLiteGraphStoreTest(unittest.TestCase):
         self.assertEqual(result["edges"][0]["predicate"], "belongs_to_species")
         self.assertEqual(result["nodes"][0]["object_type"], "Species")
 
+    def test_get_neighbors_orders_edges_deterministically(self) -> None:
+        connection = sqlite3.connect(self.db_path)
+        for predicate, target in (
+            ("z_predicate", "species:arabidopsis_thaliana"),
+            ("a_predicate", "GeneLocation:gene:atha:Atha01G0000010.v1.36"),
+        ):
+            connection.execute(
+                """
+                INSERT INTO edges
+                (source, predicate, target, species_id, source_dataset, evidence, properties_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+                    predicate,
+                    target,
+                    "arabidopsis_thaliana",
+                    "dataset:test",
+                    "test",
+                    "{}",
+                ),
+            )
+        connection.commit()
+        connection.close()
+        result = self.store.get_neighbors(
+            "gene:arabidopsis_thaliana:Atha01G0000010.v1.36"
+        )
+        self.assertEqual(
+            result["edges"],
+            sorted(
+                result["edges"],
+                key=lambda edge: (edge["predicate"], edge["source"], edge["target"]),
+            ),
+        )
+
+    def test_get_gene_wiki_record_returns_all_edges(self) -> None:
+        connection = sqlite3.connect(self.db_path)
+        for index in range(205):
+            connection.execute(
+                """
+                INSERT INTO edges
+                (source, predicate, target, species_id, source_dataset, evidence, properties_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    "gene:arabidopsis_thaliana:Atha01G0000010.v1.36",
+                    "has_sequence",
+                    f"sequence:{index:03d}",
+                    "arabidopsis_thaliana",
+                    "dataset:test",
+                    "test",
+                    "{}",
+                ),
+            )
+        connection.commit()
+        connection.close()
+        result = self.store.get_gene_wiki_record(
+            "gene:arabidopsis_thaliana:Atha01G0000010.v1.36"
+        )
+        self.assertEqual(len(result["edges"]), 206)
+        self.assertEqual(
+            result["edges"],
+            sorted(
+                result["edges"],
+                key=lambda edge: (edge["predicate"], edge["source"], edge["target"]),
+            ),
+        )
+
     def test_list_species_genes(self) -> None:
         result = self.store.list_species_genes("arabidopsis_thaliana")
         self.assertEqual(result["total"], 1)
