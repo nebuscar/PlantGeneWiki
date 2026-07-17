@@ -24,7 +24,15 @@ stop_process() {
         rm -f "$pid_file"
         return
     fi
-    kill "$(cat "$pid_file")"
+    local pid
+    local process_group
+    pid="$(cat "$pid_file")"
+    process_group="$(ps -o pgid= -p "$pid" | tr -d '[:space:]')"
+    if [ "$process_group" = "$pid" ]; then
+        kill -- "-$pid"
+    else
+        kill "$pid"
+    fi
     rm -f "$pid_file"
 }
 
@@ -38,7 +46,7 @@ start_services() {
     if ! is_running "$API_PID_FILE"; then
         (
             cd "$ROOT_DIR/apps/api"
-            nohup "$PYTHON_BIN" -m uvicorn phytoatlas_api.main:app \
+            nohup setsid "$PYTHON_BIN" -m uvicorn phytoatlas_api.main:app \
                 --host 0.0.0.0 --port "$API_PORT" \
                 > "$LOG_DIR/phytoatlas-api.log" 2>&1 &
             echo "$!" > "$API_PID_FILE"
@@ -47,7 +55,7 @@ start_services() {
     if ! is_running "$WEB_PID_FILE"; then
         (
             cd "$ROOT_DIR/apps/web"
-            nohup npm run dev -- --port "$WEB_PORT" \
+            nohup setsid npm run dev -- --port "$WEB_PORT" --strictPort \
                 > "$LOG_DIR/phytoatlas-web.log" 2>&1 &
             echo "$!" > "$WEB_PID_FILE"
         )
